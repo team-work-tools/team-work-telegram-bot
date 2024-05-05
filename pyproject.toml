@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "standup_bot"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+license = "mit"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pandas = "^2.2.2"
+aioschedule = "^0.5.2"
+asyncio = "^3.4.3"
+aiogram = "^3.5.0"
+dataclasses-json = "^0.6.5"
+dataclass-wizard = "^0.22.3"
+pytz = "^2024.1"
+schedule = "^1.2.1"
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.29.4"
+pandas-stubs = "^2.2.1.240316"
+numpy = "^1.26.4"
+black = "^24.4.2"
+mypy = "^1.10.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
