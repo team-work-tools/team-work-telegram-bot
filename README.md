@@ -1,17 +1,16 @@
-# standup-bot
+# scrum-standup-telegram-bot
 
 A Telegram bot that helps conduct daily SCRUM standups.
 
 ## Bot commands
 
-- `/subscribe` - subscribes a person that sent the command
+- `/help` - get the bot description and a list of commands
+- `/start` - the same as `/help`
+- `/subscribe` - subscribe a person that sent the command
   - when a person is subscribed, the bot knows the person Telegram username
-- `/unsubscribe` - unsubscribes a person that sent the command
-- `/unsubscribe_today` - unsubscribes a person that sent the command just for today
+- `/unsubscribe` - unsubscribe a person that sent the command
 - `/set_standup_time` - set time for sending standup messages
-  - example: `/time 10:00 MSK`
-- `/set_reminder_period` - set the period between reminders (`reminder_period`) to reply to bot messages
-  - example: `/set_reminder_period 2H` - 2 hours
+  - example: `/set_standup_time 10:00`
 
 ## Bot messages
 
@@ -22,9 +21,39 @@ A Telegram bot that helps conduct daily SCRUM standups.
   - `@username, what will you do today?`
   - `@username, what (if anything) is blocking your progress?`
 
-## User replies
+## Usage
 
-- A user with `@username` should reply to each message
+### Environment variables
+
+The bot requires these environment variables.
+
+```console
+BOT_TOKEN=<bot token received from @BotFather>
+BOT_STATE_FILE=data/state.json
+```
+
+### Run with `dotenv`
+
+Write the environment variables to a `.env` file.
+
+Next, install dependencies and run.
+
+```console
+poetry install
+dotenv -f .env run poetry run bot
+```
+
+## Possible extensions
+
+### Commands
+
+- `/set_reminder_period` - set the period between reminders (`reminder_period`) to reply to bot messages
+  - example: `/set_reminder_period 2` - 2 hours
+- `/unsubscribe_today` - unsubscribe a person that sent the command just for today
+
+### User replies
+
+- A person with `@username` should reply to each message
 - When a user replies to all three messages, the bot sends a message
   - `@username, I wish you a productive day!`
 - If a user with `@username` doesn't reply within the reminder period, the bot sends a reminder
@@ -37,9 +66,9 @@ A Telegram bot that helps conduct daily SCRUM standups.
 
     Here, <message_1_id> is the ID of today's message that mentioned `@username` and received no reply
 
-## Extensions
+### External info
 
-- Collect activity statistics for each person and mention in bot messages (see [Bot messages](#bot-messages)) that someone didn't do anything yesterday
+- Collect activity statistics for each person and mention in bot messages (see [Bot messages](#bot-messages)) that someone didn't do anything yesterday.
   - activity in GitHub Organization issues
   - commits
   - messages in the joint chat
