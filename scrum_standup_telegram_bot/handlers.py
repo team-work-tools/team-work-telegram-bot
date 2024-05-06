@@ -14,7 +14,7 @@ router = Router()
 
 bot_message = dedent(
     f"""
-I can help you conduct scheduled SCRUM standup meetings.
+I can help you conduct daily SCRUM stand-up meetings.
 
 You can control me by sending these commands:
 

@@ -1,6 +1,6 @@
 # scrum-standup-telegram-bot
 
-A Telegram bot that helps conduct daily SCRUM standups.
+A Telegram bot that helps conduct daily SCRUM stand-up meetings.
 
 ## Bot commands
 
