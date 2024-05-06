@@ -25,10 +25,10 @@ You can control me by sending these commands:
 /{command_names.unsubscribe} - disallow mentioning you during meetings
 
 Meetings will be conducted at the set time on Monday-Friday.
-I'll send three messages to each subscribed person.
+I'll send three messages that mention subscribed persons.
 
-Please reply to all messages that mention your @username
-so that your teammates learn about your progress and plans
+Please reply to all messages that mention you
+so that your teammates can learn about your progress and plans
 and can help you resolve problems.
 """
 )
