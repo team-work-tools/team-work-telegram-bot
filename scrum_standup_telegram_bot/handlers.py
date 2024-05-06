@@ -76,13 +76,11 @@ async def set_standup_time(
     save_state: SaveState,
     send_message: SendMessage,
 ):
-    # Extract the desired standup time from the message text
     standup_time = message_text.split(" ", 1)
 
     try:
         standup_time_parsed = datetime.strptime(standup_time[1], "%H:%M")
 
-        # Schedule the standup message
         schedule_standup(
             standup_time=standup_time_parsed,
             scheduler=scheduler,
@@ -91,7 +89,7 @@ async def set_standup_time(
             send_message=send_message,
         )
         await message.reply(
-            f"I've just set standup meeting time to {standup_time_parsed.hour:02d}:{standup_time_parsed.minute:02d} for Monday - Friday!"
+            f"I've just set stand-up meeting time to {standup_time_parsed.hour:02d}:{standup_time_parsed.minute:02d} for Monday - Friday!"
         )
     except Exception:
         await message.reply(f"Please provide the time in the {time_format} format.")
