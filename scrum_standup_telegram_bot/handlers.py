@@ -24,8 +24,8 @@ You can control me by sending these commands:
 /{command_names.subscribe} - allow mentioning you during meetings
 /{command_names.unsubscribe} - disallow mentioning you during meetings
 
-Meetings will be conducted at the set time on Monday-Friday.
-I'll send three messages that mention subscribed persons.
+Meetings are scheduled for the set time on Monday - Friday.
+During a meeting, I'll send in this group three messages for each subscribed person.
 
 Please reply to all messages that mention you
 so that your teammates can learn about your progress and plans
@@ -89,7 +89,7 @@ async def set_standup_time(
             send_message=send_message,
         )
         await message.reply(
-            f"I've just set stand-up meeting time to {standup_time_parsed.hour:02d}:{standup_time_parsed.minute:02d} for Monday - Friday!"
+            f"I've scheduled meetings for {standup_time_parsed.hour:02d}:{standup_time_parsed.minute:02d} on Monday - Friday!"
         )
     except Exception:
         await message.reply(f"Please provide the time in the {time_format} format.")
