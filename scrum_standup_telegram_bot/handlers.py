@@ -1,7 +1,6 @@
-from typing import Callable
 from datetime import datetime
 from aiogram import Router
-from aiogram.filters.command import Command, CommandStart
+from aiogram.filters.command import Command
 from aiogram.types import Message
 from .state import State
 from .filters import HasMessageText, HasMessageUserUsername
