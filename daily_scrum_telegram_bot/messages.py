@@ -19,7 +19,7 @@ During a meeting, I'll send in this group three messages for each subscribed per
 Please reply to all messages that mention you
 so that your teammates can learn about your progress and plans
 and can help you resolve problems.
-"""
+""".strip()
 )
 
 
