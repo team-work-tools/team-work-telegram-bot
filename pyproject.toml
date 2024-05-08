@@ -8,7 +8,6 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-asyncio = "^3.4.3"
 aiogram = "^3.5.0"
 dataclass-wizard = "^0.22.3"
 apscheduler = "^3.10.4"
