@@ -13,10 +13,11 @@ from .state import load_state
 from .middlewares import HasScheduler, HasSendMessage, HasState
 from .meeting import schedule_meeting
 from .custom_types import SendMessage
-from .constants import env_variables
+from .constants import EnvVariables, BotCommands, AppCommands, BotDataFiles
 
-BOT_TOKEN = getenv(env_variables.BOT_TOKEN)
-BOT_STATE_FILE = getenv(env_variables.BOT_STATE_FILE)
+
+BOT_TOKEN = getenv(EnvVariables.BOT_TOKEN)
+BOT_DATA_DIRECTORY = getenv(EnvVariables.BOT_STATE_FILE)
 
 dp = Dispatcher()
 
@@ -54,11 +55,11 @@ def add_middlewares(
 async def run_main() -> None:
     if BOT_TOKEN is None:
         raise ValueError(
-            f"The '{env_variables.BOT_TOKEN}' environment variable is not set"
+            f"The '{EnvVariables.BOT_TOKEN}' environment variable is not set"
         )
     if BOT_STATE_FILE is None:
         raise ValueError(
-            f"The '{env_variables.BOT_STATE_FILE}' environment variable is not set"
+            f"The '{EnvVariables.BOT_STATE_FILE}' environment variable is not set"
         )
 
     state_file = Path(BOT_STATE_FILE)
@@ -76,7 +77,7 @@ async def run_main() -> None:
             # TODO handle missing chat_id somehow
             case None:
                 print(
-                    "Could not retrive a chat id. Please add the bot to a chat and run /start"
+                    f"Could not retrive a chat id. Please add the bot to a chat and run /{BotCommands.start}"
                 )
             case _:
                 return await bot.send_message(chat_id=state.chat_id, text=message)

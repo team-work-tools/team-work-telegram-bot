@@ -1,7 +1,7 @@
 ENCODING = "utf-8"
 
 
-class CommandNames:
+class BotCommands:
     start = "start"
     help_ = "help"
     subscribe = "subscribe"
@@ -9,15 +9,20 @@ class CommandNames:
     set_meeting_time = "set_meeting_time"
 
 
-command_names = CommandNames()
-
-
 class EnvVariables:
     BOT_TOKEN = "BOT_TOKEN"
     BOT_STATE_FILE = "BOT_STATE_FILE"
 
 
-env_variables = EnvVariables()
+class AppCommands:
+    print_bot_message = "print-bot-message"
+    print_meeting_messages = "print-meeting-messages"
+    start = "start"
+
+
+class BotDataFiles:
+    state_file = "state.json"
+
 
 time_format = "HH:MM"
 

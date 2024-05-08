@@ -1,4 +1,4 @@
-from .constants import command_names, day_of_week_pretty
+from .constants import BotCommands, day_of_week_pretty
 from textwrap import dedent
 
 bot_message = dedent(
@@ -7,11 +7,11 @@ I can help you conduct Daily Scrum meetings.
 
 You can control me by sending these commands:
 
-/{command_names.start} - enable me
-/{command_names.help_} - get this help message
-/{command_names.set_meeting_time} - set meeting time in the format HH:MM
-/{command_names.subscribe} - allow mentioning you during meetings
-/{command_names.unsubscribe} - disallow mentioning you during meetings
+/{BotCommands.start} - enable me
+/{BotCommands.help_} - get this help message
+/{BotCommands.set_meeting_time} - set meeting time in the format HH:MM
+/{BotCommands.subscribe} - allow mentioning you during meetings
+/{BotCommands.unsubscribe} - disallow mentioning you during meetings
 
 Meetings are scheduled for the set time on {day_of_week_pretty}.
 During a meeting, I'll send in this group three messages for each subscribed person.
