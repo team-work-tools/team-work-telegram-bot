@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "scrum_standup_telegram_bot"
+name = "daily_scrum_telegram_bot"
 version = "0.1.0"
 description = ""
 authors = ["Your Name <you@example.com>"]
@@ -25,7 +25,7 @@ mypy = "^1.10.0"
 pylint = "^3.1.0"
 
 [tool.poetry.scripts]
-bot = "scrum_standup_telegram_bot.main:main"
+bot = "daily_scrum_telegram_bot.main:main"
 
 
 [build-system]
