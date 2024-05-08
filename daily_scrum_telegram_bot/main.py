@@ -11,7 +11,7 @@ from .state import State, save_state
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from .state import load_state
 from .middlewares import HasScheduler, HasSendMessage, HasState
-from .standup import schedule_standup
+from .meeting import schedule_meeting
 from .custom_types import SendMessage
 from .constants import env_variables
 
@@ -81,9 +81,9 @@ async def run_main() -> None:
             case _:
                 return await bot.send_message(chat_id=state.chat_id, text=message)
 
-    if state.standup_time and state.chat_id:
-        schedule_standup(
-            standup_time=state.standup_time,
+    if state.meeting_time and state.chat_id:
+        schedule_meeting(
+            meeting_time=state.meeting_time,
             scheduler=scheduler,
             load_state=lambda: load_state(state_file=state_file),
             save_state=lambda state: save_state(state=state, state_file=state_file),

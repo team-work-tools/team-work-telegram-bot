@@ -9,7 +9,7 @@ from datetime import datetime
 
 @dataclass
 class State(JSONWizard):
-    standup_time: Optional[datetime] = None
+    meeting_time: Optional[datetime] = None
     chat_id: Optional[int] = None
     subscribed_users: set[str] = field(default_factory=set)
 

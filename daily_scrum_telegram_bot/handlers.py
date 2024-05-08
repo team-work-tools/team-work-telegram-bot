@@ -5,7 +5,7 @@ from aiogram.types import Message
 from .state import State
 from .filters import HasMessageText, HasMessageUserUsername
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from .standup import schedule_standup
+from .meeting import schedule_meeting
 from .custom_types import SendMessage, SaveState, LoadState
 from .constants import command_names, time_format, day_of_week_pretty
 from .messages import bot_message
@@ -55,20 +55,20 @@ async def set_meeting_time(
     save_state: SaveState,
     send_message: SendMessage,
 ):
-    standup_time = message_text.split(" ", 1)
+    meeting_time = message_text.split(" ", 1)
 
     try:
-        standup_time_parsed = datetime.strptime(standup_time[1], "%H:%M")
+        meeting_time_parsed = datetime.strptime(meeting_time[1], "%H:%M")
 
-        schedule_standup(
-            standup_time=standup_time_parsed,
+        schedule_meeting(
+            meeting_time=meeting_time_parsed,
             scheduler=scheduler,
             load_state=load_state,
             save_state=save_state,
             send_message=send_message,
         )
         await message.reply(
-            f"I've scheduled meetings for {standup_time_parsed.hour:02d}:{standup_time_parsed.minute:02d} on {day_of_week_pretty}!"
+            f"I've scheduled meetings for {meeting_time_parsed.hour:02d}:{meeting_time_parsed.minute:02d} on {day_of_week_pretty}!"
         )
     except Exception:
         await message.reply(f"Please provide the time in the {time_format} format.")
