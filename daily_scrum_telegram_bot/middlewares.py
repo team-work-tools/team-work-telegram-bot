@@ -3,7 +3,7 @@ from aiogram import BaseMiddleware
 from aiogram.types import TelegramObject
 from .state import State
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from .types import LoadState, SaveState, SendMessage
+from .custom_types import LoadState, SaveState, SendMessage
 
 
 class HasState(BaseMiddleware):

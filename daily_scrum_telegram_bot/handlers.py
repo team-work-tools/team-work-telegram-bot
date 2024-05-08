@@ -6,7 +6,7 @@ from .state import State
 from .filters import HasMessageText, HasMessageUserUsername
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from .standup import schedule_standup
-from .types import SendMessage, SaveState, LoadState
+from .custom_types import SendMessage, SaveState, LoadState
 from .constants import command_names, time_format, day_of_week_pretty
 from textwrap import dedent
 

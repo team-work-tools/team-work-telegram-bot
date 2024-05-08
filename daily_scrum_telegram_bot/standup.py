@@ -1,5 +1,5 @@
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from .types import SendMessage, SaveState, LoadState
+from .custom_types import SendMessage, SaveState, LoadState
 from datetime import datetime
 from .constants import day_of_week
 

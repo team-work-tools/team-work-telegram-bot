@@ -12,7 +12,7 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from .state import load_state
 from .middlewares import HasScheduler, HasSendMessage, HasState
 from .standup import schedule_standup
-from .types import SendMessage
+from .custom_types import SendMessage
 from .constants import env_variables
 
 BOT_TOKEN = getenv(env_variables.BOT_TOKEN)
