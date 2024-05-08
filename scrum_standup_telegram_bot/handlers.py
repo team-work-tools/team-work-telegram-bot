@@ -14,13 +14,13 @@ router = Router()
 
 bot_message = dedent(
     f"""
-I can help you conduct daily SCRUM stand-up meetings.
+I can help you conduct Daily Scrum meetings.
 
 You can control me by sending these commands:
 
 /{command_names.start} - enable me
 /{command_names.help_} - get this help message
-/{command_names.set_standup_meeting_time} - set meeting time in the format HH:MM
+/{command_names.set_meeting_time} - set meeting time in the format HH:MM
 /{command_names.subscribe} - allow mentioning you during meetings
 /{command_names.unsubscribe} - disallow mentioning you during meetings
 
@@ -67,8 +67,8 @@ async def unsubscribe(
     await message.reply(f"You've been unsubscribed, @{username}!")
 
 
-@router.message(Command(command_names.set_standup_meeting_time), HasMessageText())
-async def set_standup_time(
+@router.message(Command(command_names.set_meeting_time), HasMessageText())
+async def set_meeting_time(
     message: Message,
     message_text: str,
     scheduler: AsyncIOScheduler,

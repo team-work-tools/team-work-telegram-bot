@@ -1,6 +1,6 @@
-# scrum-standup-telegram-bot
+# daily-scrum-telegram-bot
 
-A Telegram bot that helps conduct daily SCRUM stand-up meetings.
+A Telegram bot that helps conduct Daily Scrum meetings.
 
 ## Bot commands
 
@@ -9,8 +9,9 @@ A Telegram bot that helps conduct daily SCRUM stand-up meetings.
 - `/subscribe` - subscribe a person that sent the command
   - when a person is subscribed, the bot knows the person Telegram username
 - `/unsubscribe` - unsubscribe a person that sent the command
-- `/set_standup_time` - set time for sending standup messages
-  - example: `/set_standup_time 10:00`
+- `/set_meeting_time` - set meeting time in the format HH:MM
+  - example: `/set_meeting_time 10:00`
+
 
 ## Bot messages
 

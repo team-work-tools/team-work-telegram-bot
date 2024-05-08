@@ -6,7 +6,7 @@ class CommandNames:
     help_ = "help"
     subscribe = "subscribe"
     unsubscribe = "unsubscribe"
-    set_standup_meeting_time = "set_standup_time"
+    set_meeting_time = "set_meeting_time"
 
 
 command_names = CommandNames()
