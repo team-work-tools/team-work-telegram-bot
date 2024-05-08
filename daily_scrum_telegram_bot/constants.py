@@ -22,3 +22,5 @@ env_variables = EnvVariables()
 time_format = "HH:MM"
 
 day_of_week = "0-4"
+
+day_of_week_pretty = "Monday - Friday"

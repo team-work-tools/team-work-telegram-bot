@@ -7,7 +7,7 @@ from .filters import HasMessageText, HasMessageUserUsername
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from .standup import schedule_standup
 from .types import SendMessage, SaveState, LoadState
-from .constants import command_names, time_format
+from .constants import command_names, time_format, day_of_week_pretty
 from textwrap import dedent
 
 router = Router()
@@ -24,7 +24,7 @@ You can control me by sending these commands:
 /{command_names.subscribe} - allow mentioning you during meetings
 /{command_names.unsubscribe} - disallow mentioning you during meetings
 
-Meetings are scheduled for the set time on Monday - Friday.
+Meetings are scheduled for the set time on {day_of_week_pretty}.
 During a meeting, I'll send in this group three messages for each subscribed person.
 
 Please reply to all messages that mention you
@@ -89,7 +89,7 @@ async def set_meeting_time(
             send_message=send_message,
         )
         await message.reply(
-            f"I've scheduled meetings for {standup_time_parsed.hour:02d}:{standup_time_parsed.minute:02d} on Monday - Friday!"
+            f"I've scheduled meetings for {standup_time_parsed.hour:02d}:{standup_time_parsed.minute:02d} on {day_of_week_pretty}!"
         )
     except Exception:
         await message.reply(f"Please provide the time in the {time_format} format.")
