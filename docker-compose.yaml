@@ -1,0 +1,11 @@
+services:
+  bot:
+    tty: true
+    build:
+      dockerfile: Dockerfile
+    volumes:
+      - ./${BOT_DATA_DIRECTORY}:/app/${BOT_DATA_DIRECTORY}
+    env_file:
+      - .env
+    environment:
+      - PYTHONBUFFERED=1
