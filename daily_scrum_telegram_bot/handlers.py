@@ -7,7 +7,8 @@ from .filters import HasMessageText, HasMessageUserUsername
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from .standup import schedule_standup
 from .custom_types import SendMessage, SaveState, LoadState
-from .constants import command_names, time_format, day_of_week_pretty, bot_message
+from .constants import command_names, time_format, day_of_week_pretty
+from .messages import bot_message
 
 router = Router()
 

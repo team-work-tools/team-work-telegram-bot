@@ -2,19 +2,14 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from .custom_types import SendMessage, SaveState, LoadState
 from datetime import datetime
 from .constants import day_of_week
+from .messages import make_meeting_messages
 
 
 async def send_standup_messages(load_state: LoadState, send_message: SendMessage):
     state = load_state()
     for username in state.subscribed_users:
-        await send_message(
-            message=f"@{username}, what did you do yesterday?", state=state
-        )
-        await send_message(message=f"@{username}, what will you do today?", state=state)
-        await send_message(
-            message=f"@{username}, what (if anything) is blocking your progress?",
-            state=state,
-        )
+        for message in make_meeting_messages(username=username):
+            await send_message(message=message, state=state)
 
 
 def schedule_standup(
