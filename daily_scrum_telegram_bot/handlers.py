@@ -7,31 +7,9 @@ from .filters import HasMessageText, HasMessageUserUsername
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from .standup import schedule_standup
 from .custom_types import SendMessage, SaveState, LoadState
-from .constants import command_names, time_format, day_of_week_pretty
-from textwrap import dedent
+from .constants import command_names, time_format, day_of_week_pretty, bot_message
 
 router = Router()
-
-bot_message = dedent(
-    f"""
-I can help you conduct Daily Scrum meetings.
-
-You can control me by sending these commands:
-
-/{command_names.start} - enable me
-/{command_names.help_} - get this help message
-/{command_names.set_meeting_time} - set meeting time in the format HH:MM
-/{command_names.subscribe} - allow mentioning you during meetings
-/{command_names.unsubscribe} - disallow mentioning you during meetings
-
-Meetings are scheduled for the set time on {day_of_week_pretty}.
-During a meeting, I'll send in this group three messages for each subscribed person.
-
-Please reply to all messages that mention you
-so that your teammates can learn about your progress and plans
-and can help you resolve problems.
-"""
-)
 
 
 @router.message(Command(command_names.help_))
