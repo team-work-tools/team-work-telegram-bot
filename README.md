@@ -30,7 +30,7 @@ The bot requires these environment variables.
 
 ```console
 BOT_TOKEN=<bot token received from @BotFather>
-BOT_STATE_FILE=data/state.json
+BOT_DATA_DIRECTORY=<directory where the bot will store its data>
 ```
 
 ### Run with `dotenv`

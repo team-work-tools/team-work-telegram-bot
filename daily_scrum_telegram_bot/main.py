@@ -17,7 +17,7 @@ from .constants import EnvVariables, BotCommands, AppCommands, BotDataFiles
 
 
 BOT_TOKEN = getenv(EnvVariables.BOT_TOKEN)
-BOT_DATA_DIRECTORY = getenv(EnvVariables.BOT_STATE_FILE)
+BOT_DATA_DIRECTORY = getenv(EnvVariables.BOT_DATA_DIRECTORY)
 
 dp = Dispatcher()
 
@@ -57,12 +57,12 @@ async def run_main() -> None:
         raise ValueError(
             f"The '{EnvVariables.BOT_TOKEN}' environment variable is not set"
         )
-    if BOT_STATE_FILE is None:
+    if BOT_DATA_DIRECTORY is None:
         raise ValueError(
-            f"The '{EnvVariables.BOT_STATE_FILE}' environment variable is not set"
+            f"The '{EnvVariables.BOT_DATA_DIRECTORY}' environment variable is not set"
         )
 
-    state_file = Path(BOT_STATE_FILE)
+    state_file = Path(BOT_DATA_DIRECTORY) / BotDataFiles.state_file
     state_file.parent.mkdir(parents=True, exist_ok=True)
     state = init_state(state_file=state_file)
 

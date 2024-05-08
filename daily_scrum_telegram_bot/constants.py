@@ -11,7 +11,7 @@ class BotCommands:
 
 class EnvVariables:
     BOT_TOKEN = "BOT_TOKEN"
-    BOT_STATE_FILE = "BOT_STATE_FILE"
+    BOT_DATA_DIRECTORY = "BOT_DATA_DIRECTORY"
 
 
 class AppCommands:
