@@ -1,17 +1,15 @@
 import asyncio
 import logging
 import sys
-from os import getenv
-from .constants import EnvVariables, AppCommands
+from .constants import AppCommands
 import argparse
 from .messages import bot_message, make_meeting_messages
 from . import bot
+from .settings import Settings
+from pydantic import ValidationError
 
 
 def main():
-    bot_token = getenv(EnvVariables.BOT_TOKEN)
-    bot_data_directory = getenv(EnvVariables.BOT_DATA_DIRECTORY)
-
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(
         title="subcommands", description="bot commands", dest="command"
@@ -37,9 +35,12 @@ def main():
                 print(f"{message}")
         case AppCommands.start:
             logging.basicConfig(level=logging.INFO, stream=sys.stdout)
-            asyncio.run(
-                bot.main(bot_token=bot_token, bot_data_directory=bot_data_directory)
-            )
+
+            try:
+                settings = Settings()
+                asyncio.run(bot.main(settings=settings))
+            except ValidationError as e:
+                print(e)
 
 
 if __name__ == "__main__":

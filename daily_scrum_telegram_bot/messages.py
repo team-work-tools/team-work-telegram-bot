@@ -1,5 +1,7 @@
 from .constants import BotCommands, day_of_week_pretty
 from textwrap import dedent
+from .constants import user_time_format_pretty, utc_time_link
+from aiogram import html
 
 bot_message = dedent(
     f"""
@@ -9,7 +11,7 @@ You can control me by sending these commands:
 
 /{BotCommands.start} - enable me
 /{BotCommands.help_} - get this help message
-/{BotCommands.set_meeting_time} - set meeting time in the format HH:MM
+/{BotCommands.set_meeting_time} - set {utc_time_link} for meetings in the format {user_time_format_pretty}
 /{BotCommands.subscribe} - allow mentioning you during meetings
 /{BotCommands.unsubscribe} - disallow mentioning you during meetings
 

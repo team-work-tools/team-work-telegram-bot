@@ -1,31 +1,12 @@
 from typing import Callable, Dict, Any, Awaitable
 from aiogram import BaseMiddleware
-from aiogram.types import TelegramObject
-from .state import State
+from aiogram.types import TelegramObject, Message
+from .state import load_state
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from .custom_types import LoadState, SaveState, SendMessage
+from .custom_types import ChatId
 
 
-class HasState(BaseMiddleware):
-    def __init__(self, load_state: LoadState, save_state: SaveState):
-        self.load_state = load_state
-        self.save_state = save_state
-
-    async def __call__(
-        self,
-        handler: Callable[[TelegramObject, Dict[str, Any]], Awaitable[Any]],
-        event: TelegramObject,
-        data: Dict[str, Any],
-    ) -> Any:
-        state: State = self.load_state()
-        data["state"] = state
-        data["save_state"] = self.save_state
-        data["load_state"] = self.load_state
-        result = await handler(event, data)
-        return result
-
-
-class HasScheduler(BaseMiddleware):
+class MessageMiddleware(BaseMiddleware):
     def __init__(self, scheduler: AsyncIOScheduler):
         self.scheduler = scheduler
 
@@ -36,20 +17,13 @@ class HasScheduler(BaseMiddleware):
         data: Dict[str, Any],
     ) -> Any:
         data["scheduler"] = self.scheduler
-        result = await handler(event, data)
-        return result
 
+        match event:
+            case Message():
+                message: Message = event
 
-class HasSendMessage(BaseMiddleware):
-    def __init__(self, send_message: SendMessage):
-        self.send_message = send_message
+                state = await load_state(message.chat.id)
+                data["state"] = state
 
-    async def __call__(
-        self,
-        handler: Callable[[TelegramObject, Dict[str, Any]], Awaitable[Any]],
-        event: TelegramObject,
-        data: Dict[str, Any],
-    ) -> Any:
-        data["send_message"] = self.send_message
-        result = await handler(event, data)
-        return result
+                result = await handler(event, data)
+                return result

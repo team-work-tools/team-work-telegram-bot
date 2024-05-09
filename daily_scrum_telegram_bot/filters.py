@@ -1,7 +1,6 @@
 from aiogram.filters import BaseFilter
 from aiogram.types import Message, User
 
-
 class HasMessageText(BaseFilter):
     def __init__(self):
         pass

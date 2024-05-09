@@ -1,31 +1,27 @@
-from typing import Optional
-from dataclasses import dataclass, field
-from dataclass_wizard import JSONWizard
-import json
-from os import PathLike
-from .constants import ENCODING
+from typing import Optional, Annotated
 from datetime import datetime
+from beanie import Document, Indexed
+import pymongo
+from zoneinfo import ZoneInfo
+from .chat import ChatId
 
-
-@dataclass
-class State(JSONWizard):
+class State(Document):
     meeting_time: Optional[datetime] = None
-    chat_id: Optional[int] = None
-    subscribed_users: set[str] = field(default_factory=set)
+    chat_id: Annotated[ChatId, Indexed(index_type=pymongo.ASCENDING)]
+    subscribed_users: set[str] = set()
 
 
-def load_state(state_file: PathLike) -> State:
-    try:
-        with open(state_file, "r", encoding=ENCODING) as file:
-            data = json.load(file)
-            return State.from_dict(data)
-    except FileNotFoundError:
-        raise FileNotFoundError(f"No state file '{state_file}' found")
+async def create_state(chat_id: ChatId) -> State:
+    return await State(chat_id=chat_id).create()
 
 
-def save_state(state: State, state_file: PathLike):
-    try:
-        with open(state_file, "w", encoding=ENCODING) as file:
-            json.dump(state.to_dict(), file)
-    except FileNotFoundError:
-        raise FileNotFoundError(f"No state file '{state_file}' found")
+async def load_state(chat_id: ChatId) -> State:
+    match state := await State.find_one(State.chat_id == chat_id):
+        case State():
+            return state
+        case _:
+            return await create_state(chat_id=chat_id)
+
+
+async def save_state(state: State) -> None:
+    await state.save()
