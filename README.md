@@ -1,76 +1,67 @@
 # daily-scrum-telegram-bot
 
-A Telegram bot that helps conduct Daily Scrum meetings.
+A Telegram bot that helps conduct Daily Scrum.
 
-## Bot commands
+## Bot help message
 
-- `/help` - get the bot description and a list of commands
-- `/start` - the same as `/help`
-- `/subscribe` - subscribe a person that sent the command
-  - when a person is subscribed, the bot knows the person Telegram username
-- `/unsubscribe` - unsubscribe a person that sent the command
-- `/set_meeting_time` - set meeting time in the format HH:MM
-  - example: `/set_meeting_time 10:00`
+<!-- `$ poetry run bot print-bot-message` as console -->
 
+```console
+I can help you conduct Daily Scrum.
 
-## Bot messages
+You can control me by sending these commands:
 
-- The bot sends messages at the set time
-- The bot sends three messages for each subscribed person with `@username`:
+/start - Enable me.
+/help - Get this help message.
+/set_meeting_time - Set the start time and date in the <a href="https://time.lol">ISO 8601</a> format. I'll schedule meetings for this time for Monday - Friday starting not earlier than on this date.
+/subscribe - Allow mentioning you during meetings.
+/unsubscribe - Disallow mentioning you during meetings.
+/get_subscribers - Get a list of subscribed users.
 
-  - `@username, what did you do yesterday?`
-  - `@username, what will you do today?`
-  - `@username, what (if anything) is blocking your progress?`
+During a meeting, I'll send in this group three messages for each subscribed person.
+
+Please reply to all messages that mention you so that your teammates can learn about your progress and plans and can help you resolve problems.
+```
+
+## Meeting messages
+
+- The bot sends messages at the set time.
+
+<!-- `> echo '- The bot sends three messages for each subscribed person with *@username*:'; poetry run bot print-meeting-messages | xargs -I {} printf "  - <code>%s</code>\n" {}` -->
+
+<!-- BEGIN mdsh -->
+- The bot sends three messages for each subscribed person with *@username*:
+  - <code>@username, what did you do yesterday?</code>
+  - <code>@username, what will you do today?</code>
+  - <code>@username, what (if anything) is blocking your progress?</code>
+<!-- END mdsh -->
 
 ## Usage
 
-### Environment variables
+### My bot
 
-The bot requires these environment variables.
+Add [@daily_scrum_robot](http://t.me/daily_scrum_robot) to a group or open a chat with this bot and send `/start`.
 
-```console
-BOT_TOKEN=<bot token received from @BotFather>
-BOT_DATA_DIRECTORY=<directory where the bot will store its data>
-```
+### Your bot
 
-### Run with `dotenv`
+1. Create a bot via [@BotFather](https://t.me/botfather).
 
-Write the environment variables to a `.env` file.
+1. Write the environment variables to a `.env` file.
 
-Next, install dependencies and run.
-
-```console
-poetry install
-dotenv -f .env run poetry run bot
-```
-
-## Possible extensions
-
-### Commands
-
-- `/set_reminder_period` - set the period between reminders (`reminder_period`) to reply to bot messages
-  - example: `/set_reminder_period 2` - 2 hours
-- `/unsubscribe_today` - unsubscribe a person that sent the command just for today
-
-### User replies
-
-- A person with `@username` should reply to each message
-- When a user replies to all three messages, the bot sends a message
-  - `@username, I wish you a productive day!`
-- If a user with `@username` doesn't reply within the reminder period, the bot sends a reminder
-
-    ```text
-    @username,
-    - If you plan to work today, please reply to my messages <message_1_id>, <message_2_id>, <message_3_id>
-    - If you don't, send /unsubscribe_today
+    ```console
+    BOT_TOKEN=<bot token received from @BotFather>
+    MONGO_HOST=mongodb
+    MONGO_PORT=27017
     ```
 
-    Here, <message_1_id> is the ID of today's message that mentioned `@username` and received no reply
+1. Run via `docker`.
 
-### External info
+    ```console
+    docker compose up
+    ```
 
-- Collect activity statistics for each person and mention in bot messages (see [Bot messages](#bot-messages)) that someone didn't do anything yesterday.
-  - activity in GitHub Organization issues
-  - commits
-  - messages in the joint chat
-- Generate personal activity reports for a week/month
+1. Add your bot to a group or open a chat with your bot and send `/start`.
+
+## Nix flake
+
+Run `nix develop` and see available commands and tools.
