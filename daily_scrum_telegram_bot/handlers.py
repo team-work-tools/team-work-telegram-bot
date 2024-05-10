@@ -80,31 +80,20 @@ def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage):
             chat_state.meeting_time = meeting_time
             await save_state(chat_state=chat_state)
 
-            if 0 <= meeting_time.weekday() <= 4:
-                schedule_meeting(
-                    meeting_time=meeting_time,
-                    chat_id=chat_state.chat_id,
-                    scheduler=scheduler,
-                    send_message=send_message,
-                )
+            schedule_meeting(
+                meeting_time=meeting_time,
+                chat_id=chat_state.chat_id,
+                scheduler=scheduler,
+                send_message=send_message,
+            )
 
-                await message.reply(
-                    dedent(
-                        f"""
-                    OK, I've scheduled the first meeting for {html.bold(meeting_time.strftime(datetime_time_format))}!
-                    I'll schedule subsequent meetings also at this time.
-                    """
-                    )
+            await message.reply(
+                dedent(
+                    f"""
+                OK, we'll meet at {html.bold(meeting_time.strftime('%H:%M'))} on {html.bold(day_of_week_pretty)} starting not earlier than on {html.bold(meeting_time.strftime('%Y-%m-%d'))}!
+                """
                 )
-            else:
-                await message.reply(
-                    dedent(
-                        f"""
-                    The date should be a working day!
-                    Working days are {day_of_week_pretty}.
-                    """
-                    )
-                )
+            )
         except Exception as e:
             await message.reply(
                 f"Please provide the time in the {time_format_link} format."
