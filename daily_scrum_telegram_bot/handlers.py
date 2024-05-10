@@ -39,10 +39,22 @@ def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage):
             chat_state.subscribed_users.add(username)
             await save_state(chat_state=chat_state)
             await message.reply(f"You've been subscribed, @{username}!")
-            
-    @router.message(
-        
-    )
+
+    @router.message(Command(BotCommands.get_subscribers), HasChatState())
+    async def get_subscribers(message: Message, chat_state: ChatState):
+        if chat_state.subscribed_users:
+            await message.reply(
+                ", ".join([f"@{x}" for x in chat_state.subscribed_users])
+            )
+        else:
+            await message.reply(
+                dedent(
+                    f"""
+                    Nobody has subscribed yet :(
+                    You can subscribe via the /{BotCommands.subscribe} command!
+                    """
+                )
+            )
 
     @router.message(
         Command(BotCommands.unsubscribe), HasMessageUserUsername(), HasChatState()

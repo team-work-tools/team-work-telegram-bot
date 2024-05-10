@@ -14,6 +14,7 @@ You can control me by sending these commands:
 /{BotCommands.set_meeting_time} - Set the time and the date for the first meeting in the {time_format_link} format. I'll schedule this meeting and subsequent meetings at that time for {day_of_week_pretty}.
 /{BotCommands.subscribe} - Allow mentioning you during meetings.
 /{BotCommands.unsubscribe} - Disallow mentioning you during meetings.
+/{BotCommands.get_subscribers} - Get a list of subscribed users.
 
 During a meeting, I'll send in this group three messages for each subscribed person.
 

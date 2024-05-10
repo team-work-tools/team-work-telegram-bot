@@ -8,6 +8,7 @@ class BotCommands:
     help_ = "help"
     subscribe = "subscribe"
     unsubscribe = "unsubscribe"
+    get_subscribers = "get_subscribers"
     set_meeting_time = "set_meeting_time"
 
 
