@@ -62,8 +62,10 @@ def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage):
     async def unsubscribe(message: Message, username: str, chat_state: ChatState):
         if username in chat_state.subscribed_users:
             chat_state.subscribed_users.remove(username)
-        await save_state(chat_state=chat_state)
-        await message.reply(f"You've been unsubscribed, @{username}!")
+            await save_state(chat_state=chat_state)
+            await message.reply(f"You've been unsubscribed, @{username}!")
+        else:
+            await message.reply(f"You're not subscribed anyway, @{username}!")
 
     @router.message(
         Command(BotCommands.set_meeting_time), HasMessageText(), HasChatState()
