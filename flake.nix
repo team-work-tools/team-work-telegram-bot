@@ -20,7 +20,10 @@
     inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = import inputs.systems;
-      imports = [ inputs.devshell.flakeModule ];
+      imports = [
+        inputs.devshell.flakeModule
+        inputs.treefmt-nix.flakeModule
+      ];
       perSystem =
         {
           self',
@@ -42,6 +45,10 @@
         in
         {
           inherit devshells;
+          treefmt = {
+            projectRootFile = "flake.nix";
+            programs.black.enable = true;
+          };
         };
     };
 }
