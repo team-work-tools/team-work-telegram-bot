@@ -5,7 +5,7 @@ from aiogram import html
 
 bot_message = dedent(
     f"""
-I can help you conduct Daily Scrum meetings.
+I can help you conduct Daily Scrum.
 
 You can control me by sending these commands:
 
