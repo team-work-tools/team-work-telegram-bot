@@ -34,17 +34,41 @@
           ...
         }:
         let
+          packages = {
+            bot = pkgs.writeShellApplication {
+              runtimeInputs = [ pkgs.docker ];
+              name = "default";
+              text = ''docker compose up'';
+              meta.description = "Run the bot";
+            };
+
+            docs = pkgs.writeShellApplication {
+              name = "docs";
+              runtimeInputs = [ pkgs.mdsh ];
+              text = ''mdsh'';
+              meta.description = "Run mdsh on README.md";
+            };
+          };
+
           devshells.default = {
             commands = {
               tools = [
                 pkgs.poetry
                 pkgs.docker
               ];
+              scripts = [
+                {
+                  packages = {
+                    inherit (config.packages) bot docs;
+                  };
+                  prefix = "nix run .#";
+                }
+              ];
             };
           };
         in
         {
-          inherit devshells;
+          inherit devshells packages;
           treefmt = {
             projectRootFile = "flake.nix";
             programs.black.enable = true;
