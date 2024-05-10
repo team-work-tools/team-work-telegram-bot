@@ -3,27 +3,22 @@ from aiogram import Bot, Dispatcher, Router
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from . import handlers
-from .state import State, save_state
+from .state import ChatState
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from .state import load_state
-from .middlewares import MessageMiddleware
 from .meeting import schedule_meeting
 from .custom_types import SendMessage, ChatId
 from .settings import Settings
 from . import db
-from apscheduler.jobstores.mongodb import MongoDBJobStore
+from apscheduler.jobstores.memory import MemoryJobStore
+from pytz import utc
+from .constants import jobstore
 
 dp = Dispatcher()
 
 
 def init_scheduler(settings: Settings) -> AsyncIOScheduler:
-
-    jobstores = {
-        "mongo": MongoDBJobStore(host=settings.mongo_host, port=settings.mongo_port)
-    }
-
-    # TODO set timezone UTC
-    scheduler = AsyncIOScheduler(jobstores=jobstores)
+    scheduler = AsyncIOScheduler(timezone=utc, jobstores={jobstore: MemoryJobStore()})
     scheduler.start()
     return scheduler
 
@@ -31,13 +26,13 @@ def init_scheduler(settings: Settings) -> AsyncIOScheduler:
 async def restore_scheduled_jobs(
     scheduler: AsyncIOScheduler, send_message: SendMessage
 ):
-    states = await State.find_all().to_list()
+    chat_states = await ChatState.find_all().to_list()
 
-    for state in states:
-        if state.meeting_time:
+    for chat_state in chat_states:
+        if chat_state.meeting_time:
             schedule_meeting(
-                meeting_time=state.meeting_time,
-                chat_id=state.chat_id,
+                meeting_time=chat_state.meeting_time,
+                chat_id=chat_state.chat_id,
                 scheduler=scheduler,
                 send_message=send_message,
             )

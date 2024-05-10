@@ -17,17 +17,11 @@ class AppCommands:
     start = "start"
 
 
-class BotDataFiles:
-    state_file = "state.json"
+jobstore = "bot_jobs"
 
+time_url = "https://time.lol"
 
-utc_time_converter_url = "https://dateful.com/convert/utc"
-
-utc_time_link = html.link("UTC time", utc_time_converter_url)
-
-user_time_format = f"HH:MM yyyy-mm-dd"
-
-user_time_format_pretty = html.bold(user_time_format)
+time_format_link = html.link("ISO 8601", time_url)
 
 datetime_time_format = "%H:%M %Y-%m-%d"
 

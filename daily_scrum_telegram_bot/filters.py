@@ -1,5 +1,7 @@
 from aiogram.filters import BaseFilter
 from aiogram.types import Message, User
+from .state import load_state
+
 
 class HasMessageText(BaseFilter):
     def __init__(self):
@@ -23,3 +25,12 @@ class HasMessageUserUsername(BaseFilter):
                     case str():
                         return {"username": user.username}
         return False
+
+
+class HasChatState(BaseFilter):
+    def __init__(self):
+        pass
+
+    async def __call__(self, message: Message):
+        state = await load_state(message.chat.id)
+        return {"chat_state": state}

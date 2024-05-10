@@ -1,7 +1,7 @@
 from beanie import init_beanie
 from motor.motor_asyncio import AsyncIOMotorClient
 from .settings import Settings
-from .state import State
+from .state import ChatState
 
 
 async def main(settings: Settings):
@@ -12,5 +12,7 @@ async def main(settings: Settings):
         f"mongodb://{settings.mongo_host}:{settings.mongo_port}"
     )
 
+    db = client["bot_states"]
+
     # Initialize beanie with the Sample document class and a database
-    await init_beanie(database=client.db_name, document_models=[State])
+    await init_beanie(database=db, document_models=[ChatState])

@@ -1,6 +1,6 @@
 from .constants import BotCommands, day_of_week_pretty
 from textwrap import dedent
-from .constants import user_time_format_pretty, utc_time_link
+from .constants import time_format_link
 from aiogram import html
 
 bot_message = dedent(
@@ -9,18 +9,15 @@ I can help you conduct Daily Scrum meetings.
 
 You can control me by sending these commands:
 
-/{BotCommands.start} - enable me
-/{BotCommands.help_} - get this help message
-/{BotCommands.set_meeting_time} - set {utc_time_link} for meetings in the format {user_time_format_pretty}
-/{BotCommands.subscribe} - allow mentioning you during meetings
-/{BotCommands.unsubscribe} - disallow mentioning you during meetings
+/{BotCommands.start} - Enable me.
+/{BotCommands.help_} - Get this help message.
+/{BotCommands.set_meeting_time} - Set the time and the date for the first meeting in the {time_format_link} format. I'll schedule this meeting and subsequent meetings at that time for {day_of_week_pretty}.
+/{BotCommands.subscribe} - Allow mentioning you during meetings.
+/{BotCommands.unsubscribe} - Disallow mentioning you during meetings.
 
-Meetings are scheduled for the set time on {day_of_week_pretty}.
 During a meeting, I'll send in this group three messages for each subscribed person.
 
-Please reply to all messages that mention you
-so that your teammates can learn about your progress and plans
-and can help you resolve problems.
+Please reply to all messages that mention you so that your teammates can learn about your progress and plans and can help you resolve problems.
 """.strip()
 )
 

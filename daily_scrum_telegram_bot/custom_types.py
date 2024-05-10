@@ -1,6 +1,7 @@
 from typing import Protocol
+from aiogram import Bot
 from aiogram.types import Message
-from .state import State
+from .state import ChatState
 from . import state
 from .chat import ChatId
 
@@ -10,11 +11,11 @@ class SendMessage(Protocol):
 
 
 class SaveState(Protocol):
-    async def __call__(self, state: State) -> None: ...
+    async def __call__(self, chat_state: ChatState) -> None: ...
 
 
 class LoadState(Protocol):
-    async def __call__(self, chat_id: ChatId) -> State: ...
+    async def __call__(self, chat_id: ChatId) -> ChatState: ...
 
 
 class CreateState(Protocol):
