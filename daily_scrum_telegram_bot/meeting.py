@@ -37,6 +37,7 @@ def schedule_meeting(
         minute=meeting_time.minute,
         day_of_week=day_of_week,
         timezone=meeting_time.tzinfo,
+        misfire_grace_time=42
     )
 
     logging.info(scheduler.get_job(make_job_id(chat_id)))
