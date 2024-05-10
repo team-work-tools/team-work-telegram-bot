@@ -13,7 +13,7 @@ You can control me by sending these commands:
 
 /start - Enable me.
 /help - Get this help message.
-/set_meeting_time - Set the start time and date in the <a href="https://time.lol">ISO 8601</a> format. I'll schedule meetings for this time for Monday - Friday starting not earlier than on this date.
+/set_meeting_time 2024-05-10T09:42:00+03:00 - Set the start time and date in the <a href="https://time.lol">ISO 8601</a> format. I'll schedule meetings for this time for Monday - Friday starting not earlier than on this date.
 /subscribe - Allow mentioning you during meetings.
 /unsubscribe - Disallow mentioning you during meetings.
 /get_subscribers - Get a list of subscribed users.
