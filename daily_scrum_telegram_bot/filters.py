@@ -1,12 +1,9 @@
-from aiogram.filters import BaseFilter
+from aiogram.filters import Filter
 from aiogram.types import Message, User
 from .state import load_state
 
 
-class HasMessageText(BaseFilter):
-    def __init__(self):
-        pass
-
+class HasMessageText(Filter):
     async def __call__(self, message: Message):
         match text := message.text:
             case str():
@@ -14,10 +11,7 @@ class HasMessageText(BaseFilter):
         return False
 
 
-class HasMessageUserUsername(BaseFilter):
-    def __init__(self):
-        pass
-
+class HasMessageUserUsername(Filter):
     async def __call__(self, message: Message):
         match user := message.from_user:
             case User():
@@ -27,10 +21,7 @@ class HasMessageUserUsername(BaseFilter):
         return False
 
 
-class HasChatState(BaseFilter):
-    def __init__(self):
-        pass
-
+class HasChatState(Filter):
     async def __call__(self, message: Message):
-        state = await load_state(message.chat.id)
-        return {"chat_state": state}
+        chat_state = await load_state(message.chat.id)
+        return {"chat_state": chat_state}
