@@ -32,6 +32,7 @@ def schedule_meeting(
         replace_existing=True,
         kwargs={"chat_id": chat_id, "send_message": send_message},
         trigger="cron",
+        start_date=meeting_time,
         hour=meeting_time.hour,
         minute=meeting_time.minute,
         day_of_week=day_of_week,
