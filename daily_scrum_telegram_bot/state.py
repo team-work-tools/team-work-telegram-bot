@@ -4,9 +4,11 @@ from beanie import Document, Indexed
 import pymongo
 from zoneinfo import ZoneInfo
 from .chat import ChatId
+from .language import Language, language_default
 
 
 class ChatState(Document):
+    language: Language = language_default
     meeting_time: Optional[datetime] = None
     chat_id: Annotated[ChatId, Indexed(index_type=pymongo.ASCENDING)]
     subscribed_users: set[str] = set()

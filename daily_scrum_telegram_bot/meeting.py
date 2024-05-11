@@ -3,7 +3,7 @@ from aiogram import Bot
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from .custom_types import SendMessage, ChatId
 from .constants import day_of_week, jobstore
-from .messages import make_meeting_messages
+from .messages import make_daily_messages
 from .state import load_state, ChatState
 import logging
 
@@ -11,7 +11,9 @@ import logging
 async def send_meeting_messages(chat_id: ChatId, send_message: SendMessage):
     chat_state = await load_state(chat_id=chat_id)
     for username in chat_state.subscribed_users:
-        for message in make_meeting_messages(username=username):
+        for message in make_daily_messages(
+            username=username, language=chat_state.language
+        ):
             await send_message(chat_id=chat_id, message=message)
 
 
@@ -37,7 +39,7 @@ def schedule_meeting(
         minute=meeting_time.minute,
         day_of_week=day_of_week,
         timezone=meeting_time.tzinfo,
-        misfire_grace_time=42
+        misfire_grace_time=42,
     )
 
     logging.info(scheduler.get_job(make_job_id(chat_id)))

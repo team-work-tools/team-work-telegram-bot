@@ -3,10 +3,11 @@ import logging
 import sys
 from .constants import AppCommands
 import argparse
-from .messages import bot_message, make_meeting_messages
+from .messages import make_help_message, make_daily_messages
 from . import bot
 from .settings import Settings
 from pydantic import ValidationError
+from .language import language_default
 
 
 def main():
@@ -29,9 +30,11 @@ def main():
 
     match args.command:
         case AppCommands.print_bot_message:
-            print(bot_message)
+            print(make_help_message(language=language_default))
         case AppCommands.print_meeting_messages:
-            for message in make_meeting_messages("username"):
+            for message in make_daily_messages(
+                username="username", language=language_default
+            ):
                 print(f"{message}")
         case AppCommands.start:
             logging.basicConfig(level=logging.INFO, stream=sys.stdout)
