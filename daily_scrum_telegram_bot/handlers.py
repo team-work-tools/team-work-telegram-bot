@@ -8,7 +8,7 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from .meeting import schedule_meeting
 from .custom_types import SendMessage, SaveState, LoadState
 from .constants import (
-    BotCommands,
+    BotCommandNames,
     day_of_week_pretty,
     datetime_time_format,
     time_format_link,
@@ -21,16 +21,16 @@ import logging
 def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage):
     router = Router()
 
-    @router.message(Command(BotCommands.help_), HasChatState())
+    @router.message(Command(BotCommandNames.help), HasChatState())
     async def get_help(message: Message, chat_state: ChatState):
         await message.reply(bot_message)
 
-    @router.message(Command(BotCommands.start), HasChatState())
+    @router.message(Command(BotCommandNames.start), HasChatState())
     async def start(message: Message, chat_state: ChatState):
         await get_help(message=message, chat_state=chat_state)
 
     @router.message(
-        Command(BotCommands.subscribe), HasMessageUserUsername(), HasChatState()
+        Command(BotCommandNames.subscribe), HasMessageUserUsername(), HasChatState()
     )
     async def subscribe(message: Message, username: str, chat_state: ChatState):
         if username in chat_state.subscribed_users:
@@ -40,7 +40,7 @@ def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage):
             await save_state(chat_state=chat_state)
             await message.reply(f"You've been subscribed, @{username}!")
 
-    @router.message(Command(BotCommands.get_subscribers), HasChatState())
+    @router.message(Command(BotCommandNames.get_subscribers), HasChatState())
     async def get_subscribers(message: Message, chat_state: ChatState):
         if chat_state.subscribed_users:
             await message.reply(
@@ -51,13 +51,13 @@ def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage):
                 dedent(
                     f"""
                     Nobody has subscribed yet :(
-                    You can subscribe via the /{BotCommands.subscribe} command!
+                    You can subscribe via the /{BotCommandNames.subscribe} command!
                     """
                 )
             )
 
     @router.message(
-        Command(BotCommands.unsubscribe), HasMessageUserUsername(), HasChatState()
+        Command(BotCommandNames.unsubscribe), HasMessageUserUsername(), HasChatState()
     )
     async def unsubscribe(message: Message, username: str, chat_state: ChatState):
         if username in chat_state.subscribed_users:
@@ -68,7 +68,7 @@ def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage):
             await message.reply(f"You're not subscribed anyway, @{username}!")
 
     @router.message(
-        Command(BotCommands.set_meeting_time), HasMessageText(), HasChatState()
+        Command(BotCommandNames.set_meeting_time), HasMessageText(), HasChatState()
     )
     async def set_meeting_time(
         message: Message, message_text: str, chat_state: ChatState
