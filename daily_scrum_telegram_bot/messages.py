@@ -1,4 +1,4 @@
-from .language import Language, language_en
+from .language import Language, language_en, language_ru
 from .commands import bot_command_names, bot_command_descriptions
 from textwrap import dedent
 from .constants import time_format_link, day_of_week_pretty
@@ -12,7 +12,12 @@ bot_intro: dict[Language, str] = {
         I can help you conduct Daily Scrum.
 
         You can control me by sending these commands:
-    """,
+        """.strip(),
+    language_ru: """
+        Я могу помочь тебе проводить Daily Scrum.
+        
+        Ты можешь управлять мной, отправляя следующие команды:
+        """.strip(),
 }
 
 
@@ -28,6 +33,11 @@ daily_questions: dict[Language, [str]] = {
         yesterday="what did you do yesterday",
         today="what will you do today",
         blockers="what (if anything) is blocking your progress",
+    ),
+    language_ru: DailyQuestions(
+        yesterday="что ты делал(а) вчера",
+        today="что ты будешь делать сегодня",
+        blockers="что (если такое есть) блокирует твой прогресс",
     ),
 }
 

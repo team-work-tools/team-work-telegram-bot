@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from .language import Language, language_en
+from .language import Language, language_en, language_ru
 
 
 class BotCommands(BaseModel):
@@ -37,5 +37,13 @@ bot_command_descriptions: dict[Language, BotCommandDescriptions] = {
         subscribe="subscribe so that I send you messages",
         unsubscribe="unsubscribe so that I don't send you messages",
         get_subscribers="get a list of subscribed users",
+    ),
+    language_ru: BotCommandDescriptions(
+        start="включи меня",
+        help="получи это сообщение",
+        set_meeting_time="установи время и дату начала встреч",
+        subscribe="подпишись, чтобы я отправлял тебе сообщения",
+        unsubscribe="отпишись, чтобы я не отправлял тебе сообщения",
+        get_subscribers="получи список подписчиков",
     ),
 }
