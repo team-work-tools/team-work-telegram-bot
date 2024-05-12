@@ -65,3 +65,8 @@ Add [@daily_scrum_robot](http://t.me/daily_scrum_robot) to a group or open a cha
 ## Nix flake
 
 Run `nix develop` and see available commands and tools.
+
+## Requirements
+
+See [Requirements](./docs/requirements.md).
+
