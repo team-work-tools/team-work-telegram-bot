@@ -71,3 +71,14 @@ See [Requirements](./docs/requirements.md).
 ### Nix flake
 
 Run `nix develop` and see available commands and tools.
+
+## I18N
+
+[aiogram docs](https://docs.aiogram.dev/en/latest/utils/i18n.html)
+
+Run:
+
+```sh
+chmod +x ./scripts/locales.sh
+./scripts/locales.sh
+```
