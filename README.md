@@ -62,11 +62,12 @@ Add [@daily_scrum_robot](http://t.me/daily_scrum_robot) to a group or open a cha
 
 1. Add your bot to a group or open a chat with your bot and send `/start`.
 
-## Nix flake
+## Develop
 
-Run `nix develop` and see available commands and tools.
-
-## Requirements
+### Requirements
 
 See [Requirements](./docs/requirements.md).
 
+### Nix flake
+
+Run `nix develop` and see available commands and tools.
