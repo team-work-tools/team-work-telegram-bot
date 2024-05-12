@@ -53,3 +53,13 @@
 - `/leave` - leave meetings
 - `/set_personal_working_days` - set personal working days
   - 1,2,...,7
+
+### Meeting questions
+
+Why these questions - [link](https://geekbot.com/blog/daily-standup-questions/).
+
+From [here](https://www.agilealliance.org/glossary/three-qs/):
+
+- `@username, what did you do last working day?`
+- `@username, what will you do today?`
+- `@username, what (if anything) is blocking your progress?`
