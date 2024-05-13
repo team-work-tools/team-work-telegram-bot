@@ -9,4 +9,4 @@ for lang in en ru; do
 done
 
 # Compile translations
-pybabel compile -d locales -D messages
+poetry run pybabel compile -d locales -D messages
