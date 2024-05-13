@@ -1,0 +1,112 @@
+# Russian translations for PROJECT.
+# Copyright (C) 2024 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2024-05-13 19:48+0300\n"
+"PO-Revision-Date: 2024-05-11 19:50+0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ru\n"
+"Language-Team: ru <LL@li.org>\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: daily_scrum_telegram_bot/commands.py:35
+msgid "enable me"
+msgstr "включи меня"
+
+#: daily_scrum_telegram_bot/commands.py:36
+msgid "get this help message"
+msgstr "получи это сообщение"
+
+#: daily_scrum_telegram_bot/commands.py:37
+msgid "set the meeting start time and date"
+msgstr "установи время и дату начала дейли"
+
+#: daily_scrum_telegram_bot/commands.py:38
+msgid "subscribe so that I send you messages"
+msgstr "подпишись, чтобы я отправлял тебе сообщения"
+
+#: daily_scrum_telegram_bot/commands.py:39
+msgid "unsubscribe so that I don't send you messages"
+msgstr "отпишись, чтобы я не отправлял тебе сообщения"
+
+#: daily_scrum_telegram_bot/commands.py:40
+msgid "get a list of subscribed users"
+msgstr "получи список подписчиков"
+
+#: daily_scrum_telegram_bot/handlers.py:39
+msgid "You're already subscribed, @{username}!"
+msgstr "Ты уже подписался(лась), @{username}!"
+
+#: daily_scrum_telegram_bot/handlers.py:45
+msgid "You've been subscribed, @{username}!"
+msgstr "Ты подписался(лась), @{username}"
+
+#: daily_scrum_telegram_bot/handlers.py:57
+msgid ""
+"\n"
+"                        Nobody has subscribed yet :(\n"
+"                        You can subscribe via the /{command_subscribe} "
+"command!\n"
+"                        "
+msgstr ""
+
+#: daily_scrum_telegram_bot/handlers.py:74
+msgid "You've been unsubscribed, @{username}!"
+msgstr "Ты отписался(лась), @{username}!"
+
+#: daily_scrum_telegram_bot/handlers.py:78
+msgid "You're not subscribed anyway, @{username}!"
+msgstr "Ты и так подписан(а), @{username}!"
+
+#: daily_scrum_telegram_bot/handlers.py:104
+msgid ""
+"OK, we'll meet at {meeting_time} on {week_days} starting not earlier than"
+" on {start_date}!"
+msgstr ""
+"ОК, встретимся в {meeting_time} в(о) {week_days}, начиная не раньше чем "
+"{start_date}!"
+
+#: daily_scrum_telegram_bot/handlers.py:114
+msgid "Please provide the time in the {time_format_link} format."
+msgstr "Пожалуйста, предоставь время в формате {time_format_link}."
+
+#: daily_scrum_telegram_bot/messages.py:13
+#, fuzzy
+msgid ""
+"\n"
+"        I can help you conduct Daily meetings.\n"
+"\n"
+"        You can control me by sending these commands:\n"
+"        "
+msgstr ""
+"\n"
+"        Я могу помочь тебе проводить Ежедневные встречи.\n"
+"\n"
+"        Ты можешь управлять мной при помощи следующих команд:\n"
+"        "
+
+#: daily_scrum_telegram_bot/messages.py:42
+#, fuzzy
+msgid "@{username}, what did you do last working day?"
+msgstr "@{username}, что ты делал(а) вчера?"
+
+#: daily_scrum_telegram_bot/messages.py:43
+#, fuzzy
+msgid "@{username}, what will you do today?"
+msgstr "@{username}, что будешь делать сегодня?"
+
+#: daily_scrum_telegram_bot/messages.py:44
+#, fuzzy
+msgid "@{username}, what (if anything) is blocking your progress?"
+msgstr "@{username}, что (если такое есть) блокирует твой прогресс?"
+

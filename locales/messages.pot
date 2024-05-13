@@ -1,0 +1,99 @@
+# Translations template for PROJECT.
+# Copyright (C) 2024 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2024-05-13 19:48+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: daily_scrum_telegram_bot/commands.py:35
+msgid "enable me"
+msgstr ""
+
+#: daily_scrum_telegram_bot/commands.py:36
+msgid "get this help message"
+msgstr ""
+
+#: daily_scrum_telegram_bot/commands.py:37
+msgid "set the meeting start time and date"
+msgstr ""
+
+#: daily_scrum_telegram_bot/commands.py:38
+msgid "subscribe so that I send you messages"
+msgstr ""
+
+#: daily_scrum_telegram_bot/commands.py:39
+msgid "unsubscribe so that I don't send you messages"
+msgstr ""
+
+#: daily_scrum_telegram_bot/commands.py:40
+msgid "get a list of subscribed users"
+msgstr ""
+
+#: daily_scrum_telegram_bot/handlers.py:39
+msgid "You're already subscribed, @{username}!"
+msgstr ""
+
+#: daily_scrum_telegram_bot/handlers.py:45
+msgid "You've been subscribed, @{username}!"
+msgstr ""
+
+#: daily_scrum_telegram_bot/handlers.py:57
+msgid ""
+"\n"
+"                        Nobody has subscribed yet :(\n"
+"                        You can subscribe via the /{command_subscribe} "
+"command!\n"
+"                        "
+msgstr ""
+
+#: daily_scrum_telegram_bot/handlers.py:74
+msgid "You've been unsubscribed, @{username}!"
+msgstr ""
+
+#: daily_scrum_telegram_bot/handlers.py:78
+msgid "You're not subscribed anyway, @{username}!"
+msgstr ""
+
+#: daily_scrum_telegram_bot/handlers.py:104
+msgid ""
+"OK, we'll meet at {meeting_time} on {week_days} starting not earlier than"
+" on {start_date}!"
+msgstr ""
+
+#: daily_scrum_telegram_bot/handlers.py:114
+msgid "Please provide the time in the {time_format_link} format."
+msgstr ""
+
+#: daily_scrum_telegram_bot/messages.py:13
+msgid ""
+"\n"
+"        I can help you conduct Daily meetings.\n"
+"\n"
+"        You can control me by sending these commands:\n"
+"        "
+msgstr ""
+
+#: daily_scrum_telegram_bot/messages.py:42
+msgid "@{username}, what did you do last working day?"
+msgstr ""
+
+#: daily_scrum_telegram_bot/messages.py:43
+msgid "@{username}, what will you do today?"
+msgstr ""
+
+#: daily_scrum_telegram_bot/messages.py:44
+msgid "@{username}, what (if anything) is blocking your progress?"
+msgstr ""
+
