@@ -11,9 +11,7 @@ import logging
 async def send_meeting_messages(chat_id: ChatId, send_message: SendMessage):
     chat_state = await load_state(chat_id=chat_id)
     for username in chat_state.subscribed_users:
-        for message in make_daily_messages(
-            username=username, language=chat_state.language
-        ):
+        for message in make_daily_messages(username=username):
             await send_message(chat_id=chat_id, message=message)
 
 

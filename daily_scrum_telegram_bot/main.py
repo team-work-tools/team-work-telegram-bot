@@ -30,12 +30,10 @@ def main():
 
     match args.command:
         case AppCommands.print_bot_message:
-            print(make_help_message(language=language_default))
+            print(make_help_message())
         case AppCommands.print_meeting_messages:
-            for message in make_daily_messages(
-                username="username", language=language_default
-            ):
-                print(f"{message}")
+            for message in make_daily_messages(username="username"):
+                print(message)
         case AppCommands.start:
             logging.basicConfig(level=logging.INFO, stream=sys.stdout)
 

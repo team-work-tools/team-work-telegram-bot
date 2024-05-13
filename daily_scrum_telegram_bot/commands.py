@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from .language import Language, language_en, language_ru
+from aiogram.utils.i18n import gettext as _
 
 
 class BotCommands(BaseModel):
@@ -29,21 +30,12 @@ class BotCommandDescriptions(BotCommands):
     pass
 
 
-bot_command_descriptions: dict[Language, BotCommandDescriptions] = {
-    language_en: BotCommandDescriptions(
-        start="enable me",
-        help="get this help message",
-        set_meeting_time="set the meeting start time and date",
-        subscribe="subscribe so that I send you messages",
-        unsubscribe="unsubscribe so that I don't send you messages",
-        get_subscribers="get a list of subscribed users",
-    ),
-    language_ru: BotCommandDescriptions(
-        start="включи меня",
-        help="получи это сообщение",
-        set_meeting_time="установи время и дату начала встреч",
-        subscribe="подпишись, чтобы я отправлял тебе сообщения",
-        unsubscribe="отпишись, чтобы я не отправлял тебе сообщения",
-        get_subscribers="получи список подписчиков",
-    ),
-}
+def bot_command_descriptions() -> BotCommandDescriptions:
+    return BotCommandDescriptions(
+        start=_("enable me"),
+        help=_("get this help message"),
+        set_meeting_time=_("set the meeting start time and date"),
+        subscribe=_("subscribe so that I send you messages"),
+        unsubscribe=_("unsubscribe so that I don't send you messages"),
+        get_subscribers=_("get a list of subscribed users"),
+    )

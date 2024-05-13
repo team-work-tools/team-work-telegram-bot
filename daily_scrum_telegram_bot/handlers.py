@@ -16,6 +16,7 @@ from .commands import bot_command_names
 from .messages import make_help_message
 from textwrap import dedent
 import logging
+from aiogram.utils.i18n import gettext as _
 
 
 def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage):
@@ -23,7 +24,7 @@ def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage):
 
     @router.message(Command(bot_command_names.help), HasChatState())
     async def get_help(message: Message, chat_state: ChatState):
-        await message.reply(make_help_message(language=chat_state.language))
+        await message.reply(make_help_message())
 
     @router.message(Command(bot_command_names.start), HasChatState())
     async def start(message: Message, chat_state: ChatState):
@@ -34,11 +35,15 @@ def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage):
     )
     async def subscribe(message: Message, username: str, chat_state: ChatState):
         if username in chat_state.subscribed_users:
-            await message.reply(f"You're already subscribed, @{username}!")
+            await message.reply(
+                _("You're already subscribed, @{username}!").format(username=username)
+            )
         else:
             chat_state.subscribed_users.add(username)
             await save_state(chat_state=chat_state)
-            await message.reply(f"You've been subscribed, @{username}!")
+            await message.reply(
+                _("You've been subscribed, @{username}!").format(username=username)
+            )
 
     @router.message(Command(bot_command_names.get_subscribers), HasChatState())
     async def get_subscribers(message: Message, chat_state: ChatState):
@@ -49,10 +54,12 @@ def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage):
         else:
             await message.reply(
                 dedent(
-                    f"""
-                    Nobody has subscribed yet :(
-                    You can subscribe via the /{bot_command_names.subscribe} command!
-                    """
+                    _(
+                        """
+                        Nobody has subscribed yet :(
+                        You can subscribe via the /{command_subscribe} command!
+                        """
+                    ).format(command_subscribe=bot_command_names.subscribe)
                 )
             )
 
@@ -63,9 +70,15 @@ def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage):
         if username in chat_state.subscribed_users:
             chat_state.subscribed_users.remove(username)
             await save_state(chat_state=chat_state)
-            await message.reply(f"You've been unsubscribed, @{username}!")
+            await message.reply(
+                _("You've been unsubscribed, @{username}!").format(username=username)
+            )
         else:
-            await message.reply(f"You're not subscribed anyway, @{username}!")
+            await message.reply(
+                _("You're not subscribed anyway, @{username}!").format(
+                    username=username
+                )
+            )
 
     @router.message(
         Command(bot_command_names.set_meeting_time), HasMessageText(), HasChatState()
@@ -88,15 +101,19 @@ def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage):
             )
 
             await message.reply(
-                dedent(
-                    f"""
-                OK, we'll meet at {html.bold(meeting_time.strftime('%H:%M'))} on {html.bold(day_of_week_pretty)} starting not earlier than on {html.bold(meeting_time.strftime('%Y-%m-%d'))}!
-                """
+                _(
+                    "OK, we'll meet at {meeting_time} on {week_days} starting not earlier than on {start_date}!"
+                ).format(
+                    meeting_time=html.bold(meeting_time.strftime("%H:%M")),
+                    week_days=html.bold(day_of_week_pretty),
+                    start_date=html.bold(meeting_time.strftime("%Y-%m-%d")),
                 )
             )
         except Exception as e:
             await message.reply(
-                f"Please provide the time in the {time_format_link} format."
+                _("Please provide the time in the {time_format_link} format.").format(
+                    time_format_link=time_format_link
+                )
             )
 
     return router

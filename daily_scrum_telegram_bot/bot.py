@@ -13,8 +13,8 @@ from . import db
 from apscheduler.jobstores.memory import MemoryJobStore
 from pytz import utc
 from .constants import jobstore
-
-dp = Dispatcher()
+from aiogram.utils.i18n import I18n
+from aiogram.utils.i18n.middleware import FSMI18nMiddleware
 
 
 def init_scheduler(settings: Settings) -> AsyncIOScheduler:
@@ -40,6 +40,12 @@ async def restore_scheduled_jobs(
 
 async def main(settings: Settings) -> None:
     await db.main(settings=settings)
+
+    dp = Dispatcher()
+
+    i18n = I18n(path="locales", default_locale="en", domain="messages")
+    fsmi18n = FSMI18nMiddleware(i18n)
+    fsmi18n.setup(router=dp)
 
     bot = Bot(
         token=settings.bot_token,

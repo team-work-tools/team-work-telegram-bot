@@ -6,50 +6,26 @@ from aiogram import html
 from datetime import datetime
 from . import commands
 from dataclasses import dataclass
+from aiogram.utils.i18n import gettext as _
 
-bot_intro: dict[Language, str] = {
-    language_en: """
-        I can help you conduct Daily Scrum.
+
+def bot_intro():
+    return _(
+        """
+        I can help you conduct Daily meetings.
 
         You can control me by sending these commands:
-        """.strip(),
-    language_ru: """
-        Я могу помочь тебе проводить Daily Scrum.
-        
-        Ты можешь управлять мной, отправляя следующие команды:
-        """.strip(),
-}
+        """
+    ).strip()
 
 
-@dataclass(frozen=True)
-class DailyQuestions:
-    yesterday: str
-    today: str
-    blockers: str
-
-
-daily_questions: dict[Language, [str]] = {
-    language_en: DailyQuestions(
-        yesterday="what did you do yesterday",
-        today="what will you do today",
-        blockers="what (if anything) is blocking your progress",
-    ),
-    language_ru: DailyQuestions(
-        yesterday="что ты делал(а) вчера",
-        today="что ты будешь делать сегодня",
-        blockers="что (если такое есть) блокирует твой прогресс",
-    ),
-}
-
-
-def make_help_message(language: Language) -> str:
+def make_help_message() -> str:
     command_names = commands.bot_command_names
-    command_descriptions = commands.bot_command_descriptions[language]
-    intro = bot_intro[language]
+    command_descriptions = commands.bot_command_descriptions()
 
     return dedent(
         f"""
-        {intro}
+        {bot_intro()}
 
         /{command_names.start} - {command_descriptions.start}
         /{command_names.help} - {command_descriptions.help}
@@ -61,10 +37,11 @@ def make_help_message(language: Language) -> str:
     ).strip()
 
 
-def make_daily_messages(username: str, language: Language) -> [str]:
-    daily_questions = daily_questions[language]
+def make_daily_messages(username: str) -> [str]:
     return [
-        f"@{username}, {daily_questions.yesterday}?",
-        f"@{username}, {daily_questions.today}?",
-        f"@{username}, {daily_questions.progress}?",
+        _("@{username}, what did you do last working day?").format(username=username),
+        _("@{username}, what will you do today?").format(username=username),
+        _("@{username}, what (if anything) is blocking your progress?").format(
+            username=username
+        ),
     ]
