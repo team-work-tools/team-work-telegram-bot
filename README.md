@@ -1,6 +1,6 @@
-# daily-scrum-telegram-bot
+# Easy Daily Telegram Bot
 
-A Telegram bot that helps conduct Daily Scrum.
+A Telegram bot that helps you conduct [daily meetings](https://www.agilealliance.org/glossary/daily-meeting/), also known as "daily stand-up," "daily scrum," etc.
 
 ## Bot help message
 
