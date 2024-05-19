@@ -26,14 +26,15 @@ As per [ISO/IEC 25010](https://iso25000.com/index.php/en/iso-25000-standards/iso
 - Programming language:
   - `Python`
 - Libraries:
-  - `aiogram` - for bot
+  - `aiogram` - for the bot
   - `Babel` - for i18n
 - Database:
   - `MongoDB`
 - Deployment
   - `docker-compose`
 - Dev environment
-  - `Nix`
+  - `Nix` package manager
+  - `poetry` package manager
 
 ### i18n
 
