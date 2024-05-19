@@ -5,7 +5,8 @@ A Telegram bot that helps you conduct [daily meetings](https://www.agilealliance
 ## Motivation
 
 - I have participated in too many projects that delivered less than they could have due to a lack of regular work from myself and my teammates.
-- I want a bot to remind me that I actually have to work on weekdays.
+- I want a bot to remind me that I actually have to work on workdays.
+- I want everyone on my team to know each other's workdays.
 - In the morning, I don't care enough to ask my teammates about their progress, plans, and problems, so I want a bot to do that for me.
 - When I do care later, I can read through my teammates' messages and help them resolve their problems.
 
