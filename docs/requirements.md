@@ -45,7 +45,13 @@ As per [ISO/IEC 25010](https://iso25000.com/index.php/en/iso-25000-standards/iso
 
 ### Commands
 
-#### Global
+#### Types
+
+- Interactive command - The bot MUST reply to the sent command and prompt the command sender to perform some actions.
+- Non-interactive command - The bot MUST NOT prompt the sender to do some actions. The bot MAY reply to the sent command.
+
+
+#### Global commands
 
 [link](https://core.telegram.org/bots/features#global-commands)
 
