@@ -19,7 +19,7 @@ As per [ISO/IEC 25010](https://iso25000.com/index.php/en/iso-25000-standards/iso
     - The bot MUST support all commands specified in the [Commands](#commands) section.
 
 
-## Functional
+## Functional requirements
 
 ### Stack
 
