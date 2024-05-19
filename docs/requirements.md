@@ -53,28 +53,34 @@ As per [ISO/IEC 25010](https://iso25000.com/index.php/en/iso-25000-standards/iso
 
 #### Global commands
 
-[link](https://core.telegram.org/bots/features#global-commands)
+[Telegram docs](https://core.telegram.org/bots/features#global-commands)
 
-- `/start` - start bot
-- `/help` - get a help message
-- `/stop` - stop bot
+- `/start` - (interactive) Start the bot.
+- `/help` - (non-interactive) Get a help message.
+- `/stop` - (non-interactive) Stop the bot.
+- `/cancel` - (non-interactive) Cancel the current operation.
 
 #### Team settings
 
-- `/set_current_time` - set your current time so that I know your time zone.
-- `/set_meeting_time` - set meeting time in `HH:MM` format.
-  - Requires current time to be set.
-- `/set_team_working_days` - set team working days
-  - 1,2,...,7
+- `/set_up_meeting` - (interactive) Set up regular meeting time zone, time, workdays.
+- `/set_time_zone` - (interactive) Set the team's time zone.
+- `/set_meeting_time` - (interactive) Set the regular meeting time.
+- `/set_team_workdays` - (interactive) Set the team's workdays.
 
 #### Personal settings
 
-- `/join` - join meetings
-- `/leave` - leave meetings
-- `/set_personal_working_days` - set personal working days
-  - 1,2,...,7
+- `/join` - (non-interactive) Order the bot to mention the command sender during regular meetings.
+- `/leave` - (non-interactive) Order the bot to not mention the command sender during regular meetings.
+- `/set_my_workdays` - (interactive) Order the bot to mention the command sender during regular meetings only on the specific days.
+- `/join_today` - (non-interactive) Order the bot to mention the command sender during today's regular meeting or immediately if the meeting is over.
+- `/leave_today` - (non-interactive) Order the bot to not mention the command sender during today's regular meeting.
+- `/set_vacation` - (interactive) Order the bot to not mention the command sender during a specific period.
+- `/unset_vacation` - (interactive) Order the bot to remove the info about the vacation of the command sender.
 
-### Meeting questions
+##### Notes
+
+- There can be at most one vacation for a person at each moment.
+
 
 Why these questions - [link](https://geekbot.com/blog/daily-standup-questions/).
 
