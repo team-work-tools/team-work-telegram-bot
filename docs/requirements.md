@@ -41,6 +41,7 @@ As per [ISO/IEC 25010](https://iso25000.com/index.php/en/iso-25000-standards/iso
 - Languages:
   - `Ru`
   - `En`
+- Support extending this list via message catalogs ([link](https://babel.pocoo.org/en/latest/cmdline.html)).
 
 ### Commands
 
