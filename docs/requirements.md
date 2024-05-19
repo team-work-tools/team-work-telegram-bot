@@ -1,11 +1,18 @@
 # Requirements
 
-## Nonfuncional
+## Nonfuncional requirements
 
-- Performance
-  - Bot should respond to messages in under 0.5 second
-- Functional correctness
-  - Bot shouldn't have states where it gets stuck and can't respond
+As per [ISO/IEC 25010](https://iso25000.com/index.php/en/iso-25000-standards/iso-25010).
+
+- Performance Efficiency
+  - Time Behavior
+    - The bot MUST respond to messages in under 0.5 seconds.
+- Functional Suitability
+  - Functional correctness
+    - The bot MUST have no states where it gets stuck and can't respond.
+  - Functional Completeness
+    - The bot MUST support all commands specified in the [Commands](#commands) section.
+
 
 ## Functional
 
