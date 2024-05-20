@@ -201,3 +201,8 @@ From [here](https://www.agilealliance.org/glossary/three-qs/):
 - `@username, what did you do last working day?`
 - `@username, what will you do today?`
 - `@username, what (if anything) is blocking your progress?`
+
+## References
+
+[^RFC2119]: <https://datatracker.ietf.org/doc/html/rfc2119>
+[^RFC8174]: <https://datatracker.ietf.org/doc/html/rfc8174>
