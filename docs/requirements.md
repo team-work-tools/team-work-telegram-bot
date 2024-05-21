@@ -3,8 +3,6 @@
 
 The words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC2119 [^RFC2119] and RFC8174 [^RFC8174] when, and only when, they appear in all capitals, as shown here.
 
-- **Regular meetings** - meetings that occur every week.
-
 ## Nonfuncional requirements
 
 As per [ISO/IEC 25010](https://iso25000.com/index.php/en/iso-25000-standards/iso-25010).
@@ -62,20 +60,21 @@ As per [ISO/IEC 25010](https://iso25000.com/index.php/en/iso-25000-standards/iso
 
 #### Team settings
 
-- `/set_up_meeting` - (interactive) Set up regular meeting time zone, time, workdays.
+- `/set_up_meeting` - (interactive) Set up meetings time zone, time, workdays.
 - `/set_time_zone` - (interactive) Set the team's time zone.
-- `/set_meeting_time` - (interactive) Set the regular meeting time.
+- `/set_meeting_time` - (interactive) Set meetings time.
 - `/set_team_workdays` - (interactive) Set the team's workdays.
 
 #### Personal settings
 
-- `/join` - (non-interactive) Order the bot to mention the command sender during regular meetings.
-- `/leave` - (non-interactive) Order the bot to not mention the command sender during regular meetings.
-- `/set_my_workdays` - (interactive) Order the bot to mention the command sender during regular meetings only on the specific days.
-- `/join_today` - (non-interactive) Order the bot to mention the command sender during today's regular meeting or immediately if the meeting is over.
-- `/leave_today` - (non-interactive) Order the bot to not mention the command sender during today's regular meeting.
-- `/set_vacation` - (interactive) Order the bot to not mention the command sender during a specific period.
-- `/unset_vacation` - (interactive) Order the bot to remove the info about the vacation of the command sender.
+- `/join` - (non-interactive) Do mention the command sender during meetings.
+- `/leave` - (non-interactive) Don't mention the command sender during meetings.
+- `/set_my_workdays` - (interactive) Do mention the command sender during meetings only on the specific days.
+- `/join_today` - (non-interactive) Don't mention the command sender during the current day's meeting or immediately if the meeting is over.
+- `/leave_today` - (non-interactive) Don't mention the command sender during the current day's meeting.
+- `/set_vacation` - (interactive) Don't mention the command sender during a specific period.
+- `/unset_vacation` - (interactive) Remove the info about the vacation of the command sender.
+
 
 ##### Notes
 
