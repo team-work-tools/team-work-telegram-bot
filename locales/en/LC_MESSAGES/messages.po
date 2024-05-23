@@ -18,39 +18,39 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.15.0\n"
 
-#: daily_scrum_telegram_bot/commands.py:35
+#: bot/commands.py:35
 msgid "enable me"
 msgstr "enable me"
 
-#: daily_scrum_telegram_bot/commands.py:36
+#: bot/commands.py:36
 msgid "get this help message"
 msgstr "get this help message"
 
-#: daily_scrum_telegram_bot/commands.py:37
+#: bot/commands.py:37
 msgid "set the meeting start time and date"
 msgstr "set the meeting start time and date"
 
-#: daily_scrum_telegram_bot/commands.py:38
+#: bot/commands.py:38
 msgid "subscribe so that I send you messages"
 msgstr "subscribe so that I send you messages"
 
-#: daily_scrum_telegram_bot/commands.py:39
+#: bot/commands.py:39
 msgid "unsubscribe so that I don't send you messages"
 msgstr "unsubscribe so that I don't send you messages"
 
-#: daily_scrum_telegram_bot/commands.py:40
+#: bot/commands.py:40
 msgid "get a list of subscribed users"
 msgstr "get a list of subscribed users"
 
-#: daily_scrum_telegram_bot/handlers.py:39
+#: bot/handlers.py:39
 msgid "You're already subscribed, @{username}!"
 msgstr "You're already subscribed, @{username}!"
 
-#: daily_scrum_telegram_bot/handlers.py:45
+#: bot/handlers.py:45
 msgid "You've been subscribed, @{username}!"
 msgstr "You've been subscribed, @{username}!"
 
-#: daily_scrum_telegram_bot/handlers.py:57
+#: bot/handlers.py:57
 msgid ""
 "\n"
 "                        Nobody has subscribed yet :(\n"
@@ -59,15 +59,15 @@ msgid ""
 "                        "
 msgstr ""
 
-#: daily_scrum_telegram_bot/handlers.py:74
+#: bot/handlers.py:74
 msgid "You've been unsubscribed, @{username}!"
 msgstr "You've been unsubscribed, @{username}!"
 
-#: daily_scrum_telegram_bot/handlers.py:78
+#: bot/handlers.py:78
 msgid "You're not subscribed anyway, @{username}!"
 msgstr "You're not subscribed anyway, @{username}!"
 
-#: daily_scrum_telegram_bot/handlers.py:104
+#: bot/handlers.py:104
 msgid ""
 "OK, we'll meet at {meeting_time} on {week_days} starting not earlier than"
 " on {start_date}!"
@@ -75,11 +75,11 @@ msgstr ""
 "OK, we'll meet at {meeting_time} on {week_days} starting not earlier than"
 " on {start_date}!"
 
-#: daily_scrum_telegram_bot/handlers.py:114
+#: bot/handlers.py:114
 msgid "Please provide the time in the {time_format_link} format."
 msgstr "Please provide the time in the {time_format_link} format."
 
-#: daily_scrum_telegram_bot/messages.py:13
+#: bot/messages.py:13
 #, fuzzy
 msgid ""
 "\n"
@@ -94,17 +94,17 @@ msgstr ""
 "        You can control me by sending these commands:\n"
 "        "
 
-#: daily_scrum_telegram_bot/messages.py:42
+#: bot/messages.py:42
 #, fuzzy
 msgid "@{username}, what did you do last working day?"
 msgstr "@{username}, what did you do last working day?"
 
-#: daily_scrum_telegram_bot/messages.py:43
+#: bot/messages.py:43
 #, fuzzy
 msgid "@{username}, what will you do today?"
 msgstr "@{username}, what will you do today?"
 
-#: daily_scrum_telegram_bot/messages.py:44
+#: bot/messages.py:44
 #, fuzzy
 msgid "@{username}, what (if anything) is blocking your progress?"
 msgstr "@{username}, what (if anything) is blocking your progress?"
