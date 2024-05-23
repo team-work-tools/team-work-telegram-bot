@@ -10,7 +10,7 @@ RUN --mount=type=cache,target=/root/.cache \
 
 RUN poetry install --without dev
 
-COPY daily_scrum_telegram_bot daily_scrum_telegram_bot
+COPY bot bot
 COPY locales locales
 
 ENV PYTHONUNBUFFERED=1
