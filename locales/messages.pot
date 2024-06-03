@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-13 19:48+0300\n"
+"POT-Creation-Date: 2024-06-03 13:20+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,83 +17,131 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.15.0\n"
 
-#: bot/commands.py:35
-msgid "enable me"
+#: bot/commands.py:64
+msgid "Enable me."
 msgstr ""
 
-#: bot/commands.py:36
-msgid "get this help message"
+#: bot/commands.py:65
+msgid "Get a help message."
 msgstr ""
 
-#: bot/commands.py:37
-msgid "set the meeting start time and date"
+#: bot/commands.py:66
+msgid "Disable me."
 msgstr ""
 
-#: bot/commands.py:38
-msgid "subscribe so that I send you messages"
+#: bot/commands.py:67
+msgid "Cancel the current operation with the bot."
 msgstr ""
 
-#: bot/commands.py:39
-msgid "unsubscribe so that I don't send you messages"
+#: bot/commands.py:69
+msgid "Set up regular meetings."
 msgstr ""
 
-#: bot/commands.py:40
-msgid "get a list of subscribed users"
+#: bot/commands.py:71
+msgid "Set meetings time zone."
 msgstr ""
 
-#: bot/handlers.py:39
-msgid "You're already subscribed, @{username}!"
+#: bot/commands.py:72
+msgid "Set meetings time."
 msgstr ""
 
-#: bot/handlers.py:45
-msgid "You've been subscribed, @{username}!"
+#: bot/commands.py:73
+msgid "Set meetings days."
 msgstr ""
 
-#: bot/handlers.py:57
-msgid ""
-"\n"
-"                        Nobody has subscribed yet :(\n"
-"                        You can subscribe via the /{command_subscribe} "
-"command!\n"
-"                        "
+#: bot/commands.py:75
+msgid "Join meetings."
 msgstr ""
 
-#: bot/handlers.py:74
-msgid "You've been unsubscribed, @{username}!"
+#: bot/commands.py:76
+msgid "Skip meetings."
 msgstr ""
 
-#: bot/handlers.py:78
-msgid "You're not subscribed anyway, @{username}!"
+#: bot/commands.py:77
+msgid "Set the days when you can join meetings."
 msgstr ""
 
-#: bot/handlers.py:104
+#: bot/commands.py:78
+msgid "Join only today's meeting."
+msgstr ""
+
+#: bot/commands.py:79
+msgid "Skip only today's meeting."
+msgstr ""
+
+#: bot/commands.py:80
+msgid "Schedule a personal vacation."
+msgstr ""
+
+#: bot/commands.py:81
+msgid "Unschedule the personal vacation."
+msgstr ""
+
+#: bot/commands.py:83
+msgid "Get the chat state that I store."
+msgstr ""
+
+#: bot/handlers.py:82
 msgid ""
 "OK, we'll meet at {meeting_time} on {week_days} starting not earlier than"
 " on {start_date}!"
 msgstr ""
 
-#: bot/handlers.py:114
-msgid "Please provide the time in the {time_format_link} format."
+#: bot/handlers.py:93
+msgid ""
+"\n"
+"                        Please write the meeting time in the {iso8601} "
+"format with an offset relative to the UTC time zone.\n"
+"                        You can calculate the time on the site "
+"{time_url}.\n"
+"                        Example:\n"
+"                        /{set_meetings_time} {sample_time}\n"
+"                        "
+msgstr ""
+
+#: bot/handlers.py:119
+msgid "You've already joined, @{username}!"
+msgstr ""
+
+#: bot/handlers.py:126
+msgid ""
+"\n"
+"                        You've just joined, @{username}!\n"
+"                        You can skip meetings via the /{command_skip} "
+"command.\n"
+"                        "
+msgstr ""
+
+#: bot/handlers.py:146
+msgid ""
+"\n"
+"                        See you later, @{username}!\n"
+"                        You can join via the /{command_join} command.\n"
+"                        "
+msgstr ""
+
+#: bot/handlers.py:157
+msgid "You've not joined anyway, @{username}!"
 msgstr ""
 
 #: bot/messages.py:13
 msgid ""
 "\n"
-"        I can help you conduct Daily meetings.\n"
+"        I can help you conduct daily (or at least regular) meetings.\n"
 "\n"
 "        You can control me by sending these commands:\n"
 "        "
 msgstr ""
 
-#: bot/messages.py:42
+#: bot/messages.py:49
 msgid "@{username}, what did you do last working day?"
 msgstr ""
 
-#: bot/messages.py:43
+#: bot/messages.py:50
 msgid "@{username}, what will you do today?"
 msgstr ""
 
-#: bot/messages.py:44
+#: bot/messages.py:51
 msgid "@{username}, what (if anything) is blocking your progress?"
 msgstr ""
 
