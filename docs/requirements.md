@@ -61,21 +61,24 @@ As per [ISO/IEC 25010](https://iso25000.com/index.php/en/iso-25000-standards/iso
 
 #### Team settings
 
-- `/set_up_meeting` - (interactive) Set up meetings time zone, time, workdays.
-- `/set_time_zone` - (interactive) Set the team's time zone.
-- `/set_meeting_time` - (interactive) Set meetings time.
-- `/set_team_workdays` - (interactive) Set the team's workdays.
+- `/set_up_meetings` - (interactive) Set up meeting time zone, time, workdays.
+- `/set_meetings_time_zone` - (interactive) Set the team's time zone.
+- `/set_meetings_time` - (interactive) Set meeting time.
+- `/set_meetings_days` - (interactive) Set the team's workdays.
 
 #### Personal settings
 
-- `/join` - (non-interactive) Do mention the command sender during meetings.
-- `/leave` - (non-interactive) Don't mention the command sender during meetings.
-- `/set_my_workdays` - (interactive) Do mention the command sender during meetings only on the specific days.
-- `/join_today` - (non-interactive) Don't mention the command sender during the current day's meeting or immediately if the meeting is over.
-- `/leave_today` - (non-interactive) Don't mention the command sender during the current day's meeting.
-- `/set_vacation` - (interactive) Don't mention the command sender during a specific period.
-- `/unset_vacation` - (interactive) Remove the info about the vacation of the command sender.
+- `/join` - (non-interactive) Do interact with the command sender during a meeting.
+- `/skip` - (non-interactive) Don't interact with the command sender during a meeting.
+- `/set_personal_meetings_days` - (interactive) Do interact with the command sender during a meeting only on specified days.
+- `/join_today` - (non-interactive) Do interact with the command sender during the current (at the moment the command is sent) day's meeting or immediately after the command is sent if the meeting is over.
+- `/skip_today` - (non-interactive) Don't interact with the command sender during the current (at the moment the command is sent) day's meeting.
+- `/set_vacation` - (interactive) Don't interact with the command sender during a specified vacation period.
+- `/unset_vacation` - (interactive) Do interact with the command sender as if no `/set_vacation` command was sent.
 
+#### Chat information commands
+
+- `/get_chat_state` - (non-interactive) Get the chat state stored in the database.
 
 ##### Notes
 
