@@ -80,7 +80,7 @@ def handle_team_settings_commands(
 
             await message.reply(
                 _(
-                    "OK, we'll first meet at {meeting_time} on {week_days} starting not earlier than on {start_date}!"
+                    "OK, we'll meet at {meeting_time} on {week_days} starting than on {start_date}!"
                 ).format(
                     meeting_time=html.bold(meeting_time.strftime("%H:%M")),
                     week_days=html.bold(day_of_week_pretty),
@@ -92,7 +92,7 @@ def handle_team_settings_commands(
                 dedent(
                     _(
                         """
-                        Please write the first meeting time in the {iso8601} format with an offset relative to the UTC time zone.
+                        Please write the meetings time in the {iso8601} format with an offset relative to the UTC time zone.
                         
                         You can calculate the time on the site {time_url}.
                         
@@ -129,6 +129,7 @@ def handle_personal_settings_commands(
                     _(
                         """
                         You've just joined, @{username}!
+                        
                         You can skip meetings via the /{command_skip} command.
                         """
                     ).format(
@@ -149,6 +150,7 @@ def handle_personal_settings_commands(
                     _(
                         """
                         See you later, @{username}!
+                        
                         You can join via the /{command_join} command.
                         """
                     )
@@ -157,7 +159,7 @@ def handle_personal_settings_commands(
         else:
             await message.reply(
                 dedent(
-                    _("You've not joined yet, @{username}!").format(
+                    _("You've not yet joined, @{username}!").format(
                         username=username
                     )
                 )
