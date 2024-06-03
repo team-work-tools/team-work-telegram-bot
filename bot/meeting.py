@@ -6,13 +6,18 @@ from .constants import day_of_week, jobstore
 from .messages import make_daily_messages
 from .state import load_state, ChatState
 import logging
+from aiogram.utils.i18n import gettext as _
 
 
 async def send_meeting_messages(chat_id: ChatId, send_message: SendMessage):
     chat_state = await load_state(chat_id=chat_id)
-    for username in chat_state.joined_users:
-        for message in make_daily_messages(username=username):
-            await send_message(chat_id=chat_id, message=message)
+    await send_message(chat_id=chat_id, message=_("Meeting time!"))
+    if not chat_state.joined_users:
+        await send_message(chat_id=chat_id, message=_("Nobody has joined the meeting!"))
+    else:
+        for username in chat_state.joined_users:
+            for message in make_daily_messages(username=username):
+                await send_message(chat_id=chat_id, message=message)
 
 
 def make_job_id(some_id: int):
