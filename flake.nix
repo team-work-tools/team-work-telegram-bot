@@ -36,9 +36,12 @@
         let
           packages = {
             bot = pkgs.writeShellApplication {
-              runtimeInputs = [ pkgs.docker ];
+              runtimeInputs = [ 
+                pkgs.docker
+                pkgs.poetry
+              ];
               name = "default";
-              text = ''docker compose up'';
+              text = builtins.readFile ./scripts/up.sh;
               meta.description = "Run the bot";
             };
 
