@@ -1,11 +1,9 @@
 from dataclasses import dataclass
 from pydantic import BaseModel
-
-class Language(BaseModel, frozen=True):
-    language: str
+from enum import Enum
 
 
-language_ru = Language(language="ru")
-language_en = Language(language="en")
-
-language_default = language_en
+class Language(Enum):
+    ru = "ru"
+    en = "en"
+    default = "en"

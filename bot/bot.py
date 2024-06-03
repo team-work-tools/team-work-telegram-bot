@@ -38,6 +38,11 @@ async def restore_scheduled_jobs(
             )
 
 
+async def on_startup():
+    bot_commands = [
+        BotCommand()
+    ]
+
 async def main(settings: Settings) -> None:
     await db.main(settings=settings)
 

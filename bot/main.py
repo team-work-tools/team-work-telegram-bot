@@ -7,7 +7,6 @@ from .messages import make_help_message, make_daily_messages
 from . import bot
 from .settings import Settings
 from pydantic import ValidationError
-from .language import language_default
 
 
 def main():
