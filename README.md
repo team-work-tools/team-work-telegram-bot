@@ -34,7 +34,7 @@ Chat information commands
 
 ## Meeting messages
 
-The bot sends messages at the set time.
+The bot sends messages at meetings time.
 
 ```console
 @user, what did you do last working day?
