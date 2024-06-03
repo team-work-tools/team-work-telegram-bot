@@ -154,7 +154,7 @@ def handle_personal_settings_commands(
         else:
             await message.reply(
                 dedent(
-                    _("You've not joined anyway, @{username}!").format(
+                    _("You've not joined yet, @{username}!").format(
                         username=username
                     )
                 )
