@@ -66,13 +66,22 @@ Add [@daily_meeting_robot](http://t.me/daily_meeting_robot) to a group or open a
     MONGO_PORT=27017
     ```
 
-1. Run via `docker`.
+#### Run via `docker`
+
+```console
+chmod +x scripts/up.sh
+./scripts/up.sh
+```
+
+#### Run via Nix
+
+1. Install Nix - [link](https://github.com/DeterminateSystems/nix-installer#usage).
+
+1. Run the bot.
 
     ```console
-    docker compose up
+    nix run .#bot
     ```
-
-1. Add your bot to a group or open a chat with your bot and send `/start`.
 
 ## Develop
 
