@@ -1,6 +1,6 @@
-# Easy Daily Telegram Bot
+# Daily Meeting Telegram Bot
 
-A Telegram bot that helps you conduct [daily meetings](https://www.agilealliance.org/glossary/daily-meeting/), also known as "daily stand-up," "daily scrum," etc.
+A Telegram bot that helps you conduct [daily](https://www.agilealliance.org/glossary/daily-meeting/) (or at least regular) meetings.
 
 ## Motivation
 
@@ -10,39 +10,43 @@ A Telegram bot that helps you conduct [daily meetings](https://www.agilealliance
 - In the morning, I don't care enough to ask my teammates about their progress, plans, and problems, so I want a bot to do that for me.
 - When I do care later, I can read through my teammates' messages and help them resolve their problems.
 
-## Bot help message
-
-<!-- `$ poetry run bot print-bot-message` as console -->
+## Bot start message
 
 ```console
-I can help you conduct Daily Scrum.
+I can help you conduct daily (or at least regular) meetings.
 
 You can control me by sending these commands:
 
+Global commands
 /start - Enable me.
-/help - Get this help message.
-/set_meeting_time 2024-05-10T09:42:00+03:00 - Set the start time and date in the <a href="https://time.lol">ISO 8601</a> format. I'll schedule meetings for this time for Monday - Friday starting not earlier than on this date.
-/subscribe - Allow mentioning you during meetings.
-/unsubscribe - Disallow mentioning you during meetings.
-/get_subscribers - Get a list of subscribed users.
+/help - Get a help message.
 
-During a meeting, I'll send in this group three messages for each subscribed person.
+Team settings commands
+/set_meetings_time - Set meetings time.
 
-Please reply to all messages that mention you so that your teammates can learn about your progress and plans and can help you resolve problems.
+Personal settings commands
+/join - Join meetings.
+/skip - Skip meetings.
+
+Chat information commands
+/get_chat_state - Get the chat state that I store.
 ```
 
 ## Meeting messages
 
-- The bot sends messages at the set time.
+The bot sends messages at the set time.
 
-<!-- `> echo '- The bot sends three messages for each subscribed person with *@username*:'; poetry run bot print-meeting-messages | xargs -I {} printf "  - <code>%s</code>\n" {}` -->
+```console
+@user, what did you do last working day?
+```
 
-<!-- BEGIN mdsh -->
-- The bot sends three messages for each subscribed person with *@username*:
-  - <code>@username, what did you do yesterday?</code>
-  - <code>@username, what will you do today?</code>
-  - <code>@username, what (if anything) is blocking your progress?</code>
-<!-- END mdsh -->
+```console
+@user, what will you do today?
+```
+
+```console
+@user, what (if anything) is blocking your progress?
+```
 
 ## Usage
 
