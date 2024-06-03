@@ -48,7 +48,7 @@ Please reply to all messages that mention you so that your teammates can learn a
 
 ### My bot
 
-Add [@daily_scrum_robot](http://t.me/daily_scrum_robot) to a group or open a chat with this bot and send `/start`.
+Add [@daily_meeting_robot](http://t.me/daily_meeting_robot) to a group or open a chat with this bot and send `/start`.
 
 ### Your bot
 
