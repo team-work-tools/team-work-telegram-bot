@@ -80,7 +80,7 @@ def handle_team_settings_commands(
 
             await message.reply(
                 _(
-                    "OK, we'll meet at {meeting_time} on {week_days} starting not earlier than on {start_date}!"
+                    "OK, we'll first meet at {meeting_time} on {week_days} starting not earlier than on {start_date}!"
                 ).format(
                     meeting_time=html.bold(meeting_time.strftime("%H:%M")),
                     week_days=html.bold(day_of_week_pretty),
@@ -92,9 +92,12 @@ def handle_team_settings_commands(
                 dedent(
                     _(
                         """
-                        Please write the meeting time in the {iso8601} format with an offset relative to the UTC time zone.
+                        Please write the first meeting time in the {iso8601} format with an offset relative to the UTC time zone.
+                        
                         You can calculate the time on the site {time_url}.
+                        
                         Example:
+                        
                         /{set_meetings_time} {sample_time}
                         """
                     ).format(
