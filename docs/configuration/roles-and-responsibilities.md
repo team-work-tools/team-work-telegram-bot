@@ -42,7 +42,7 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
     1. Update [Task characteristics](#task-characteristics) subsections.
 1. Fill `Responsible People` sections.
 1. Commit and make a Pull Request.
-1. Ask people responsible for [Team Management](https://github.com/team-work-tools/team-work-telegram-bot/labels/Team%20Management) to review and merge your pull request.
+1. Ask people responsible for [Team Management](#team-management) to review and merge your pull request.
 
 #### Update your responsibilities
 
@@ -53,7 +53,7 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
     1. If yes, consider not dropping your old responsibilities.
 1. Discuss with your leader whether it's safe to change your responsibilities from the point of view of your team and the project.
 1. Edit your responsibilities in this file and make a pull request.
-1. Ask people responsible for [Team Management](https://github.com/team-work-tools/team-work-telegram-bot/labels/Team%20Management) to review and merge your pull request.
+1. Ask people responsible for [Team Management](#team-management) to review and merge your pull request.
 
 #### Read the [Responsibility Distribution](#responsibility-distribution) section
 
