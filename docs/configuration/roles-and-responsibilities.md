@@ -75,7 +75,7 @@ TODO:
 ##### Task characteristics
 
 - Related to developing the project architecture:
-  - <a href="def-asrs"></a> Compose a Utility Tree (see Table 19.1 in [^soap])
+  - <a href="def-asrs"></a> Compose a Utility Tree with Architecturally Significant Requirement Scenarios (ASRS) (see Table 19.1 in [^soap])
   - Model interaction between project components
   - Write bot scenarios
   - Choose frameworks
@@ -90,7 +90,7 @@ TODO:
 
 - Related to defining and ensuring the product quality:
   - Implement:
-    - Tests for [Architecturally Significant Requirement Scenarios](#def-asrs)
+    - Tests for [ASRS](#def-asrs)
     - Unit tests
 
 ##### Responsible people
