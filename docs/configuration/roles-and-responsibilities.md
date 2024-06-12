@@ -39,7 +39,7 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
 1. Update the [Responsibility Distribution](#responsibility-distribution) section:
     1. Create missing subsections.
     1. Update/remove outdated subsections.
-    1. Update [Task characteristics](#task-characteristics) subsections.
+    1. Update [Task activity](#task-activity) subsections.
 1. Fill `Responsible People` sections.
 1. Commit and make a Pull Request.
 1. Ask people responsible for [Team Management](#team-management) to review and merge your pull request.
@@ -58,7 +58,7 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
 #### Read the [Responsibility Distribution](#responsibility-distribution) section
 
 - A label name with a hyperlink to the corresponding label like [Architecture](https://github.com/team-work-tools/team-work-telegram-bot/labels/Architecture) introduces a label.
-  - <a id="task-characteristics"></a> The `Task characteristics` section provides hints on when an issue should be assigned this label.
+  - <a id="task-activity"></a> The `Task activity` section provides hints on when an issue should be assigned this label.
   - <a id="responsible-people"></a> The `Responsible people` section lists GitHub usernames with hyperlinks to GitHub profiles of people responsible for either:
     - Closing issues with this label.
     - Reviewing PRs for issues with this label.
@@ -72,13 +72,12 @@ TODO:
 
 #### [Architecture](https://github.com/team-work-tools/team-work-telegram-bot/labels/Architecture)
 
-##### Task characteristics
+##### Task activity
 
-- Related to developing the project architecture:
-  - <a id="asrs"></a> Compose a Utility Tree with Architecturally Significant Requirement Scenarios (ASRS) (see Table 19.1 in [^soap])
-  - Model interaction between project components
-  - Write bot scenarios
-  - Choose frameworks
+- <a id="asrs"></a> Compose a Utility Tree with Architecturally Significant Requirement Scenarios (ASRS) (see Table 19.1 in [^soap])
+- Model interaction between project components
+- Write bot scenarios
+- Choose frameworks
 
 ##### Responsible people
 
@@ -86,12 +85,12 @@ TODO:
 
 #### [Quality Assurance](https://github.com/team-work-tools/team-work-telegram-bot/labels/Quality%20Assurance)
 
-##### Task characteristics
+##### Task activity
 
-- Related to defining and ensuring the product quality:
-  - Implement:
-    - Tests for [ASRS](#asrs)
-    - Unit tests
+- Design and/or implement tests
+  - for [ASRS](#asrs)
+  - for the bot
+  - for the Mini App
 
 ##### Responsible people
 
@@ -99,20 +98,14 @@ TODO:
 
 #### [Requirements](https://github.com/team-work-tools/team-work-telegram-bot/labels/Requirements)
 
-##### Task characteristics
+##### Task activity
 
-- Related to requirements engineering:
-  - Define the requirements format.
-  - Document existing customer requirements.
-  - Analyze requirements:
-    - Connect requirements
-    - Identify:
-      - missing
-      - irrelevant
-
-      requirements
-
-  - Clarify requirements with the customer.
+- Define the requirements format.
+- Document existing customer requirements.
+- Analyze requirements:
+  - Connect requirements.
+  - Identify missing, irrelevant requirements.
+- Clarify requirements with the customer.
 
 ##### Responsible people
 
@@ -120,10 +113,9 @@ TODO:
 
 #### [Team Management](https://github.com/team-work-tools/team-work-telegram-bot/labels/Team%20Management)
 
-##### Task characteristics
+##### Task activity
 
-- Set up team work tools
-- Document and set up policies, processes, and procedures ([link](https://www.oracle.com/ce-help/playbook/display-content/ar02-policy-process-or-procedure)).
+- Document and set up policies, processes, and procedures ([link](./policies-processes-procedures.md)).
 - Organize team meetings
 
 ##### Responsible people
