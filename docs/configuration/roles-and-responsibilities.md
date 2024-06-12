@@ -111,6 +111,20 @@ TODO:
 
 [@deemp](https://github.com/deemp/), ...
 
+#### [Task Management](https://github.com/team-work-tools/team-work-telegram-bot/labels/Task%20Management)
+
+##### Task activity
+
+- Create issues.
+- Modify issue text, status (open/closed), etc.
+- Assign labels and people based on:
+  - The [Responsibility Distribution](#responsibility-distribution).
+  - The load of project members.
+
+##### Responsible people
+
+[@deemp](https://github.com/deemp/), ...
+
 #### [Team Management](https://github.com/team-work-tools/team-work-telegram-bot/labels/Team%20Management)
 
 ##### Task activity
