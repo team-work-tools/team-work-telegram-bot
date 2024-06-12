@@ -74,11 +74,10 @@ TODO:
 
 ##### Task activity
 
-- Related to developing the project architecture:
-  - <a id="asrs"></a> Compose a Utility Tree with Architecturally Significant Requirement Scenarios (ASRS) (see Table 19.1 in [^soap])
-  - Model interaction between project components
-  - Write bot scenarios
-  - Choose frameworks
+- <a id="asrs"></a> Compose a Utility Tree with Architecturally Significant Requirement Scenarios (ASRS) (see Table 19.1 in [^soap])
+- Model interaction between project components
+- Write bot scenarios
+- Choose frameworks
 
 ##### Responsible people
 
@@ -88,10 +87,10 @@ TODO:
 
 ##### Task activity
 
-- Related to defining and ensuring the product quality:
-  - Implement:
-    - Tests for [ASRS](#asrs)
-    - Unit tests
+- Design and/or implement tests
+  - for [ASRS](#asrs)
+  - for the bot
+  - for the Mini App
 
 ##### Responsible people
 
@@ -101,18 +100,12 @@ TODO:
 
 ##### Task activity
 
-- Related to requirements engineering:
-  - Define the requirements format.
-  - Document existing customer requirements.
-  - Analyze requirements:
-    - Connect requirements
-    - Identify:
-      - missing
-      - irrelevant
-
-      requirements
-
-  - Clarify requirements with the customer.
+- Define the requirements format.
+- Document existing customer requirements.
+- Analyze requirements:
+  - Connect requirements.
+  - Identify missing, irrelevant requirements.
+- Clarify requirements with the customer.
 
 ##### Responsible people
 
@@ -122,8 +115,7 @@ TODO:
 
 ##### Task activity
 
-- Set up team work tools
-- Document and set up policies, processes, and procedures ([link](https://www.oracle.com/ce-help/playbook/display-content/ar02-policy-process-or-procedure)).
+- Document and set up policies, processes, and procedures ([link](./policies-processes-procedures.md)).
 - Organize team meetings
 
 ##### Responsible people
