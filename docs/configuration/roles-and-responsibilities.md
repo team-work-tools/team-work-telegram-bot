@@ -14,11 +14,11 @@ Members: ... GitHub usernames with links to GitHub profiles ...
 
 Leader: [@belyakova-anna](https://github.com/belyakova-anna)
 
-Members: -[@ghshark63](https://github.com/ghshark63)
--[@examplefirstaccount](https://github.com/examplefirstaccount)
--[@Fullerite](https://github.com/Fullerite)
--[@belyakova-anna](https://github.com/belyakova-anna)
--[@Dayanaoak](https://github.com/Dayanaoak)
+Members: - [@ghshark63](https://github.com/ghshark63)
+- [@examplefirstaccount](https://github.com/examplefirstaccount)
+- [@Fullerite](https://github.com/Fullerite)
+- [@belyakova-anna](https://github.com/belyakova-anna)
+- [@Dayanaoak](https://github.com/Dayanaoak)
 
 ### Team 56
 
@@ -144,17 +144,17 @@ TODO:
 
 ##### Responsible people
 
--[@examplefirstaccount](https://github.com/examplefirstaccount)
--[@Fullerite](https://github.com/Fullerite)
--[@belyakova-anna](https://github.com/belyakova-anna)
+- [@examplefirstaccount](https://github.com/examplefirstaccount)
+- [@Fullerite](https://github.com/Fullerite)
+- [@belyakova-anna](https://github.com/belyakova-anna)
 
 
 #### [Database Administration](https://github.com/team-work-tools/team-work-telegram-bot/labels/Database%20Administration)
 
 ##### Task characteristics
 
--Database design
--Writing functions to interact with the database
+- Database design
+- Writing functions to interact with the database
 
 ##### Responsible people
 
@@ -165,41 +165,41 @@ TODO:
 ##### Task characteristics
 
 Everything related to writing code, including
--Bot development (Python)
--MiniApp development
--Automated tests
+- Bot development (Python)
+- MiniApp development
+- Automated tests
 
 ##### Responsible people
 
--[@ghshark63](https://github.com/ghshark63)
--[@examplefirstaccount](https://github.com/examplefirstaccount)
--[@Fullerite](https://github.com/Fullerite)
--[@belyakova-anna](https://github.com/belyakova-anna)
+- [@ghshark63](https://github.com/ghshark63)
+- [@examplefirstaccount](https://github.com/examplefirstaccount)
+- [@Fullerite](https://github.com/Fullerite)
+- [@belyakova-anna](https://github.com/belyakova-anna)
 
 #### [DevOps](https://github.com/team-work-tools/team-work-telegram-bot/labels/DevOps)
 
 ##### Task characteristics
 
--CI/CD
--Monitoring and logging
--Container management
+- CI/CD
+- Monitoring and logging
+- Container management
 
 ##### Responsible people
 
--[@examplefirstaccount](https://github.com/examplefirstaccount)
--[@Fullerite](https://github.com/Fullerite)
+- [@examplefirstaccount](https://github.com/examplefirstaccount)
+- [@Fullerite](https://github.com/Fullerite)
 
 #### [GitHub Issues Management](https://github.com/team-work-tools/team-work-telegram-bot/labels/GitHub%20Issues%20Management)
 
 ##### Task characteristics
 
--Сreating issues
--Assigning labels to it
--Appointment of a person in charge
+- Сreating issues
+- Assigning labels to it
+- Appointment of a person in charge
 
 ##### Responsible people
 
--[@belyakova-anna](https://github.com/belyakova-anna)
+[@belyakova-anna](https://github.com/belyakova-anna)
 
 #### [Internationalization](https://github.com/team-work-tools/team-work-telegram-bot/labels/Internationalization)
 
@@ -209,45 +209,45 @@ Multi-language support
 
 ##### Responsible people
 
--[@belyakova-anna](https://github.com/belyakova-anna)
+- [@belyakova-anna](https://github.com/belyakova-anna)
 
 #### [LLMs](https://github.com/team-work-tools/team-work-telegram-bot/labels/LLMs)
 
 ##### Task characteristics
 
--Read user replies (can be many for a single message)
-    -(Optional) If replies contain links to issues, read these issues
--Generate a summary of how person plans matched what a person did during the week
--Make recommendations
+- Read user replies (can be many for a single message)
+    - (Optional) If replies contain links to issues, read these issues
+- Generate a summary of how person plans matched what a person did during the week
+- Make recommendations
 
 ##### Responsible people
 
--[@examplefirstaccount](https://github.com/examplefirstaccount)
--[@Fullerite](https://github.com/Fullerite)
+- [@examplefirstaccount](https://github.com/examplefirstaccount)
+- [@Fullerite](https://github.com/Fullerite)
 
 #### [Mini App](https://github.com/team-work-tools/team-work-telegram-bot/labels/Mini%20App)
 
 ##### Task characteristics
 
--Frontend
--Backend
--Integration with Telegram API
+- Frontend
+- Backend
+- Integration with Telegram API
 
 ##### Responsible people
 
--[@ghshark63](https://github.com/ghshark63)
--[@belyakova-anna](https://github.com/belyakova-anna)
+- [@ghshark63](https://github.com/ghshark63)
+- [@belyakova-anna](https://github.com/belyakova-anna)
 
 #### [Nix](https://github.com/team-work-tools/team-work-telegram-bot/labels/Nix)
 
 ##### Task characteristics
 
--Nix script for testing the bot
--Nix script for generating documentation
+- Nix script for testing the bot
+- Nix script for generating documentation
 
 ##### Responsible people
 
--[@ghshark63](https://github.com/ghshark63)
+- [@ghshark63](https://github.com/ghshark63)
 
 #### [Project Documentation](https://github.com/team-work-tools/team-work-telegram-bot/labels/Project%20Documentation)
 
@@ -265,10 +265,10 @@ Multi-language support
 
 ##### Task characteristics
 
--Studying the goals and objectives of the bot
--Identifying the target audience
--Analysis of alternative products
--Suggesting functional ideas
+- Studying the goals and objectives of the bot
+- Identifying the target audience
+- Analysis of alternative products
+- Suggesting functional ideas
 
 ##### Responsible people
 
@@ -278,23 +278,23 @@ Multi-language support
 
 ##### Task characteristics
 
--Use a password and a user name in the database
--Use NixOS
--Use sops
--Reproduce this or a similar attack
--Add a script to test the found attack automatically
+- Use a password and a user name in the database
+- Use NixOS
+- Use sops
+- Reproduce this or a similar attack
+- Add a script to test the found attack automatically
 
 ##### Responsible people
 
--[@examplefirstaccount](https://github.com/examplefirstaccount)
--[@Fullerite](https://github.com/Fullerite)
+- [@examplefirstaccount](https://github.com/examplefirstaccount)
+- [@Fullerite](https://github.com/Fullerite)
 
 #### [Task Management](https://github.com/team-work-tools/team-work-telegram-bot/labels/Task%20Management)
 
 ##### Task characteristics
 
--Maintain a backlog
--Assign people to tasks
+- Maintain a backlog
+- Assign people to tasks
 
 ##### Responsible people
 
@@ -304,9 +304,9 @@ Multi-language support
 
 ##### Task characteristics
 
--User experience analysis
--Prototyping
--User Experience Testing
+- User experience analysis
+- Prototyping
+- User Experience Testing
 
 ##### Responsible people
 
