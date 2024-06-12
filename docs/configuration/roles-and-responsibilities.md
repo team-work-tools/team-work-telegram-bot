@@ -12,9 +12,13 @@ Members: ... GitHub usernames with links to GitHub profiles ...
 
 ### Team 34
 
-Leader: @belyakova-anna
+Leader: [@belyakova-anna](https://github.com/belyakova-anna)
 
-Members: @Dayanaoak @Fullerite @examplefirstaccount @ghshark63
+Members: -[@ghshark63](https://github.com/ghshark63)
+-[@examplefirstaccount](https://github.com/examplefirstaccount)
+-[@Fullerite](https://github.com/Fullerite)
+-[@belyakova-anna](https://github.com/belyakova-anna)
+-[@Dayanaoak](https://github.com/Dayanaoak)
 
 ### Team 56
 
