@@ -12,9 +12,9 @@ Members: ... GitHub usernames with links to GitHub profiles ...
 
 ### Team 34
 
-Leader: ...
+Leader: @belyakova-anna
 
-Members: ...
+Members: @Dayanaoak @Fullerite @examplefirstaccount @ghshark63
 
 ### Team 56
 
@@ -82,7 +82,7 @@ TODO:
 
 ##### Responsible people
 
-[@deemp](https://github.com/deemp/), ... GitHub usernames ...
+[@ghshark63](https://github.com/ghshark63)
 
 #### [Quality Assurance](https://github.com/team-work-tools/team-work-telegram-bot/labels/Quality%20Assurance)
 
@@ -95,7 +95,7 @@ TODO:
 
 ##### Responsible people
 
-- [@deemp](https://github.com/deemp/), ...
+[@ghshark63](https://github.com/ghshark63)
 
 #### [Requirements](https://github.com/team-work-tools/team-work-telegram-bot/labels/Requirements)
 
@@ -116,7 +116,7 @@ TODO:
 
 ##### Responsible people
 
-[@deemp](https://github.com/deemp/), ...
+[@belyakova-anna](https://github.com/belyakova-anna)
 
 #### [Team Management](https://github.com/team-work-tools/team-work-telegram-bot/labels/Team%20Management)
 
@@ -128,6 +128,184 @@ TODO:
 
 ##### Responsible people
 
-[@deemp](https://github.com/deemp/), ...
+[@belyakova-anna](https://github.com/belyakova-anna)
+
+#### [Bot](https://github.com/team-work-tools/team-work-telegram-bot/labels/Bot)
+
+##### Task characteristics
+
+- Handle the team
+- Translate messages into different languages
+- Interact with the database
+
+##### Responsible people
+
+-[@examplefirstaccount](https://github.com/examplefirstaccount)
+-[@Fullerite](https://github.com/Fullerite)
+-[@belyakova-anna](https://github.com/belyakova-anna)
+
+
+#### [Database Administration](https://github.com/team-work-tools/team-work-telegram-bot/labels/Database%20Administration)
+
+##### Task characteristics
+
+-Database design
+-Writing functions to interact with the database
+
+##### Responsible people
+
+[@ghshark63](https://github.com/ghshark63)
+
+#### [Development](https://github.com/team-work-tools/team-work-telegram-bot/labels/Development)
+
+##### Task characteristics
+
+Everything related to writing code, including
+-Bot development (Python)
+-MiniApp development
+-Automated tests
+
+##### Responsible people
+
+-[@ghshark63](https://github.com/ghshark63)
+-[@examplefirstaccount](https://github.com/examplefirstaccount)
+-[@Fullerite](https://github.com/Fullerite)
+-[@belyakova-anna](https://github.com/belyakova-anna)
+
+#### [DevOps](https://github.com/team-work-tools/team-work-telegram-bot/labels/DevOps)
+
+##### Task characteristics
+
+-CI/CD
+-Monitoring and logging
+-Container management
+
+##### Responsible people
+
+-[@examplefirstaccount](https://github.com/examplefirstaccount)
+-[@Fullerite](https://github.com/Fullerite)
+
+#### [GitHub Issues Management](https://github.com/team-work-tools/team-work-telegram-bot/labels/GitHub%20Issues%20Management)
+
+##### Task characteristics
+
+-Сreating issues
+-Assigning labels to it
+-Appointment of a person in charge
+
+##### Responsible people
+
+-[@belyakova-anna](https://github.com/belyakova-anna)
+
+#### [Internationalization](https://github.com/team-work-tools/team-work-telegram-bot/labels/Internationalization)
+
+##### Task characteristics
+
+Multi-language support
+
+##### Responsible people
+
+-[@belyakova-anna](https://github.com/belyakova-anna)
+
+#### [LLMs](https://github.com/team-work-tools/team-work-telegram-bot/labels/LLMs)
+
+##### Task characteristics
+
+-Read user replies (can be many for a single message)
+    -(Optional) If replies contain links to issues, read these issues
+-Generate a summary of how person plans matched what a person did during the week
+-Make recommendations
+
+##### Responsible people
+
+-[@examplefirstaccount](https://github.com/examplefirstaccount)
+-[@Fullerite](https://github.com/Fullerite)
+
+#### [Mini App](https://github.com/team-work-tools/team-work-telegram-bot/labels/Mini%20App)
+
+##### Task characteristics
+
+-Frontend
+-Backend
+-Integration with Telegram API
+
+##### Responsible people
+
+-[@ghshark63](https://github.com/ghshark63)
+-[@belyakova-anna](https://github.com/belyakova-anna)
+
+#### [Nix](https://github.com/team-work-tools/team-work-telegram-bot/labels/Nix)
+
+##### Task characteristics
+
+-Nix script for testing the bot
+-Nix script for generating documentation
+
+##### Responsible people
+
+-[@ghshark63](https://github.com/ghshark63)
+
+#### [Project Documentation](https://github.com/team-work-tools/team-work-telegram-bot/labels/Project%20Documentation)
+
+##### Task characteristics
+
+- It is necessary to version the documentation in the project repository (files/issues).
+- Appropriate documentation tools must be used.
+- You need to make a website for documentation and set up auto-deployment (for example, GitHub Pages + mdBook + GitHub Actions).
+
+##### Responsible people
+
+[@Dayanaoak](https://github.com/Dayanaoak)
+
+#### [Research](https://github.com/team-work-tools/team-work-telegram-bot/labels/Research)
+
+##### Task characteristics
+
+-Studying the goals and objectives of the bot
+-Identifying the target audience
+-Analysis of alternative products
+-Suggesting functional ideas
+
+##### Responsible people
+
+[@Dayanaoak](https://github.com/Dayanaoak)
+
+#### [Security](https://github.com/team-work-tools/team-work-telegram-bot/labels/Security)
+
+##### Task characteristics
+
+-Use a password and a user name in the database
+-Use NixOS
+-Use sops
+-Reproduce this or a similar attack
+-Add a script to test the found attack automatically
+
+##### Responsible people
+
+-[@examplefirstaccount](https://github.com/examplefirstaccount)
+-[@Fullerite](https://github.com/Fullerite)
+
+#### [Task Management](https://github.com/team-work-tools/team-work-telegram-bot/labels/Task%20Management)
+
+##### Task characteristics
+
+-Maintain a backlog
+-Assign people to tasks
+
+##### Responsible people
+
+[@belyakova-anna](https://github.com/belyakova-anna)
+
+#### [UI/UX](https://github.com/team-work-tools/team-work-telegram-bot/labels/UI%2FUX)
+
+##### Task characteristics
+
+-User experience analysis
+-Prototyping
+-User Experience Testing
+
+##### Responsible people
+
+[@Dayanaoak](https://github.com/Dayanaoak)
 
 [^soap]: [Software Architecture in Practice, 4th ed](https://libstc.cc/#/stc/nid:dy6kmolzlnucrcnq9ud92ev92)
