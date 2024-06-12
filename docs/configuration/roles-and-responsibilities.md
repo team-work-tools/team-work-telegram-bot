@@ -86,8 +86,8 @@ TODO:
   - Choose frameworks
 
 ##### Responsible people
-
-[@ghshark63](https://github.com/ghshark63)
+- [@deemp](https://github.com/deemp/)
+- [@ghshark63](https://github.com/ghshark63)
 
 #### [Quality Assurance](https://github.com/team-work-tools/team-work-telegram-bot/labels/Quality%20Assurance)
 
@@ -99,8 +99,8 @@ TODO:
     - Unit tests
 
 ##### Responsible people
-
-[@ghshark63](https://github.com/ghshark63)
+- [@deemp](https://github.com/deemp/)
+- [@ghshark63](https://github.com/ghshark63)
 
 #### [Requirements](https://github.com/team-work-tools/team-work-telegram-bot/labels/Requirements)
 
@@ -120,8 +120,8 @@ TODO:
   - Clarify requirements with the customer.
 
 ##### Responsible people
-
-[@belyakova-anna](https://github.com/belyakova-anna)
+- [@deemp](https://github.com/deemp/)
+- [@belyakova-anna](https://github.com/belyakova-anna)
 
 #### [Team Management](https://github.com/team-work-tools/team-work-telegram-bot/labels/Team%20Management)
 
@@ -132,8 +132,8 @@ TODO:
 - Organize team meetings
 
 ##### Responsible people
-
-[@belyakova-anna](https://github.com/belyakova-anna)
+- [@deemp](https://github.com/deemp/)
+- [@belyakova-anna](https://github.com/belyakova-anna)
 
 #### [Bot](https://github.com/team-work-tools/team-work-telegram-bot/labels/Bot)
 
