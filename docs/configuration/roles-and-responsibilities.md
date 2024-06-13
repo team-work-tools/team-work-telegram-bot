@@ -44,7 +44,7 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
 1. Update the [Responsibility Distribution](#responsibility-distribution) section:
     1. Create missing subsections.
     1. Update/remove outdated subsections.
-    1. Update [Task characteristics](#task-characteristics) subsections.
+    1. Update [Task activity](#task-activity) subsections.
 1. Fill `Responsible People` sections.
 1. Commit and make a Pull Request.
 1. Ask people responsible for [Team Management](#team-management) to review and merge your pull request.
@@ -63,7 +63,7 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
 #### Read the [Responsibility Distribution](#responsibility-distribution) section
 
 - A label name with a hyperlink to the corresponding label like [Architecture](https://github.com/team-work-tools/team-work-telegram-bot/labels/Architecture) introduces a label.
-  - <a id="task-characteristics"></a> The `Task characteristics` section provides hints on when an issue should be assigned this label.
+  - <a id="task-activity"></a> The `Task activity` section provides hints on when an issue should be assigned this label.
   - <a id="responsible-people"></a> The `Responsible people` section lists GitHub usernames with hyperlinks to GitHub profiles of people responsible for either:
     - Closing issues with this label.
     - Reviewing PRs for issues with this label.
@@ -77,13 +77,12 @@ TODO:
 
 #### [Architecture](https://github.com/team-work-tools/team-work-telegram-bot/labels/Architecture)
 
-##### Task characteristics
+##### Task activity
 
-- Related to developing the project architecture:
-  - <a id="asrs"></a> Compose a Utility Tree with Architecturally Significant Requirement Scenarios (ASRS) (see Table 19.1 in [^soap])
-  - Model interaction between project components
-  - Write bot scenarios
-  - Choose frameworks
+- <a id="asrs"></a> Compose a Utility Tree with Architecturally Significant Requirement Scenarios (ASRS) (see Table 19.1 in [^soap])
+- Model interaction between project components
+- Write bot scenarios
+- Choose frameworks
 
 ##### Responsible people
 - [@deemp](https://github.com/deemp/)
@@ -91,12 +90,12 @@ TODO:
 
 #### [Quality Assurance](https://github.com/team-work-tools/team-work-telegram-bot/labels/Quality%20Assurance)
 
-##### Task characteristics
+##### Task activity
 
-- Related to defining and ensuring the product quality:
-  - Implement:
-    - Tests for [ASRS](#asrs)
-    - Unit tests
+- Design and/or implement tests
+  - for [ASRS](#asrs)
+  - for the bot
+  - for the Mini App
 
 ##### Responsible people
 - [@deemp](https://github.com/deemp/)
@@ -104,20 +103,14 @@ TODO:
 
 #### [Requirements](https://github.com/team-work-tools/team-work-telegram-bot/labels/Requirements)
 
-##### Task characteristics
+##### Task activity
 
-- Related to requirements engineering:
-  - Define the requirements format.
-  - Document existing customer requirements.
-  - Analyze requirements:
-    - Connect requirements
-    - Identify:
-      - missing
-      - irrelevant
-
-      requirements
-
-  - Clarify requirements with the customer.
+- Define the requirements format.
+- Document existing customer requirements.
+- Analyze requirements:
+  - Connect requirements.
+  - Identify missing, irrelevant requirements.
+- Clarify requirements with the customer.
 
 ##### Responsible people
 - [@deemp](https://github.com/deemp/)
@@ -125,10 +118,9 @@ TODO:
 
 #### [Team Management](https://github.com/team-work-tools/team-work-telegram-bot/labels/Team%20Management)
 
-##### Task characteristics
+##### Task activity
 
-- Set up team work tools
-- Document and set up policies, processes, and procedures ([link](https://www.oracle.com/ce-help/playbook/display-content/ar02-policy-process-or-procedure)).
+- Document and set up policies, processes, and procedures ([link](./policies-processes-procedures.md)).
 - Organize team meetings
 
 ##### Responsible people
@@ -137,7 +129,7 @@ TODO:
 
 #### [Bot](https://github.com/team-work-tools/team-work-telegram-bot/labels/Bot)
 
-##### Task characteristics
+##### Task activity
 
 - Handle the team
 - Translate messages into different languages
@@ -152,7 +144,7 @@ TODO:
 
 #### [Database Administration](https://github.com/team-work-tools/team-work-telegram-bot/labels/Database%20Administration)
 
-##### Task characteristics
+##### Task activity
 
 - Database design
 - Writing functions to interact with the database
@@ -163,7 +155,7 @@ TODO:
 
 #### [Development](https://github.com/team-work-tools/team-work-telegram-bot/labels/Development)
 
-##### Task characteristics
+##### Task activity
 
 Everything related to writing code, including
 - Bot development (Python)
@@ -179,7 +171,7 @@ Everything related to writing code, including
 
 #### [DevOps](https://github.com/team-work-tools/team-work-telegram-bot/labels/DevOps)
 
-##### Task characteristics
+##### Task activity
 
 - CI/CD
 - Monitoring and logging
@@ -192,7 +184,7 @@ Everything related to writing code, including
 
 #### [GitHub Issues Management](https://github.com/team-work-tools/team-work-telegram-bot/labels/GitHub%20Issues%20Management)
 
-##### Task characteristics
+##### Task activity
 
 - Сreating issues
 - Assigning labels to it
@@ -204,7 +196,7 @@ Everything related to writing code, including
 
 #### [Internationalization](https://github.com/team-work-tools/team-work-telegram-bot/labels/Internationalization)
 
-##### Task characteristics
+##### Task activity
 
 Multi-language support
 
@@ -214,7 +206,7 @@ Multi-language support
 
 #### [LLMs](https://github.com/team-work-tools/team-work-telegram-bot/labels/LLMs)
 
-##### Task characteristics
+##### Task activity
 
 - Read user replies (can be many for a single message)
     - (Optional) If replies contain links to issues, read these issues
@@ -228,7 +220,7 @@ Multi-language support
 
 #### [Mini App](https://github.com/team-work-tools/team-work-telegram-bot/labels/Mini%20App)
 
-##### Task characteristics
+##### Task activity
 
 - Frontend
 - Backend
@@ -241,7 +233,7 @@ Multi-language support
 
 #### [Nix](https://github.com/team-work-tools/team-work-telegram-bot/labels/Nix)
 
-##### Task characteristics
+##### Task activity
 
 - Nix script for testing the bot
 - Nix script for generating documentation
@@ -252,7 +244,7 @@ Multi-language support
 
 #### [Project Documentation](https://github.com/team-work-tools/team-work-telegram-bot/labels/Project%20Documentation)
 
-##### Task characteristics
+##### Task activity
 
 - It is necessary to version the documentation in the project repository (files/issues).
 - Appropriate documentation tools must be used.
@@ -264,7 +256,7 @@ Multi-language support
 
 #### [Research](https://github.com/team-work-tools/team-work-telegram-bot/labels/Research)
 
-##### Task characteristics
+##### Task activity
 
 - Studying the goals and objectives of the bot
 - Identifying the target audience
@@ -277,7 +269,7 @@ Multi-language support
 
 #### [Security](https://github.com/team-work-tools/team-work-telegram-bot/labels/Security)
 
-##### Task characteristics
+##### Task activity
 
 - Use a password and a user name in the database
 - Use NixOS
@@ -292,18 +284,19 @@ Multi-language support
 
 #### [Task Management](https://github.com/team-work-tools/team-work-telegram-bot/labels/Task%20Management)
 
-##### Task characteristics
+##### Task activity
 
 - Maintain a backlog
 - Assign people to tasks
 
 ##### Responsible people
 
-[@belyakova-anna](https://github.com/belyakova-anna)
+- [@deemp](https://github.com/deemp/)
+- [@belyakova-anna](https://github.com/belyakova-anna)
 
 #### [UI/UX](https://github.com/team-work-tools/team-work-telegram-bot/labels/UI%2FUX)
 
-##### Task characteristics
+##### Task activity
 
 - User experience analysis
 - Prototyping
