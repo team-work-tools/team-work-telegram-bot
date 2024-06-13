@@ -131,7 +131,7 @@ TODO:
 
 ##### Task activity
 
-- Handle the team
+- Handle the commands
 - Translate messages into different languages
 - Interact with the database
 
@@ -146,8 +146,8 @@ TODO:
 
 ##### Task activity
 
-- Database design
-- Writing functions to interact with the database
+- Design the database
+- Write functions to interact with the database
 
 ##### Responsible people
 
@@ -157,10 +157,9 @@ TODO:
 
 ##### Task activity
 
-Everything related to writing code, including
-- Bot development (Python)
-- MiniApp development
-- Automated tests
+- Develop bot (Python)
+- Develop MiniApp
+- Write automated tests
 
 ##### Responsible people
 
@@ -173,9 +172,9 @@ Everything related to writing code, including
 
 ##### Task activity
 
-- CI/CD
-- Monitoring and logging
-- Container management
+- Do CI/CD
+- Monitor and log
+- Manage containers
 
 ##### Responsible people
 
@@ -186,9 +185,9 @@ Everything related to writing code, including
 
 ##### Task activity
 
-- Сreating issues
-- Assigning labels to it
-- Appointment of a person in charge
+- Сreate issues
+- Assign labels to it
+- Appoint responsible people
 
 ##### Responsible people
 
@@ -198,7 +197,7 @@ Everything related to writing code, including
 
 ##### Task activity
 
-Multi-language support
+Support multi-language chat
 
 ##### Responsible people
 
@@ -222,9 +221,9 @@ Multi-language support
 
 ##### Task activity
 
-- Frontend
-- Backend
-- Integration with Telegram API
+- Make frontend
+- Make backend
+- Make integration with Telegram API
 
 ##### Responsible people
 
@@ -235,8 +234,8 @@ Multi-language support
 
 ##### Task activity
 
-- Nix script for testing the bot
-- Nix script for generating documentation
+- Write Nix script for testing the bot
+- Write Nix script for generating documentation
 
 ##### Responsible people
 
@@ -246,9 +245,9 @@ Multi-language support
 
 ##### Task activity
 
-- It is necessary to version the documentation in the project repository (files/issues).
-- Appropriate documentation tools must be used.
-- You need to make a website for documentation and set up auto-deployment (for example, GitHub Pages + mdBook + GitHub Actions).
+- Version the documentation in the project repository (files/issues).
+- Use appropriate documentation tools.
+- Make a website for documentation and set up auto-deployment (for example, GitHub Pages + mdBook + GitHub Actions).
 
 ##### Responsible people
 
@@ -258,10 +257,10 @@ Multi-language support
 
 ##### Task activity
 
-- Studying the goals and objectives of the bot
-- Identifying the target audience
-- Analysis of alternative products
-- Suggesting functional ideas
+- Study the goals and objectives of the bot
+- Identify the target audience
+- Analyze alternative products
+- Suggest functional ideas
 
 ##### Responsible people
 
@@ -298,9 +297,9 @@ Multi-language support
 
 ##### Task activity
 
-- User experience analysis
-- Prototyping
-- User Experience Testing
+- Analyze user experience
+- Make a prototype
+- Test user experience
 
 ##### Responsible people
 
