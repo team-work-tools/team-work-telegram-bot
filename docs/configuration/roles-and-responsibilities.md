@@ -71,11 +71,6 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
 
 ## Responsibility Distribution
 
-TODO:
-
-- document other responsibilities
-- assign people
-
 #### [Architecture](https://github.com/team-work-tools/team-work-telegram-bot/labels/Architecture)
 
 ##### Task activity
