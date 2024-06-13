@@ -182,18 +182,6 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
 - [@examplefirstaccount](https://github.com/examplefirstaccount)
 - [@Fullerite](https://github.com/Fullerite)
 
-#### [GitHub Issues Management](https://github.com/team-work-tools/team-work-telegram-bot/labels/GitHub%20Issues%20Management)
-
-##### Task activity
-
-- Сreate issues
-- Assign labels to it
-- Appoint responsible people
-
-##### Responsible people
-
-[@belyakova-anna](https://github.com/belyakova-anna)
-
 #### [Internationalization](https://github.com/team-work-tools/team-work-telegram-bot/labels/Internationalization)
 
 ##### Task activity
