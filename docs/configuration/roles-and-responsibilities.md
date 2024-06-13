@@ -14,12 +14,13 @@ Members: ... GitHub usernames with links to GitHub profiles ...
 
 Leader: [@belyakova-anna](https://github.com/belyakova-anna)
 
-Members: 
-- [@ghshark63](https://github.com/ghshark63)
-- [@examplefirstaccount](https://github.com/examplefirstaccount)
-- [@Fullerite](https://github.com/Fullerite)
+Members:
+
 - [@belyakova-anna](https://github.com/belyakova-anna)
 - [@Dayanaoak](https://github.com/Dayanaoak)
+- [@examplefirstaccount](https://github.com/examplefirstaccount)
+- [@Fullerite](https://github.com/Fullerite)
+- [@ghshark63](https://github.com/ghshark63)
 
 ### Team 56
 
