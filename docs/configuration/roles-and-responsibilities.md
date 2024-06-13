@@ -12,9 +12,15 @@ Members: ... GitHub usernames with links to GitHub profiles ...
 
 ### Team 34
 
-Leader: ...
+Leader: [@belyakova-anna](https://github.com/belyakova-anna)
 
-Members: ...
+Members:
+
+- [@belyakova-anna](https://github.com/belyakova-anna)
+- [@Dayanaoak](https://github.com/Dayanaoak)
+- [@examplefirstaccount](https://github.com/examplefirstaccount)
+- [@Fullerite](https://github.com/Fullerite)
+- [@ghshark63](https://github.com/ghshark63)
 
 ### Team 56
 
@@ -65,11 +71,6 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
 
 ## Responsibility Distribution
 
-TODO:
-
-- document other responsibilities
-- assign people
-
 #### [Architecture](https://github.com/team-work-tools/team-work-telegram-bot/labels/Architecture)
 
 ##### Task activity
@@ -81,7 +82,9 @@ TODO:
 
 ##### Responsible people
 
-[@deemp](https://github.com/deemp/), ... GitHub usernames ...
+- [@deemp](https://github.com/deemp/)
+- [@belyakova-anna](https://github.com/belyakova-anna)
+- [@Dayanaoak](https://github.com/Dayanaoak)
 
 #### [Quality Assurance](https://github.com/team-work-tools/team-work-telegram-bot/labels/Quality%20Assurance)
 
@@ -94,7 +97,8 @@ TODO:
 
 ##### Responsible people
 
-- [@deemp](https://github.com/deemp/), ...
+- [@deemp](https://github.com/deemp/)
+- [@ghshark63](https://github.com/ghshark63)
 
 #### [Requirements](https://github.com/team-work-tools/team-work-telegram-bot/labels/Requirements)
 
@@ -109,21 +113,8 @@ TODO:
 
 ##### Responsible people
 
-[@deemp](https://github.com/deemp/), ...
-
-#### [Task Management](https://github.com/team-work-tools/team-work-telegram-bot/labels/Task%20Management)
-
-##### Task activity
-
-- Create issues.
-- Modify issue text, status (open/closed), etc.
-- Assign labels and people based on:
-  - The [Responsibility Distribution](#responsibility-distribution).
-  - The load of project members.
-
-##### Responsible people
-
-[@deemp](https://github.com/deemp/), ...
+- [@deemp](https://github.com/deemp/)
+- [@belyakova-anna](https://github.com/belyakova-anna)
 
 #### [Team Management](https://github.com/team-work-tools/team-work-telegram-bot/labels/Team%20Management)
 
@@ -134,6 +125,216 @@ TODO:
 
 ##### Responsible people
 
-[@deemp](https://github.com/deemp/), ...
+- [@deemp](https://github.com/deemp/)
+- [@belyakova-anna](https://github.com/belyakova-anna)
+
+#### [Bot](https://github.com/team-work-tools/team-work-telegram-bot/labels/Bot)
+
+##### Task activity
+
+- Handle the bot commands
+- Support [Internationalization](#internationalization)
+- Interact with the database
+
+##### Responsible people
+
+- [@examplefirstaccount](https://github.com/examplefirstaccount)
+- [@Fullerite](https://github.com/Fullerite)
+- [@belyakova-anna](https://github.com/belyakova-anna)
+
+#### [Database Administration](https://github.com/team-work-tools/team-work-telegram-bot/labels/Database%20Administration)
+
+##### Task activity
+
+- Design the database
+- Write functions to interact with the database
+
+##### Responsible people
+
+- [@ghshark63](https://github.com/ghshark63)
+
+#### [Development](https://github.com/team-work-tools/team-work-telegram-bot/labels/Development)
+
+##### Task activity
+
+- Develop bot (Python)
+- Develop MiniApp
+- Write automated tests
+
+##### Responsible people
+
+- [@ghshark63](https://github.com/ghshark63)
+- [@examplefirstaccount](https://github.com/examplefirstaccount)
+- [@Fullerite](https://github.com/Fullerite)
+- [@belyakova-anna](https://github.com/belyakova-anna)
+
+#### [DevOps](https://github.com/team-work-tools/team-work-telegram-bot/labels/DevOps)
+
+##### Task activity
+
+- Do CI/CD with GitHub Actions
+- Monitor and log applications
+- Manage secrets
+- Work on the documentation website:
+  - Set up:
+    - Automatic builds
+    - Automatic deployment
+
+##### Responsible people
+
+- [@examplefirstaccount](https://github.com/examplefirstaccount)
+- [@Fullerite](https://github.com/Fullerite)
+
+#### [Internationalization](https://github.com/team-work-tools/team-work-telegram-bot/labels/Internationalization)
+
+##### Task activity
+
+- Translate messages to other languages
+
+##### Responsible people
+
+- [@belyakova-anna](https://github.com/belyakova-anna)
+
+#### [LLMs](https://github.com/team-work-tools/team-work-telegram-bot/labels/LLMs)
+
+##### Task activity
+
+- Process user messages via LLMs and other ML techniques:
+  - Extract important info from user messages:
+    - Links to issues or identifiers of issues
+    - Assess mood
+- Implement summary generation:
+  - How do person
+    - progress reports match with past plans
+    - plans match with progress over a week
+- Implement feedback system:
+  - For improving team
+    - Progress
+      - Recommend areas to work on
+    - Mood
+      - Generate
+        - Compliments
+        - Salutations
+
+##### Responsible people
+
+- [@examplefirstaccount](https://github.com/examplefirstaccount)
+- [@Fullerite](https://github.com/Fullerite)
+
+#### [Mini App](https://github.com/team-work-tools/team-work-telegram-bot/labels/Mini%20App), [Backend](https://github.com/team-work-tools/team-work-telegram-bot/labels/Backend)
+
+##### Task activity
+
+- Work on the Mini App backend
+- Integrate with the Mini App frontend
+- Integrate with the Bot
+- Integrate with Telegram API
+
+##### Responsible people
+
+- [@ghshark63](https://github.com/ghshark63)
+- [@belyakova-anna](https://github.com/belyakova-anna)
+
+#### [Mini App](https://github.com/team-work-tools/team-work-telegram-bot/labels/Mini%20App), [Frontend](https://github.com/team-work-tools/team-work-telegram-bot/labels/Frontend)
+
+##### Task activity
+
+- Work on the Mini App frontend
+- Integrate with the Mini App backend
+- Integrate with the Bot
+- Integrate with Telegram API
+
+##### Responsible people
+
+- [@ghshark63](https://github.com/ghshark63)
+- [@belyakova-anna](https://github.com/belyakova-anna)
+
+#### [Nix](https://github.com/team-work-tools/team-work-telegram-bot/labels/Nix)
+
+##### Task activity
+
+- Write Nix script for testing the bot
+- Write Nix script for generating documentation
+
+##### Responsible people
+
+- [@ghshark63](https://github.com/ghshark63)
+
+#### [Project Documentation](https://github.com/team-work-tools/team-work-telegram-bot/labels/Project%20Documentation)
+
+##### Task activity
+
+- Update project documentation:
+  - Internal:
+    - In Russian
+    - In a Google Doc
+    - Based on Telegram messages
+  - External:
+    - In English
+    - In the project repository:
+      - Files
+      - Issues
+- Check
+  - Links are valid
+  - External documentation is written in the format acceptable by mdBook.
+  - External documentation is rendered correctly.
+
+##### Responsible people
+
+- [@Dayanaoak](https://github.com/Dayanaoak)
+
+#### [Research](https://github.com/team-work-tools/team-work-telegram-bot/labels/Research)
+
+##### Task activity
+
+- Study the goals and objectives of the bot
+- Identify the target audience
+- Analyze alternative products
+- Suggest functional ideas
+
+##### Responsible people
+
+- [@Dayanaoak](https://github.com/Dayanaoak)
+
+#### [Security](https://github.com/team-work-tools/team-work-telegram-bot/labels/Security)
+
+##### Task activity
+
+- Use a password and a user name in the database
+- Use NixOS
+- Use sops
+- Reproduce this or a similar attack
+- Add a script to test the found attack automatically
+
+##### Responsible people
+
+- [@examplefirstaccount](https://github.com/examplefirstaccount)
+- [@Fullerite](https://github.com/Fullerite)
+
+#### [Task Management](https://github.com/team-work-tools/team-work-telegram-bot/labels/Task%20Management)
+
+##### Task activity
+
+- Maintain a backlog
+- Assign labels to issues
+- Assign people to tasks
+
+##### Responsible people
+
+- [@deemp](https://github.com/deemp/)
+- [@belyakova-anna](https://github.com/belyakova-anna)
+
+#### [UI/UX](https://github.com/team-work-tools/team-work-telegram-bot/labels/UI%2FUX)
+
+##### Task activity
+
+- Make prototypes in Figma
+- Make bot scenarios convenient
+- Test user experience
+- Analyze user experience
+
+##### Responsible people
+
+- [@Dayanaoak](https://github.com/Dayanaoak)
 
 [^soap]: [Software Architecture in Practice, 4th ed](https://libstc.cc/#/stc/nid:dy6kmolzlnucrcnq9ud92ev92)
