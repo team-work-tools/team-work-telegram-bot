@@ -218,7 +218,21 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
 - [@examplefirstaccount](https://github.com/examplefirstaccount)
 - [@Fullerite](https://github.com/Fullerite)
 
-#### [Mini App](https://github.com/team-work-tools/team-work-telegram-bot/labels/Mini%20App)
+#### [Mini App](https://github.com/team-work-tools/team-work-telegram-bot/labels/Mini%20App), [Backend](https://github.com/team-work-tools/team-work-telegram-bot/labels/Backend)
+
+##### Task activity
+
+- Work on the Mini App backend
+- Integrate with the Mini App frontend
+- Integrate with the Bot
+- Integrate with Telegram API
+
+##### Responsible people
+
+- [@ghshark63](https://github.com/ghshark63)
+- [@belyakova-anna](https://github.com/belyakova-anna)
+
+#### [Mini App](https://github.com/team-work-tools/team-work-telegram-bot/labels/Mini%20App), [Frontend](https://github.com/team-work-tools/team-work-telegram-bot/labels/Frontend)
 
 ##### Task activity
 
