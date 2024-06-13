@@ -148,7 +148,7 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
 
 ##### Responsible people
 
-[@ghshark63](https://github.com/ghshark63)
+- [@ghshark63](https://github.com/ghshark63)
 
 #### [Development](https://github.com/team-work-tools/team-work-telegram-bot/labels/Development)
 
@@ -248,7 +248,7 @@ Support multi-language chat
 
 ##### Responsible people
 
-[@Dayanaoak](https://github.com/Dayanaoak)
+- [@Dayanaoak](https://github.com/Dayanaoak)
 
 #### [Research](https://github.com/team-work-tools/team-work-telegram-bot/labels/Research)
 
@@ -261,7 +261,7 @@ Support multi-language chat
 
 ##### Responsible people
 
-[@Dayanaoak](https://github.com/Dayanaoak)
+- [@Dayanaoak](https://github.com/Dayanaoak)
 
 #### [Security](https://github.com/team-work-tools/team-work-telegram-bot/labels/Security)
 
@@ -300,6 +300,6 @@ Support multi-language chat
 
 ##### Responsible people
 
-[@Dayanaoak](https://github.com/Dayanaoak)
+- [@Dayanaoak](https://github.com/Dayanaoak)
 
 [^soap]: [Software Architecture in Practice, 4th ed](https://libstc.cc/#/stc/nid:dy6kmolzlnucrcnq9ud92ev92)
