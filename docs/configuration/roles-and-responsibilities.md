@@ -81,6 +81,7 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
 - Choose frameworks
 
 ##### Responsible people
+
 - [@deemp](https://github.com/deemp/)
 - [@belyakova-anna](https://github.com/belyakova-anna)
 - [@Dayanaoak](https://github.com/Dayanaoak)
@@ -95,6 +96,7 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
   - for the Mini App
 
 ##### Responsible people
+
 - [@deemp](https://github.com/deemp/)
 - [@ghshark63](https://github.com/ghshark63)
 
@@ -110,6 +112,7 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
 - Clarify requirements with the customer.
 
 ##### Responsible people
+
 - [@deemp](https://github.com/deemp/)
 - [@belyakova-anna](https://github.com/belyakova-anna)
 
@@ -121,6 +124,7 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
 - Organize team meetings
 
 ##### Responsible people
+
 - [@deemp](https://github.com/deemp/)
 - [@belyakova-anna](https://github.com/belyakova-anna)
 
@@ -137,7 +141,6 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
 - [@examplefirstaccount](https://github.com/examplefirstaccount)
 - [@Fullerite](https://github.com/Fullerite)
 - [@belyakova-anna](https://github.com/belyakova-anna)
-
 
 #### [Database Administration](https://github.com/team-work-tools/team-work-telegram-bot/labels/Database%20Administration)
 
