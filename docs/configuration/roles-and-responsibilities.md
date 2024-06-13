@@ -86,7 +86,8 @@ TODO:
 
 ##### Responsible people
 - [@deemp](https://github.com/deemp/)
-- [@ghshark63](https://github.com/ghshark63)
+- [@belyakova-anna](https://github.com/belyakova-anna)
+- [@Dayanaoak](https://github.com/Dayanaoak)
 
 #### [Quality Assurance](https://github.com/team-work-tools/team-work-telegram-bot/labels/Quality%20Assurance)
 
