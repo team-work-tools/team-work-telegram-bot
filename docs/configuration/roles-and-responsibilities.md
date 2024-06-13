@@ -128,8 +128,8 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
 
 ##### Task activity
 
-- Handle the commands
-- Translate messages into different languages
+- Handle the bot commands
+- Support [Internationalization](#internationalization)
 - Interact with the database
 
 ##### Responsible people
@@ -169,9 +169,13 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
 
 ##### Task activity
 
-- Do CI/CD
-- Monitor and log
-- Manage containers
+- Do CI/CD with GitHub Actions
+- Monitor and log applications
+- Manage secrets
+- Work on the documentation website:
+  - Set up:
+    - Automatic builds
+    - Automatic deployment
 
 ##### Responsible people
 
@@ -194,7 +198,7 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
 
 ##### Task activity
 
-Support multi-language chat
+- Translate messages to other languages
 
 ##### Responsible people
 
@@ -204,10 +208,22 @@ Support multi-language chat
 
 ##### Task activity
 
-- Read user replies (can be many for a single message)
-    - (Optional) If replies contain links to issues, read these issues
-- Generate a summary of how person plans matched what a person did during the week
-- Make recommendations
+- Process user messages via LLMs and other ML techniques:
+  - Extract important info from user messages:
+    - Links to issues or identifiers of issues
+    - Assess mood
+- Implement summary generation:
+  - How do person
+    - progress reports match with past plans
+    - plans match with progress over a week
+- Implement feedback system:
+  - For improving team
+    - Progress
+      - Recommend areas to work on
+    - Mood
+      - Generate
+        - Compliments
+        - Salutations
 
 ##### Responsible people
 
@@ -218,9 +234,10 @@ Support multi-language chat
 
 ##### Task activity
 
-- Make frontend
-- Make backend
-- Make integration with Telegram API
+- Work on the Mini App frontend
+- Integrate with the Mini App backend
+- Integrate with the Bot
+- Integrate with Telegram API
 
 ##### Responsible people
 
@@ -242,9 +259,20 @@ Support multi-language chat
 
 ##### Task activity
 
-- Version the documentation in the project repository (files/issues).
-- Use appropriate documentation tools.
-- Make a website for documentation and set up auto-deployment (for example, GitHub Pages + mdBook + GitHub Actions).
+- Update project documentation:
+  - Internal:
+    - In Russian
+    - In a Google Doc
+    - Based on Telegram messages
+  - External:
+    - In English
+    - In the project repository:
+      - Files
+      - Issues
+- Check
+  - Links are valid
+  - External documentation is written in the format acceptable by mdBook.
+  - External documentation is rendered correctly.
 
 ##### Responsible people
 
@@ -283,6 +311,7 @@ Support multi-language chat
 ##### Task activity
 
 - Maintain a backlog
+- Assign labels to issues
 - Assign people to tasks
 
 ##### Responsible people
@@ -294,9 +323,10 @@ Support multi-language chat
 
 ##### Task activity
 
-- Analyze user experience
-- Make a prototype
+- Make prototypes in Figma
+- Make bot scenarios convenient
 - Test user experience
+- Analyze user experience
 
 ##### Responsible people
 
