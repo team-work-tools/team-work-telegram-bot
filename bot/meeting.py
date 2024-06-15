@@ -1,12 +1,14 @@
-from datetime import datetime
-from aiogram import Bot
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from .custom_types import SendMessage, ChatId
-from .constants import day_of_week, jobstore
-from .messages import make_daily_messages
-from .state import load_state, ChatState
 import logging
+from datetime import datetime
+
+from aiogram import Bot
 from aiogram.utils.i18n import gettext as _
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+
+from .constants import day_of_week, jobstore
+from .custom_types import ChatId, SendMessage
+from .messages import make_daily_messages
+from .state import ChatState, load_state
 
 
 async def send_meeting_messages(chat_id: ChatId, send_message: SendMessage):

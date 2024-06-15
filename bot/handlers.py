@@ -1,26 +1,23 @@
-from datetime import datetime
 import json
-from aiogram import Router, html, Bot
+import logging
+from datetime import datetime
+from textwrap import dedent
+
+from aiogram import Bot, Router, html
+from aiogram.enums import ParseMode
 from aiogram.filters.command import Command
 from aiogram.types import Message
-from .state import ChatState, save_state
-from .filters import HasMessageText, HasMessageUserUsername, HasChatState
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from .meeting import schedule_meeting
-from .custom_types import SendMessage, SaveState, LoadState
-from .constants import (
-    day_of_week_pretty,
-    datetime_time_format,
-    iso8601,
-    time_url,
-    sample_time,
-)
-from .commands import bot_command_names
-from .messages import make_help_message
-from textwrap import dedent
-import logging
 from aiogram.utils.i18n import gettext as _
-from aiogram.enums import ParseMode
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+
+from .commands import bot_command_names
+from .constants import (day_of_week_to_num, day_of_week_pretty, iso8601,
+                        sample_time, time_url)
+from .custom_types import LoadState, SaveState, SendMessage
+from .filters import HasChatState, HasMessageText, HasMessageUserUsername
+from .meeting import schedule_meeting
+from .messages import make_help_message
+from .state import ChatState, save_state
 
 
 def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage):
@@ -44,7 +41,7 @@ def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage):
 
 
 def handle_global_commands(
-    scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router
+        scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router
 ):
     @router.message(Command(bot_command_names.start), HasChatState())
     async def start(message: Message, chat_state: ChatState):
@@ -56,13 +53,13 @@ def handle_global_commands(
 
 
 def handle_team_settings_commands(
-    scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router
+        scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router
 ):
     @router.message(
         Command(bot_command_names.set_meetings_time), HasMessageText(), HasChatState()
     )
     async def set_meetings_time(
-        message: Message, message_text: str, chat_state: ChatState
+            message: Message, message_text: str, chat_state: ChatState
     ):
         meeting_time_str = message_text.split(" ", 1)
 
@@ -111,7 +108,7 @@ def handle_team_settings_commands(
 
 
 def handle_personal_settings_commands(
-    scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router
+        scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router
 ):
     @router.message(
         Command(bot_command_names.join), HasMessageUserUsername(), HasChatState()
@@ -165,9 +162,69 @@ def handle_personal_settings_commands(
                 )
             )
 
+    @router.message(
+        Command(bot_command_names.set_personal_meetings_days), HasMessageText(), HasChatState()
+    )
+    async def set_personal_meetings_days(
+            message: Message, message_text: str, chat_state: ChatState
+    ):
+        try:
+            msg_spt = message_text.split()
+            if len(msg_spt) == 1:
+                raise Exception
+
+            working_days_str = " ".join(msg_spt[1:])
+            day_tokens = working_days_str.replace(",", " ").lower().split()
+
+            days_num = set()
+
+            for token in day_tokens:
+                if not token:
+                    continue
+
+                if "-" in token:
+                    start_day, end_day = token.split("-")
+                    start_num = day_of_week_to_num[start_day]
+                    end_num = day_of_week_to_num[end_day]
+                    days_num.update(range(start_num, end_num + 1))
+                else:
+                    days_num.add(day_of_week_to_num[token])
+
+            sorted(days_num)
+
+            # TODO: save parsed working days in to db
+            # chat_state.meeting_time = meeting_time
+            # await save_state(chat_state=chat_state)
+
+            await message.reply(
+                _(
+                    "OK, from now you will only receive messages on {working_days}."
+                ).format(
+                    working_days=html.bold(", ".join(day_tokens))
+                )
+            )
+        except Exception as e:
+            await message.reply(
+                dedent(
+                    _(
+                        """
+                        Please indicate your personal working days.
+
+                        You should use "," or " " as a separator.
+
+                        Example:
+
+                        /{set_personal_meetings_days} Monday-Wednesday, Friday 
+                        """
+                    ).format(
+                        set_personal_meetings_days=bot_command_names.set_personal_meetings_days
+                    )
+                )
+            )
+
 
 def handle_info_commands(
-    scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router
+        scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router
 ):
     @router.message(Command(bot_command_names.get_chat_state), HasChatState())
     async def get_chat_state(message: Message, chat_state: ChatState):

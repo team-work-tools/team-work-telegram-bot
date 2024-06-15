@@ -1,8 +1,10 @@
-from typing import Optional, Annotated
 from datetime import datetime
-from beanie import Document, Indexed
-import pymongo
+from typing import Annotated, Optional
 from zoneinfo import ZoneInfo
+
+import pymongo
+from beanie import Document, Indexed
+
 from .chat import ChatId
 from .language import Language
 

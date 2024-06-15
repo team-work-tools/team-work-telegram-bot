@@ -1,5 +1,6 @@
 from beanie import init_beanie
 from motor.motor_asyncio import AsyncIOMotorClient
+
 from .settings import Settings
 from .state import ChatState
 

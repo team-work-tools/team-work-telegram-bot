@@ -1,15 +1,20 @@
+import argparse
 import asyncio
 import logging
 import sys
-from .constants import AppCommands
-import argparse
-from .messages import make_help_message, make_daily_messages
-from . import bot
-from .settings import Settings
+
+from dotenv import load_dotenv
 from pydantic import ValidationError
+
+from . import bot
+from .constants import AppCommands
+from .messages import make_daily_messages, make_help_message
+from .settings import Settings
 
 
 def main():
+    load_dotenv()
+
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(
         title="subcommands", description="bot commands", dest="command"

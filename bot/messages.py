@@ -1,12 +1,13 @@
-from .language import Language
-from .commands import bot_command_names, bot_command_descriptions
-from textwrap import dedent
-from .constants import day_of_week_pretty
-from aiogram import html
-from datetime import datetime
-from . import commands
 from dataclasses import dataclass
+from datetime import datetime
+from textwrap import dedent
+
+from aiogram import html
 from aiogram.utils.i18n import gettext as _
+
+from .commands import bot_command_descriptions, bot_command_names
+from .constants import day_of_week_pretty
+from .language import Language
 
 
 def bot_intro():
@@ -20,8 +21,8 @@ def bot_intro():
 
 
 def make_help_message() -> str:
-    command_names = commands.bot_command_names
-    command_descriptions = commands.bot_command_descriptions()
+    command_names = bot_command_names
+    command_descriptions = bot_command_descriptions()
 
     return dedent(
         f"""

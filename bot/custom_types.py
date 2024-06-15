@@ -1,9 +1,11 @@
 from typing import Protocol
+
 from aiogram import Bot
 from aiogram.types import Message
-from .state import ChatState
+
 from . import state
 from .chat import ChatId
+from .state import ChatState
 
 
 class SendMessage(Protocol):

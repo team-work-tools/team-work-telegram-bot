@@ -1,20 +1,19 @@
-from pathlib import Path
-from aiogram import Bot, Dispatcher, Router
+from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
-from . import handlers
-from .state import ChatState
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from .state import load_state
-from .meeting import schedule_meeting
-from .custom_types import SendMessage, ChatId
-from .settings import Settings
-from . import db
-from apscheduler.jobstores.memory import MemoryJobStore
-from pytz import utc
-from .constants import jobstore
 from aiogram.utils.i18n import I18n
 from aiogram.utils.i18n.middleware import FSMI18nMiddleware
+from apscheduler.jobstores.memory import MemoryJobStore
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from pytz import utc
+
+from . import db, handlers
+from .commands import BotCommands
+from .constants import jobstore
+from .custom_types import ChatId, SendMessage
+from .meeting import schedule_meeting
+from .settings import Settings
+from .state import ChatState
 
 
 def init_scheduler(settings: Settings) -> AsyncIOScheduler:
@@ -40,8 +39,9 @@ async def restore_scheduled_jobs(
 
 async def on_startup():
     bot_commands = [
-        BotCommand()
+        BotCommands()
     ]
+
 
 async def main(settings: Settings) -> None:
     await db.main(settings=settings)
