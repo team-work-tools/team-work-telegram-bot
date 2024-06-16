@@ -42,7 +42,7 @@ class ChatState(Document):
     language: Language = Language.default
     meeting_time: Optional[datetime] = None
     chat_id: Annotated[ChatId, Indexed(index_type=pymongo.ASCENDING)]
-    joined_users: set[str] = set()
+    joined_users: set[Link[User]] = set()
 
 
 async def create_state(chat_id: ChatId) -> ChatState:
