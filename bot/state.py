@@ -11,7 +11,7 @@ from .language import Language
 
 class User(Document):
     username: Annotated[str, Indexed(unique=True)]
-    work_days: set[int] = set()
+    working_days: set[int] = set()
 
     def __hash__(self):
         return hash(self.id)
@@ -32,7 +32,7 @@ async def load_user(username: str) -> User:
             return user
         case _:
             return await create_user(username=username)
-        
+
 
 async def save_user(user: User) -> None:
     await user.save()
