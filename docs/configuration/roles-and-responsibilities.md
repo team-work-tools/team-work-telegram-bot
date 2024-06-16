@@ -6,9 +6,14 @@ This document describes [roles](#roles), how [responsibilities](#responsibilitie
 
 ### Team 12
 
-Leader: ... GitHub username with a link to the GitHub profile ...
+Leader: [@scruffyscarf] (https://github.com/scruffyscarf)
 
-Members: ... GitHub usernames with links to GitHub profiles ...
+Members: 
+[@scruffyscarf] (https://github.com/scruffyscarf)
+[@polina193535] (https://github.com/polina193535)
+[@ElinaNotElina] (https://github.com/ElinaNotElina)
+[@GurbanG] (https://github.com/GurbanG)
+[@Guzinba] (https://github.com/Guzinba)
 
 ### Team 34
 
