@@ -169,10 +169,10 @@ def handle_personal_settings_commands(
             )
 
     @router.message(
-        Command(bot_command_names.set_personal_meetings_days), HasMessageText(), HasChatState()
+        Command(bot_command_names.set_personal_meetings_days), HasMessageUserUsername(), HasMessageText(), HasChatState()
     )
     async def set_personal_meetings_days(
-            message: Message, message_text: str, chat_state: ChatState
+            message: Message, username: str, message_text: str, chat_state: ChatState
     ):
         try:
             msg_spt = message_text.split()
@@ -196,11 +196,9 @@ def handle_personal_settings_commands(
                 else:
                     days_num.add(day_of_week_to_num[token])
 
-            sorted(days_num)
-
-            # TODO: save parsed working days in to db
-            # chat_state.meeting_time = meeting_time
-            # await save_state(chat_state=chat_state)
+            user = await load_user(username=username)
+            user.working_days = days_num
+            await save_user(user=user)
 
             await message.reply(
                 _(
