@@ -11,7 +11,7 @@ from .language import Language
 
 class User(Document):
     username: Annotated[str, Indexed(unique=True)]
-    working_days: set[int] = set()
+    meeting_days: set[int] = set()
 
     def __hash__(self):
         return hash(self.id)

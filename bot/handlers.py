@@ -175,8 +175,8 @@ def handle_personal_settings_commands(
             if len(msg_spt) == 1:
                 raise Exception
 
-            working_days_str = " ".join(msg_spt[1:])
-            day_tokens = working_days_str.replace(",", " ").lower().split()
+            meeting_days_str = " ".join(msg_spt[1:])
+            day_tokens = meeting_days_str.replace(",", " ").lower().split()
 
             days_num = set()
 
@@ -193,14 +193,14 @@ def handle_personal_settings_commands(
                     days_num.add(day_of_week_to_num[token])
 
             user = await load_user(username=username)
-            user.working_days = days_num
+            user.meeting_days = days_num
             await save_user(user=user)
 
             await message.reply(
                 _(
-                    "OK, from now you will only receive messages on {working_days}."
+                    "OK, from now you will only receive messages on {meeting_days}."
                 ).format(
-                    working_days=html.bold(", ".join(day_tokens))
+                    meeting_days=html.bold(", ".join(day_tokens))
                 )
             )
         except Exception as e:
