@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from datetime import datetime
 from textwrap import dedent
+from typing import List
 
 from aiogram import html
 from aiogram.utils.i18n import gettext as _
@@ -46,7 +47,7 @@ def make_help_message() -> str:
     ).strip()
 
 
-def make_daily_messages(username: str) -> [str]:
+def make_daily_messages(username: str) -> List[str]:
     return [
         _("@{username}, what did you do last working day?").format(username=username),
         _("@{username}, what will you do today?").format(username=username),
