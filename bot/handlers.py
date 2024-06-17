@@ -115,14 +115,12 @@ def handle_personal_settings_commands(
         Command(bot_command_names.join), HasMessageUserUsername(), HasChatState()
     )
     async def subscribe(message: Message, username: str, chat_state: ChatState):
-        user = await load_user(username=username)
-
-        if user in chat_state.joined_users:
+        if username in chat_state.joined_users:
             await message.reply(
                 _("You've already joined, @{username}!").format(username=username)
             )
         else:
-            chat_state.joined_users.add(user)
+            chat_state.joined_users.add(username)
             await save_state(chat_state=chat_state)
 
             await message.reply(
@@ -142,11 +140,9 @@ def handle_personal_settings_commands(
     @router.message(
         Command(bot_command_names.skip), HasMessageUserUsername(), HasChatState()
     )
-    async def unsubscribe(message: Message, username: str, chat_state: ChatState):
-        user = await load_user(username=username)
-        
-        if user in chat_state.joined_users:
-            chat_state.joined_users.remove(user)
+    async def unsubscribe(message: Message, username: str, chat_state: ChatState):        
+        if username in chat_state.joined_users:
+            chat_state.joined_users.remove(username)
             await save_state(chat_state=chat_state)
             await message.reply(
                 dedent(

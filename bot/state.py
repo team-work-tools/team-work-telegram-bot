@@ -3,7 +3,7 @@ from typing import Annotated, Optional
 from zoneinfo import ZoneInfo
 
 import pymongo
-from beanie import Document, Link, Indexed
+from beanie import Document, Indexed
 
 from .chat import ChatId
 from .language import Language
@@ -42,7 +42,7 @@ class ChatState(Document):
     language: Language = Language.default
     meeting_time: Optional[datetime] = None
     chat_id: Annotated[ChatId, Indexed(index_type=pymongo.ASCENDING)]
-    joined_users: set[Link[User]] = set()
+    joined_users: set[str] = set()
 
 
 async def create_state(chat_id: ChatId) -> ChatState:
