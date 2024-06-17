@@ -195,9 +195,6 @@ def handle_personal_settings_commands(
             user = await load_user(username=username)
             user.working_days = days_num
             await save_user(user=user)
-            
-            # TODO
-            # Solve User and ChatState.joined_users synchronization issue
 
             await message.reply(
                 _(
