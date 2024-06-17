@@ -8,18 +8,21 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from .constants import day_of_week, jobstore
 from .custom_types import ChatId, SendMessage
 from .messages import make_daily_messages
-from .state import ChatState, load_state
+from .state import ChatState, load_state, load_user
 
 
 async def send_meeting_messages(chat_id: ChatId, send_message: SendMessage):
     chat_state = await load_state(chat_id=chat_id)
+    current_day = datetime.now().weekday()
     await send_message(chat_id=chat_id, message=_("Meeting time!"))
     if not chat_state.joined_users:
         await send_message(chat_id=chat_id, message=_("Nobody has joined the meeting!"))
     else:
         for username in chat_state.joined_users:
-            for message in make_daily_messages(username=username):
-                await send_message(chat_id=chat_id, message=message)
+            user = await load_user(username=username)
+            if current_day in user.meeting_days:
+                for message in make_daily_messages(username=username):
+                    await send_message(chat_id=chat_id, message=message)
 
 
 def make_job_id(some_id: int):
