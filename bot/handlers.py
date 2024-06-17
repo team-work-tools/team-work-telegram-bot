@@ -222,6 +222,45 @@ def handle_personal_settings_commands(
                 )
             )
 
+    @router.message(
+        Command(bot_command_names.set_reminder_period), HasMessageUserUsername(), HasMessageText(), HasChatState()
+    )
+    async def set_reminder_period(
+        message: Message, username: str, message_text: str, chat_state: ChatState
+    ):
+        try:
+            period_minutes = int(message_text.split(" ", 1)[1])
+            if period_minutes <= 0:
+                raise ValueError
+            
+            user = await load_user(username=username)
+            user.reminder_period = period_minutes
+            await save_user(user=user)
+
+            await message.reply(
+                _(
+                    "Reminder period set to {period} minutes"
+                ).format(
+                    period=period_minutes
+                )
+            )
+        except (IndexError, ValueError):
+            await message.reply(
+                dedent(
+                    _(
+                        """
+                        Please indicate the reminder period in minutes.
+
+                        Example:
+
+                        /{set_reminder_period} 30
+                        """
+                    ).format(
+                        set_reminder_period=bot_command_names.set_reminder_period
+                    )
+                )
+            )
+
 
 def handle_info_commands(
         scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router
