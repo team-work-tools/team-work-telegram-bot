@@ -15,15 +15,15 @@ async def send_meeting_messages(chat_id: ChatId, send_message: SendMessage):
     chat_state = await load_state(chat_id=chat_id)
     current_day = datetime.now().weekday()
     await send_message(chat_id=chat_id, message=_("Meeting time!"))
-    
+     
     joined_users = await get_joined_users(chat_state)
-    if not joined_users:
+    today_workers = [user for user in joined_users if current_day in user.meeting_days]
+    if not today_workers:
         await send_message(chat_id=chat_id, message=_("Nobody has joined the meeting!"))
     else:
-        for user in joined_users:
-            if current_day in user.meeting_days:
-                for message in make_daily_messages(username=user.username):
-                    await send_message(chat_id=chat_id, message=message)
+        for user in today_workers:
+            for message in make_daily_messages(username=user.username):
+                await send_message(chat_id=chat_id, message=message)
 
 
 def make_job_id(some_id: int):
