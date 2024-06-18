@@ -1,74 +1,79 @@
 from datetime import datetime
-from typing import Annotated, Optional
+from typing import Annotated, Optional, Dict, List
 from zoneinfo import ZoneInfo
 
 import pymongo
 from beanie import Document, Indexed
+from pydantic import BaseModel
 
 from .chat import ChatId
 from .language import Language
 
 
-class User(Document):
-    username: Annotated[str, Indexed(unique=True)]
-    meeting_days: set[int] = set()
+class ChatUser(BaseModel):
+    username: str = "" 
+    is_joined: bool = False
+    #default value - [0 - 4] = Monday - Friday
+    meeting_days: set[int] = set(range(0, 5))
     reminder_period: Optional[int] = None
 
     def __hash__(self):
-        return hash(self.id)
+        return hash(self.username)
 
     def __eq__(self, other):
         if isinstance(other, User):
-            return self.id == other.id
+            return self.username == other.username
         return False
 
 
-async def create_user(username: str) -> User:
-    """Create a new user with the given username.
+async def create_user(username: str) -> ChatUser:
+    """Create a new ChatUser with the given username.
     
     Args:
         username (str): The username of the user to create.
     
     Returns:
-        User: The newly created user instance.
+        ChatUser: The newly created user instance.
     """
+    user = ChatUser()
+    user.username = username
+    return user
 
-    return await User(username=username).create()
-
-
-async def load_user(username: str) -> User:
-    """Load a user by username or create a new one if not found.
-    
-    Args:
-        username (str): The username of the user to load or create.
-    
-    Returns:
-        User: The user instance found or created.
-    """
-
-    match user := await User.find_one(User.username == username):
-        case User():
-            return user
-        case _:
-            return await create_user(username=username)
-
-
-async def save_user(user: User) -> None:
-    """Save the given user to the database.
-    
-    Args:
-        user (User): The user instance to save.
-    """
-
-    await user.save()
+# async def save_user(user: User) -> None:
+#     """Save the given user to the database.
+#     
+#     Args:
+#         user (User): The user instance to save.
+#     """
+#
+#     await user.save()
 
 
 class ChatState(Document):
     language: Language = Language.default
     meeting_time: Optional[datetime] = None
     chat_id: Annotated[ChatId, Indexed(index_type=pymongo.ASCENDING)]
-    joined_users: set[str] = set()
+    users: Dict[str, ChatUser] = dict()
 
+async def get_user(chat_state: ChatState, username: str) -> ChatUser:
+    """Load a ChatUser from the ChatState by username or create a new one if not found.
+    
+    Args:
+        username (str): The username of the user to load or create.
+    
+    Returns:
+        ChatUser: The ChatUser instance found or created.
+    """
+    if (username in chat_state.users):
+        return chat_state.users[username]
+    
+    user = await create_user(username)
+    chat_state.users[username] = user
+    return user
+
+async def get_joined_users(chat_state: ChatState) -> List[ChatUser]:
+    
+    return [user for user in chat_state.users.values() if user.is_joined]
 
 async def create_state(chat_id: ChatId) -> ChatState:
     """Create a new chat state with the given chat ID.

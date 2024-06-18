@@ -17,7 +17,7 @@ from .custom_types import LoadState, SaveState, SendMessage
 from .filters import HasChatState, HasMessageText, HasMessageUserUsername
 from .meeting import schedule_meeting
 from .messages import make_help_message
-from .state import User, load_user, save_user
+from .state import ChatUser, get_user
 from .state import ChatState, save_state
 
 
@@ -115,12 +115,13 @@ def handle_personal_settings_commands(
         Command(bot_command_names.join), HasMessageUserUsername(), HasChatState()
     )
     async def subscribe(message: Message, username: str, chat_state: ChatState):
-        if username in chat_state.joined_users:
+        user = await get_user(chat_state, username)
+        if user.is_joined:
             await message.reply(
                 _("You've already joined, @{username}!").format(username=username)
             )
         else:
-            chat_state.joined_users.add(username)
+            user.is_joined = True
             await save_state(chat_state=chat_state)
 
             await message.reply(
@@ -141,8 +142,9 @@ def handle_personal_settings_commands(
         Command(bot_command_names.skip), HasMessageUserUsername(), HasChatState()
     )
     async def unsubscribe(message: Message, username: str, chat_state: ChatState):        
-        if username in chat_state.joined_users:
-            chat_state.joined_users.remove(username)
+        user = await get_user(chat_state, username)
+        if user.is_joined:
+            user.is_joined = False
             await save_state(chat_state=chat_state)
             await message.reply(
                 dedent(
@@ -192,9 +194,9 @@ def handle_personal_settings_commands(
                 else:
                     days_num.add(day_of_week_to_num[token])
 
-            user = await load_user(username=username)
+            user = await get_user(chat_state, username)
             user.meeting_days = days_num
-            await save_user(user=user)
+            await save_state(chat_state)
 
             await message.reply(
                 _(
@@ -233,9 +235,9 @@ def handle_personal_settings_commands(
             if period_minutes <= 0:
                 raise ValueError
             
-            user = await load_user(username=username)
+            user = await get_user(chat_state, username)
             user.reminder_period = period_minutes
-            await save_user(user=user)
+            await save_state(chat_state)
 
             await message.reply(
                 _(
