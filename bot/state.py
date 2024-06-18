@@ -27,7 +27,7 @@ class ChatUser(BaseModel):
 
 
 async def create_user(username: str) -> ChatUser:
-    """Create a new ChatUser with the given username.
+    """Create a new user with the given username.
     
     Args:
         username (str): The username of the user to create.
@@ -39,15 +39,6 @@ async def create_user(username: str) -> ChatUser:
     user.username = username
     return user
 
-# async def save_user(user: User) -> None:
-#     """Save the given user to the database.
-#     
-#     Args:
-#         user (User): The user instance to save.
-#     """
-#
-#     await user.save()
-
 
 class ChatState(Document):
     language: Language = Language.default
@@ -55,24 +46,34 @@ class ChatState(Document):
     chat_id: Annotated[ChatId, Indexed(index_type=pymongo.ASCENDING)]
     users: Dict[str, ChatUser] = dict()
 
+
 async def get_user(chat_state: ChatState, username: str) -> ChatUser:
-    """Load a ChatUser from the ChatState by username or create a new one if not found.
+    """Load a user from the ChatState by username or create a new one if not found.
     
     Args:
+        chat_state (ChatState): ChatState object of the current chat
         username (str): The username of the user to load or create.
     
     Returns:
         ChatUser: The ChatUser instance found or created.
     """
-    if (username in chat_state.users):
+    if username in chat_state.users:
         return chat_state.users[username]
     
     user = await create_user(username)
     chat_state.users[username] = user
     return user
 
+
 async def get_joined_users(chat_state: ChatState) -> List[ChatUser]:
-    
+    """Creates a list of joined users. (not related with user's working days)
+
+    Args:
+        chat_state (ChatState): ChatState object of the current chat
+
+    Returns:
+        List[ChatState]: A list of joined users.
+    """
     return [user for user in chat_state.users.values() if user.is_joined]
 
 async def create_state(chat_id: ChatId) -> ChatState:
