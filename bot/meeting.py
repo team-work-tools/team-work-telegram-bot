@@ -13,17 +13,18 @@ from .state import ChatState, load_state, get_joined_users
 
 async def send_meeting_messages(chat_id: ChatId, send_message: SendMessage):
     chat_state = await load_state(chat_id=chat_id)
+    topic_id = chat_state.topic_id
     current_day = datetime.now().weekday()
-    await send_message(chat_id=chat_id, message=_("Meeting time!"))
+    await send_message(chat_id=chat_id, message=_("Meeting time!"), message_thread_id=topic_id)
      
     joined_users = await get_joined_users(chat_state)
     today_workers = [user for user in joined_users if current_day in user.meeting_days]
     if not today_workers:
-        await send_message(chat_id=chat_id, message=_("Nobody has joined the meeting!"))
+        await send_message(chat_id=chat_id, message=_("Nobody has joined the meeting!"), message_thread_id=topic_id)
     else:
         for user in today_workers:
             for message in make_daily_messages(username=user.username):
-                await send_message(chat_id=chat_id, message=message)
+                await send_message(chat_id=chat_id, message=message, message_thread_id=topic_id)
 
 
 def make_job_id(some_id: int):

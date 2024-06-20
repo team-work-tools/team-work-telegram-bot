@@ -63,10 +63,12 @@ def handle_team_settings_commands(
             message: Message, message_text: str, chat_state: ChatState
     ):
         meeting_time_str = message_text.split(" ", 1)
+        topic_id = message.message_thread_id
 
         try:
             meeting_time = datetime.fromisoformat(meeting_time_str[1])
             chat_state.meeting_time = meeting_time
+            chat_state.topic_id = topic_id
             await save_state(chat_state=chat_state)
 
             schedule_meeting(

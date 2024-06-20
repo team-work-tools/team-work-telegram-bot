@@ -13,7 +13,7 @@ from .language import Language
 class ChatUser(BaseModel):
     username: str = "" 
     is_joined: bool = False
-    #default value - [0 - 4] = Monday - Friday
+    # default value - [0 - 4] = Monday - Friday
     meeting_days: set[int] = set(range(0, 5))
     reminder_period: Optional[int] = None
 
@@ -21,7 +21,7 @@ class ChatUser(BaseModel):
         return hash(self.username)
 
     def __eq__(self, other):
-        if isinstance(other, User):
+        if isinstance(other, ChatUser):
             return self.username == other.username
         return False
 
@@ -43,6 +43,7 @@ async def create_user(username: str) -> ChatUser:
 class ChatState(Document):
     language: Language = Language.default
     meeting_time: Optional[datetime] = None
+    topic_id: Optional[int] = None
     chat_id: Annotated[ChatId, Indexed(index_type=pymongo.ASCENDING)]
     users: Dict[str, ChatUser] = dict()
 
@@ -75,6 +76,7 @@ async def get_joined_users(chat_state: ChatState) -> List[ChatUser]:
         List[ChatState]: A list of joined users.
     """
     return [user for user in chat_state.users.values() if user.is_joined]
+
 
 async def create_state(chat_id: ChatId) -> ChatState:
     """Create a new chat state with the given chat ID.

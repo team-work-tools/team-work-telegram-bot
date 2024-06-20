@@ -9,7 +9,7 @@ from .state import ChatState
 
 
 class SendMessage(Protocol):
-    async def __call__(self, chat_id: ChatId, message: str) -> Message: ...
+    async def __call__(self, chat_id: ChatId, message: str, message_thread_id: int = None) -> Message: ...
 
 
 class SaveState(Protocol):
