@@ -48,11 +48,11 @@ def make_help_message() -> str:
     ).strip()
 
 
-def make_daily_messages(username: str) -> List[str]:
+def make_daily_messages(usernames: str) -> List[str]:
     return [
-        _("@{username}, what did you do last working day?").format(username=username),
-        _("@{username}, what will you do today?").format(username=username),
-        _("@{username}, what (if anything) is blocking your progress?").format(
-            username=username
+        _("What did you do last working day? {usernames}").format(usernames=usernames),
+        _("What will you do today? {usernames}").format(usernames=usernames),
+        _("What (if anything) is blocking your progress? {usernames}").format(
+            usernames=usernames
         ),
     ]
