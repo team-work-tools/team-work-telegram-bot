@@ -356,7 +356,7 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
 
 - [@deemp](https://github.com/deemp/)
 - [@belyakova-anna](https://github.com/belyakova-anna)
-- [@ElinaNotElina](https://github.com/ElinaNotElina)
+- [@polina193535](https://github.com/polina193535)
 
 
 #### [UI/UX](https://github.com/team-work-tools/team-work-telegram-bot/labels/UI%2FUX)
