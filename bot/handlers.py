@@ -1,9 +1,7 @@
-import json
-import logging
 from datetime import datetime
 from textwrap import dedent
 
-from aiogram import Bot, Router, html
+from aiogram import Router, html
 from aiogram.enums import ParseMode
 from aiogram.filters.command import Command
 from aiogram.types import Message
@@ -13,11 +11,11 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from .commands import bot_command_names
 from .constants import (day_of_week_to_num, day_of_week_pretty, iso8601,
                         sample_time, time_url)
-from .custom_types import LoadState, SaveState, SendMessage
-from .filters import HasChatState, HasMessageText, HasMessageUserUsername
+from .custom_types import SendMessage
+from .filters import HasChatState, HasMessageText, HasMessageUserUsername, IsReplyToMeetingMessage
 from .meeting import schedule_meeting
 from .messages import make_help_message
-from .state import ChatUser, get_user
+from .state import get_user
 from .state import ChatState, save_state
 
 
@@ -36,7 +34,13 @@ def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage):
         scheduler=scheduler, send_message=send_message, router=router
     )
 
-    handle_info_commands(scheduler=scheduler, send_message=send_message, router=router)
+    handle_info_commands(
+        scheduler=scheduler, send_message=send_message, router=router
+    )
+
+    handle_user_responses(
+        scheduler=scheduler, send_message=send_message, router=router
+    )
 
     return router
 
@@ -236,7 +240,7 @@ def handle_personal_settings_commands(
             period_minutes = int(message_text.split(" ", 1)[1])
             if period_minutes <= 0:
                 raise ValueError
-            
+
             user = await get_user(chat_state, username)
             user.reminder_period = period_minutes
             await save_state(chat_state)
@@ -264,6 +268,7 @@ def handle_personal_settings_commands(
                     )
                 )
             )
+    # TODO: make scheduler for notifications
 
 
 def handle_info_commands(
@@ -278,3 +283,20 @@ def handle_info_commands(
             ),
             parse_mode=ParseMode.HTML,
         )
+
+
+def handle_user_responses(
+    scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router
+):
+    @router.message(
+        HasMessageUserUsername(), HasChatState(), IsReplyToMeetingMessage()
+    )
+    async def set_meetings_time(
+            message: Message, username: str, chat_state: ChatState, replied_meeting_msg_num: int
+    ):
+        if message.from_user.username in chat_state.users:
+            user = await get_user(chat_state, username)
+
+            reply_msg_key = f"has_replied_to_msg_{replied_meeting_msg_num}"
+            setattr(user, reply_msg_key, True)
+            await save_state(chat_state)
