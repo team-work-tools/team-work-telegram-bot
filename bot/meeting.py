@@ -1,7 +1,6 @@
 import logging
 from datetime import datetime
 
-from aiogram import Bot
 from aiogram.utils.i18n import gettext as _
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
@@ -22,19 +21,32 @@ async def send_meeting_messages(chat_id: ChatId, send_message: SendMessage):
     if not today_workers:
         await send_message(chat_id=chat_id, message=_("Nobody has joined the meeting!"), message_thread_id=topic_id)
     else:
+
+        # Creating list of joined to meeting users
         today_usernames = []
         for user in today_workers:
             today_usernames.append(f"@{user.username}")
 
+        # Getting daily messages
+        daily_messages = make_daily_messages(usernames=" ".join(today_usernames))
+
+        # Sending daily messages
         msg_counter = 0
-        for message in make_daily_messages(usernames=" ".join(today_usernames)):
+        for message in daily_messages:
             msg_counter += 1
             msg_key = f"meeting_msg_id_{msg_counter}"
 
             new_msg = await send_message(chat_id=chat_id, message=message, message_thread_id=topic_id)
 
             setattr(chat_state, msg_key, new_msg.message_id)
-            await save_state(chat_state=chat_state)
+
+        # Reset info about replies to meeting messages after assigning new meeting
+        for user in today_workers:
+            for msg_counter in range(1, len(daily_messages) + 1):
+                reply_msg_key = f"has_replied_to_msg_{msg_counter}"
+                setattr(user, reply_msg_key, False)
+
+        await save_state(chat_state=chat_state)
 
 
 def make_job_id(some_id: int):
@@ -57,7 +69,7 @@ def schedule_meeting(
         start_date=meeting_time,
         hour=meeting_time.hour,
         minute=meeting_time.minute,
-        day_of_week=day_of_week,
+        day_of_week=day_of_week,  # TODO: make it same as day of the week of any joined users or something else
         timezone=meeting_time.tzinfo,
         misfire_grace_time=42,
     )
