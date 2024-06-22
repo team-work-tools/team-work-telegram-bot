@@ -26,3 +26,21 @@ class HasChatState(Filter):
     async def __call__(self, message: Message):
         chat_state = await load_state(message.chat.id)
         return {"chat_state": chat_state}
+
+
+class IsReplyToMeetingMessage(Filter):
+    async def __call__(self, message: Message):
+        chat_state = await load_state(message.chat.id)
+
+        if message.reply_to_message:
+            replied_msg_id = message.reply_to_message.message_id
+
+            match replied_msg_id:
+                case chat_state.meeting_msg_id_1:
+                    return {"replied_meeting_msg_num": 1}
+                case chat_state.meeting_msg_id_2:
+                    return {"replied_meeting_msg_num": 2}
+                case chat_state.meeting_msg_id_3:
+                    return {"replied_meeting_msg_num": 3}
+
+        return False
