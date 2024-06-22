@@ -1,7 +1,7 @@
 from datetime import datetime
 from textwrap import dedent
 
-from aiogram import Router, html
+from aiogram import Bot, Router, html
 from aiogram.enums import ParseMode
 from aiogram.filters.command import Command
 from aiogram.types import Message
@@ -14,12 +14,12 @@ from .constants import (day_of_week_to_num, day_of_week_pretty, iso8601,
 from .custom_types import SendMessage
 from .filters import HasChatState, HasMessageText, HasMessageUserUsername, IsReplyToMeetingMessage
 from .meeting import schedule_meeting
+from .reminder import schedule_reminder
 from .messages import make_help_message
-from .state import get_user
-from .state import ChatState, save_state
+from .state import ChatState, save_state, get_user, load_user_pm, create_user_pm, save_user_pm
 
 
-def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage):
+def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage, bot: Bot):
     router = Router()
 
     handle_global_commands(
@@ -31,7 +31,7 @@ def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage):
     )
 
     handle_personal_settings_commands(
-        scheduler=scheduler, send_message=send_message, router=router
+        scheduler=scheduler, send_message=send_message, router=router, bot=bot
     )
 
     handle_info_commands(
@@ -51,6 +51,29 @@ def handle_global_commands(
     @router.message(Command(bot_command_names.start), HasChatState())
     async def start(message: Message, chat_state: ChatState):
         await get_help(message=message, chat_state=chat_state)
+
+        # Register user if it's personal message
+        if message.chat.type == "private":
+            username = message.from_user.username
+            user_cht_id = message.chat.id
+            user_pm = await load_user_pm(username=username)
+            if not user_pm:
+                user_pm = await create_user_pm(username=username, chat_id=user_cht_id)
+                await save_user_pm(user_pm=user_pm)
+                await message.reply("You successfully registered in the bot!")
+
+            # TODO: Schedule reminders of meeting from other chat right after registering
+            # user = await get_user(chat_state=chat_state, username=username)
+            # if chat_state.meeting_time and user.reminder_period:
+            #     schedule_reminder(
+            #         period_minutes=user.reminder_period,
+            #         username=username,
+            #         user_chad_id=user_pm.chat_id,
+            #         meeting_time=chat_state.meeting_time,
+            #         meeting_chat_id=chat_state.chat_id,
+            #         scheduler=scheduler,
+            #         send_message=send_message
+            #     )
 
     @router.message(Command(bot_command_names.help), HasChatState())
     async def get_help(message: Message, chat_state: ChatState):
@@ -81,6 +104,21 @@ def handle_team_settings_commands(
                 scheduler=scheduler,
                 send_message=send_message,
             )
+
+            username = message.from_user.username
+            user_pm = await load_user_pm(username)
+            user = await get_user(chat_state, username)
+
+            if user.reminder_period and user_pm and username:
+                schedule_reminder(
+                    period_minutes=user.reminder_period,
+                    username=username,
+                    user_chad_id=user_pm.chat_id,
+                    meeting_time=chat_state.meeting_time,
+                    meeting_chat_id=chat_state.chat_id,
+                    scheduler=scheduler,
+                    send_message=send_message
+                )
 
             await message.reply(
                 _(
@@ -115,7 +153,7 @@ def handle_team_settings_commands(
 
 
 def handle_personal_settings_commands(
-        scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router
+        scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router, bot: Bot
 ):
     @router.message(
         Command(bot_command_names.join), HasMessageUserUsername(), HasChatState()
@@ -252,6 +290,41 @@ def handle_personal_settings_commands(
                     period=period_minutes
                 )
             )
+
+            # Schedule reminders
+            user_pm = await load_user_pm(username)
+
+            if user_pm and chat_state.meeting_time:
+                schedule_reminder(
+                    period_minutes=period_minutes,
+                    username=username,
+                    user_chad_id=user_pm.chat_id,
+                    meeting_time=chat_state.meeting_time,
+                    meeting_chat_id=chat_state.chat_id,
+                    scheduler=scheduler,
+                    send_message=send_message
+                )
+
+            if not chat_state.meeting_time:
+                await message.reply(
+                    "There are no meetings yet. Reminder will start work as soon as you arrange one."
+                )
+
+            if not user_pm:
+                bot_info = await bot.get_me()
+
+                await message.reply(
+                    _(
+                        """
+                        @{username} I don't have access to your personal messages.
+                        Please write to @{bot_username} and type /start.
+                        """
+                    ).format(
+                        username=username,
+                        bot_username=bot_info.username
+                    )
+                )
+
         except (IndexError, ValueError):
             await message.reply(
                 dedent(
@@ -268,7 +341,6 @@ def handle_personal_settings_commands(
                     )
                 )
             )
-    # TODO: make scheduler for notifications
 
 
 def handle_info_commands(
