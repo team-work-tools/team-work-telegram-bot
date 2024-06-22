@@ -122,3 +122,20 @@ async def save_state(chat_state: ChatState) -> None:
     """
 
     await chat_state.save()
+
+
+class UserPM(Document):
+    username: str
+    chat_id: Annotated[ChatId, Indexed(index_type=pymongo.ASCENDING)]
+
+
+async def create_user_pm(username: str, chat_id: ChatId) -> UserPM:
+    return await UserPM(username=username, chat_id=chat_id).create()
+
+
+async def load_user_pm(username: str) -> Optional[UserPM]:
+    return await UserPM.find_one(UserPM.username == username)
+
+
+async def save_user_pm(user_pm: UserPM) -> None:
+    await user_pm.save()
