@@ -11,21 +11,21 @@ class ChatState(Document):
     language: Language = Language.default
     meeting_time: Optional[datetime] = None
     chat_id: Annotated[ChatId, Indexed(index_type=pymongo.ASCENDING)]
-    thread_id: int | None = None
+    message_thread_id: int | None = None
     joined_users: set[str] = set()
 
 
-async def create_state(chat_id: ChatId, thread_id: int | None = None) -> ChatState:
-    return await ChatState(chat_id=chat_id, thread_id=thread_id).create()
+async def create_state(chat_id: ChatId, message_thread_id: int | None = None) -> ChatState:
+    return await ChatState(chat_id=chat_id, message_thread_id=message_thread_id).create()
 
 
-async def load_state(chat_id: ChatId, thread_id: int | None = None) -> ChatState:
+async def load_state(chat_id: ChatId, message_thread_id: int | None = None) -> ChatState:
     match chat_state := await ChatState.find_one(ChatState.chat_id == chat_id and
-                                                 ChatState.thread_id == thread_id):
+                                                 ChatState.message_thread_id == message_thread_id):
         case ChatState():
             return chat_state
         case _:
-            return await create_state(chat_id=chat_id, thread_id=thread_id)
+            return await create_state(chat_id=chat_id, message_thread_id=message_thread_id)
 
 
 async def save_state(chat_state: ChatState) -> None:

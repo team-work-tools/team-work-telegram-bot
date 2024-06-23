@@ -31,11 +31,11 @@ def make_job_id(some_id: int):
 def schedule_meeting(
     meeting_time: datetime,
     chat_id: ChatId,
-    message_thread_id: int,
+    message_thread_id: int | None,
     scheduler: AsyncIOScheduler,
     send_message: SendMessage,
 ):
-    job_id = chat_id
+    job_id = int(chat_id)
     if message_thread_id is not None:
         job_id += message_thread_id
     scheduler.add_job(
