@@ -10,8 +10,8 @@ import logging
 from aiogram.utils.i18n import gettext as _
 
 
-async def send_meeting_messages(chat_id: ChatId, message_thread_id: int, send_message: SendMessage):
-    chat_state = await load_state(chat_id=chat_id)
+async def send_meeting_messages(chat_id: ChatId, message_thread_id: int | None, send_message: SendMessage):
+    chat_state = await load_state(chat_id=chat_id, message_thread_id=message_thread_id)
     await send_message(chat_id=chat_id, message=_("Meeting time!"),
                        message_thread_id=message_thread_id)
     if not chat_state.joined_users:
