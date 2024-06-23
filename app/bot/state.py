@@ -20,8 +20,7 @@ async def create_state(chat_id: ChatId, message_thread_id: int | None = None) ->
 
 
 async def load_state(chat_id: ChatId, message_thread_id: int | None = None) -> ChatState:
-    match chat_state := await ChatState.find_one(ChatState.chat_id == chat_id and
-                                                 ChatState.message_thread_id == message_thread_id):
+    match chat_state := await ChatState.find_one(ChatState.chat_id == chat_id, ChatState.message_thread_id == message_thread_id):
         case ChatState():
             return chat_state
         case _:
