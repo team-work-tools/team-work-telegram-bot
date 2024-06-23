@@ -15,9 +15,8 @@ async def send_meeting_messages(chat_id: ChatId, send_message: SendMessage):
     if not chat_state.joined_users:
         await send_message(chat_id=chat_id, message=_("Nobody has joined the meeting!"))
     else:
-        for username in chat_state.joined_users:
-            for message in make_daily_messages(username=username):
-                await send_message(chat_id=chat_id, message=message)
+        for message in make_daily_messages(usernames=list(chat_state.joined_users)):
+            await send_message(chat_id=chat_id, message=message)
 
 
 def make_job_id(some_id: int):
