@@ -11,7 +11,7 @@ RUN --mount=type=cache,target=/root/.cache \
 
 RUN poetry install --without dev
 
-COPY app app
+COPY bot bot
 COPY locales locales
 
 ENV PYTHONUNBUFFERED=1
