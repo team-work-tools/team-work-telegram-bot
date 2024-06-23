@@ -49,5 +49,5 @@ def make_daily_messages(usernames: list[str]) -> list[str]:
     return [
         _(f"what did you do last working day?\n{pings}"),
         _(f"what will you do today?\n{pings}"),
-        _(f"what (if anything) is blocking your progress?{pings}"),
+        _(f"what (if anything) is blocking your progress?\n{pings}"),
     ]
