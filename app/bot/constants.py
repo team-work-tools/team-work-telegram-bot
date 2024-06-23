@@ -17,7 +17,7 @@ iso8601 = "ISO 8601"
 
 datetime_time_format = "%H:%M %Y-%m-%d"
 
-day_of_week = "0-4"
+day_of_week = "0-6"
 
 day_of_week_pretty = "Monday - Friday"
 
