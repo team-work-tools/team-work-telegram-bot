@@ -1,3 +1,4 @@
+
 FROM python:3.11.9-slim-bullseye AS builder
 
 WORKDIR /app
@@ -15,4 +16,4 @@ COPY locales locales
 
 ENV PYTHONUNBUFFERED=1
 
-CMD ["/bin/bash", "-c", "poetry run bot start & poetry run server start"]
+CMD ["/bin/bash", "-c", "poetry run bot start"]

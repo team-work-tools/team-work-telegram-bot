@@ -27,7 +27,7 @@ pylint = "^3.1.0"
 babel = "^2.15.0"
 
 [tool.poetry.scripts]
-bot = "app.bot.main:main"
+bot = "bot.main:main"
 server = "app.web.server:main"
 
 [build-system]
