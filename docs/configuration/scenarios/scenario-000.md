@@ -8,7 +8,7 @@
 
 This proposal introduces the command `/set_personal_daily_reminder_period`.
 
-This command lets a user set the period of personal reminders about skipped daily meeting questions sent in a group or a topic in a group.
+This command lets a user set the period of personal reminders about skipped daily meeting questions sent to a group without topics or a topic.
 
 - [xstate diagram](../snippets/snippet-000.ts) shows a scenario of using this command.
   - You can view or edit this diagram via the [statelyai.stately-vscode
