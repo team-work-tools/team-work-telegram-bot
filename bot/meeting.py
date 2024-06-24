@@ -50,7 +50,7 @@ async def send_meeting_messages(chat_id: ChatId, send_message: SendMessage):
 
 
 def make_job_id(some_id: int):
-    return str(some_id)
+    return str(some_id) + "_meeting"
 
 
 def schedule_meeting(
