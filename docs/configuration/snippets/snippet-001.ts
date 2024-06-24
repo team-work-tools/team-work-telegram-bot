@@ -112,7 +112,7 @@ export const machine = createMachine({
     },
 
     Environment: {
-      description: "- Definition: \"Chat\" is a Telegram group or a topic in a Telegram group\n- Definition: \"Private chat\" is a Telegram chat (not a group) of two Telegram users\n- Today is Person's working day\n- The Person has already joined meetings\n- Person and Bot are members of a Telegram group that is or has a Chat\n- The Bot may read messages and write in Chat\n- Person's username is <person>\n- Bot's username is <bot>\n- Person has a private chat with Bot\n- Person's reminder period in the Chat is <PERSONAL_REMINDER_PERIOD>\n- Today's daily meeting is at <DAILY_MEETING_TIME>",
+      description: "- Definition: \"Chat\" is a Telegram group or a topic in a Telegram group\n- Definition: \"Private chat\" is a Telegram chat (not a group) of two Telegram users\n- Today is Person's working day\n- The Person has already joined meetings\n- Person and Bot are members of a Chat\n- The Bot may read messages and write in Chat\n- Person's username is <person>\n- Bot's username is <bot>\n- Person has a private chat with Bot\n- Person's reminder period in the Chat is <PERSONAL_REMINDER_PERIOD>\n- Today's daily meeting is at <DAILY_MEETING_TIME>",
 
       on: {
         "Person opens the Chat": {
