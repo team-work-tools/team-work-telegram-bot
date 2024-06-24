@@ -1,12 +1,12 @@
 import { createMachine } from "xstate";
 
 export const machine = createMachine({
-  /** @xstate-layout N4IgpgJg5mDOIC5QHpZgC4H0AOYBOsA9gHYCGANphKQJbkCemeYAtjcRPjvjYRAHQAFfEWL8AkhHJgAxAGUMAAnQALMIuZsO+Rbjy8IAbQAMAXUShshWDXS9iFkAA9EANgDMADn4B2ACye7gBMxu7GAKyeQZEANCD0iAC0Afzufn6uAIyRrsaunq7hAJwAviVxqBjcBCQUVLQMTKzsnHjVBvwAQoTo-AASpBzSymqKAMaELCyDAgDCamMA1orsAGaEiqQARoQArugj6sI1xDIm5kggVjZ2JI4uCEGZmUH8Wa5BBUU+RZ7FcQkEIkgq5+JkfHlXOlPH5Ptk-OEyhU0Fg9KI6tQ6IxNC0uHoOt1egMhupVOoJlMZvx5mAlitiOtNjt9odFMdRGdMhdLNZbPZ7oholFUuFjMZ0pljEFPq4AUkQWCIa4oQFYZ54YjyiBKqiRLVKJjGjjtG18Xwuj1+jNhmTxpNphwhHriIoVKRYIoAFaEdiQRQsMAYdhQWBnMyOa58u6XB4hZX8SLhTKuH5FEKZTxyhDJzL8TzGTJFdzhMJ+dzg2FI7Uo6rog0NbHNE3tc2Eq0k1kUh0CdkkV3ur0+4h+gNB4ghzncq6824OGOCjLGBPS8H50JpzJZ7LhVJBIoeIpl1xFCI+TXIqpo-X1LFNLStFsCNvEqSk0Zdqm9l1uj3oDbe9h-UDOxxw9VYaAIdAZCcWB0FIdAwH4UhVgQvAAApRWMABKGQdVra9DUbe88R4VtLRfG133tT9nX7X9-yHICxxDRRwMg84Ixnfl50eQt3H4YxPB8dUnj8YxD3CLN3DPASPnyPwz3CSIiyrPCrzIetb2NB8zSfcjrTfclqMdBQDm0nRdOg2D4MQ5DUIwsUcLU50MQbO9cVNUi9KJAzO2MgRTI0JtWl0LyOMuSNZwFbMCiXSIxPFdx3GPF5ZXiQUgj8PMC3BKVxT8SVSi1ZyTlcrTgpI-QyJ8jtbQ-R0vzo5QNjGZgbM2XR9AAN3asY3QOAB3WwVEUQkrLghCkJQ-AHOw3Ca3UsqjQqzyqu89tXz8ykGton9mvGNqEI67But6-rFCG1RRp6cKeRubjQAecE0zefMfFyCIUqLLNwiyWShKUyIkvCT5VIWlzNOW4jVo6ABRYguogkgA2IKDGsIXBiF-UZ5ng27p3u6NHsQF4lylTwAbScsPF+rNEmebwoS8dVk2CIoXjBy8IZvKGPMfal+v4PdAn8IJxpsqb7MwpzwdKyGiL53SBfgoXfmk2F8cih7nEQCEfH4NMEqCMJBKhHwtwU-hYWTKEiiTSV8s53U5Z5hXmyV3HenVoG-HFya7Jm6X5q5l3CPc92vOVr3-B9zWuKJnWEB8cs3kyqJC1CEs-CKKSUwTfNDzSUVwjPIqL2dutXfDnTI891I1YK32YIm2zpvQoOSsrsPzJh806-cBvMj8OPCbnYmYstsJ1UEini1yII6ZeIoraEhElXBTC-Cd-CNKrnv+brtMYWNsXm4lgP28c4OK4Itz949wWj9hYIR6jMfE7+XNlRTIu-ghNMfrBDzIeQoGYQQBClGULUxA+BwEcJ3W+5VoaPk4qPaKPhXjk0pmWVmtN0pAgCPxQSyZs5KVyCWO229Fry2rpVDoX5UFv2islbwFMoh5TFEPPI5t8GJHVKkLIIICjgneD8Kh3Nu4rX5l+CQr5GFRR4gVUEbCQghE4WJFMP0DZZBLkPNh2RkziNDnfKRStCTyO1k9b4cVP4piKGmAsmZeGfCXBmcEQR-A+GeL9ZKRiu4mOQWY-StUqLbQgBYhOsZHH5yTHYhxGZF4vT+Gw5OZtMpeD8Yg3mEc1oWhqptOq-kBa0mWGsDY2w9gHFtAwiK8d36xheLmAo2cogZACGlQE9MIgJmSuKDBkQ9yZVcJk3ekjAmR2fL5QpYSnQnCagBYcEAmIgRDBE+pgpxI7jPEedmMJRTFh+t4UUUR-AZnSF48IGQRlLTdjXXJkyQlGRmY1Paf5ByAVHCssCEFYJrOitEX4BsAYnjOQVXO+tpRyQSoUIG1yaH3wmcEgpoTuz8ECj3UKa0-k8SeOKBMycAjJgJYWLMJ8rb7miElGmx44V71MYi-JlEnmopeQON5rUwDtVIJ1GgPUjp9XghdYa110DYvHnGUEiYiX2PTE4wESll6QvAWKGFgRaVjMVpHeGiM8DIzAKjMVidsj8Q8QCpShYKEdKSAPLZkQfBeNLPa+16qAmatyZ7Q1DxfhZQHpKQsdslJeLpk8RmIMzz-2TB4hELqkFuo6HXYW6sgiepJuWfiSjvjG1CHxSS+Dnj60KMnX6UIoQlnBDG7Jdz42C29oEPwKbszlleElOepcAgFB4YCYIuZ7UeDEuzQo6oK23LoX3Gtg9621LQTxSUaRZJJmUgpLhfg6bZzBE8SImRpL7lCGkYdtDe5zEfp8Z+yap1MJnU2hMSZPD7lyLFBEP1unKk8aEdUJdQj7oRe6wWghmCIz2B6AMsBYCkBgPAc9Cjx6zubezAs9jAZBt4Vu3MbMB2-CTAGoIUCShAA */
+  /** @xstate-layout N4IgpgJg5mDOIC5QHpZgC4H0AOYBOsA9gHYCGANphKQJbkCemeYAtjcRPjvjYRAHQBVNHn4BJCOTABiAMoYABOgAWYBczYd8C3Hl4QA2gAYAuolDZCsGul7FzIAB6IAbAGYAHPwDsAFg9uAExGbkYArB6BEQA0IPSIALT+-G6+vi4AjBEuRi4eLmEAnAC+xbGoGNwEJBRUtAxMrOyceFX6-ABChOj8ABKkHFJKqgoAxoQsLAMCAMKqowDWCuwAZoQKpABGhACu6MNqwvjSxmZIIJbWtiQOzgiBGRmB-JkugfmF3oUeRbHxCAlAi5+BlvLkXGkPL53llfGFSuU0FhdEQyJRqHRGBpmlxdO0uj1+oM1Co1ONJtN+HMwItlsQ1httnsDgojngThkzhYrDY7LdEFFIikwkYjGkMkZAu8XH9EkCQWCXBD-NCPLD4WUQBVkfhUbUMQ1sVpWni+J1un1pkNSWMJlMOEIRAplKRYAoAFaEdiQBQsMAYdhQWAnUwOS68m7nO7BJX8CJhDIuL6FYIZDyyhCJjL8DxGDKFNxhUK+Nyg6EIrVIqp69H1LFNY1tM0Ey3Elnk+0CNnO10er3EH1+gPEIMcrkXHnXexRgXpIxxqWg3MhFMZDNZMIpQKFdyFEsuQrhbwaxGVFE1WuYxqaFpNgQtomSEkjDuU7sut3odae9i+-22Ec3RWGgCHQaRHFgdBSHQMB+FIFYYLwAAKEUjAASmkbVqwvOoryNW9TXvC1H2tF87TfJ0PyUb9+z-YcgwUYDQNOMNJz5Gd7nzNx+CMDxvDVB5fCMPcwgzNxjx4t48l8Y8wgiAsKyw880Vww0GwInhm2Iq1nzJciHXkfZ8O0QjwMg6DYPgxCUNFDClN1HCDXrG9cU0ojCR09t9IEQz1HUky3JY85wynflM3yecIiEsU3DcA8nhlOIBUCXwczzUFJTFXwJRKTV7OqFSnOvHETTc80PLbG1Xwdd9ey-MZmAsjYdD0AA3JrRhdfYAHcbGUBQCTMqCYLghD8Bs9DMKrZT9TrYrG0I8rWyfLyKRqyi6vWUZGpg5rsDajquoUXqVAG7ogu5K52NAO5QRTF5c28HJwnigsMzCTJJL4uSIlisJ3kU6aHMKubjNKvQzQAUWIVqQJIP1iDA7tCFwYhPxGOZoIuicrsjG7ECeedJQ8b7UlLdwPozBJHi8CFPDVRMgkKJ5AbPYHZrw-zwfaTGem3AI-ECIaLNG6zULsoGCo5tSXO5s1ef4fnxOhbGQuupxEDBbx+BTaLAlCXiIW8dcZP4aFEwhQoEwlLLWZ1KXLxlkq7ypLqUj8X7fGFkarPG8WprZh3VOc53FoV5XPdVti8Y1hBvFLF4UsifMQiLXxCjEpM41zPdUhFMJj1y097ZrYP5o0iHZjdtxvlSDIvYg4bLLG5D-fy0uirBl3w9r7LfCj3Hp3x8LTdCNVeJJwsckCKmnkKM2+LhRVQVQ3w7ewkHOdl7u3ZTKF9aFxuRd91vbIDkvHNBrmd+gnX3mhIIB4jIfY5+bMlSTPOfjBFN3qCHM9wFDTECfwkpSiamIHwOADh26Xy3qHNyrFB5hW8M8YmpMSyM0pklAE-huK8QygXHcNd05rzypLDuV9t6LTZEg5+YU4peBJpETKop665GNjghIaoUiZELHmAI25SxuHXjNR2IcFplTZOIJ8dDQocWysCZhwRghsKEkmd6OtMgF3rswrIiZRHs3EeXVyldypyPVrdT4kU35JkKCmARVN3jzjTGmJUx4Dyij3IYoOndr6LQfJ5Kq3kLEx2jAI7OCY7EOLTLPe6PwPA7n+nJEIJYTyVkDpQ+BkizGBMqmRNaVcaRLFWOsLYux9g2locFaOL9oxPGzPkdOkR0j+ESv8am4Q4xxTFKgiI24UouB8Vkp2OT8TaXyXpQpjptBUR-AOCAdEAJBlCXUgUwlNzHn3MzKEIpCzvS8CKSIfg0xpG8LCIZ5DMlwNGRXcZFUVrBOmbVT8NFfxDmWUBECkFVlhSiN8HW31DynOypnbWUopLRQKL9YZNyJF3K0g80iUzOz8F8mDHQiCanII4g8MUcZ47+ETIS-MGYD5mx3FEWKFMDyws3rc0x9zlrIttM8jaryGpgCaqQFqNB2q7U6tBY6fUzroF+bi8EkTiX2NTOmHBcl54QpAaKaFAQ6XS3hYyqGMM4bEARmK7F9COJZG4oEPpVsExWxru0xINdNkRG8Oc4sjrHXquMV3MOXVxXD2+KlGuEp8wWp0U4tMLx-oBHyAXUIng3Vlw9WVBWStBbetjhkYRZtEyfH1iELiokcGPG1gUeOH0IQQiLKCWNfjqEJurh7AIvgU23VLM8WKU9C7+HyJw-4QRsyOvcEJZmBQ1SVqoQgsxPd6310bQTVJkkEzyRkuw3wVN04ggeBENNXwcixTIcXDeGqTFyyrrfPeD9AjTszM2uMCZElKkNmKPN-x84vCTDJEIaoC4hBHdkhFx6egAAVmCw12G6P0sBYCkBgPAQ18jh4Sn-v6vM9ifrnNngnJmg7viWrkoEcBxQgA */
   context: {},
   id: "/set_personal_daily_reminder_period",
   initial: "Environment",
   states: {
-    Person: {
+    User: {
       initial: "Idle",
       states: {
         Idle: {
@@ -26,29 +26,29 @@ export const machine = createMachine({
       states: {
         "Handle the command": {
           states: {
-            "Check info about the Person": {
+            "Check info about the User": {
               always: [{
-                target: "Person has joined meetings",
+                target: "User has joined meetings",
                 reenter: true,
-                guard: "Person has joined meetings"
+                guard: "User has joined meetings"
               }, {
-                target: "Person has to join meetings first",
+                target: "User has to join meetings first",
                 reenter: true
               }]
             },
 
-            "Person has joined meetings": {
+            "User has joined meetings": {
               always: [{
                 target: "Set reminder period",
                 reenter: true,
-                guard: "Person has a private chat with Bot"
+                guard: "User has a private chat with Bot"
               }, {
-                target: "Person has to create a private chat with Bot",
+                target: "User has to create a private chat with Bot",
                 reenter: true
               }]
             },
 
-            "Person has to join meetings first": {
+            "User has to join meetings first": {
               after: {
                 "500": {
                   target: "#/set_personal_daily_reminder_period.Chat.3745834",
@@ -64,10 +64,10 @@ export const machine = createMachine({
                   reenter: true,
                 }
               },
-              description: "- Set reminder period for this Person in this Chat to <period> minutes\n- Update scheduled reminders for today's daily meeting if the Person participates in today's meeting"
+              description: "- Set reminder period for this User in this Chat to <period> minutes\n- Update scheduled reminders for today's daily meeting if the User participates in today's meeting"
             },
 
-            "Person has to create a private chat with Bot": {
+            "User has to create a private chat with Bot": {
               after: {
                 "500": {
                   target: "#/set_personal_daily_reminder_period.Chat.9284232",
@@ -77,17 +77,17 @@ export const machine = createMachine({
             }
           },
 
-          initial: "Check info about the Person"
+          initial: "Check info about the User"
         }
       }
     },
     
     Environment: {
-      description: "\n- Definition: \"Chat\" is a Telegram group or a topic in a Telegram group\n- Definition: \"Private chat\" is a Telegram chat (not a group) of two Telegram users\n- Person and Bot are members of a Telegram group that is or has a Chat\n- The Bot may read messages and respond in the Chat\n- The Bot username is <bot>",
+      description: "\n- Definition: \"Chat\" is a Telegram group or a topic in a Telegram group\n- Definition: \"Private chat\" is a Telegram chat (not a group) of two Telegram users\n- User and Bot are members of a Telegram group that is or has a Chat\n- The Bot may read messages and respond in the Chat\n- The Bot username is <bot>",
 
       on: {
-        "Person opens the Chat": {
-          target: "Person.Idle",
+        "User opens the Chat": {
+          target: "User.Idle",
           reenter: true
         }
       }
@@ -113,7 +113,7 @@ export const machine = createMachine({
 
           after: {
             "500": {
-              target: "#/set_personal_daily_reminder_period.Person.Idle",
+              target: "#/set_personal_daily_reminder_period.User.Idle",
               reenter: true
             }
           }
@@ -124,7 +124,7 @@ export const machine = createMachine({
 
           after: {
             "500": {
-              target: "#/set_personal_daily_reminder_period.Person.Idle",
+              target: "#/set_personal_daily_reminder_period.User.Idle",
               reenter: true
             }
           }
@@ -135,7 +135,7 @@ export const machine = createMachine({
 
           after: {
             "500": {
-              target: "#/set_personal_daily_reminder_period.Person.Idle",
+              target: "#/set_personal_daily_reminder_period.User.Idle",
               reenter: true
             }
           }
