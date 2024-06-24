@@ -21,19 +21,20 @@ async def send_reminder_messages(
 
     replies = [user.has_replied_to_msg_1, user.has_replied_to_msg_2, user.has_replied_to_msg_3]
 
-    reminder_msg = "You forgot to answer meeting question"
-    reply_msg_counter = 0
-    for reply in replies:
-        reply_msg_counter += 1
-        if not reply:
-            reminder_msg += f" {reply_msg_counter}"
-    reminder_msg += "!"
+    if not all(replies):
+        reminder_msg = "You forgot to answer meeting question"
+        reply_msg_counter = 0
+        for reply in replies:
+            reply_msg_counter += 1
+            if not reply:
+                reminder_msg += f" {reply_msg_counter}"
+        reminder_msg += "!"
 
-    await send_message(user_chat_id, message=reminder_msg)
+        await send_message(user_chat_id, message=reminder_msg)
 
 
 def make_job_id(some_id: int):
-    return str(some_id)
+    return str(some_id) + "_reminder"
 
 
 def schedule_reminder(
