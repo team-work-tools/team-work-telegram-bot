@@ -4,6 +4,10 @@
 
 - <https://github.com/team-work-tools/team-work-telegram-bot/issues/71>
 
+## Glossary
+
+- See [Glossary](./glossary.md)
+
 ## Description
 
 This proposal introduces the command `/set_personal_daily_reminder_period`.
