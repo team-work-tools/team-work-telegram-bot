@@ -4,6 +4,10 @@
 
 - <https://github.com/team-work-tools/team-work-telegram-bot/issues/73>
 
+## Glossary
+
+- See [Glossary](./glossary.md)
+
 ## Description
 
 This proposal describes the process of sending reminders about skipped daily questions to a private chat with the User.
