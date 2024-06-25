@@ -36,7 +36,7 @@ def main():
         case AppCommands.print_bot_message:
             print(make_help_message())
         case AppCommands.print_meeting_messages:
-            for message in make_daily_messages(username="username"):
+            for message in make_daily_messages(usernames="username"):
                 print(message)
         case AppCommands.start:
             logging.basicConfig(level=logging.INFO, stream=sys.stdout)
