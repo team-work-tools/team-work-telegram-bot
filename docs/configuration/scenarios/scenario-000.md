@@ -12,8 +12,8 @@
 
 This proposal introduces the command `/set_personal_daily_reminder_period`.
 
-This command lets a user set the period of personal reminders about skipped daily meeting questions sent to a group without topics or a topic.
+This command lets a User set the period of personal reminders about skipped daily meeting questions sent to a Chat.
 
-- [xstate diagram](../snippets/snippet-000.ts) shows a scenario of using this command.
+- The [xstate diagram](../snippets/snippet-000.ts) shows a scenario of using this command.
   - You can view or edit this diagram via the [statelyai.stately-vscode
 ](https://marketplace.visualstudio.com/items?itemName=statelyai.stately-vscode) extension for VS Code.
