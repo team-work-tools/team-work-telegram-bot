@@ -1,7 +1,7 @@
 import { createMachine } from "xstate";
 
 export const machine = createMachine({
-  /** @xstate-layout N4IgpgJg5mDOIC5QCUwGMwEsBuYAEATmALaYB2EYBseAhgEYD2ArgC56wDWmADj5Hgi1MAGwCeeYmDCtyUPAEdmcWYzKwAdAAUqsNRoCSEEWADEAFQAW+NMwJEy7WVLyZYCPAB4AIgEEDADIAmgD6ALIAohHmBgByAOIhMZEAfADaAAwAuoigPIywmKpkuSAAHogATNUaABwAzJW1GfUAbAAsAIwZzQCcADQgYogAtJUA7LUaAKyTGdO1rdPT7bWVra0AvpuDqBg4+ESkFLp0TGwc3HwCQqISUjJyisqwxZo61PpatASyaLy0VhwVxkPCsayCYTiSTSWRkKCmVA8ESYYGsRh4NTQtT4JQqTBqTI5JAgfKFYqlCoITq9VoaTqdca9DKVTrTXqMzqtQbDBCtNkadbjdr1DKtdYMrY7EB7LC4QgkciUahnFjsLi8fgQSF3GGPeHPfFqd66fTeRjAvRScFyUwGVgAchoznwADNGAQ6ArjsqiaUyUUCSUSVSRo1KjN2k1pvV2l0Mr1ar12jzEL16vUNL12eL1u1Wr1s51trt0HLDoqTiqGGrLpqblD7rCnnjXkGTZ8yNofn8AUCaOQwRDbtCHnD5LQoMIyKYPnpQbAwBRYH6SQGKSHEOME4LWvVxtV6rVZrUaamELVxuMNLHT+nOhNs-uSzKywdvUrTjWLhrrtqR02+ryK2bwaAAQowrAaN4jZ6uOGgABK0BQJgflWeDup6c76L4ZC0OIABeTzYaCRCwPk6hwKYq55AUgZqJSVTVBGBbTEsCbChMnT1OeDIMoKqyis01SXvU0wvrK75HJ+1bnOqVxajqo7NgaIHtuBkHQbBY5yIhyHGBWPpUBhHp4CRGgAMpLtqtBocq1HZP6dEbqAVKdFG0waCKqynhk7QJu0bG8fMnQ3iKbQ9Nxca9BJb7ytJVY0N+8n1v+2kqcBLygRBUEwbqOnwnpKGGTJJlYaaXZWRQXoJfZaSdMStHkkGjHUgW17tMm9S9AeiZHmK560qF3GsusvQiZesX7PFlbKklcl1n+SmAeOhptsaGm5elQFFQZdnGZhZkVbtqE5a4ND0CIjBoJwkCmGUryAmAGi0K6QIEAAFNMGQZAAlIicUlYlqo-gpDb5Rla3ZZpeXKTtSHFftnqHeZCN7Wdbh4Jd123RANGks5LWbtSCztJGMadSs0zcdyQyIA0dKtGKDSVLGwqilKpbTUDc0gylS0AXBLZZepOVaRDO0AMJqBAzBoE4w7beOphnYuy74+uROuYg7lLDMrSXu0V6LGyaznkmMzMg+1MtPyp6VFN5ZI-Nta-opgsFZlRrqJt4tw-Bewetqj2sMwNCMK6y0wrAsCTsCKMVR4yGwAA7lQkAAPTMHh6hp0QED3SHz2ve9X0-f9kkzUZsmu2DaUS6takbWLsMrbpgcEMHrCAmHmKRx7cCxzANAJ52Se5+nEBZznqeTxrhMMcTIl0tx33MX1zS07yD6dFM8yVIWywieMYmO1Js1fgtbvg-7wve5oERkNgmAEGoUiOLOFWYvw6hDvgkuWEBPPZqi9tYIBGAsLM+YD4rAPD9SoXRzxMzqMyE+cZqjZj3MeM+VcZIu1BqlKOnsobqQAYCek40GhtAsNYUEJEODWRXI5NcC9gxgO3HSRo3QuQZCZCycavEGRkw4fmfc4xpisnEtKSuPNL610IQPICJCNpkKghMJobNP6dgVLQCAzoIRSBjnHYB9E2HlFGJUPyWZZjjULP5bchYkFMhmGsVktROqJnGLvHBsia4EIFkrO+60faqLqKzYUrRxgOUagTEBZiqTrCzPUbiV5Yw0kqBI7igiuSCm6PuLo3VWaNB8c7Pmi13aBNUiLFRgCoLjSPB5Qu3cgQvTelQMuf0Abc1KclcpN825VPvhoUJ9T3EZJMS5cx1I2h0nEVGK8EwGi7x4nTBA1NGbiMWGKfMkw2glNqnI-xFSG5BNAqE1uQsDSGKHlRehRBdE0GuXHJhMTNagKmckiMYorx8NmMsA255qihW6pEo21MT78nGPsi+fj+bHNvoM4JmhzmVPkE84eWZWak0qDQpcWNIIMPVswpqpjWrdGzJbSxB8EzuR6LxCRgpLwcgZOsPyDJoXV3wXC-plyvZIuGbUv2Ay0WD2eZio8nFcWgiYOqRhEytZTPJZ5dkliDxsWpo0c8jRrxeLWAbS8u8fKc1fN0g5sK+n1wRXy0CJEnR4B4AQHAT08BoFqXgFORRLB4DFqJdx4jolOTia1WMGQNDiNFPMSYBsOErO3uEjQflVjMlJosB20jAY9KvnXIhkMm4+1tTQB1TqgQurdR68E3rNK+rBdRBqgbSXEz4gJbilCI00xTKs7iNI6iRMvH5WxSwoUvjIIwSg8ASQyMzfIgJJzEVvHrZM0MCxrz7nSW408p4O28hGHGTh4TuFMgLLwjleCynX0tcK5R+aKoLoVaGDJoa+0sg2GKXesxKiArYtYg2PVFhXhFAgk9wNennpzUovNHZ5yGAMre95oZ3KCgzOImBHRmb5i1XGQUTJahrGXQmU8QHeYgezYoxu1Tr2dm7L8TA-weBPQHKCcE+BSNyFg-Epinl-KJoNhI7qjIP2rKjHSFYrIozzMseNQjhzuUXt5VeyDZoLQ0CtDISwrGWFBuJmMFkdRtzPqZnbd954jbCLYiKHMXieppq5k7M1XKLVgbI0M8y3xqO0foyCP+jmniTmnGxsljIw00vmOmI2TNGTnnGB0FBCCmYxj3FyWoUnzWgZY3O0WkF-ONuWJmTqIorMbwGqskYwp6QxmPAeQpgUjzJfs6l1F8nfYXM9llsBPDQp5e6r1Bom9eKZi5ByCYqwMhKoTLVs9JGGsQaa6ik6viypHU7K1xVHReheS6gVnrRXeQZjW6ycaLQoshZjON4jCipvkc0C3WbaNUJmoW+ZXC+ExBEQNHcuAFFFzjpJYunWixMxLA5D1A8cCHzGcSSJ3efrD4slO1m87s7rUZa2ojubSMHvHSqjZJGy23KGy8v5b6fQjw0yQd239NIJGTB4cayddmJsI6tY167qPbvzdHlBtnlb2CY2xjdSAuO-s4cZVyRkyYHF0tWZea8P1aQbAPKsNVcPp3wsvdNlnVrhkyzlgrZjqLBfUhPiuqLOZSZxncsFUNnUodNGTR0bB6bTUwrq5NxHzOYazY7l3Hu4d+7pSMcPDHY86AT3ztPZOecBcaYbW11b638vdf6lvHWGTPIIIaD0FkTQT5SJs+fTlDOZ1M+m4-Z+r8yDv1YAbiB3UbyWaBTh3eFvitiTWz9XhGT8wtDEklx3tnneF9V3J6bqiDfimE2KJm+Y2ItHQ8V3ea2Fg23cskhptOM307O0XtXl2BXkPSVQ1oY-mheRaCN5dHIcMCe3j9OkCDurMxse5XvefcHAfh9v4fu-QnqIaEbA3wOXknIUYIWIoOGkW3aCCTI3EPQUYp8fe+ep6W+Q+xCI+gqaw+SkSY+4i8eD4vUI2rIye1IlOjK7I4iyYU+swyuRyPKqB3+gqoyHkx+UwXQnWd4rMjiqyZBYS4YGY1MPUbI1BMm3m6WNS5CWgRAz8LAjyoqw82BZM30L60+TMsYRBIw3QEY6wrMXeEmB8gGCBb+RGH+KBua9B5CzWkM6KcABu3CEY765Wlmme0w54O6oaFMB47kD4GwXQywQhDmaWSOYhKOTOVhmg9S2KNhYobhaqEqNIThxmsyV+e4HMR6wofh9WbuaB5hDWoR4qhslQkRyC9hsRzIzQzhqy1Qyq0u3U6YWe7I6RruxeZhwRl6uRB8DSgUR+0ev21IURMwMRBqpR8wxmViEqhBOWUW3QueJq-eBeyBtBphzmFUdqRa2AzqrqgI7qnq3OBuwo14zQ3QRsbQgURxvEXQOqjIDMiY30YoDRjOO+SxnYKxjqaxJaGx7A5aXqPqJ8fq0whRUwiwg2HBYyQUnapMMw1Miwx4EwJ83iBhviLu9xX+jx84zxxaNgZa2xYsEhYAUhvcoRuxFKBxfkEKJxJ89K8wCahO9S2Y+Y3E2w2wQAA */
+  /** @xstate-layout N4IgpgJg5mDOIC5QCUwGMwEsBuYAEATmALaYB2EYBseAhgEYD2ArgC56wDWmADj5Hgi1MAGwCeeYmDCtyUPAEdmcWYzKwAdAAUqsNRoCSEEWADEAFQAW+NMwJEy7WVLyZYCPAB4AIgEEDADIAmgD6ALIAohHmBgByAOIhMZEAfADaAAwAuoigPIywmKpkuSAAHogATNUaABwAzJW1GfUAbAAsAIwZzQCcADQgYogAtJUA7LUaAKyTGdO1rdPT7bWVra0AvpuDqBg4+ESkFLp0TGwc3HwCQqISUjJyisqwxZo61PpGJqYfemR4NCWWhkGA0I7kSgEPD8AiYRgQTI5JAgfKFYqlCoIeotDSNDq9ab1Wq1aa9Xq1QbDBDtaZ48aVXr1WmNBndXpbHYgPZYXCEEiQ04MFjsLi8fgQQTCcSSaSyUHPFTw9TaXT6LS0AiyNC8WisOCuAGsaxSu6yx6g0yoHgiTAG1iMPBqGVqfBKJVqJGlNFFZWYxCdDkaTqdca9DKVTpk0OdVpUxCtKMadbjdo41rrEOc3boXmHAUnahnEWXcU3aX3OVPd2vZXvNVkDTeRgGvRSY1yUwGVgAchoznwADNGNDaPzjlCvSifRiUViRo1KjN2k0ie0uhkKb12vGEEz6hpCRzqh1WuTpp1tjn9nyIYWaMKLmLrpLbjKHvL5DW3qrPo3m62jDtpYnZ-GogLAqCBp3lCMJUPCiLZN6BS+mo-oIJUm7JtuTRhomJIZKmu4jO0rQaBknS1FG4ydPU4x0Rs4zZtyuYHOOgpFo+opXBKprvlWCrfnWv7-Nomrarq+o0OQeDGvgb6Vha8i0FAwhkL8DYcGAFCwFOeQobOoBYuMWHrHR1TErMVEDEMiC1OM4x4qsgb1J0EyEnRV4sTe+YTkK5zcWWr4Vuan6KrWaiaAAQowrAaAAEiCxi+RxcFwgiEEgjAph6aiBl+nOiCNBkh40eM0wZq09TVSZca2QgbkleSLLzNMLRnmmXk8mxMH+SWz68QpoXVi8P4xXFiUUCY7GFmlCGZVBOWdMi+nogVRmIBku4ZF1rG3gWUIPgFpYvnxilhUJkUaONTYhR+cgJUl029dCw7QmBja+GQtDiAAXk8H38rA+TqHAOVIdO+VoYVGHVEuZ4VW1vSphMtG7iGIbJqsOLNNU9n1NMu0+TNh3Fk+PHlma92CaNwk3d4d0CVAj1TSls1vXgH0aAAytpkpji94MrXla3QxtDUrnSaarFRGTtJutJ1dS3QXk51WtD0tHrr0RN5iTfXk0FZ3DTTHoqvTjNKSzyX669I6cw2PN83QttLcLM7reUAZno57TbvUyOMg0zRK4gHKdMGjRuWeeP2brPUHQbgWnUN1NfrTV0W1TTPW89id2+9juTTb42uDQ9AiIwaCcJAphlK8epgBotCDvqBAABRtRkACUVp7WzpNcSdg2WxdGfm7Ft3Z1bxd535BcO3+uf4KXbh4BXVc14h7tQyUMNRrU7TLmuhK0rRocIA0ZEa60DSVMyqbpvH+3z0d-UU8F09j2b0WTwzX8PQAMJqAgMwNATgTSpyZqYUusA+a6QhqtVCe9xadFInSCq9l2gOUWAfSou5ai9BmOGNyF52qUTcs-AeSdh6U34kpcKY0-6jwensEckoG6sGYDQRgg5jZSFgLAFSBoOYfQ8CCWAAB3KgkAAD0zBvrqGkUQCAddOFNxbm3TuGQe592Ji9N+hsU4sNNhFCecV-70M-BoNhBAOGsD1Nwp0fCoGCOETQURDZxFKJkRAeRiipG+Nyh7MWXtYaLEjm1OGFJiQZAvm5Si5FpiMkJMk3CBMqG20McnEeADTE-giGQbAmACBqCkI4DSf4nT8HULJE0gDgSsGCbvdCIwFiHlIoyFYDIdGVC6LuDWdRwz0XXNUQkVVSSZIMWTHJdDzojR-hoBpepgy9CaOrCw1gASAzgTpZposUFhNqniSMFENZhgjGs9GIYj61VInRcqkZCZcm6i-Di2TaGfysQssxmhllxQmOs7BlT-j8loBAfsJoBFCJgPs5BrTMJH0JGGFJ8sTLkgGWGGYaxIyH3JPZSiUz84fIGnMk26dFn-LqPfVMrRxhC2Qgc9C6xDyuQecyQMlRklo3qhjMipy6JdADvfRoRLX4zM+fwpmjDhJUrWcSSWaiHH6mbq3Kg2jdGvOoZxY6pKvnzPybKxph576Hy5XCwyYTz5kXKiuByEwGiUXqLuC819yqLDiaRSYbQxXvIlXqqVDDLoqipZYg18hoXuJBeBIg4KaCRrBBaz2WJXJLjiQ5C5sxli313NUCOAc6XYIvPRRM4xfX3n9R-QN39flLONWG8lso3FghNQTM1mztLr1ilpPZiCRbwv3puDBazLmbjQT0dGyTkz2V6BjdYcsQzlsHrqqtUCg3jz+fWkxEa4AwrgK2rBlQO0AiYKKeBSbQlYnZMOzCDJEa0XwfVVkGgaJrFvgSw+JJmJaqyZWo2a6a0-g+n2GEcJsCN0yuwSRRRLB4BuvjQ+5UGWQyZTDZkJVyo4nmJMW+tVnW8ppeRdchD5ifozEumhAaAM-KAw2EDPAwMQaBHqPA0HjRwcnghotbtGUDtQZjPptE1kNB0efHcvLXJEMWJMEyftGRLDLV5MgCI4ClB-dMoeVHt0ysirxy184FiOTopy3FVEqLiepCRUiwZC2xkaI0TpFGdXv3-dp4N9Y-x6eTaMLlJV7K9I2HEyisxH3Ui5Y5EMknQyCfsop68esNMrtc3kiltaubfDAF5y9ow0HJhqsk8Z8tb6kV3MyI+7kSRcv8xSS8Lz+6-s06utzG6RLqnEpgHUPBG7SSNJA7dWXDlYmqFLHR65b7JIDtF3cK4yIrEjCuO1mE1lOZJU1lLOmVRcwAjQNsMgQKggGwiiMdQTIRkC-hEL03UwvoqmmMkdLAwMhW3+4x633OtcbBqLUHXJIGhknJatTwVJqUO-vUML6x3zCZNgjWoZdxMSPoQvpGsiRVVjLUZ7jXkvfMNZnWKoPUHLAPH7NMgcYkh2IvROoXQ-YkgJlyskzz4sJ3FVj17OPUtMImk9bVc0MrMaggTq1sONAk4DgycncT0YByIX0kTuN0lM+8gl4lL3ckc427-Cx-WUN8eFxRUX-syfBylxJk5F4R0TCWOuZJmOkvs-DZr66zCUvL1tngTxnndf6e9n7Q3pOJcm4vtVIhdEid3eJFrb99XEsuYd4297WcOdu5eh7+2XMvo-TEP9BUgMiDA0iqp733mGqLAPEsWdyMGQ9LctNllc3KKIfPBGO3cf1eO8Ty75Ps9eee9ErzCgLsXpC6vVg0X8s2p9Ej20AZgZSrWWSZMWMcTW9GPbwnlrSfw0p-zmnwuS8e8cfYGvDe1dIAj4DCSKYTRYyhm3Oiid9VYvkU3BsOlcu72r9mfqjfiyt-kqWRATAQgXkh1yQR9wanoiMyYnuwWHXBp3Rh0UN0byaHDFu0mTq30VVzZ3XzTid3-zThsXQHYQ4GVScV4SlWbREXTy8ToB8RUX8QkWUXP2L2ywagJH93FyDliXiQZyxnlwjEVy-0lWo1xxVEKWKVKTIHKVYAvwQDaQDnpBM0bwoQs1GAJiIR0UIi5VIhaDbWEK0zexa3+TkMqhmDiQ1nQQ1mZAvhGEoiIRXHDDaDpwaA5HaAMLWw13eypU5QaDaFMOaFFxaAokM1nUq0QLiSxgDjiVJDDDQQx0wJV1Z3t1wOlW8ONUBQaGwTkKr1FxjBXChzTBJHhznz6TiJxhXAyUSJZz9RwLJTwPSJWTWEFTpVMPKn9zcglwokjHiUDDpFXGRjJF0NpDi2VxqIrTqJ-waOMONXlTNWmACKmBp39msnvgxXqjJEcmaIsgJkeyjA8Oxw7xmJWS0CIGKRYHjV3XcTaKPjakCysJaBK3qjsOO3WHvl0KW0ZD6QOPj2mMpS3XWwTSL3AJL26DchmDvWJBonDGaGmGInlnpDNXKgqkjA5Aqh+NSPXX+JWQbTwKBM0HlTgMqDkO6EGRCyJAJRhPmGmxtUqyqnTDPEIncOqLeQmJSPqLSOOO10BKuJbTmJRhJLiRKnJKhMDB6GpPqmG2xQchlxxGGx1hZO1VW0ON-1rVDW03xOwgVUVkFLJMhMpPFLhPqnliPihJ6KJyYhVgxI5KxLSzoxoAYxwCY0aVYxgyPzkNTC2IojlhLVpGwXw2Vi6C2PojWEIizFWFGPU2wPZKmM5MWWAwdMY31Eg1dPY3gxDKLV1KmEWFnQsgpElniTgJmAvEWFJAmHokJUVIaxjMBzEI83+HoyTJsBdLY1gxulOLAHOKcXxI9MJDqG9P9I6G6QDIDDajpDlihzWJWETHqG2G2CAA */
   context: {},
   id: "Receive reminders about skipped daily meeting questions",
   initial: "Environment",
@@ -14,6 +14,10 @@ export const machine = createMachine({
             "The current time is: <DAILY_MEETING_TIME>": {
               target: "#Receive reminders about skipped daily meeting questions.Bot.Daily meeting.Conduct the daily meeting",
               reenter: true,
+            },
+            "Person changes reminder period": {
+                  target: "#Receive reminders about skipped daily meeting questions.Bot.Handle reminder period change",
+                  reenter: true
             }
           }
         },
@@ -28,208 +32,224 @@ export const machine = createMachine({
         },
 
         "Does something": {
-          on: {
-            "It's time for a reminder": {
-              target: "#Receive reminders about skipped daily meeting questions.Bot.Daily meeting.Handle reminder for Person",
-              description: "- The current time is: <DAILY_MEETING_TIME> + <PERSONAL_REMINDER_PERIOD> * N\n\n- N is a natural number > 0",
-              reenter: true
+            on: {
+                "It's time for a reminder": {
+                  target: "#Receive reminders about skipped daily meeting questions.Bot.Daily meeting.Handle reminder for Person",
+                  description: "- The current time is: <DAILY_MEETING_TIME> + <PERSONAL_REMINDER_PERIOD> * N\n\n- N is a natural number > 0",
+                  reenter: true
+                },
+                "Person changes reminder period": {
+                  target: "#Receive reminders about skipped daily meeting questions.Bot.Handle reminder period change",
+                  reenter: true
+                }
+
+              }
+            },
+    
+            "Participates in the daily meeting again": {
+              on: {
+                "Person sends": {
+                  target: "#Receive reminders about skipped daily meeting questions.Chat.1928336",
+                  reenter: true
+                }
+              }
             }
-          }
+          },
         },
-
-        "Participates in the daily meeting again": {
-          on: {
-            "Person sends": {
-              target: "#Receive reminders about skipped daily meeting questions.Chat.1928336",
-              reenter: true
-            }
-          }
-        }
-      },
-    },
-
-    Bot: {
-      initial: "Daily meeting",
-      states: {
-        "Daily meeting": {
-          initial: "Conduct the daily meeting",
+    
+        Bot: {
+          initial: "Daily meeting",
           states: {
-            "Handle reminder for Person": {
+            "Handle reminder period change": {
+              always: [{
+                target: "#Receive reminders about skipped daily meeting questions.Person.Idle",
+                reenter: true,
+                guard: "The user answered all questions"
+              }, {
+                target: "#Receive reminders about skipped daily meeting questions.Person.Does something",
+                reenter: true
+              }],
+              description: "Scenario file: scenario-000.md",
+            },
+            "Daily meeting": {
+              initial: "Conduct the daily meeting",
               states: {
-                "Analyzing Person responses": {
+                "Handle reminder for Person": {
+                  states: {
+                    "Analyzing Person responses": {
+                      on: {
+                        "": {
+                          target: "Send a reminder",
+                          reenter: true
+                        }
+                      }
+                    },
+    
+                    "Send a reminder": {
+                      always: [{
+                        target: "#Receive reminders about skipped daily meeting questions.Person's private chat with Bot.8738475",
+                        reenter: true,
+                        guard: "Bot not blocked"
+                      }, {
+                        target: "Handle Bot is blocked",
+                        reenter: true
+                      }]
+                    },
+    
+                    "Handle Bot is blocked": {
+                      after: {
+                        "500": {
+                          target: "#Receive reminders about skipped daily meeting questions.Chat.2728347",
+                          reenter: true
+                        }
+                      }
+                    }
+                  },
+    
+                  initial: "Analyzing Person responses"
+                },
+    
+                "Conduct the daily meeting": {
                   on: {
-                    "": {
-                      target: "Send a reminder",
+                    "Bot sends": {
+                      target: "#Receive reminders about skipped daily meeting questions.Chat.Daily meeting messages",
                       reenter: true
                     }
                   }
                 },
-
-                "Send a reminder": {
-                  always: [{
-                    target: "#Receive reminders about skipped daily meeting questions.Person's private chat with Bot.8738475",
-                    reenter: true,
-                    guard: "Bot not blocked"
-                  }, {
-                    target: "Handle Bot is blocked",
-                    reenter: true
-                  }]
-                },
-
-                "Handle Bot is blocked": {
+    
+                "Record status of daily messages for Person: answered/unanswered": {
                   after: {
                     "500": {
-                      target: "#Receive reminders about skipped daily meeting questions.Chat.2728347",
+                      target: "#Receive reminders about skipped daily meeting questions.Person.Does something",
                       reenter: true
                     }
                   }
                 }
               },
-
-              initial: "Analyzing Person responses"
-            },
-
-            "Conduct the daily meeting": {
+            }
+          },
+        },
+    
+        Environment: {
+          description: "- Definition: \"Chat\" is a Telegram group or a topic in a Telegram group\n- Definition: \"Private chat\" is a Telegram chat (not a group) of two Telegram users\n- Today is Person's working day\n- The Person has already joined meetings\n- Person and Bot are members of a Chat\n- The Bot may read messages and write in Chat\n- Person's username is <person>\n- Bot's username is <bot>\n- Person has a private chat with Bot\n- Person's reminder period in the Chat is <PERSONAL_REMINDER_PERIOD>\n- Today's daily meeting is at <DAILY_MEETING_TIME>",
+    
+          on: {
+            "Person opens the Chat": {
+              target: "Person.Idle",
+              reenter: true
+            }
+          }
+        },
+    
+        Chat: {
+          states: {
+            "Previous messages": {},
+    
+            "Daily meeting messages": {
+              states: {
+                "9235842": {
+                  description: "Message: \"<Daily question 1>\"",
+    
+                  on: {
+                    "Then bot sends": {
+                      target: "9238742",
+                      reenter: true
+                    }
+                  }
+                },
+    
+                "9238742": {
+                  description: "Message: \"<Daily question 2>\"",
+    
+                  on: {
+                    "Then bot sends": {
+                      target: "29384456",
+                      reenter: true
+                    }
+                  }
+                },
+    
+                "29384456": {
+                  description: "Message: \"<Daily question 3>\""
+                }
+              },
+    
+              initial: "9235842",
+    
               on: {
-                "Bot sends": {
-                  target: "#Receive reminders about skipped daily meeting questions.Chat.Daily meeting messages",
+                "Person reads messages": {
+                  target: "#Receive reminders about skipped daily meeting questions.Person.Participates in the daily meeting",
                   reenter: true
                 }
               }
             },
-
-            "Record status of daily messages for Person: answered/unanswered": {
+    
+            "9238425": {
+              description: "Reply to 9235842: \"<some text>\"",
+    
               after: {
                 "500": {
+                  target: "#Receive reminders about skipped daily meeting questions.Bot.Daily meeting.Record status of daily messages for Person: answered/unanswered",
+                  reenter: true
+                }
+              }
+            },
+    
+            "1928336": {
+              description: "Reply to 9238742: \"<some text>\"",
+    
+              on: {
+                "Then Person sends": {
+                  target: "8237467",
+                  reenter: true
+                }
+              }
+            },
+    
+            "8237467": {
+              description: "Reply to 29384456: \"<some text>\"",
+    
+              always: {
+                target: "#Receive reminders about skipped daily meeting questions.Person.Idle",
+                reenter: true
+              }
+            },
+    
+            "2728347": {
+              description: "Reply to 3983414: \n\n\"<user>, please unblock <bot> (it's me) in our private chat so that I can send you reminders about missed daily meeting questions.\"",
+    
+              on: {
+                "Person reads the message": {
                   target: "#Receive reminders about skipped daily meeting questions.Person.Does something",
                   reenter: true
                 }
               }
             }
           },
-        }
-      },
-    },
-
-    Environment: {
-      description: "- Definition: \"Chat\" is a Telegram group or a topic in a Telegram group\n- Definition: \"Private chat\" is a Telegram chat (not a group) of two Telegram users\n- Today is Person's working day\n- The Person has already joined meetings\n- Person and Bot are members of a Chat\n- The Bot may read messages and write in Chat\n- Person's username is <person>\n- Bot's username is <bot>\n- Person has a private chat with Bot\n- Person's reminder period in the Chat is <PERSONAL_REMINDER_PERIOD>\n- Today's daily meeting is at <DAILY_MEETING_TIME>",
-
-      on: {
-        "Person opens the Chat": {
-          target: "Person.Idle",
-          reenter: true
-        }
-      }
-    },
-
-    Chat: {
-      states: {
-        "Previous messages": {},
-
-        "Daily meeting messages": {
+    
+          initial: "Previous messages"
+        },
+    
+        "Person's private chat with Bot": {
           states: {
-            "9235842": {
-              description: "Message: \"<Daily question 1>\"",
-
-              on: {
-                "Then bot sends": {
-                  target: "9238742",
-                  reenter: true
-                }
-              }
-            },
-
-            "9238742": {
-              description: "Message: \"<Daily question 2>\"",
-
-              on: {
-                "Then bot sends": {
-                  target: "29384456",
-                  reenter: true
-                }
-              }
-            },
-
-            "29384456": {
-              description: "Message: \"<Daily question 3>\""
+            "Previous messages": {},
+    
+            "8738475": {
+              description: "Message: \n\n\"Please reply to these daily meeting questions:\n\n<link to 9238742>\n\n<link to 29384456>\"",
+    
+              always: [{
+                target: "#Receive reminders about skipped daily meeting questions.Person.Does something",
+                reenter: true,
+                guard: "Person ignores the reminder"
+              }, {
+                target: "#Receive reminders about skipped daily meeting questions.Person.Participates in the daily meeting again",
+                reenter: true
+              }]
             }
           },
-
-          initial: "9235842",
-
-          on: {
-            "Person reads messages": {
-              target: "#Receive reminders about skipped daily meeting questions.Person.Participates in the daily meeting",
-              reenter: true
-            }
-          }
-        },
-
-        "9238425": {
-          description: "Reply to 9235842: \"<some text>\"",
-
-          after: {
-            "500": {
-              target: "#Receive reminders about skipped daily meeting questions.Bot.Daily meeting.Record status of daily messages for Person: answered/unanswered",
-              reenter: true
-            }
-          }
-        },
-
-        "1928336": {
-          description: "Reply to 9238742: \"<some text>\"",
-
-          on: {
-            "Then Person sends": {
-              target: "8237467",
-              reenter: true
-            }
-          }
-        },
-
-        "8237467": {
-          description: "Reply to 29384456: \"<some text>\"",
-
-          always: {
-            target: "#Receive reminders about skipped daily meeting questions.Person.Idle",
-            reenter: true
-          }
-        },
-
-        "2728347": {
-          description: "Reply to 3983414: \n\n\"<user>, please unblock <bot> (it's me) in our private chat so that I can send you reminders about missed daily meeting questions.\"",
-
-          on: {
-            "Person reads the message": {
-              target: "#Receive reminders about skipped daily meeting questions.Person.Does something",
-              reenter: true
-            }
-          }
+    
+          initial: "Previous messages"
         }
       },
-
-      initial: "Previous messages"
-    },
-
-    "Person's private chat with Bot": {
-      states: {
-        "Previous messages": {},
-
-        "8738475": {
-          description: "Message: \n\n\"Please reply to these daily meeting questions:\n\n<link to 9238742>\n\n<link to 29384456>\"",
-
-          always: [{
-            target: "#Receive reminders about skipped daily meeting questions.Person.Does something",
-            reenter: true,
-            guard: "Person ignores the reminder"
-          }, {
-            target: "#Receive reminders about skipped daily meeting questions.Person.Participates in the daily meeting again",
-            reenter: true
-          }]
-        }
-      },
-
-      initial: "Previous messages"
-    }
-  },
-});
+    });
