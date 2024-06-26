@@ -289,6 +289,11 @@ def handle_personal_settings_commands(
                 send_message=send_message
             )
 
+            if not user.is_joined:
+                await message.reply(
+                    "You have to join daily meetings first!\nUse the /join command."
+                )
+
             if not chat_state.meeting_time:
                 await message.reply(
                     "There are no meetings yet. Reminder will start work as soon as you arrange one."
