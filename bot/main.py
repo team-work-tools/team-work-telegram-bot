@@ -3,7 +3,6 @@ import asyncio
 import logging
 import sys
 
-from dotenv import load_dotenv
 from pydantic import ValidationError
 
 from . import bot
@@ -13,8 +12,6 @@ from .settings import Settings
 
 
 def main():
-    load_dotenv()
-
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(
         title="subcommands", description="bot commands", dest="command"
