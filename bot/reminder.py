@@ -3,6 +3,7 @@ from datetime import datetime
 from typing import Optional
 
 from aiogram import Bot
+from aiogram.exceptions import TelegramForbiddenError
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 
@@ -24,40 +25,54 @@ async def send_reminder_messages(
     reminder_message = "Please reply to these daily meeting questions:"
     chat_type = chat.type
 
-    for reply in have_to_reply:
+    try:
+        for reply in have_to_reply:
 
-        if len(chat_state.meeting_msg_ids) == 3:  # messages to be replied exist
-            message_id = chat_state.meeting_msg_ids[reply]
+            if len(chat_state.meeting_msg_ids) == 3:  # messages to be replied exist
+                message_id = chat_state.meeting_msg_ids[reply]
 
-            msg_link = get_message_link(
-                chat_id=meeting_chat_id,
-                message_id=message_id,
-                thread_id=chat_state.topic_id,
-                chat_type=chat_type
+                msg_link = get_message_link(
+                    chat_id=meeting_chat_id,
+                    message_id=message_id,
+                    thread_id=chat_state.topic_id,
+                    chat_type=chat_type
+                )
+                if msg_link:  # supergroup
+                    reminder_message += "\n" + msg_link
+
+                else:  # group chanel or private
+                    reminder_message = messages[reply]
+                    if chat_type == "private":  # message to be replied is in the same chat as user's PM
+                        await bot.send_message(
+                            chat_id=user_chat_id,
+                            text=reminder_message,
+                            reply_to_message_id=message_id
+                        )
+                    else:  # message to be replied is in the group, so you can't use user's PM to reply, use the group
+                        await bot.send_message(
+                            chat_id=meeting_chat_id,
+                            text=reminder_message,
+                            reply_to_message_id=message_id
+                        )
+
+        if chat_type == "supergroup" and len(chat_state.meeting_msg_ids) == 3:
+            await send_message(
+                chat_id=user_chat_id,
+                message=reminder_message
             )
-            if msg_link:  # supergroup
-                reminder_message += "\n" + msg_link
 
-            else:  # group chanel or private
-                reminder_message = messages[reply]
-                if chat_type == "private":  # message to be replied is in the same chat as user's PM
-                    await bot.send_message(
-                        chat_id=user_chat_id,
-                        text=reminder_message,
-                        reply_to_message_id=message_id
-                    )
-                else:  # message to be replied is in the group, so you can't use user's PM to reply, use the group
-                    await bot.send_message(
-                        chat_id=meeting_chat_id,
-                        text=reminder_message,
-                        reply_to_message_id=message_id
-                    )
+    except TelegramForbiddenError:
+        bot_info = await bot.get_me()
+        bot_username = bot_info.username
 
-    if chat_type == "supergroup" and len(chat_state.meeting_msg_ids) == 3:
-        await send_message(
-            chat_id=user_chat_id,
-            message=reminder_message
-        )
+        if chat_type != "private":
+            banned_msg = f"{username}, please unblock {bot_username} (it's me) in our private chat" \
+                         f" so that I can send you reminders about missed daily meeting questions."
+
+            await send_message(
+                chat_id=meeting_chat_id,
+                message=banned_msg
+            )
 
 
 async def update_reminders(
