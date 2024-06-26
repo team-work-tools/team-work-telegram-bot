@@ -2,11 +2,21 @@
 
 ## Glossary
 
+- `UPPERCASE` words that have a specified meaning in [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) and [RFC 8174](https://www.rfc-editor.org/rfc/rfc8174) have that meaning in this document.
 - `X`, `Y`, `Z`, `T` are numbers.
   - They correspond to team numbers.
   - They can take values `12`, `34`, `56`.
-- `{X}` means "write here the value of `X`" like in Python f-strings.
+- {X} means "write here the value of `X`" like in Python f-strings.
 - `Team {X}`, `Team {Y}`, `Team {Z}` are different teams.
+- `Teams` - all three teams.
+- `Sprint {S}` - the current sprint.
+- [Responsibility Distribution](./roles-and-responsibilities.md#responsibility-distribution) <a id="def-responsibility-distribution"></a> - a mapping between issue labels and responsible people.
+- `Task Management`, `Architecture`, `UI/UX`, etc. - people that have these responsibilities according to the Responsibility distribution.
+- `PR` - a [pull request](https://github.com/team-work-tools/team-work-telegram-bot/pulls).
+- `Assignee` <a id="def-assignee"></a> - responsible for completing an [issue](https://github.com/team-work-tools/team-work-telegram-bot/issues).
+- `Reviewer` <a id="def-reviewer"></a> - responsible for reviewing a PR.
+- [Roadmap issue](https://github.com/team-work-tools/team-work-telegram-bot/issues/79) <a id="def-roadmap-issue"></a> - an issue that tracks the work on the project.
+- `topic` - a topic in the Telegram group of the project.
 
 ## Policies
 
@@ -53,9 +63,9 @@
 
 - The [Process](#process) section is a simplified version of the [Procedure](#procedure) section.
 
-### Sprint {S} activities
+### Activities
 
-- Customer suggests scenarios for a sprint for each team in the [Roadmap issue](https://github.com/team-work-tools/team-work-telegram-bot/issues/79).
+- Customer suggests scenarios for Sprint {S} for each team in the [Roadmap issue](#def-roadmap-issue).
 - Customer and Team {X} negotiate scenarios for:
   - Sprint {S} of Team {X};
   - Future sprints of Team {X};
@@ -63,8 +73,8 @@
 - Team {X} sets the milestone deadline according to [Milestone policies](#milestones).
 - For each scenario name in the Sprint {S}, Team {X} does the following:
   - Create an issue for the Scenario (Scenario issue).
-  - Add a link to the Scenario issue as specified in the [Roadmap issue](https://github.com/team-work-tools/team-work-telegram-bot/issues/79) policies.  
-  - Create a branch `{scenario_branch}` from the `main` branch for the Scenario issue via the `Create a branch` button on the issue page.
+  - Add a link to the Scenario issue as specified in the [Roadmap issue](#def-roadmap-issue) policies.  
+  - On the Scenario issue page, create a branch `{scenario_branch}` from the `main` branch via `Development` > `Create a branch`.
   - Textually and visually explain the scenario in that branch.
   - Make a PR from the `{scenario_branch}` to the `main` branch.
     - You'll periodically merge the `{scenario_branch}` to the `main` branch and the `main` branch to the `{scenario_branch}` while you work on the scenario.
@@ -95,388 +105,204 @@
 
 ## Procedure
 
-### Примечания
+### Notes
 
-- Роли:
-
-  - Customer - заказчик
-
-  - [Task Management](https://github.com/team-work-tools/team-work-telegram-bot/labels/Task%20Management)
-
-  - Assignee (термин на GitHub) - ответственный за решение задачи
-
-  - Reviewer (термин на GitHub) - ответственный за проверку решения
-
-- Заголовок раздела обозначает начало блока задач, за которые отвечает человек с указанной в заголовке ролью.
-
-- Team X, Team Y, Team Z - обозначения различных команд.
-
-  - X, Y, Z - номера команд
-
-- Sprint S - обозначение текущего спринта
-
-  - S - номер спринта
+- `Actor` can be:
+  - A person. Example: Customer.
+  - A responsibility that corresponds to persons according to the Responsibility Distribution. Examples: Architecture, UI/UX.
+  - A team. Examples: Team {X}
+- Titles of the following subsections list actors.
+- Each title indicates the start of a block of tasks that should be completed by the listed actors.
+- `Sprint block of Team {T}` <a id="def-sprint-block-of-team-t"></a> is the Team {T} subsection in the Sprint {S} section in the [Roadmap issue](#def-roadmap-issue).
+- `Scenario issue` <a id="def-scenario-issue"> - an issue for a scenario.
+- `Scenario PR` <a id="def-scenario-pr"> - a PR for a scenario issue.
+- `Subtask issue` <a id="def-subtask-issue"> - an issue that is a subtask of another issue.
+- `Scenario subtask issue` <a id="def-scenario-subtask-issue"> - an issue that is a transitive subtask of a Scenario issue.
 
 ### Customer
 
-- Для каждой команды Team T:
+- For each Team {T}:
+  - In the [Sprint block of Team {T}](#def-sprint-block-of-team-t), propose scenarios (so far, just names and details).
+- Notify Teams in the `Announcements` topic that scenarios were proposed.
+  - Include a link to the [Roadmap issue](#def-roadmap-issue) into the notification.
 
-  - Предложить сценарии в раздел Team T в текущем Sprint S в [Roadmap](https://docs.google.com/document/d/1Mtfs2oFYUY_Dofk3oEgv0d873R1QLok4PjIVFd_C_QI/edit#bookmark=kix.nu93mfnfx9l9).
+### Team {X}, Customer
 
-  - Отправить ссылку на раздел Team T в топик команды.
-
-  - Пингануть всех членов команды.
-
-### Team X и Customer
-
-- Обсудить сценарии в разделе Team X в подразделе Sprint S в [Roadmap](https://docs.google.com/document/d/1Mtfs2oFYUY_Dofk3oEgv0d873R1QLok4PjIVFd_C_QI/edit#bookmark=kix.nu93mfnfx9l9) в топике Team X.
-
-- По результатам обсуждения изменить или оставить сценарии.
+- In the Team {X} topic, negotiate and optionally edit scenarios for Sprint {S} for Team {X} in the [Roadmap issue](#def-roadmap-issue).
 
 ### Customer
 
-- Сообщить в топике команды, что она может приступать.
+- For each Team {T}, after scenarios have been agreed on, explicitly approve them in the Announcements topic.
 
-### Task Management из Team X
+### Task Management from Team {X}
 
-- Для своего (в блоке Team X в [Roadmap](https://docs.google.com/document/d/1Mtfs2oFYUY_Dofk3oEgv0d873R1QLok4PjIVFd_C_QI/edit#bookmark=kix.nu93mfnfx9l9)) текущего спринта:
+- Create a [Milestone](https://github.com/team-work-tools/team-work-telegram-bot/milestones) for Sprint {S}:
 
-  - Создать Milestone в репозитории (см. [Repository](https://docs.google.com/document/d/1Mtfs2oFYUY_Dofk3oEgv0d873R1QLok4PjIVFd_C_QI/edit#bookmark=id.lurcicfzrc65)), если там еще нет нужного Milestone.
+  - Name: `Sprint {S} - Team {X}`.
 
-    - Назвать его “Sprint <номер текущего спринта>”.
+  - Due date: according to [Milestone Policies](#milestones).
 
-    - Задать Due date - последний день Sprint S.
+- For each scenario with the name `{scenario_name}` in the [Sprint block of Team {X}](#def-sprint-block-of-team-t):
 
-- Для каждого сценария в своем (в блоке Team X в [Roadmap](https://docs.google.com/document/d/1Mtfs2oFYUY_Dofk3oEgv0d873R1QLok4PjIVFd_C_QI/edit#bookmark=kix.nu93mfnfx9l9)) майлстоуне:
+  - Create a [Scenario issue](#def-scenario-issue):
 
-  - Сделать issue (Scenario Proposal issue).
+    - Name: `Scenario: {scenario_name}`.
+  
+  - Add the issue to the previously created milestone.
 
-    - Указать название issue: “Scenario Proposal: <название сценария на английском>”
+  - Write the issue description:
 
-    - В описании дать детали, которые понадобятся для проработки сценария.
+    ```text
+    ## Description
+    
+    {scenario_description}
+    
+    ## Subtasks
+    
+    {subtasks}
+    ```
 
-  - Повесить на issue лейблы:
+    - `scenario_description` - a brief description of the scenario plus some necessary details.
+    - `subtasks` - a single-level checkbox list of descriptions of subtasks that should be completed to describe the scenario in a `Scenario file`.
+      - E.g., "- [ ] choose the format of a scenario model"
 
-    - Scenario Proposal
+  - Assign labels to this issue:
 
-    - Architecture
+    - `Scenario`
 
-    - UI/UX
+    - `Architecture`
 
-    - priority \<priority level>
+    - `UI/UX`
 
-    - team \<team id> - лейбл команды, занимающейся этим сценарием
+    - `Project Documentation`
 
-  - Назначить Assignee из своей команды.
+    - Size - `XS`, `S`, `M`, `L`, `XL`
 
-    - Как минимум:
+    - `priority: {priority}`, where `priority` can be 1, 2, 3, 4, 5.
 
-      - 1 Architecture
+    - `team {X}`
 
-      - 1 UI/UX
+  - Add Assignee(s) from Team {X} according to the labels and [Responsibility Distribution](#def-responsibility-distribution).
 
-- Сообщить об этом в топике своей команды
-
-  - Прислать ссылку на issue
-
-  - Пингануть Assignee(s)
-
-### Assignee из Team X
-
-- Для своей (где человек является Assignee) Scenario Proposal issue:
-
-  - Создать ветку в репозитории.
-
-    - Нужно использовать **Create a branch** for this issue or link a pull request.
-
-  - В ветке:
-
-    - Подробно описать сценарий в файле **doc/configuration/scenarios/scenario-\<id>.md**
-
-      - \<id> - left-zero-padded число от 0 до 100
-
-        - Примеры: 000, 132
-
-      - Числа должны быть уникальными для файлов в директории **scenarios**
-
-    - Формат файла:
-
-      - “
-
-        <ссылка на scenario issue>
-
-        \## Description
-
-        <описание сценария>
-
-        “
-
-        - В описании сценария может быть:
-
-        - Текст
-
-        - Ссылка на .ts файл с кодом stately
-
-          - Код надо писать в VS Code при помощи [расширения](https://marketplace.visualstudio.com/items?itemName=statelyai.stately-vscode)
-
-        - Ссылка на проект на
-
-          - [stately.ai](http://stately.ai)
-
-          - [Figma](https://www.figma.com/)
-
-        - mermaid диаграмма ([inline](https://github.blog/2022-02-14-include-diagrams-markdown-files-mermaid/) диаграмма, [UML](https://mermaid.js.org/syntax/zenuml.html))
-
-          - Диаграмму можно сгенерировать из .ts файла с кодом stately при помощи [mdsh](https://github.com/zimbatm/mdsh#commented-out-commands).
-
-        - Ссылка на PlantUML диаграмму ([link](https://plantuml.com/))
-
-        - Картинки
-
-        - Локально переключиться на ветку.
-
-        - Добавить коммиты.
-
-        - Запушить изменения в репозиторий.
-
-        - Сделать PR в main из этой ветки.
-
-        - Название: <название Scenario Proposal issue>
-
-        - Описание PR: “- closes #\<Scenario Proposal issue id>“
-
-        - Лейблы:
-
-          - team X
-
-        - Сообщить об этом в топике своей команды
-
-        - Прислать ссылку на PR
-
-        - Пингануть Task Management
-
-### Task Management из Team X
-
-- Для готового своего (с лейблом “team X”) PR по своей (с лейблом “team X”) Scenario Proposal issue:
-
-  - Назначить 2 Reviewer:
-
-    - Не из команды, реализующей PR.
-
-    - Их responsibilities должны соответствовать лейблам issue.
-
-  - Назначить ревьюером @deemp.
-
-- Для каждой Scenario Proposal issue создать Scenario Implementation issue.
-
-- Для каждой issue (обозначим ее как \<issue>), которая является Scenario Implementation issue или subtask issue:
-
-  - Написать название
-
-    - Если Scenario Implementation issue:
-
-      - “Scenario Implementation: <название сценария на английском>”
-
-    - Иначе:
-
-      - Краткое описание подзадачи.
-
-  - Сделать описание со следующими разделами:
-
-    - Если Scenario Implementation issue:
-
-      - “
-
-        \## Implements
-
-        \- <ссылка на Scenario Proposal issue>
-
-        ”
-
-        - (Опционально):
-
-        - “
-
-        \## Description
-
-        <описание задачи>
-
-        ”
-
-        - “
-
-        \##  Subtasks
-
-        <подзадачи>
-
-        ”,
-
-        где <подзадачи> - одноуровневый список подзадач.
-
-        - Элемент списка - это:
-
-        - “- <ссылка на другую subtask issue>”
-
-        - \#<номер другой subtask issue>
-
-        - “- \[ ] <описание подзадачи>”
-
-        - Нужно предусмотреть подзадачи для:
-
-        - Решения задачи, сформулированной в \<issue>
-
-        - Тестирования решения
-
-        - (Опционально) Автоматизации тестирования в CI
-
-        - Для каждой подзадачи в разделе “## Subtasks
-
-        - Если подзадача большая и сама требует подзадач:
-
-          - Проверить в [issues](https://github.com/team-work-tools/team-work-telegram-bot/issues), есть ли уже такая subtask issue для этой подзадачи.
-
-          - Если нет, создать новую subtask issue.
-
-          - Можно навести курсор на подзадачу и нажать “Convert to issue”.
-
-          - Заменить <описание подзадачи> в списке подзадач на ссылку на соответствующую subtask issue.
-
-        - Иначе оставить подзадачу как есть.
-
-        - Повесить лейблы:
-
-        - Если это Scenario Implementation issue:
-
-          - Лейбл Scenario Implementation.
-
-        - Иначе:
-
-          - Лейблы в зависимости от Task activities, описанных в [Responsibilities](https://github.com/team-work-tools/team-work-telegram-bot/blob/main/docs/configuration/roles-and-responsibilities.md#responsibilities).
-
-        - priority \<priority level>
-
-        - team \<id своей команды>
-
-        - (опционально) Размер (S, M, L, …)
-
-        - Назначить Assignee(s) из своей команды в зависимости от [Responsibilities](https://github.com/team-work-tools/team-work-telegram-bot/blob/main/docs/configuration/roles-and-responsibilities.md#responsibilities) и лейблов.
-
-        - Сообщить об этом в топике своей команды
-
-        - “\<Telegram юзернейм(ы) Assignee> следи(те) за <ссылка на issue>”
-
-### Assignee из Team X
-
-Для своей (где человек является Assignee) Scenario Implementation issue или subtask issue:
-
-- Создать ветку в репозитории.
-
-  - Нужно использовать **Create a branch** for this issue or link a pull request.
-
-- Локально переключиться на ветку.
-
-- Добавить коммиты.
-
-- Запушить изменения в репозиторий.
-
-- Если PR менял код бота:
-
-  - Поднять бота.
-
-  - Протестировать.
-
-- Сделать PR из текущей ветки:
-
-  - Если своя issue - Scenario Implementation issue, то
-
-    - в main
-
-  - Иначе в ветку для Scenario Implementation issue, из-за которой была создана своя subtask issue.
-
-    - чтобы в конце концов в PR для Scenario Implementation собрать изменения со всех веток, созданных для подзадач Scenario Implementation.
-
-- Формат PR:
-
-  - Название: Название issue
-
-  - Описание PR: “- closes #\<issue id>“
-
-- Сообщить об этом в топике своей команды
-
-  - Прислать туда ссылку на PR
-
-  - Пингануть Task Management
-
-- Поработать над PR еще.
-
-  - Если еще кто-то работает, периодически пуллить изменения.
-
-- Если есть GitHub Actions:
-
-  - Убедиться, что все checks зеленые.
-
-### Task Management из Team X
-
-Для своего (с лейблом “team X”) PR:
-
-- Назначить 2 Reviewer.
-
-  - Их responsibilities должны соответствовать лейблам issue.
-
-  - Если PR для Scenario Implementation issue:
-
-    - Не из команды, реализующей PR.
-
-  - Иначе:
-
-    - Из своей (Team X) команды.
-
-### Reviewer
-
-Для своего (где человек является Reviewer) PR:
-
-- Проверить PR. Что можно сделать:
-
-  - Просмотреть
-
-  - Запустить бота локально и проверить
-
-  - Оставить комментарии
-
-  - Предложить правки
-
-- Одобрить PR, если все ОК
-
-### Assignee из Team X
-
-Для своего (где человек является соавтором) PR (обозначим его как \<pr>):
-
-- Для каждого Reviewer этого \<pr>:
-
-  - Если Reviewer не проверяет дольше дня:
-
-    - Пингануть в топике команды, в которой  состоит Reviewer
-
-- Получить одобрения от всех Reviewers
-
-- Вмержить PR
-
-- Сообщить об этом в топике своей команды
-
-  - Прислать туда ссылку на PR
-
-  - Пингануть Task Management
-
-### Task Management из Team X
-
-- Для каждой своей (с лейблом “team X”) issue, над которой работала Team X и в которой есть значительный вклад Reviewers:
-
-  - Добавить в эту issue лейбл команд(ы) Reviewers (team \<id команд(ы) Reviewers>).
-
-### Team X и Customer
-
-- В конце спринта провести ретроспективу по [Procedure](https://docs.google.com/document/d/1Mtfs2oFYUY_Dofk3oEgv0d873R1QLok4PjIVFd_C_QI/edit#bookmark=id.zbdqzkxopjoy).
-
-Team X
-
-- После спринта провести ретроспективу по внутренним процессам.
+  - Ping Assignees in the Team {X} topic.
+
+### Assignee (from Team {X}, of a Scenario issue)
+
+- Create a branch `{scenario_branch}` for this issue from the `main` branch.
+  - Use the `Development` > `Create a branch` button on the issue page.
+- On the `{scenario_branch}`:
+  - Copy the [Scenario Template](./scenarios/scenario-template.md) file into a new Scenario file at `docs/configuration/scenarios/scenario-{id}.md`.
+    - `id` - left-zero-padded number from 0 to 999.
+      - Examples: 000, 132
+    - Numbers MUST be unique among files in the `docs/configuration/scenarios` directory.
+  - Copy the text from the [Scenario Template](./scenarios/scenario-template.md) into the new Scenario file.
+    - Add commits
+    - Push to the repository
+- Make a PR from the `{scenario_branch}` to the `main` branch.
+  - PR description:
+
+    ```text
+    - Related to {scenario_issue_link}
+    ```
+
+    - `scenario_issue_link` is a link to the Scenario issue.
+
+  - Add the `/team-work-tools/scenario` team to Reviewers.
+
+- Notify Task management (from Team {X}) that the Scenario description is ready for review.
+
+### Customer
+
+- For each ready for review Scenario PR from Team {X}:
+  - Comment on the PR.
+  - Discuss the PR in the Team {X} topic on Telegram.
+
+### Task Management (from Team {X})
+
+- For each ready for review Scenario PR of Team {X}:
+  - Go by the `{scenario_issue_link}` to the Scenario issue.
+  - Update `{subtasks}` in the Scenario issue description.
+  - Let `CREATE_SUBTASKS` <a id="def-create-subtasks"></a>:
+    - For each subtask `{subtask}` in the `{subtasks}` list:
+      - If the `{subtask}` seems so big that it requires own subtasks, replace `{subtask}` with a link to a Subtask issue. This issue can be:
+        - An existing issue.
+        - A new issue created from `{subtask}`:
+          - Hover over a `{subtask}`.
+          - Click the ⦿ button (`Create an issue`) on the right.
+    - For each `{subtask}` in the updated `{subtasks}` list:
+      - If the `{subtask}` is a link to a Subtask issue:
+        - Open the Subtask issue page.
+        - Write the issue description. Format:
+
+          ```text
+          [
+          ## Description
+            
+          {description}
+          
+          ]
+          ## Subtasks
+          
+          {subtasks}
+          ```
+
+          - The section in square brackets is optional.
+          - `description` formulates the subtask (extends the Subtask issue name).
+          - `subtasks` - a single-level checkbox list of descriptions of subtasks or links to Subtask issues that should be completed to complete this Subtask issue.
+
+        - According to [Responsibility Distribution](#def-responsibility-distribution):
+          - Assign labels
+          - Set [Assignees](#def-assignee)
+        - Assign other labels:
+          - size - `XS`, `S`, `M`, `L`, `XL`
+          - `priority: {priority}`, where `priority` can be 1, 2, 3, 4, 5.
+          - `team {X}`
+
+        - [CREATE_SUBTASKS](#def-create-subtasks) for the Subtask issue.
+  - [CREATE_SUBTASKS](#def-create-subtasks) starting at the issue at `{scenario_issue_link}`:
+
+### Assignee (from Team {X}, of a Subtask issue)
+
+- Create a branch `{subtask_branch}` for the issue via `Development` > `Create a branch` button.
+- Fetch the repo.
+- Switch to the new branch.
+- Add commits that resolve subtasks given via descriptions (not links to issues).
+- Periodically merge the `main` branch from the repository and resolve conflicts.
+- Add some more commits to the `{subtask_branch}`.
+- Test locally.
+- Fix and commit fixes.
+- Push the `{subtask_branch}` to the repository.
+- Create a PR from the `{subtask_branch}` to `{main}`.
+- Set as [Reviewers](#def-reviewer) the [teams](https://github.com/orgs/team-work-tools/teams) whose names correspond to the issue labels.
+- Send a link to the PR to the Team {X} topic and ping the Customer.
+  - Ping the Customer if the Customer doesn't respond in a reasonable time (e.g., a couple of hours).
+
+### Reviewer of a PR
+
+- Switch to the branch locally.
+- Check:
+  - The code type checks via `mypy`. Exceptions:
+    - Some imports may be red
+  - The code is formatted via `black`
+  - Messages with English text are:
+    - not [f-strings](https://peps.python.org/pep-0498/).
+    - `dedent`ed.
+    - wrapped in `_`. Exceptions:
+      - f-strings without english letters.
+  - There are no:
+    - `setattr` functions
+- Test bot locally.
+- Select code blocks in the PR and comment on them.
+- Suggest changes.
+- If everything is OK, approve the PR.
+
+### Assignee (from Team {X}, of the approved PR)
+
+- Merge the PR.
+- If a Reviewer from Team {Y} made significant contribution to the PR:
+  - Go to the issue addressed by the PR.
+  - Add there the `team {Y}` label.
+
+### Team X, Customer
+
+- Conduct a [Retrospective](#retrospective).
