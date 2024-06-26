@@ -23,9 +23,7 @@ async def send_meeting_messages(chat_id: ChatId, send_message: SendMessage):
     else:
 
         # Creating list of joined to meeting users
-        today_usernames = []
-        for user in today_workers:
-            today_usernames.append(f"@{user.username}")
+        today_usernames = [f"@{user.username}" for user in today_workers]
 
         # Getting daily messages
         daily_messages = make_daily_messages(usernames=" ".join(today_usernames))
