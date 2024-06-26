@@ -1,12 +1,14 @@
+import argparse
 import asyncio
 import logging
 import sys
-from .constants import AppCommands
-import argparse
-from .messages import make_help_message, make_daily_messages
-from . import bot
-from .settings import Settings
+
 from pydantic import ValidationError
+
+from . import bot
+from .constants import AppCommands
+from .messages import make_daily_messages, make_help_message
+from .settings import Settings
 
 
 def main():
@@ -31,7 +33,7 @@ def main():
         case AppCommands.print_bot_message:
             print(make_help_message())
         case AppCommands.print_meeting_messages:
-            for message in make_daily_messages(username="username"):
+            for message in make_daily_messages(usernames="username"):
                 print(message)
         case AppCommands.start:
             logging.basicConfig(level=logging.INFO, stream=sys.stdout)
