@@ -21,14 +21,13 @@ async def send_reminder_messages(
 
     have_to_reply = list(user.non_replied_daily_msgs)
     messages = make_daily_messages("")
+    reminder_message = "Please reply to these daily meeting questions:"
     chat_type = chat.type
 
     for reply in have_to_reply:
 
-        msg_key = f"meeting_msg_id_{reply}"
-        message_id = getattr(chat_state, msg_key)
-
-        if message_id is not None:  # message to be replied exists
+        if len(chat_state.meeting_msg_ids) == 3:  # messages to be replied exist
+            message_id = chat_state.meeting_msg_ids[reply]
 
             msg_link = get_message_link(
                 chat_id=meeting_chat_id,
@@ -37,13 +36,10 @@ async def send_reminder_messages(
                 chat_type=chat_type
             )
             if msg_link:  # supergroup
-                reminder_message = messages[reply - 1] + msg_link
-                await send_message(
-                    chat_id=user_chat_id,
-                    message=reminder_message
-                )
+                reminder_message += "\n" + msg_link
+
             else:  # group chanel or private
-                reminder_message = messages[reply - 1]
+                reminder_message = messages[reply]
                 if chat_type == "private":  # message to be replied is in the same chat as user's PM
                     await bot.send_message(
                         chat_id=user_chat_id,
@@ -56,6 +52,12 @@ async def send_reminder_messages(
                         text=reminder_message,
                         reply_to_message_id=message_id
                     )
+
+    if chat_type == "supergroup" and len(chat_state.meeting_msg_ids) == 3:
+        await send_message(
+            chat_id=user_chat_id,
+            message=reminder_message
+        )
 
 
 async def update_reminders(

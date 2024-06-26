@@ -15,7 +15,7 @@ class ChatUser(BaseModel):
     is_joined: bool = False
     meeting_days: set[int] = set(range(0, 5))  # default value - [0 - 4] = Monday - Friday
     reminder_period: Optional[int] = None
-    non_replied_daily_msgs: set[int] = set(range(1, 4))
+    non_replied_daily_msgs: set[int] = set(range(0, 3))
 
     def __hash__(self):
         return hash(self.username)
@@ -43,9 +43,7 @@ async def create_user(username: str) -> ChatUser:
 class ChatState(Document):
     language: Language = Language.default
     meeting_time: Optional[datetime] = None
-    meeting_msg_id_1: Optional[int] = None
-    meeting_msg_id_2: Optional[int] = None
-    meeting_msg_id_3: Optional[int] = None
+    meeting_msg_ids: list[int] = []
     topic_id: Optional[int] = None
     chat_id: Annotated[ChatId, Indexed(index_type=pymongo.ASCENDING)]
     users: Dict[str, ChatUser] = dict()

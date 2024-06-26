@@ -29,18 +29,15 @@ async def send_meeting_messages(chat_id: ChatId, send_message: SendMessage):
         daily_messages = make_daily_messages(usernames=" ".join(today_usernames))
 
         # Sending daily messages
-        msg_counter = 0
+        chat_state.meeting_msg_ids = []
         for message in daily_messages:
-            msg_counter += 1
-            msg_key = f"meeting_msg_id_{msg_counter}"
-
             new_msg = await send_message(chat_id=chat_id, message=message, message_thread_id=topic_id)
 
-            setattr(chat_state, msg_key, new_msg.message_id)
+            chat_state.meeting_msg_ids.append(new_msg.message_id)
 
         # Reset info about replies to meeting messages after assigning new meeting
         for user in today_workers:
-            user.non_replied_daily_msgs = set(range(1, 4))
+            user.non_replied_daily_msgs = set(range(0, 3))
 
         await save_state(chat_state=chat_state)
 

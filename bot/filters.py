@@ -34,13 +34,10 @@ class IsReplyToMeetingMessage(Filter):
 
         if message.reply_to_message:
             replied_msg_id = message.reply_to_message.message_id
+            message_ids = chat_state.meeting_msg_ids
 
-            match replied_msg_id:
-                case chat_state.meeting_msg_id_1:
-                    return {"replied_meeting_msg_num": 1}
-                case chat_state.meeting_msg_id_2:
-                    return {"replied_meeting_msg_num": 2}
-                case chat_state.meeting_msg_id_3:
-                    return {"replied_meeting_msg_num": 3}
+            for i in range(0, 3):
+                if replied_msg_id == message_ids[i]:
+                    return {"replied_meeting_msg_num": i}
 
         return False
