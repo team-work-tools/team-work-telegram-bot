@@ -40,9 +40,7 @@ async def send_meeting_messages(chat_id: ChatId, send_message: SendMessage):
 
         # Reset info about replies to meeting messages after assigning new meeting
         for user in today_workers:
-            for msg_counter in range(1, len(daily_messages) + 1):
-                reply_msg_key = f"has_replied_to_msg_{msg_counter}"
-                setattr(user, reply_msg_key, False)
+            user.non_replied_daily_msgs = set(range(1, 4))
 
         await save_state(chat_state=chat_state)
 

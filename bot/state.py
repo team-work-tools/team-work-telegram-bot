@@ -13,12 +13,9 @@ from .language import Language
 class ChatUser(BaseModel):
     username: str = "" 
     is_joined: bool = False
-    # default value - [0 - 4] = Monday - Friday
-    meeting_days: set[int] = set(range(0, 5))
+    meeting_days: set[int] = set(range(0, 5))  # default value - [0 - 4] = Monday - Friday
     reminder_period: Optional[int] = None
-    has_replied_to_msg_1: bool = False
-    has_replied_to_msg_2: bool = False
-    has_replied_to_msg_3: bool = False
+    non_replied_daily_msgs: set[int] = set(range(1, 4))
 
     def __hash__(self):
         return hash(self.username)

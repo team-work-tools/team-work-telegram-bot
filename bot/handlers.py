@@ -355,6 +355,8 @@ def handle_user_responses(
             if message.from_user.username in chat_state.users:
                 user = await get_user(chat_state, username)
 
-                reply_msg_key = f"has_replied_to_msg_{replied_meeting_msg_num}"
-                setattr(user, reply_msg_key, True)
-                await save_state(chat_state)
+                non_replied_msgs = user.non_replied_daily_msgs
+
+                if replied_meeting_msg_num in non_replied_msgs:
+                    non_replied_msgs.remove(replied_meeting_msg_num)
+                    await save_state(chat_state)
