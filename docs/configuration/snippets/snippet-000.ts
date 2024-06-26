@@ -1,7 +1,7 @@
 import { createMachine } from "xstate";
 
 export const machine = createMachine({
-  /** @xstate-layout N4IgpgJg5mDOIC5QHpZgC4H0AOYBOsA9gHYCGANphKQJbkCemeYAtjcRPjvjYRAHQBVNHn4BJCOTABiAMoYABOgAWYBczYd8C3Hl4QA2gAYAuolDZCsGul7FzIAB6IAbAGYAHPwDsAFg9uAExGbkYArB6BEQA0IPSIALT+-G6+vi4AjBEuRi4eLmEAnAC+xbGoGNwEJBRUtAxMrOyceFX6-ABChOj8ABKkHFJKqgoAxoQsLAMCAMKqowDWCuwAZoQKpABGhACu6MNqwvjSxmZIIJbWtiQOzgiBGRmB-JkugfmF3oUeRbHxCAlAi5+BlvLkXGkPL53llfGFSuU0FhdEQyJRqHRGBpmlxdO0uj1+oM1Co1ONJtN+HMwItlsQ1httnsDgojngThkzhYrDY7LdEFFIikwkYjGkMkZAu8XH9EkCQWCXBD-NCPLD4WUQBVkfhUbUMQ1sVpWni+J1un1pkNSWMJlMOEIRAplKRYAoAFaEdiQBQsMAYdhQWAnUwOS68m7nO7BJX8CJhDIuL6FYIZDyyhCJjL8DxGDKFNxhUK+Nyg6EIrVIqp69H1LFNY1tM0Ey3Elnk+0CNnO10er3EH1+gPEIMcrkXHnXexRgXpIxxqWg3MhFMZDNZMIpQKFdyFEsuQrhbwaxGVFE1WuYxqaFpNgQtomSEkjDuU7sut3odae9i+-22Ec3RWGgCHQaRHFgdBSHQMB+FIFYYLwAAKEUjAASmkbVqwvOoryNW9TXvC1H2tF87TfJ0PyUb9+z-YcgwUYDQNOMNJz5Gd7nzNx+CMDxvDVB5fCMPcwgzNxjx4t48l8Y8wgiAsKyw880Vww0GwInhm2Iq1nzJciHXkfZ8O0QjwMg6DYPgxCUNFDClN1HCDXrG9cU0ojCR09t9IEQz1HUky3JY85wynflM3yecIiEsU3DcA8nhlOIBUCXwczzUFJTFXwJRKTV7OqFSnOvHETTc80PLbG1Xwdd9ey-MZmAsjYdD0AA3JrRhdfYAHcbGUBQCTMqCYLghD8Bs9DMKrZT9TrYrG0I8rWyfLyKRqyi6vWUZGpg5rsDajquoUXqVAG7ogu5K52NAO5QRTF5c28HJwnigsMzCTJJL4uSIlisJ3kU6aHMKubjNKvQzQAUWIVqQJIP1iDA7tCFwYhPxGOZoIuicrsjG7ECeedJQ8b7UlLdwPozBJHi8CFPDVRMgkKJ5AbPYHZrw-zwfaTGem3AI-ECIaLNG6zULsoGCo5tSXO5s1ef4fnxOhbGQuupxEDBbx+BTaLAlCXiIW8dcZP4aFEwhQoEwlLLWZ1KXLxlkq7ypLqUj8X7fGFkarPG8WprZh3VOc53FoV5XPdVti8Y1hBvFLF4UsifMQiLXxCjEpM41zPdUhFMJj1y097ZrYP5o0iHZjdtxvlSDIvYg4bLLG5D-fy0uirBl3w9r7LfCj3Hp3x8LTdCNVeJJwsckCKmnkKM2+LhRVQVQ3w7ewkHOdl7u3ZTKF9aFxuRd91vbIDkvHNBrmd+gnX3mhIIB4jIfY5+bMlSTPOfjBFN3qCHM9wFDTECfwkpSiamIHwOADh26Xy3qHNyrFB5hW8M8YmpMSyM0pklAE-huK8QygXHcNd05rzypLDuV9t6LTZEg5+YU4peBJpETKop665GNjghIaoUiZELHmAI25SxuHXjNR2IcFplTZOIJ8dDQocWysCZhwRghsKEkmd6OtMgF3rswrIiZRHs3EeXVyldypyPVrdT4kU35JkKCmARVN3jzjTGmJUx4Dyij3IYoOndr6LQfJ5Kq3kLEx2jAI7OCY7EOLTLPe6PwPA7n+nJEIJYTyVkDpQ+BkizGBMqmRNaVcaRLFWOsLYux9g2locFaOL9oxPGzPkdOkR0j+ESv8am4Q4xxTFKgiI24UouB8Vkp2OT8TaXyXpQpjptBUR-AOCAdEAJBlCXUgUwlNzHn3MzKEIpCzvS8CKSIfg0xpG8LCIZ5DMlwNGRXcZFUVrBOmbVT8NFfxDmWUBECkFVlhSiN8HW31DynOypnbWUopLRQKL9YZNyJF3K0g80iUzOz8F8mDHQiCanII4g8MUcZ47+ETIS-MGYD5mx3FEWKFMDyws3rc0x9zlrIttM8jaryGpgCaqQFqNB2q7U6tBY6fUzroF+bi8EkTiX2NTOmHBcl54QpAaKaFAQ6XS3hYyqGMM4bEARmK7F9COJZG4oEPpVsExWxru0xINdNkRG8Oc4sjrHXquMV3MOXVxXD2+KlGuEp8wWp0U4tMLx-oBHyAXUIng3Vlw9WVBWStBbetjhkYRZtEyfH1iELiokcGPG1gUeOH0IQQiLKCWNfjqEJurh7AIvgU23VLM8WKU9C7+HyJw-4QRsyOvcEJZmBQ1SVqoQgsxPd6310bQTVJkkEzyRkuw3wVN04ggeBENNXwcixTIcXDeGqTFyyrrfPeD9AjTszM2uMCZElKkNmKPN-x84vCTDJEIaoC4hBHdkhFx6egAAVmCw12G6P0sBYCkBgPAQ18jh4Sn-v6vM9ifrnNngnJmg7viWrkoEcBxQgA */
+  /** @xstate-layout N4IgpgJg5mDOIC5QHpZgC4H0AOYBOsA9gHYCGANphKQJbkCemeYAtjcRPjvjYRAHQBVNHn4BJCOTABiAMoYABOgAWYBczYd8C3Hl4QA2gAYAuolDZCsGul7FzIAB6IAbAGYAHPwDsAFg9uAExGbkYArB6BEQA0IPSIALT+-G6+vi4AjBEuRi4eLmEAnAC+xbGoGNwEJBRUtAxMrOyceFX6-ABChOj8ABKkHFJKqgoAxoQsLAMCAMKqowDWCuwAZoQKpABGhACu6MNqwvjSxmZIIJbWtiQOzgiBGRmB-JkugfmF3oUeRbHxCAlAi5+BlvLkXGkPL53llfGFSuU0FhdEQyJRqHRGBpmlxdO0uj1+oM1Co1ONJtN+HMwItlsQ1httnsDgojngThkzhYrDY7LdEFFIikwkYjGkMkZAu8XH9EkCQWCXBD-NCPLD4WUQBVkfhUbUMQ1sVpWni+J1un1pkNSWMJlMOEIRAplKRYAoAFaEdiQBQsMAYdhQWAnUwOS68m7nO7BJX8CJhDIuL6FYIZDyyhCJjL8DxGDKFNxhUK+Nyg6EIrVIqp69H1LFNY1tM0Ey3Elnk+0CNnO10er3EH1+gPEIMcrkXHnXexRgXpIxxqWg3MhFMZDNZMIpQKFdyFEsuQrhbwaxGVFE1WuYxqaFpNgQtomSEkjDuU7sut3odae9i+-22Ec3RWGgCHQaRHFgdBSHQMB+FIFYYLwAAKEUjAASmkbVqwvOoryNW9TXvC1H2tF87TfJ0PyUb9+z-YcgwUYDQNOMNJz5Gd7jTYFRSeJNCkeQswgzTx5yMb58wlUU3AhfIKyw880Vww0GwInhm2Iq1nzJciHXkfZ8O0QjwMg6DYPgxCUNFDD5N1HCDXrG9cTUojCU09sdIEPT1BUwznJY85wynflM3yecIl8UUS2k-igQzKVfBzPNQUlMVfAlEpNRs6pFPs68cRNZzzVctsbVfB1317L8xmYUyNgUAAFPQADdatGF19gAdxsZQFAJYyoJguCEPwSz0MwqsFP1Os8sbQiitbJ93IpcrKMq9ZRhqmC6samgWq2troIULqVF67p-O5K52NAO5QRTF5c28HJwgPfM3AzMJMn4XIPGPMIIjcQt3jkibbJy6aDIKvQzQAUWIJqQJIP1iDA7tCFwYhPxGeqdk2cgaFGMZ2vOidLsja7ECeUT3h+osS0TQsZTiRJHi8CFPDVentyeYGz1Bqa8J8yH2mx3H8cJ6D+G3AI-ECfrTKGizUOskHsv55THKFs0RbxgmDp6KW3Bl4nAqupxEDBbx+BTCLJVCIx8l8bx10d-hoUTCFCgTSS0h5nVVcvdX8rvfhtbFvWUj8f7fDlwbzJGpXxt5-2lIcoO5tD3X2ojuEAl8Y22LJs2EG8UsXkCfwHkPQtUkKYSkzjXM91SEUwmPDLTz9msU5m1SoYEDPxZ6NxvlSDJo4ggazOG5CE6yrvcoh4OB-D4fc7H-PSencmQpd0I1XtjwAg+yUMwSJ5Cldn64UVUFUN8X3sLBgWNaXnGdcHq33mhIIY6nxWrMTp3Oy4NBav1FpnCWKYoSBCCBvCMW8i4-GzEqJMzcfhghTO9IIOY9wFDTECfwkpSiamIHwOADg57AOfmnZyrFN7BW8M8SUh9jypFLO4D6p9-BuC+mqPIxZgjpECA-SaAdU6zUKmyOh8DgrSS8IfSIKUeIRSTKfNUKRMipElCqIsbgRF8zET3JyfdHT4HEE+aRQUOJpWBAo4IwRlG5CdkzBAm4dxZG8GPBRWREz6OTgvUBc0CSWNNjdT4YUkF8RTHmdMLjAS5hBGqDwh4vihAhBkPx88QEvyCRpEqZFloQBCYXaMMSG4JiiamWJ-wz53R+MkiIhRPbHwLJkqhgcJEmIfG5UqHkqTzCWKsdYWxdj7BtFIgKBcEHRieNmB23xy4yUZjUiUm4iw5EdoKbciy2lPw6b3fEeTFq9MKaYvAPY3Q-gHBAOiAEgzFOmQKMSm5jz7n4lCEUhZ3peBFJEPwaY0ieLCOkXZatxEHPUsVY5BTOxnIudRPsv4hx3KAiBSCDzgpRG+FbGmh4AVpTrpbKUbwISigKP9UFhjF65KhaRbSpyvIQx0LQyZ9COIPDzF9MIwQRTHi+AmN6Lj4o4s8EmNKR4x4uEpd3alhVun5PpbCiqn51qbTUKQBqzVWrtSOt1U66AMXsvBOUxMyYqnvSKJLIEBCyV-QCNKgJOTCqw3hngRGYBkaGu3lkHhgRGFFD+vmIsO5T7DxeREbwnjiyRsjQ67JNCTHL3al6ou3wErDwlPmZprc1xxIeKzblkQfrxQhHG6hnThZvzDlnA2MsU03VLDwmxnwYEhFekJFxjxLYFBLh9CEEIiygjLfs4xlbwEf0NjnVI9aKalmeADBmbd-D5Gcf8II2ZI3uAivxAoaph3gtHVrKtECh4jzSr4GdmYQgJVyAmRpjsx5ii4RfWZEQMiGx3CEVI+6jGa37sej+UDv6BEve+p4cYEzJKVPbDZHb-gtxeGKsEngPEhB-bKxNAHw6NTAPDXYbo-SwFgKQGA8BWUyI4hKbBGa8xNL+jm0+YGtxNMTN8BMzThHEKAA */
   context: {},
   id: "/set_personal_daily_reminder_period",
   initial: "Environment",
@@ -13,7 +13,7 @@ export const machine = createMachine({
           on: {
             "Set the reminder period": {
               target:
-                "#/set_personal_daily_reminder_period.Chat.3983414",
+                "#/set_personal_daily_reminder_period.Public chat.3983414",
 
               reenter: true,
             }
@@ -41,9 +41,9 @@ export const machine = createMachine({
               always: [{
                 target: "Set reminder period",
                 reenter: true,
-                guard: "User has a private chat with Bot"
+                guard: "User has a Private chat with Bot"
               }, {
-                target: "User has to create a private chat with Bot",
+                target: "User has to create a Private chat with Bot",
                 reenter: true
               }]
             },
@@ -51,7 +51,7 @@ export const machine = createMachine({
             "User has to join meetings first": {
               after: {
                 "500": {
-                  target: "#/set_personal_daily_reminder_period.Chat.3745834",
+                  target: "#/set_personal_daily_reminder_period.Public chat.3745834",
                   reenter: true
                 }
               }
@@ -60,17 +60,17 @@ export const machine = createMachine({
             "Set reminder period": {
               after: {
                 "500": {
-                  target: "#/set_personal_daily_reminder_period.Chat.2983742",
+                  target: "#/set_personal_daily_reminder_period.Public chat.2983742",
                   reenter: true,
                 }
               },
-              description: "- Set reminder period for this User in this Chat to <period> minutes\n- Update scheduled reminders for today's daily meeting if the User participates in today's meeting"
+              description: "- Set reminder period for this User in this Public chat to <period> minutes.\n- Update scheduled reminders for today's daily meeting if the User participates in today's meeting"
             },
 
-            "User has to create a private chat with Bot": {
+            "User has to create a Private chat with Bot": {
               after: {
                 "500": {
-                  target: "#/set_personal_daily_reminder_period.Chat.9284232",
+                  target: "#/set_personal_daily_reminder_period.Public chat.9284232",
                   reenter: true
                 }
               }
@@ -86,14 +86,14 @@ export const machine = createMachine({
       description: "\n- Definition: \"Chat\" is a Telegram group without topics or a topic\n- Definition: \"Private chat\" is a Telegram chat (not a group) of two Telegram users\n- User and Bot are members of a Chat\n- The Bot may read messages and respond in the Chat\n- The Bot username is <bot>",
 
       on: {
-        "User opens the Chat": {
+        "User opens the Public chat": {
           target: "User.Idle",
           reenter: true
         }
       }
     },
 
-    Chat: {
+    "Public chat": {
       states: {
         "Previous messages": {},
 
@@ -131,7 +131,7 @@ export const machine = createMachine({
         },
 
         "9284232": {
-          description: "Reply to 3983414: \n\n\"You should first create a private chat with <bot> (it's me).\"",
+          description: "Reply to 3983414: \n\n\"You should first create a Private chat with <bot> (it's me).\"",
 
           after: {
             "500": {
