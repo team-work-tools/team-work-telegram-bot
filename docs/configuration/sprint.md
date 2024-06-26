@@ -1,112 +1,98 @@
 # Sprint
 
-## Policy
+## Glossary
 
-- Начало спринта:
+- `X`, `Y`, `Z`, `T` are numbers.
+  - They correspond to team numbers.
+  - They can take values `12`, `34`, `56`.
+- `{X}` means "write here the value of `X`" like in Python f-strings.
+- `Team {X}`, `Team {Y}`, `Team {Z}` are different teams.
+- `UPPERCASE` words that have a specified meaning in [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) and [RFC 8174](https://www.rfc-editor.org/rfc/rfc8174) have that meaning in this document.
 
-  - Понедельник
+## Policies
 
-  - Или суббота (по желанию)
+### Sprint Schedule
 
-  - На неделе № 3: четверг
+#### Sprint Start
 
-- Конец спринта:
+- Sprint 1: Thursday
+- Otherwise: Monday
 
-  - Пятница
+#### Sprint End
 
-  - На неделе № 3: воскресенье
+- Sprint 1: Sunday
+- Otherwise: Saturday
 
-  - На неделе № 8: ???
+### Retrospective
 
-- Ретроспектива:
+#### Day
 
-  - В последний день спринта.
+- Sprint 1: no retrospective
+- Otherwise: Sunday
 
-- Планирование спринта:
+#### Agenda
 
-  - В первый день спринта.
+- Customer and teams MUST conduct a retrospective on documented policies, procedures, processes.
 
-- Цели отдельной команды на спринт:
+### Sprint Planning
 
-  - Реализовать один или несколько сценариев.
+- Sprint plans MUST be tracked and versioned in a GitHub issue.
 
-- Цель команд  на спринт:
+### Milestones
 
-  - Бот работает в группе проекта.
+- There MUST be separate milestones for each sprint for customer and each team.
+- Milestone deadline MUST be the last day of the corresponding sprint.
+- Finalized milestones MUST be stored in the repository.
 
-  - Бот поддерживает существовавшие до спринта и новые сценарии, реализованные командами в этом спринте.
+### Git workflow process
 
-- Команды формируют и обсуждают майлстоуны [тут](https://docs.google.com/document/d/1Mtfs2oFYUY_Dofk3oEgv0d873R1QLok4PjIVFd_C_QI/edit#bookmark=kix.wgiqz868tte9).
-
-- Майлстоуны фиксируются в [репозитории](https://github.com/team-work-tools/team-work-telegram-bot/).
-
-- Дата майлстоуна - последний день спринта.
-
-####
+- Teams MUST follow the established [Git workflow process](./git-workflow-process.md).
 
 ## Process
 
-Примечания:
+### Notes
 
-- Шаги в этом разделе - сильно упрощенная версия [Procedure](https://docs.google.com/document/d/1Mtfs2oFYUY_Dofk3oEgv0d873R1QLok4PjIVFd_C_QI/edit#bookmark=id.zbdqzkxopjoy).
+- The [Process](#process) section is a simplified version of the [Procedure](#procedure) section.
 
-- Team X, Team Y, Team Z - обозначения различных команд.
+### Sprint {S} activities
 
-### Задачи Team X
-
-- Обсудить с заказчиком записанные в [Roadmap](https://docs.google.com/document/d/1Mtfs2oFYUY_Dofk3oEgv0d873R1QLok4PjIVFd_C_QI/edit#bookmark=kix.nu93mfnfx9l9):
-
-  - спринты.
-
-  - сценарии на текущий спринт.
-
-- Создать Milestone в репозитории (см. [Repository](https://docs.google.com/document/d/1Mtfs2oFYUY_Dofk3oEgv0d873R1QLok4PjIVFd_C_QI/edit#bookmark=id.lurcicfzrc65)), если там еще нет нужного Milestone.
-
-- Для каждого сценария в milestone:
-
-  - Создать issue для Scenario Proposal.
-
-  - Создать PR для Scenario Proposal, который понятно и наглядно объяснит сценарий.
-
-  - Создать issue для Scenario Implementation и упомянуть в ее описании Scenario Proposal.
-
-  - Создать PR для Scenario Implementation из ветки <название ветки для scenario implementation> в main.
-
-  - Создать subtask issues для подзадач Scenario Implementation.
-
-  - Для каждой subtask issue
-
-    - Создать PR из ветки <название ветки для subtask issue> в ветку <название ветки для scenario implementation>.
-
-  - Назначить ответственных за реализацию Scenario Implementation и subtask issues из своей команды.
-
-  - Указать зависимости между issues в описании этих issues.
-
-  - Учитывая зависимости, установить:
-
-    - очередность выполнения задач
-
-    - приоритеты
-
-  - Разработать по задачам:
-
-    - Функционал
-
-    - Тесты для сценариев
-
-    - (По возможности) GitHub Actions для автоматизации тестов в CI
-
-  - Прогнать тесты и убедиться, что все работает локально.
-
-  - Сделать PR.
-
-  - Попросить людей из Team Y и/или Team Z с подходящими responsibilities отревьюить.
-
-  - Поправить PR после комментов.
-
-  - Вмержить PR.
-
-  - Добавить лейблы команд(ы) ревьюеров на закрытые ишью, где был значительный вклад ревьюеров.
+- Customer suggests scenarios for a sprint for each team in the [Roadmap issue](https://github.com/team-work-tools/team-work-telegram-bot/issues/79).
+- Customer and Team {X} negotiate scenarios for:
+  - Sprint {S} of Team {X};
+  - Future sprints of Team {X};
+- Team {X} creates a [milestone](https://github.com/team-work-tools/team-work-telegram-bot/milestones) in the repository.
+- Team {X} sets the milestone deadline according to [Milestone policies](#milestones).
+- For each scenario name in the Sprint {S}, Team {X} does the following:
+  - Create an issue for the Scenario (Scenario issue).
+  - Add a link to the Scenario issue as specified in the [Roadmap issue](https://github.com/team-work-tools/team-work-telegram-bot/issues/79) policies.  
+  - Create a branch `{scenario_branch}` from the `main` branch for the Scenario issue via the `Create a branch` button on the issue page.
+  - Textually and visually explain the scenario in that branch.
+  - Make a PR from the `{scenario_branch}` to the `main` branch.
+    - You'll periodically merge the `{scenario_branch}` to the `main` branch and the `main` branch to the `{scenario_branch}` while you work on the scenario.
+  - Write subtasks in a single-level checkbox list in the Scenario issue description.
+  - Replace subtasks with links to issues. Either:
+    - Find an existing issue for that subtask and replace the subtask with a link to that issue.
+    - Convert the subtask to an issue (via the ⦿ button to the right).
+  - Assign labels to issues related to the Scenario issue:
+    - priority - 1 to 5
+    - size - `XS`, `S`, `M`, `L`, `XL`
+    - `team {X}`
+    - Assignees - based on the [Responsibility distribution](./roles-and-responsibilities.md#responsibilities-distribution).
+  - For each issue that is related to the Scenario issue and that has subtasks that aren't links to other issues:
+    - Create a branch `{issue_branch}` from the `main` branch via the `Create a branch` button on the issue page.
+    - Work on this issue on the `{issue_branch}`.
+    - Periodically merge the `{main}` branch into the `{issue_branch}` to synchronize with the overall project progress.
+    - Create a PR from the `{issue_branch}` to the `main` branch.
+    - Run tests and ensure everything works locally.
+    - Set as PR Reviewers [teams](https://github.com/orgs/team-work-tools/teams) that correspond to the issue labels (e.g., [Development](https://github.com/orgs/team-work-tools/teams/development)).
+    - Revise the PR after comments.
+    - Merge the PR when the PR:
+      - is approved;
+      - has no conflicts with the `main` branch.
+- If a member of Team {X} makes significant contributions to PRs not related to Team {X} Scenario issues, the member can add the `team {X}` label to issues closed by these PRs. Significant contributions:
+  - Comments on code sections
+  - Code suggestions
+  - Commits
 
 ## Procedure
 
