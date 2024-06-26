@@ -54,10 +54,10 @@ def handle_global_commands(
 
         # Register user if it is personal message
         if message.chat.type == "private":
-            username = message.from_user.username
+            username = message.from_user.username if message.from_user else None
             user_cht_id = message.chat.id
-            user_pm = await load_user_pm(username=username)
-            if not user_pm:
+            user_pm = await load_user_pm(username=username) if username else None
+            if not user_pm and username:
                 user_pm = await create_user_pm(username=username, chat_id=user_cht_id)
                 await save_user_pm(user_pm=user_pm)
                 await message.reply("You successfully registered in the bot!")
@@ -99,7 +99,7 @@ def handle_team_settings_commands(
                 send_message=send_message,
             )
 
-            username = message.from_user.username
+            username = message.from_user.username if message.from_user else None
 
             await update_reminders(
                 bot=bot,
@@ -212,7 +212,7 @@ def handle_personal_settings_commands(
             meeting_days_str = " ".join(msg_spt[1:])
             day_tokens = meeting_days_str.replace(",", " ").lower().split()
 
-            days_num = set()
+            days_num: set[int] = set()
 
             for token in day_tokens:
                 if not token:
@@ -350,9 +350,11 @@ def handle_user_responses(
     async def set_meetings_time(
             message: Message, username: str, chat_state: ChatState, replied_meeting_msg_num: int
     ):
-        if message.from_user.username in chat_state.users:
-            user = await get_user(chat_state, username)
 
-            reply_msg_key = f"has_replied_to_msg_{replied_meeting_msg_num}"
-            setattr(user, reply_msg_key, True)
-            await save_state(chat_state)
+        if message.from_user and message.from_user.username:
+            if message.from_user.username in chat_state.users:
+                user = await get_user(chat_state, username)
+
+                reply_msg_key = f"has_replied_to_msg_{replied_meeting_msg_num}"
+                setattr(user, reply_msg_key, True)
+                await save_state(chat_state)

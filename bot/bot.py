@@ -1,3 +1,5 @@
+from typing import Optional
+
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
@@ -57,7 +59,7 @@ async def main(settings: Settings) -> None:
         default=DefaultBotProperties(parse_mode=ParseMode.HTML),
     )
 
-    async def send_message(chat_id: ChatId, message: str, message_thread_id: int = None):
+    async def send_message(chat_id: ChatId, message: str, message_thread_id: Optional[int] = None):
         return await bot.send_message(chat_id=chat_id, text=message, message_thread_id=message_thread_id)
 
     scheduler = init_scheduler(settings=settings)

@@ -1,5 +1,6 @@
 import logging
 from datetime import datetime
+from typing import Optional
 
 from aiogram import Bot
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
@@ -61,7 +62,7 @@ async def send_reminder_messages(
 
 async def update_reminders(
         bot: Bot,
-        username: str,
+        username: Optional[str],
         scheduler: AsyncIOScheduler,
         send_message: SendMessage,
 ) -> None:
@@ -126,7 +127,7 @@ def schedule_reminder(
     logging.info(scheduler.get_job(make_job_id(user_chad_id, meeting_chat_id)))
 
 
-def get_message_link(chat_id: ChatId, message_id: ChatId, thread_id: int, chat_type: str):
+def get_message_link(chat_id: ChatId, message_id: ChatId, thread_id: Optional[int], chat_type: str):
     match chat_type:
         case "supergroup":
             chat_id_normalized = str(chat_id)[4:]
