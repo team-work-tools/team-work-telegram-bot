@@ -48,6 +48,10 @@
 
 - Sprint plans MUST be tracked and versioned in a GitHub issue.
 
+### Issues
+
+- There MUST be a GitHub issue for each task that implies interaction with the repository.
+
 ### Milestones
 
 - There MUST be separate milestones for each sprint for customer and each team.
