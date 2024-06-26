@@ -4,6 +4,7 @@ from typing import Optional
 
 from aiogram import Bot
 from aiogram.exceptions import TelegramForbiddenError
+from aiogram.utils.i18n import gettext as _
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 
@@ -11,6 +12,7 @@ from .messages import make_daily_messages
 from .constants import day_of_week, jobstore
 from .custom_types import ChatId, SendMessage
 from .state import load_state, load_user_pm, get_user, ChatState
+from textwrap import dedent
 
 
 async def send_reminder_messages(
@@ -66,8 +68,14 @@ async def send_reminder_messages(
         bot_username = bot_info.username
 
         if chat_type != "private":
-            banned_msg = f"{username}, please unblock {bot_username} (it's me) in our private chat" \
-                         f" so that I can send you reminders about missed daily meeting questions."
+            banned_msg = dedent(
+                        _(
+                            """
+                            {username}, please unblock {bot_username} (it's me) in our private chat
+                            so that I can send you reminders about missed daily meeting questions.
+                            """
+                        ).format(username=username, bot_username=bot_username)
+                    )
 
             await send_message(
                 chat_id=meeting_chat_id,
