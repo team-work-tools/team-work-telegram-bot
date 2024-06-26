@@ -2,6 +2,7 @@
 
 ## Glossary
 
+- `Policy`, `Process`, `Procedure` - explained [here](https://www.oracle.com/ce-help/playbook/display-content/ar02-policy-process-or-procedure).
 - `UPPERCASE` words that have a specified meaning in [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) and [RFC 8174](https://www.rfc-editor.org/rfc/rfc8174) have that meaning in this document.
 - `X`, `Y`, `Z`, `T` are numbers.
   - They correspond to team numbers.
