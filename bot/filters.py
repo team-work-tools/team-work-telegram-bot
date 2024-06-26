@@ -1,5 +1,6 @@
 from aiogram.filters import Filter
 from aiogram.types import Message, User
+
 from .state import load_state
 
 
@@ -25,3 +26,18 @@ class HasChatState(Filter):
     async def __call__(self, message: Message):
         chat_state = await load_state(message.chat.id)
         return {"chat_state": chat_state}
+
+
+class IsReplyToMeetingMessage(Filter):
+    async def __call__(self, message: Message):
+        chat_state = await load_state(message.chat.id)
+
+        if message.reply_to_message:
+            replied_msg_id = message.reply_to_message.message_id
+            message_ids = chat_state.meeting_msg_ids
+
+            for i in range(0, 3):
+                if replied_msg_id == message_ids[i]:
+                    return {"replied_meeting_msg_num": i}
+
+        return False
