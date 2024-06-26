@@ -110,7 +110,7 @@ def handle_team_settings_commands(
 
             await message.reply(
                 _(
-                    "OK, we'll meet at {meeting_time} on {week_days} starting than on {start_date}!"
+                    "OK, we'll meet at {meeting_time} on {week_days} starting not earlier than on {start_date}!"
                 ).format(
                     meeting_time=html.bold(meeting_time.strftime("%H:%M")),
                     week_days=html.bold(day_of_week_pretty),
@@ -299,10 +299,8 @@ def handle_personal_settings_commands(
 
                 await message.reply(
                     _(
-                        """
-                        @{username} I don't have access to your personal messages.
-                        Please write to @{bot_username} and type /start.
-                        """
+                        "@{username} I don't have access to your personal messages.\n"
+                        "Please write to @{bot_username} and type /start."
                     ).format(
                         username=username,
                         bot_username=bot_info.username
