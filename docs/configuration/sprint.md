@@ -236,17 +236,19 @@
   - Update `{subtasks}` in the `{scenario_issue}` description based on the scenario in the `{scenario_pr}`.
   - Let `CREATE_SUBTASKS` <a id="def-create-subtasks"></a> for the issue `{issue}` be the following procedure:
     - Let `{subtasks}` be the list of subtasks in the `Subtasks` section of the `{issue}`.
-    - For each subtask `{subtask}` in the `{subtasks}` list:
-      - If the `{subtask}` seems so big that it requires own subtasks, replace `{subtask}` with a link to a Subtask issue `{subtask_issue}`.
-        - This issue can be:
+    - For each subtask `{subtask}` in the item `-[ ] {subtask}` of the `{subtasks}` list:
+      - If the `{subtask}` seems so big that it requires own subtasks:
+        - Replace `- [ ] {subtask}` with `- {subtask_issue_link}`.
+        - `{subtask_issue_link}` is a link to a Subtask issue `{subtask_issue}`.
+        - The `{subtask_issue}` can be:
           - An existing issue.
           - A new issue created from `{subtask}`.
             - To create an issue this way:
               - Hover over the `{subtask}`.
               - Click the ⦿ button (`Create an issue`) on the right.
     - For each `{subtask}` in the updated `{subtasks}` list:
-      - If the `{subtask}` is a link to a Subtask issue `{subtask_subtask_issue}`:
-        - Open the `{subtask_subtask_issue}` page by this link.
+      - If the `{subtask}` in the list item `- {subtask}` is a link `{subtask_subtask_issue_link}` to a Subtask issue `{subtask_subtask_issue}`:
+        - Open the `{subtask_subtask_issue}` page by `{subtask_subtask_issue_link}`.
         - Write the issue description. Format:
 
           ```text
@@ -260,8 +262,8 @@
           ```
 
           - The `Details` section is optional.
-          - `details` provides details of the subtask (elaborates on the `{subtask_subtask_issue}` name).
-          - `subtasks` is a single-level checkbox list.
+          - `{details}` provides details of the subtask (elaborates on the `{subtask_subtask_issue}` name).
+          - `{subtasks}` is a single-level checklist.
             - Items:
               - Descriptions of subtasks.
               - Links to Subtask issues that should be completed to complete this `{subtask_subtask_issue}`.
