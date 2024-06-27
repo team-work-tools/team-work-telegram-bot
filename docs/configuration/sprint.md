@@ -326,8 +326,8 @@
         ```
 
 - Set as [Reviewers](#def-reviewer) the [teams](https://github.com/orgs/team-work-tools/teams) whose names correspond to the issue labels.
-- Send a link to the PR to the Team {X} topic and ping the Customer.
-  - Ping the Customer if the Customer doesn't respond in a reasonable time (e.g., a couple of hours).
+- Send the `{subtask_pr_link}` to the PRs topic and ping the Customer.
+  - Ping the Customer again if the Customer doesn't respond in a reasonable time (e.g., a couple of hours).
 
 #### Reviewer of a PR
 
