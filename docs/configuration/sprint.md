@@ -241,9 +241,9 @@
 
           ```text
           [
-          ## Description
+          ## Details
             
-          {description}
+          {details}
           
           ]
           ## Subtasks
@@ -252,7 +252,7 @@
           ```
 
           - The section in square brackets is optional.
-          - `description` formulates the subtask (extends the Subtask issue name).
+          - `details` provides details on the subtask (elaborates on the Subtask issue name).
           - `subtasks` - a single-level checkbox list of descriptions of subtasks or links to Subtask issues that should be completed to complete this Subtask issue.
 
         - According to [Responsibility Distribution](#def-responsibility-distribution):
