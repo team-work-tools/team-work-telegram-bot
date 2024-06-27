@@ -84,7 +84,7 @@
   - Textually and visually explain the scenario in that branch.
   - Make a PR from the `{scenario_branch}` to the `main` branch.
     - You'll periodically merge the `{scenario_branch}` to the `main` branch and the `main` branch to the `{scenario_branch}` while you work on the scenario.
-  - Write subtasks in a single-level checkbox list in the Scenario issue description.
+  - Write subtasks in a single-level checklist in the Scenario issue description.
   - Replace subtasks with links to issues. Either:
     - Find an existing issue for that subtask and replace the subtask with a link to that issue.
     - Convert the subtask to an issue (via the ⦿ button to the right).
