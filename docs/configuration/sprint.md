@@ -217,8 +217,8 @@
 #### Customer
 
 - For each ready for review Scenario PR from Team {X}:
-  - Comment on the PR.
-  - Discuss the PR in the Team {X} topic on Telegram.
+  - Review the PR.
+  - Discuss the PR in the PRs topic.
 
 #### Task Management (from Team {X})
 
