@@ -224,47 +224,65 @@
 
 ### Task Management (from Team {X})
 
-- For each ready for review Scenario PR of Team {X}:
-  - Go by the `{scenario_issue_link}` to the Scenario issue.
-  - Update `{subtasks}` in the Scenario issue description.
-  - Let `CREATE_SUBTASKS` <a id="def-create-subtasks"></a>:
+- For each reviewed by the customer Scenario PR `{scenario_pr}` of Team {X}:
+  - Let the `{scenario_pr}` description contain:
+
+    ```text
+    - For {scenario_issue_link}
+    ```
+
+  - Go by the `{scenario_issue_link}` to the Scenario issue `{scenario_issue}` page.
+  - Switch to the `Edit` > `Write` mode to edit the `{scenario_issue}` description.
+  - Update `{subtasks}` in the `{scenario_issue}` description based on the scenario in the `{scenario_pr}`.
+  - Let `CREATE_SUBTASKS` <a id="def-create-subtasks"></a> for the issue `{issue}` be the following procedure:
+    - Let `{subtasks}` be the list of subtasks in the `Subtasks` section of the `{issue}`.
     - For each subtask `{subtask}` in the `{subtasks}` list:
-      - If the `{subtask}` seems so big that it requires own subtasks, replace `{subtask}` with a link to a Subtask issue. This issue can be:
-        - An existing issue.
-        - A new issue created from `{subtask}`:
-          - Hover over a `{subtask}`.
-          - Click the ⦿ button (`Create an issue`) on the right.
+      - If the `{subtask}` seems so big that it requires own subtasks, replace `{subtask}` with a link to a Subtask issue `{subtask_issue}`.
+        - This issue can be:
+          - An existing issue.
+          - A new issue created from `{subtask}`.
+            - To create an issue this way:
+              - Hover over the `{subtask}`.
+              - Click the ⦿ button (`Create an issue`) on the right.
     - For each `{subtask}` in the updated `{subtasks}` list:
-      - If the `{subtask}` is a link to a Subtask issue:
-        - Open the Subtask issue page.
+      - If the `{subtask}` is a link to a Subtask issue `{subtask_subtask_issue}`:
+        - Open the `{subtask_subtask_issue}` page by this link.
         - Write the issue description. Format:
 
           ```text
-          [
           ## Details
             
           {details}
           
-          ]
           ## Subtasks
           
           {subtasks}
           ```
 
-          - The section in square brackets is optional.
-          - `details` provides details on the subtask (elaborates on the Subtask issue name).
-          - `subtasks` - a single-level checkbox list of descriptions of subtasks or links to Subtask issues that should be completed to complete this Subtask issue.
+          - The `Details` section is optional.
+          - `details` provides details of the subtask (elaborates on the `{subtask_subtask_issue}` name).
+          - `subtasks` is a single-level checkbox list.
+            - Items:
+              - Descriptions of subtasks.
+              - Links to Subtask issues that should be completed to complete this `{subtask_subtask_issue}`.
+            - Example:
+
+              - ```text
+                - [ ] {subtask_1_description}
+                - [ ] {subtask_2_description}
+                - [ ] {link_to_subtask_3}
+                ```
 
         - According to [Responsibility Distribution](#def-responsibility-distribution):
-          - Assign labels
+          - Assign Responsibility labels
           - Set [Assignees](#def-assignee)
         - Assign other labels:
           - size - `XS`, `S`, `M`, `L`, `XL`
           - `priority: {priority}`, where `priority` can be 1, 2, 3, 4, 5.
           - `team {X}`
 
-        - [CREATE_SUBTASKS](#def-create-subtasks) for the Subtask issue.
-  - [CREATE_SUBTASKS](#def-create-subtasks) starting at the issue at `{scenario_issue_link}`:
+        - [CREATE_SUBTASKS](#def-create-subtasks) for the `{subtask_issue}`.
+  - [CREATE_SUBTASKS](#def-create-subtasks) for the `{scenario_issue}`.
 
 ### Assignee (from Team {X}, of a Subtask issue)
 
