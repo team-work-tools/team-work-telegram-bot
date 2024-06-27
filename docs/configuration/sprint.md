@@ -162,9 +162,23 @@
     {subtasks}
     ```
 
-    - `scenario_description` - a brief description of the scenario plus some necessary details.
-    - `subtasks` - a single-level checkbox list of descriptions of subtasks that should be completed to describe the scenario in a `Scenario file`.
-      - E.g., "- [ ] choose the format of a scenario model"
+    - `{scenario_description}`:
+      - a brief description of the scenario.
+      - some scenario details that will be used when documenting the scenario.
+    - `{subtasks}` - a single-level checklist of subtask descriptions.
+      - These subtasks should be completed to implement the scenario.
+      - These subtasks are preliminary and will be updated later.
+      - Example:
+
+        ```text
+        - [ ] Add a scenario file
+        - [ ] Add xstate diagram files
+        - [ ] Link diagram files in the scenario file
+        - [ ] Update the database schema
+        - [ ] Choose command name
+        - ...
+        ```
+
   - Assign labels to this issue:
     - `Scenario`
     - `Architecture`
@@ -173,7 +187,7 @@
     - Size - `XS`, `S`, `M`, `L`, `XL`
     - `priority: {priority}`, where `priority` can be 1, 2, 3, 4, 5.
     - `team {X}`
-  - Add Assignee(s) from Team {X} according to the labels and [Responsibility Distribution](#def-responsibility-distribution).
+  - Add Assignee(s) from Team {X} according to the [Responsibility Distribution](#def-responsibility-distribution).
   - Ping Assignees in the Team {X} topic.
 
 #### Assignee (from Team {X}, of a Scenario issue)
