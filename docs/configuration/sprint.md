@@ -286,9 +286,9 @@
         - [CREATE_SUBTASKS](#def-create-subtasks) for the `{subtask_issue}`.
   - [CREATE_SUBTASKS](#def-create-subtasks) for the `{scenario_issue}`.
 
-#### Assignee (from Team {X}, of a Subtask issue)
+#### Assignee (from Team {X}, of a Subtask issue `{subtask_issue}`)
 
-- Create a branch `{subtask_branch}` for the issue via `Development` > `Create a branch` button.
+- Create a branch `{subtask_branch}` on the `{subtask_issue}` page via `Development` > `Create a branch` button.
 - Fetch the repo.
 - Switch to the new branch.
 - Add commits that resolve subtasks given via descriptions (not links to issues).
@@ -297,7 +297,36 @@
 - Test locally.
 - Fix and commit fixes.
 - Push the `{subtask_branch}` to the repository.
-- Create a PR from the `{subtask_branch}` to `{main}`.
+- Create a PR `{subtask_pr}` from the `{subtask_branch}` to `{main}`.
+- Write the PR description. Format:
+
+  ```text
+  ## Issues
+  
+  {issues}
+  ```
+
+  - `issues` is a single-level list (links to / identifiers of) issues whose subtasks were addressed by this PR.
+    - An element of this list can be:
+      - `#{issue_id}`- an identifier of an issue
+      - link to an issue
+    Example:
+
+      ```text
+      - #42
+      - https://github.com/team-work-tools/team-work-telegram-bot/issues/42
+      ```
+
+- For each `{issue}` in `{issues}`:
+  - For each `{subtask}` in the `{subtasks}` list in the `Subtasks` section of the `{issue}` description:
+    - If the `{subtask}` is not a link and the `{subtask}` was completed in the `{subtask_pr}`:
+      - Mark `{subtask}` as completed.
+      - Write a link to `{subtask_pr}` in parentheses after `{subtask}`.
+
+        ```text
+        - [x] completed subtask ({subtask_pr})
+        ```
+
 - Set as [Reviewers](#def-reviewer) the [teams](https://github.com/orgs/team-work-tools/teams) whose names correspond to the issue labels.
 - Send a link to the PR to the Team {X} topic and ping the Customer.
   - Ping the Customer if the Customer doesn't respond in a reasonable time (e.g., a couple of hours).
