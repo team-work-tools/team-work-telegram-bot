@@ -62,13 +62,13 @@
 
 - Teams MUST follow the established [Git workflow process](./git-workflow-process.md).
 
-## Process
+## Sprint process
 
 ### Notes
 
 - The [Process](#process) section is a simplified version of the [Procedure](#procedure) section.
 
-### Activities
+### Process
 
 - Customer suggests scenarios for Sprint {S} for each team in the [Roadmap issue](#def-roadmap-issue).
 - Customer and Team {X} negotiate scenarios for:
@@ -108,7 +108,7 @@
   - Code suggestions
   - Commits
 
-## Procedure
+## Sprint procedure
 
 ### Notes
 
@@ -124,37 +124,32 @@
 - `Subtask issue` <a id="def-subtask-issue"> - an issue that is a subtask of another issue.
 - `Scenario subtask issue` <a id="def-scenario-subtask-issue"> - an issue that is a transitive subtask of a Scenario issue.
 
-### Customer
+### Procedure
+
+#### Customer
 
 - For each Team {T}:
   - In the [Sprint block of Team {T}](#def-sprint-block-of-team-t), propose scenarios (so far, just names and details).
 - Notify Teams in the `Announcements` topic that scenarios were proposed.
   - Include a link to the [Roadmap issue](#def-roadmap-issue) into the notification.
 
-### Team {X}, Customer
+#### Team {X}, Customer
 
 - In the Team {X} topic, negotiate and optionally edit scenarios for Sprint {S} for Team {X} in the [Roadmap issue](#def-roadmap-issue).
 
-### Customer
+#### Customer
 
 - For each Team {T}, after scenarios have been agreed on, explicitly approve them in the Announcements topic.
 
-### Task Management from Team {X}
+#### Task Management from Team {X}
 
 - Create a [Milestone](https://github.com/team-work-tools/team-work-telegram-bot/milestones) for Sprint {S}:
-
   - Name: `Sprint {S} - Team {X}`.
-
   - Due date: according to [Milestone Policies](#milestones).
-
 - For each scenario with the name `{scenario_name}` in the [Sprint block of Team {X}](#def-sprint-block-of-team-t):
-
   - Create a [Scenario issue](#def-scenario-issue):
-
     - Name: `Scenario: {scenario_name}`.
-  
   - Add the issue to the previously created milestone.
-
   - Write the issue description:
 
     ```text
@@ -170,28 +165,18 @@
     - `scenario_description` - a brief description of the scenario plus some necessary details.
     - `subtasks` - a single-level checkbox list of descriptions of subtasks that should be completed to describe the scenario in a `Scenario file`.
       - E.g., "- [ ] choose the format of a scenario model"
-
   - Assign labels to this issue:
-
     - `Scenario`
-
     - `Architecture`
-
     - `UI/UX`
-
     - `Project Documentation`
-
     - Size - `XS`, `S`, `M`, `L`, `XL`
-
     - `priority: {priority}`, where `priority` can be 1, 2, 3, 4, 5.
-
     - `team {X}`
-
   - Add Assignee(s) from Team {X} according to the labels and [Responsibility Distribution](#def-responsibility-distribution).
-
   - Ping Assignees in the Team {X} topic.
 
-### Assignee (from Team {X}, of a Scenario issue)
+#### Assignee (from Team {X}, of a Scenario issue)
 
 - Create a branch `{scenario_branch}` for this issue from the `main` branch.
   - Use the `Development` > `Create a branch` button on the issue page.
@@ -216,13 +201,13 @@
 
 - Notify Task management (from Team {X}) that the Scenario description is ready for review.
 
-### Customer
+#### Customer
 
 - For each ready for review Scenario PR from Team {X}:
   - Comment on the PR.
   - Discuss the PR in the Team {X} topic on Telegram.
 
-### Task Management (from Team {X})
+#### Task Management (from Team {X})
 
 - For each reviewed by the customer Scenario PR `{scenario_pr}` of Team {X}:
   - Let the `{scenario_pr}` description contain:
@@ -284,7 +269,7 @@
         - [CREATE_SUBTASKS](#def-create-subtasks) for the `{subtask_issue}`.
   - [CREATE_SUBTASKS](#def-create-subtasks) for the `{scenario_issue}`.
 
-### Assignee (from Team {X}, of a Subtask issue)
+#### Assignee (from Team {X}, of a Subtask issue)
 
 - Create a branch `{subtask_branch}` for the issue via `Development` > `Create a branch` button.
 - Fetch the repo.
@@ -300,7 +285,7 @@
 - Send a link to the PR to the Team {X} topic and ping the Customer.
   - Ping the Customer if the Customer doesn't respond in a reasonable time (e.g., a couple of hours).
 
-### Reviewer of a PR
+#### Reviewer of a PR
 
 - Switch to the branch locally.
 - Check:
@@ -319,13 +304,13 @@
 - Suggest changes.
 - If everything is OK, approve the PR.
 
-### Assignee (from Team {X}, of the approved PR)
+#### Assignee (from Team {X}, of the approved PR)
 
 - Merge the PR.
 - If a Reviewer from Team {Y} made significant contribution to the PR:
   - Go to the issue addressed by the PR.
   - Add there the `team {Y}` label.
 
-### Team X, Customer
+#### Team X, Customer
 
 - Conduct a [Retrospective](#retrospective).
