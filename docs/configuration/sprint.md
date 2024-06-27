@@ -191,7 +191,7 @@
   - Add Assignee(s) from Team {X} according to the [Responsibility Distribution](#def-responsibility-distribution).
   - Ping Assignees in the Team {X} topic.
 
-#### Assignee (from Team {X}, of a Scenario issue)
+#### Assignee (from Team {X}, of a Scenario issue `{scenario_issue}`)
 
 - Create a branch `{scenario_branch}` for this issue from the `main` branch.
   - Use the `Development` > `Create a branch` button on the issue page.
@@ -207,13 +207,11 @@
   - PR description:
 
     ```text
-    - Related to {scenario_issue_link}
+    - For {scenario_issue_link}
     ```
 
-    - `scenario_issue_link` is a link to the Scenario issue.
-
+    - `{scenario_issue_link}` is a link to the `{scenario_issue}`.
   - Add the `/team-work-tools/scenario` team to Reviewers.
-
 - Notify Task management (from Team {X}) that the Scenario description is ready for review.
 
 #### Customer
