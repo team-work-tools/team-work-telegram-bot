@@ -45,6 +45,7 @@ class ChatState(Document):
     meeting_time: Optional[datetime] = None
     meeting_msg_ids: list[int] = []
     topic_id: Optional[int] = None
+    timezone: Optional[str] = None
     chat_id: Annotated[ChatId, Indexed(index_type=pymongo.ASCENDING)]
     users: Dict[str, ChatUser] = dict()
 
