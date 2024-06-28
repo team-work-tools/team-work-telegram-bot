@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import time, tzinfo
 from typing import Annotated, Optional, Dict, List
 from zoneinfo import ZoneInfo
 
@@ -42,10 +42,10 @@ async def create_user(username: str) -> ChatUser:
 
 class ChatState(Document):
     language: Language = Language.default
-    meeting_time: Optional[datetime] = None
+    meeting_time: Optional[time] = None
     meeting_msg_ids: list[int] = []
     topic_id: Optional[int] = None
-    timezone: Optional[str] = None
+    default_time_zone: Optional[tzinfo] = None
     chat_id: Annotated[ChatId, Indexed(index_type=pymongo.ASCENDING)]
     users: Dict[str, ChatUser] = dict()
 
