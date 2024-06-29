@@ -45,6 +45,7 @@ def make_help_message() -> str:
         
         {html.bold(_("Chat information commands"))}
         /{command_names.get_chat_state} - {command_descriptions.get_chat_state}
+        /{command_names.guess_time_zone} - {command_descriptions.guess_time_zone}
         """
     ).strip()
 
