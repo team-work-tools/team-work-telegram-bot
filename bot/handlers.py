@@ -1,5 +1,5 @@
-from datetime import time, datetime
-from pytz import timezone
+from datetime import time, datetime, timedelta, UTC
+from pytz import timezone, all_timezones
 from pytz.exceptions import UnknownTimeZoneError
 from textwrap import dedent
 
@@ -390,6 +390,51 @@ def handle_info_commands(
             ),
             parse_mode=ParseMode.HTML,
         )
+
+    @router.message(Command(bot_command_names.guess_time_zone), HasMessageText(), HasChatState())
+    async def guess_time_zone(message: Message, message_text: str, chat_state: ChatState):
+        try:
+            time_str = message_text.split(" ")[1]
+            hour = int(time_str.split(":")[0])
+            minute = int(time_str.split(":")[1])
+        except (ValueError, IndexError):
+                 await message.reply(
+                     dedent(
+                         _(
+                             """
+                             Please write the meetings time in the hh:mm format.
+                             
+                             Example:
+                             /{set_meetings_time} {sample_time}
+                             """
+                         ).format(
+                             set_meetings_time=bot_command_names.set_meetings_time,
+                             sample_time=sample_time,
+                         )
+                     )
+                 )
+                 return
+
+        utcnow = datetime.now(UTC)
+        local = datetime.now(UTC)
+        local = local.replace(hour=hour, minute=minute)
+        offset = timedelta(days = 0, seconds=(local - utcnow).seconds).total_seconds() // 60
+
+        res_timezones = []
+        for time_zone in all_timezones:
+            timezone_offset = timezone(time_zone).utcoffset(datetime.now()).total_seconds() // 60
+            if timezone_offset == offset:
+                res_timezones.append(time_zone)
+
+        if res_timezones:
+            res = "These timezones found: \n"
+            res += "\n".join(res_timezones)
+            res += "\n use /{set_meetings_time_zone} command to set your timezone"\
+            .format(set_meetings_time_zone=bot_command_names.set_meetings_time_zone)
+
+            await message.reply(res)
+        else:
+            await message.reply("Sorry, no timezones found")
 
 
 def handle_user_responses(
