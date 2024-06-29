@@ -119,10 +119,11 @@ def handle_team_settings_commands(
                     .format(set_meetings_time_zone=bot_command_names.set_meetings_time_zone)
                 )
             )
+            return
 
         meeting_time = time(
             hour=hour, minute=minute,
-            tzinfo=timezone(chat_state.meeting_time_zone)
+            tzinfo=timezone(chat_state.default_time_zone)
         )
         chat_state.meeting_time = meeting_time
         chat_state.topic_id = topic_id
