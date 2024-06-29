@@ -1,5 +1,6 @@
 from datetime import time
 from pytz import timezone
+from pytz.exceptions import UnknownTimeZoneError
 from textwrap import dedent
 
 from aiogram import Bot, Router, html
@@ -11,7 +12,7 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from .commands import bot_command_names
 from .constants import (day_of_week_to_num, day_of_week_pretty, iso8601,
-                        sample_time, time_url)
+                        sample_time, time_url, sample_time_zone)
 from .custom_types import SendMessage
 from .filters import HasChatState, HasMessageText, HasMessageUserUsername, IsReplyToMeetingMessage
 from .meeting import schedule_meeting
@@ -78,6 +79,41 @@ def handle_global_commands(
 def handle_team_settings_commands(
         scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router, bot: Bot
 ):
+    @router.message(
+        Command(bot_command_names.set_meetings_time_zone), HasMessageText(), HasChatState()
+    )
+    async def set_meetings_time_zone(
+            message: Message, message_text: str, chat_state: ChatState
+    ):
+        try:
+            time_zone = message_text.split(" ")[1]
+            timezone(time_zone)
+        except IndexError:
+            await message.reply(
+                dedent(
+                    """
+                    Please write the time zone.
+
+                    Example:
+                    /{set_meetings_time_zone} {sample_time_zone}
+                    """.format(
+                        set_meetings_time_zone=bot_command_names.set_meetings_time_zone,
+                        sample_time_zone=sample_time_zone
+                    )
+                )
+            )
+            return
+        except UnknownTimeZoneError:
+            await message.reply("Such time zone does not exist, please chack the spelling")
+            return
+        chat_state.default_time_zone = time_zone
+        await save_state(chat_state)
+        await message.reply(
+            "Time zone is successfully set to {time_zone}"
+            .format(time_zone=time_zone)
+        )
+
+
     @router.message(
         Command(bot_command_names.set_meetings_time), HasMessageText(), HasChatState()
     )
