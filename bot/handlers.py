@@ -1,4 +1,5 @@
-from datetime import datetime
+from datetime import time
+from pytz import timezone
 from textwrap import dedent
 
 from aiogram import Bot, Router, html
@@ -83,61 +84,76 @@ def handle_team_settings_commands(
     async def set_meetings_time(
             message: Message, message_text: str, chat_state: ChatState
     ):
-        meeting_time_str = message_text.split(" ", 1)
+        meeting_time_str = message_text.split(" ", 1)[1]
         topic_id = message.message_thread_id
 
         try:
-            meeting_time = datetime.fromisoformat(meeting_time_str[1])
-            chat_state.meeting_time = meeting_time
-            chat_state.topic_id = topic_id
-            await save_state(chat_state=chat_state)
-
-            schedule_meeting(
-                meeting_time=meeting_time,
-                chat_id=chat_state.chat_id,
-                scheduler=scheduler,
-                send_message=send_message,
-            )
-
-            username = message.from_user.username if message.from_user else None
-
-            await update_reminders(
-                bot=bot,
-                username=username,
-                scheduler=scheduler,
-                send_message=send_message
-            )
-
-            await message.reply(
-                _(
-                    "OK, we'll meet at {meeting_time} on {week_days} starting not earlier than on {start_date}!"
-                ).format(
-                    meeting_time=html.bold(meeting_time.strftime("%H:%M")),
-                    week_days=html.bold(day_of_week_pretty),
-                    start_date=html.bold(meeting_time.strftime("%Y-%m-%d")),
-                )
-            )
-        except Exception as e:
+            hour = int(meeting_time_str.split(":")[0])
+            minute = int(meeting_time_str.split(":")[1])
+        except ValueError:
             await message.reply(
                 dedent(
                     _(
                         """
-                        Please write the meetings time in the {iso8601} format with an offset relative to the UTC time zone.
-                        
-                        You can calculate the time on the site {time_url}.
+                        Please write the meetings time in the hh:mm format.
                         
                         Example:
                         
                         /{set_meetings_time} {sample_time}
                         """
                     ).format(
-                        iso8601=iso8601,
-                        time_url=time_url,
                         set_meetings_time=bot_command_names.set_meetings_time,
                         sample_time=sample_time,
                     )
                 )
             )
+            return
+
+        if chat_state.meeting_time_zone == None:
+            await message.reply(
+                dedent(
+                    """
+                    Please set your timezone first
+
+                    You can do this with /{set_meetings_time_zone} command
+                    """
+                    .format(set_meetings_time_zone=bot_command_names.set_meetings_time_zone)
+                )
+            )
+
+        meeting_time = time(
+            hour=hour, minute=minute,
+            tzinfo=timezone(chat_state.meeting_time_zone)
+        )
+        chat_state.meeting_time = meeting_time
+        chat_state.topic_id = topic_id
+        await save_state(chat_state=chat_state)
+
+        schedule_meeting(
+            meeting_time=meeting_time,
+            chat_id=chat_state.chat_id,
+            scheduler=scheduler,
+            send_message=send_message,
+        )
+
+        username = message.from_user.username if message.from_user else None
+
+        await update_reminders(
+            bot=bot,
+            username=username,
+            scheduler=scheduler,
+            send_message=send_message
+        )
+
+        await message.reply(
+            _(
+                "OK, we'll meet at {meeting_time} on {week_days} starting not earlier than on {start_date}!"
+            ).format(
+                meeting_time=html.bold(meeting_time.strftime("%H:%M")),
+                week_days=html.bold(day_of_week_pretty),
+                start_date=html.bold(meeting_time.strftime("%Y-%m-%d")),
+            )
+        )
 
 
 def handle_personal_settings_commands(

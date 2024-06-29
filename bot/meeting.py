@@ -1,5 +1,5 @@
 import logging
-from datetime import datetime
+from datetime import datetime, time
 
 from aiogram.utils.i18n import gettext as _
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
@@ -47,7 +47,7 @@ def make_job_id(some_id: int):
 
 
 def schedule_meeting(
-    meeting_time: datetime,
+    meeting_time: time,
     chat_id: ChatId,
     scheduler: AsyncIOScheduler,
     send_message: SendMessage,

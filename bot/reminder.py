@@ -1,5 +1,5 @@
 import logging
-from datetime import datetime
+from datetime import time, tzinfo
 from typing import Optional
 
 from aiogram import Bot
@@ -109,6 +109,7 @@ async def update_reminders(
                 username=username,
                 user_chad_id=user_pm.chat_id,
                 meeting_time=chat.meeting_time,
+                meeting_time_zone=chat.timezone,
                 meeting_chat_id=chat.chat_id,
                 scheduler=scheduler,
                 send_message=send_message
@@ -124,7 +125,8 @@ def schedule_reminder(
         period_minutes: int,
         username: str,
         user_chad_id: ChatId,
-        meeting_time: datetime,
+        meeting_time: time,
+        meeting_time_zone: tzinfo,
         meeting_chat_id: ChatId,
         scheduler: AsyncIOScheduler,
         send_message: SendMessage,
@@ -143,7 +145,7 @@ def schedule_reminder(
         },
         trigger=IntervalTrigger(minutes=period_minutes, start_date=meeting_time),
         # day_of_week=day_of_week, # TODO: make it work only on user's working days
-        timezone=meeting_time.tzinfo,
+        timezone=meeting_time_zone,
         misfire_grace_time=42,
     )
 
