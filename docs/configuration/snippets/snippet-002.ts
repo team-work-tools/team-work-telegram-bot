@@ -1,7 +1,7 @@
 import { createMachine } from "xstate";
 
 export const machine = createMachine({
-  /** @xstate-layout N4IgpgJg5mDOIC5QHpZgC4H0AOYBOsA9gHYCGANpgLZgYCWxUsm6dNAdAKpp7sCSEcmADEAZQwACXARIUJNeo1gTWNANoAGALqJQ2QrDqsSukAA9EAWgBMADgCs7DRoCMAFg0BOF589uAbAH+ADQgAJ6I1gDMAOzsLjEuGjExbi7+trZRtgC+OaGoGDj4RGSUCqxKLGxg7ABChOjsABKkxIJgKgAWnQDGhFRUbRDsAMI9vQDWEgwAZoQSpABGhACu6N2d3PjCmjpIIPqGxsSmFgj2bjEa7PZePvbX0d6hEQjW9i7sDq4J3p6ZNz2XL5ECFLDSUoUai0SpMaocBpNVrtISbCT9QbDMYTaZzBbLNYbdA9CTbPC7Fz7PQGIx0EwHc6fFy2dhRWLuWwaLIxOyvSKPW5uazXFxRR6eDQfPIFNAQkqycqwhjw1S1JEtYZokl9AZDdpcHgSLqkZQAK0IDEg8mVSmESIkaHasD2piOdIZoHO1g0UU88Wcnhi-kSqWFUX5CDctn9-msbjS9nsHMCMrBcuKMjKMMUqpq9UamtRnR1GL12PJxtNKgWFoYNtzylmdAI6GEZlg6FI6FqpFmPbwAAo7hoAJTCcGZqFKxsI9WFlEddGY-UjSsm5ToWuW4gNuFNlud10Hd0nM6RB7sTzs7IxT72a8xSMir53aMuawuez+B-2NOTyFFRzfc53YABRYgADcWxIGhiDbStCFwYhN1JXoTXQY8aWOelTkZKwxR8K8PCiNxPBDOxYhCcIL39Hwf28JINB-R4QVlIpAOzCoVWYNUcW7NlUmBUj207bte37fBh2cccAIVLjbTzDhxgE2IgSyNwsMOWkz3whAXCI5wkmsTwfUSfxyLcZ9EnYMjbGDWJPEuGIon8f8M046FuKqPiVKaP0NPcUSux7dg+wHaSxwnDz5K8xTePzPy2QBUj3C009cPPBAHNshwgT8O4LP8FxIzcVz2BFKJkkuDwfz9dyONimcQN8jDbKlFzbBcYQKAAd1IMIXW0N0dMyvSbFMq9vH8KIfWjOwysjfxnAqu9Cum5Jioa+Uszi2dWoEjxKq64RKy7bBlDwa0lnWLdd2IMBSDwdFetoSYIAG9LRs9cwCJDNkHy5O8DISH1rEjLJ-T8Z5Ew0YF-Dc0E5N25qeNApKjs67qztIC6JAAcksfGvpwn6mWW24UilJN0lsMqrJohBbHjJw0goh94x-RH2J26dgLRg6mkx7JsaNc7lCgK6wF3G70DuiQHqel63o+sISY9PCvSsW9bKqpJrjjONfAjRmkjFK9k2ZlIPATXxtqnIDvKU2oMY6kXTrF3HlHxgBqYnhpPb7Nd+95ZviVJPzIyVmVsSMxVceIE2sBGTMScUontzzUZ8xK2uFk6cbxkgZng-BIIodXdK194H3YCzmIeD9xQCOOfC+Wagc7n0XEzpr+Zz5S8-SeMEl2APsI1rLPy6tlk+-G2LKBBm3hZOGKpM8jeRc3lgV7lH++d-iheHtIYkpaltNJ4PvRmm4Picr87DuOm465RxrA3ijt4+Nj00a-enYJUHodP4cZ7Ae3wCoL2BNehtF6GAcg-sL4ZTJpEYMNwjZVWTJ8IMyRnxwziNbIGdwP52BiHvPmgD0ZDxiORD4EDnriwJtLAciwoCkAYEgkaV8sqzV5OvD4T9owJnZPghM8RAhXGKt4Dwf4kYxQAfFahh0PgciiGPZBQcp4fjvszBI3JlpXFSHHVy-oshxiiB+MGzhyHyP-pQpRgtbKqLTufbhk89LJw0G4eI7hAiuAyNyExth-DsGuF1BIpFLFfgoY7RxucVEI15P4BhUC8b41gcQeBiDK5jWrgtHxrFmaA0COKOOxUMEI3cJKbewZf7IwcftBJQtk4URSYXb2LDIGkHYZw3JqCECzRZO1bk3jfQuWTCbFeFS65VLIskWIKRYkKSacApoDpep4CMHAEuEhVhizAGYDYDBsDrAkM2BBEBUknPWAgCQAAeFY6AAB8Dy1QlwHOXcgzz+nX0QCE9uhtTII28aZTwrdvCz07skZmgZll7Ras09gAB1DhcJzmEEYaSfZkC1SwHII0DEJpGCdBoLAWAPSRCVnQm0GAm5DkbGGI6aWEBUKkrgBSmAvysq02sPEUi5FJTJDKuC02c0wmpGvECB8KVuZ-15nE1ZLs2oqUYCqdE51cAQA+WXCg9pCU0pJZuXGWqdV4C+YsXo-Q8AQHVVuPZPB8bKDJZyzoTKIAIIwDs4Qwpkxp25XpJIVU66+G8CQr8XJwam3mbZBMlwfCzWsPC7Oh8kqjDgQgoltL1UME+Xqh0HqhA9mUD61pySJA+pPgkAN+SgaJxCfGIMy07zURXnUpwdNvAOThuyORPMHYrMRWs9gAAlDAeAwhZrVYwM1Xz9UbELV6ktwoknJwrWzEeMQa0h0sf9IMjxt7kWZrHU2d4+UhKqmVR4cNJRuGTQfIByqBIbK2cWjVYAqDYHIOJXZOLGEMpLqcjYFzyBXMrDc4DdBLl3MeY0V5ngEDOEsAkRDGht3nBkbrPwy0uQAj8eUmMsyDIODFDGXw9SFGNKHU+poqK6QzvmFizof6VA1HxQaq63ZcI2nJZS1Jhq6UqAA0yp0rL0QuspehxAkSoisxciGAygQEbL2k9cWT5kEydt5KZWx-as4PuUU0PgpdzVyFIBAW1jBhBPMWBZ5QubdXkF2ehAw0sJCq0WO0dznq32VrjKfKT+k-G+NaSLHwLlX4UzKtEGaXUyIxLsQqwdAskXpqyZm8zlmoCzvzYSxdvmN2n3XaAj4gWRTJH5UGFkLICoJGfPGVk7JUjeM+GkeyGdEsDoRSl4dY70ATts1lnL5B53eaLd6wrCRiu0LAYFxNPjAiMXvptKZkRPw3HFJkR4pTmbsnvVQpxAAFfA9JtVXSoIQaCVnjtbMINqugl0P2XfVbMPAAwNXLCEIFxebJvHRiEuKGpENrxOBSEkOM4XRT7ficOgAghZ9EHn7WllgOhSAqwhD2lusXATOz7WS1oLuETaOIAY86La2AX6BpsstawSCJYagSEILMRHA1zlvaoKzrsSxTSdDoCz0g5c6DfqWF98el8PHV0sItuu8c7yuVcDCyMpkfFAlMcbKqwLodKqPqOp79PWeTte+9lHJOydY7ljj4lgn7VXW1cTnopO0QQEIDs4geWHtU8nW0SdeKCXoHs7uEkD33OfXFygv5CAbDJl+zCx4jkGv2DjskDBBlozXhDNEu9aZ3cevgAcBpirqPuKriHZDSSQ2pC-GRSR9lIw2HFFeVKpl2QxkXrp+VXWU2PsNPgEveSy8GTvMlP0gQQmfBSFGt47JCkhgibyWIVFtfUd77wAQQh+8DOQx+OIfpR-Rh-AkXkpVPxhNIs5Jy14uQ906-pg7+YkSb8jzXm40ZLbCO7k+Rm2-2rZF7dyMqGacUZfHrecZELUEsNCcsdoJ-LKEcVkN-bID-VwL-N4YfYMSiIEGIEJSNG-PTPue-REBcCA5caAkYcYMAKYEueYRYFYM5UsckWAvSewF8JwWLVyKqLqOMcpPlMFemCfcrbAkAgeMAosJcUsFcCsI0DcCQOsB6bVQBJg6uZyHxDg7IaGYjVtRAbIRwLqZmJyJMBGA9YQw+DURcbUKArEA0dcase1OQvcHic5Q8dAJQkOO4b8XKd-OmT-SMWaf0bIGaH8NTWhDwDvQvZLEQ8CKCGCYgOCFwwOHhcadIIiCyKvS4Syf7evTkMJEMIECpdkZOPwEwnvPyVw84SwRIL4BaAJL8MBLICGG4MUIqYEa4JMLqTwYowzQSdSUiMo6TMURwCyKqVOVeWaFTfSf6KqWIKUcHH0ZIJNW-AgmHGjZKQKNwPo-ST4eISGR4emOMZiOOIMXxPhLwVyDmK4TopxfOFwDYkUOIT8EFPwdkVI0RRmTIUJLwa8Tec-LaRYxRHXDGKtGIW4n0D4z8FyBaD4YUcY9If6TISxVyVOfQy4pFU+OhewW4rIDBMiEUI6ZIrQ-SOmQY3bdPAA0iFE4dX1NRW49IWTGMKk78B8FIVuOMCqY2GxAFYqbPfA-4lfDGMtZOTE1k+LBwNOCJOOYUPlN8IMO4oMO8CklYw7K6aCNYZ1DlSlfPCeUvcohGWTao5I78H+VbfSGyTIAEYSWIZOAyBU3XF9bZQPB1XFADCDJwy5DY5MPlH4gwr8dkVwOOcVFIQqT8MUPwX0G0pKOjdFRjdEFjP3A1a3dlXjGADYgyAEOuOGFkYMf7eMVA-oyFDuH0b8IZYwv4qjUA3XVVKAO1UkTVa0BzUzcgFM7AvlAIHTFggqIJU2O4QhMqeyeuOyC40sovcstNDNJzATHNEzL5TE5OCVQEZiQJbxKfaTDIHxdIWheMLwMqP0MIyjYcyIpKPrAbCcmdes6chIyXHdB44iHM0xFkEMAjWMYqJIQEN8IEcMtqO0t9UsHsT9b9HsX9A5I5QDM5EDCAd06IWyLmU47IKUIEcpXwOuRZPhT4EMR4D8gSSMl7TFGMsWNjf3DETjE4HjV1FM5OWTZIcjJOWC78R8ojSxQokyRkjCozKcszCzFUW47kc9VycJKRAEAklkS4SmeYjIbA2C7kzvO-ZYisscwbScvNRsi87UtBdkWNS4IqO8ZwZc94MUQpB8KJYELqWaFivXfrb3Di08tipSrUgfc4WaDIdqPwJ4mxeMZ8JuK8TmcrIIu40ym7U7CQc7Z7RgDYq2XKaINIK-ZmH8CGFmbxVeVwAIYUFkUy+HbVUsJHBYU3R3MnDYywb8G4FyEU5iEqg4t4v0G8lg-RJeEyociI1NNqMdC7A3DKtnY3TnbK9HDfZSuyqwYqPlJ4GFLEreJPU2e4AGWhBIAyX0rIPIPIIAA */
+  /** @xstate-layout N4IgpgJg5mDOIC5QHpZgC4H0AOYBOsA9gHYCGANpgLZgYCWxUsm6dNAdAKpp7sCSEcmADEAZQwACXARIUJNeo1gTWNANoAGALqJQ2QrDqsSukAA9EAWgBMADgCs7DRoCMAFg0BOF589uAbAH+ADQgAJ6I1gDMAOzsLjEuGjExbi7+trZRtgC+OaGoGDj4RGSUCqxKLGxg7ABChOjsABKkxIJgKgAWnQDGhFRUbRDsAMI9vQDWEgwAZoQSpABGhACu6N2d3PjCmjpIIPqGxsSmFgj2bjEa7PZePvbX0d6hEQjW9i7sDq4J3p6ZNz2XL5ECFLDSUoUai0SpMaocBpNVrtISbCT9QbDMYTaZzBbLNYbdA9CTbPC7Fz7PQGIx0EwHc6fFy2dhRWLuWwaLIxOyvSKPW5uazXFxRR6eDQfPIFNAQkqycqwhjw1S1JEtYZokl9AZDdpcHgSLqkZQAK0IDEg8mVSmESIkaHasD2piOdIZoHO1g0UU88Wcnhi-kSqWFUX5CDctn9-msbjS9nsHMCMrBcuKMjKMMUqpq9UamtRnR1GL12PJxtNKgWFoYNtzylmdAI6GEZlg6FI6FqpFmPbwAAo7hoAJTCcGZqFKxsI9WFlEddGY-UjSsm5ToWuW4gNuFNlud10Hd0nM6RB7sTzs7IxT72a8xSMir53aMuawuez+B-2NOTyFFRzfc53YABRYgADcWxIGhiDbStCFwYhN1JXoTXQY8aWOelTkZKwxR8K8PCiNxPBDOxYhCcIL39Hwf28JINB-R4QVlIpAOzCoVWYNUcW7NlUmBUj207bte37fBh2cccAIVLjbTzDhxgE2IgSyNwsMOWkz3whAXCI5wkmsTwfUSfxyLcZ9EnYMjbGDWJPEuGIon8f8M046FuKqPiVKaP0NPcUSux7dg+wHaSxwnDz5K8xTePzPy2QBUj3C009cPPBAHNshwgT8O4LP8FxIzcVz2BFKJkkuDwfz9dyONimcQN8jDbKlFzbBcYQKAAd1IMIXW0N0dMyvSbFMq9vH8KIfWjOwysjfxnAqu9Cum5Jioa+Uszi2dWoEjxKq64RKy7bBlDwa0lnWLdd2IMBSDwdFetoSYIAG9LRs9cwCJDNkHy5O8DISH1rEjLJ-T8Z5Ew0YF-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-C7-ePZRw07irRHfJD7WdVbjOCPCJDCJGwV6r7ZwwoKpNDVpXTQRrD0pvLnJwCv5YaTLB5W5h7CTaw2SZAAjCSxBGwGQP6b7qKaLaK6InJKZGKPReYZR1ZhwVSuAxIJjJjuDTpGzawxYBjwwYJBbEFJSpLpL6qlgaoYq5K7g0oqB3KlylIbAVLkAQAoH2RsgGSWaJxeCUJ-4gph7v7TrXD97gGDxVp0arJ0jhrzBbKkiSGKYHK4qvKnJIGv4GTz5wyiJxhswBDArWCgoIxxjBgzI+D8HwrXKUqkjnSEqiEuJOGSiTbRI0zZBeCmQO4sgSoIxSofDCqmyGHPYG5JRKrEAIKuK8bqplxiHkCv52DuC-LRjTo+CMKkQd5JhsiuTBjLzfjchBECSBroDBqhpQAlE5LlF14pbnD8J0xToJC+hSjl5AoJwFTO4QqAzRDJhZE8xr6JIVaD7tr1oSCNrNoqiv6py5Tf4+DZDMw-gQwsy1FciuABCdZsTlpe7r6bGP7sB7oHrMayZUqlivrnpCAoHtEkKkQerMSgnt6MyQzESGyTExazSdFNCBp9ofYaYhqQbDo-HCb-HDH0Ff4kLTFFZVS8h3hmbeAAzSKB7si9z2Y5BAA */
   context: {},
   id: "/set_personal_meetings_time",
   initial: "Environment",
@@ -95,29 +95,38 @@ export const machine = createMachine({
                   reenter: true
                 },
 
+                "User taps '+'": {
+                  target: "#/set_personal_meetings_time.Chat.Default timeslot creation",
+                  reenter: true
+                },
+
                 "User taps green button near the weekday": {
                   target: "#/set_personal_meetings_time.Chat.Remove the day from the schedule",
                   reenter: true
                 },
 
-                "User taps '+'": {
-                  target: "#/set_personal_meetings_time.Chat.Bot writes the template in user text input field",
-                  reenter: true
-                },
-
                 "User taps on interval": {
-                  target: "#/set_personal_meetings_time.Chat.Bot writes in user text input field",
+                  target: "#/set_personal_meetings_time.Chat.Bot writes the interval in user text input field",
                   reenter: true
                 }
               }
             },
 
-        "Bot writes in user text input field": {
+        "Default timeslot creation": {
           on: {
-            "User input: <bot> <time interval>": {
-                  target: "#/set_personal_meetings_time.Chat.Waiting for the user timeslot change message",
+            "Bot creates 23:59-23:59 interval in the table": {
+                  target: "#/set_personal_meetings_time.Chat.Bot writes the interval in user text input field",
                   reenter: true
                 }
+          }
+        },
+
+        "Bot writes the interval in user text input field": {
+          on: {
+            "User input: <bot> <time interval>": {
+              target: "#/set_personal_meetings_time.Chat.Waiting for the user timeslot change message",
+              reenter: true,
+            },
           }
         },
 
@@ -177,79 +186,7 @@ export const machine = createMachine({
         "Retry changing interval": {
           on: {
             "Bot deletes #4266726 #4162417": {
-              target: "#/set_personal_meetings_time.Chat.Bot writes in user text input field",
-              reenter: true
-            }
-          }
-        },
-
-        "Bot writes the template in user text input field": {
-          on: {
-            "User input field: <bot> 9:00-17:00": {
-              target: "#/set_personal_meetings_time.Chat.Waiting for the user timeslot creation message",
-              reenter: true,
-            },
-          }
-        },
-
-        "Waiting for the user timeslot creation message": {
-          on: {
-            "User changes text and sends the message": {
-              target: "#/set_personal_meetings_time.Chat.4162417",
-              reenter: true,
-            }
-          }
-        },
-
-        "4162417": {
-          description: "Expected message in '<bot> hh:mm-hh:mm' format, \n\n\ may be incorrect format",
-          always: [{
-            target: "Interval adding",
-            reenter: true,
-            guard: "User's message is in the correct format'"
-          }, {
-            target: "4179625",
-            reenter: true
-          }]
-        },
-
-        "Interval adding": {
-          on:
-          {
-            "bot adds interval in chosen day and deletes #4162417": {
-              target: "#/set_personal_meetings_time.Chat.4027381",
-              reenter: true,
-            }
-          }
-        },
-
-        "4179625": {
-          description: "Reply to 4162417: \n\n\"The time period entered was in an incorrect format. Click 'enter again' to try again.\" \n\nThe message contains two buttons 'enter again' and 'cancel'.",
-          on: {
-            "User taps 'cancel'": {
-              target: "#/set_personal_meetings_time.Chat.Cancel adding interval",
-              reenter: true
-            },
-            "User taps 'enter again'": {
-              target: "#/set_personal_meetings_time.Chat.Retry adding interval",
-              reenter: true
-            },
-          }
-        },
-
-        "Cancel adding interval": {
-          on: {
-            "Bot deletes #4162417 #4179625": {
-              target: "#/set_personal_meetings_time.Chat.4027381",
-              reenter: true
-            }
-          }
-        },
-
-        "Retry adding interval": {
-          on: {
-            "Bot deletes #4162417 #4179625": {
-              target: "#/set_personal_meetings_time.Chat.Bot writes the template in user text input field",
+              target: "#/set_personal_meetings_time.Chat.Bot writes the interval in user text input field",
               reenter: true
             }
           }
