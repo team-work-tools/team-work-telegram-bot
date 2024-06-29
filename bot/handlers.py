@@ -84,13 +84,13 @@ def handle_team_settings_commands(
     async def set_meetings_time(
             message: Message, message_text: str, chat_state: ChatState
     ):
-        meeting_time_str = message_text.split(" ", 1)[1]
-        topic_id = message.message_thread_id
-
         try:
+            meeting_time_str = message_text.split(" ", 1)[1]
+            topic_id = message.message_thread_id
+
             hour = int(meeting_time_str.split(":")[0])
             minute = int(meeting_time_str.split(":")[1])
-        except ValueError:
+        except (ValueError, IndexError):
             await message.reply(
                 dedent(
                     _(
