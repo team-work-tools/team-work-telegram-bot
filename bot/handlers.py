@@ -98,7 +98,6 @@ def handle_team_settings_commands(
                         Please write the meetings time in the hh:mm format.
                         
                         Example:
-                        
                         /{set_meetings_time} {sample_time}
                         """
                     ).format(
@@ -109,7 +108,7 @@ def handle_team_settings_commands(
             )
             return
 
-        if chat_state.meeting_time_zone == None:
+        if chat_state.default_time_zone == None:
             await message.reply(
                 dedent(
                     """
