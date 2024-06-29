@@ -42,7 +42,8 @@ async def create_user(username: str) -> ChatUser:
 
 class ChatState(Document):
     language: Language = Language.default
-    meeting_time: Optional[time] = None
+    meeting_time_hour: Optional[int] = None
+    meeting_time_minute: Optional[int] = None
     meeting_msg_ids: list[int] = []
     topic_id: Optional[int] = None
     default_time_zone: Optional[str] = None

@@ -1,4 +1,4 @@
-from datetime import time
+from datetime import time, datetime
 from pytz import timezone
 from pytz.exceptions import UnknownTimeZoneError
 from textwrap import dedent
@@ -157,13 +157,14 @@ def handle_team_settings_commands(
             )
             return
 
+        chat_state.meeting_time_hour = hour
+        chat_state.meeting_time_minute = minute
+        chat_state.topic_id = topic_id
+        await save_state(chat_state=chat_state)
         meeting_time = time(
             hour=hour, minute=minute,
             tzinfo=timezone(chat_state.default_time_zone)
         )
-        chat_state.meeting_time = meeting_time
-        chat_state.topic_id = topic_id
-        await save_state(chat_state=chat_state)
 
         schedule_meeting(
             meeting_time=meeting_time,
@@ -187,7 +188,7 @@ def handle_team_settings_commands(
             ).format(
                 meeting_time=html.bold(meeting_time.strftime("%H:%M")),
                 week_days=html.bold(day_of_week_pretty),
-                start_date=html.bold(meeting_time.strftime("%Y-%m-%d")),
+                start_date=html.bold(datetime.now().strftime("%Y-%m-%d")),
             )
         )
 
