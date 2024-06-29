@@ -26,3 +26,5 @@ day_of_week_to_num = {
 }
 
 sample_time = "13:20"
+
+sample_time_zone = "Europe/Moscow"
