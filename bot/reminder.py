@@ -1,5 +1,6 @@
 import logging
 from datetime import time, tzinfo
+from pytz import timezone
 from typing import Optional
 
 from aiogram import Bot
@@ -102,14 +103,15 @@ async def update_reminders(
         if not (user and user_pm):
             continue
 
-        if chat.meeting_time and user.reminder_period:
+        if chat.meeting_time_hour and chat.meeting_time_minute and user.reminder_period:
+            meeting_time = time(hour=chat.meeting_time_hour, minute=chat.meeting_time_minute)
             schedule_reminder(
                 bot=bot,
                 period_minutes=user.reminder_period,
                 username=username,
                 user_chad_id=user_pm.chat_id,
-                meeting_time=chat.meeting_time,
-                meeting_time_zone=chat.timezone,
+                meeting_time=meeting_time,
+                meeting_time_zone=timezone(chat.timezone),
                 meeting_chat_id=chat.chat_id,
                 scheduler=scheduler,
                 send_message=send_message
