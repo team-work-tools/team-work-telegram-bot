@@ -85,27 +85,27 @@ export const machine = createMachine({
                   reenter: true
                 },
 
-                "User taps red button near the weekday": {
+                "User presses red button near the weekday": {
                   target: "#/set_personal_working_time.Chat.Add the day to the schedule",
                   reenter: true
                 },
 
-                "User taps '-'": {
+                "User presses '-'": {
                   target: "#/set_personal_working_time.Chat.Removing the interval",
                   reenter: true
                 },
 
-                "User taps '+'": {
+                "User presses '+'": {
                   target: "#/set_personal_working_time.Chat.Default timeslot creation",
                   reenter: true
                 },
 
-                "User taps green button near the weekday": {
+                "User presses green button near the weekday": {
                   target: "#/set_personal_working_time.Chat.Remove the day from the schedule",
                   reenter: true
                 },
 
-                "User taps on interval": {
+                "User presses an interval": {
                   target: "#/set_personal_working_time.Chat.Bot writes the interval in user text input field",
                   reenter: true
                 }
@@ -161,7 +161,7 @@ export const machine = createMachine({
           description: "Reply to 4162417: \n\n\"The interval <interval from the message> is not in the format 'hh:mm-hh:mm'.\n\nPress 'Enter again' to enter the interval again.\n\nPress 'Cancel' to cancel editing this interval.\" \n\nThe message contains two buttons: 'Enter again' and 'Cancel'.",
 
           on: {
-            "User taps 'Cancel'": {
+            "User presses 'Cancel'": {
               target: "#/set_personal_working_time.Chat.Cancel changing interval",
               reenter: true
             }
@@ -170,7 +170,7 @@ export const machine = createMachine({
           always: {
             target: "#/set_personal_working_time.Chat.Retry changing interval",
             reenter: true,
-            guard: "User taps 'Enter again'"
+            guard: "User presses 'Enter again'"
           }
         },
 
