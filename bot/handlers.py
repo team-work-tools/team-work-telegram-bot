@@ -3,10 +3,11 @@ from pytz import timezone, all_timezones
 from pytz.exceptions import UnknownTimeZoneError
 from textwrap import dedent
 
-from aiogram import Bot, Router, html
+from aiogram import Bot, Router, html, F
 from aiogram.enums import ParseMode
 from aiogram.filters.command import Command
-from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.filters.callback_data import CallbackData
+from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from aiogram.utils.i18n import gettext as _
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
@@ -14,7 +15,8 @@ from .commands import bot_command_names
 from .constants import (day_of_week_to_num, day_of_week_pretty, iso8601,
                         sample_time, time_url, sample_time_zone)
 from .custom_types import SendMessage
-from .filters import HasChatState, HasMessageText, HasMessageUserUsername, IsReplyToMeetingMessage
+from .filters import HasChatState, HasMessageText, HasMessageUserUsername, IsReplyToMeetingMessage,\
+                     HasChatStateCallback, HasCallbackPrefix
 from .meeting import schedule_meeting
 from .reminder import update_reminders
 from .messages import make_help_message
@@ -42,6 +44,10 @@ def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage, bot: Bot
 
     handle_user_responses(
         scheduler=scheduler, send_message=send_message, router=router
+    )
+
+    handle_callbacks(
+        scheduler=scheduler, send_message=send_message, router=router, bot=bot
     )
 
     return router
@@ -464,3 +470,25 @@ def handle_user_responses(
                 if replied_meeting_msg_num in non_replied_msgs:
                     non_replied_msgs.remove(replied_meeting_msg_num)
                     await save_state(chat_state)
+
+
+def handle_callbacks(
+        scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router, bot: Bot
+    ):
+    @router.callback_query(
+        HasCallbackPrefix("default_time_zone"),
+        HasChatStateCallback(bot)
+    )
+    async def set_default_time_zone(
+        callback_query: CallbackQuery, chat_state: ChatState
+    ):
+        if callback_query.data == None:
+            return
+        time_zone = callback_query.data.split(" ")[1]
+        chat_state.default_time_zone = time_zone
+        await save_state(chat_state)
+        await send_message(
+            message="Time zone is successfully set to {time_zone}"
+            .format(time_zone=time_zone),
+            chat_id=chat_state.chat_id
+        )
