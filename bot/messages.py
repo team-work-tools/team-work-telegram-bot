@@ -18,7 +18,6 @@ def bot_intro():
         """
     ).strip()
 
-
 def make_help_message() -> str:
     command_names = commands.bot_command_names
     command_descriptions = commands.bot_command_descriptions()
@@ -30,6 +29,7 @@ def make_help_message() -> str:
         {html.bold(_("Global commands"))}
         /{command_names.start} - {command_descriptions.start}
         /{command_names.help} - {command_descriptions.help}
+        /{command_names.lang} - {command_descriptions.lang}
         
         {html.bold(_("Team settings commands"))}
         /{command_names.set_meetings_time} - {command_descriptions.set_meetings_time}

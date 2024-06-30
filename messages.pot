@@ -1,0 +1,184 @@
+# Translations template for PROJECT.
+# Copyright (C) 2024 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2024-06-30 15:25+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: bot/commands.py:66
+msgid "Enable me."
+msgstr ""
+
+#: bot/commands.py:67
+msgid "Get a help message."
+msgstr ""
+
+#: bot/commands.py:68
+msgid "Set a language."
+msgstr ""
+
+#: bot/commands.py:69
+msgid "Disable me."
+msgstr ""
+
+#: bot/commands.py:70
+msgid "Cancel the current operation with the bot."
+msgstr ""
+
+#: bot/commands.py:72
+msgid "Set up regular meetings."
+msgstr ""
+
+#: bot/commands.py:74
+msgid "Set meetings time zone."
+msgstr ""
+
+#: bot/commands.py:75
+msgid "Set meetings time."
+msgstr ""
+
+#: bot/commands.py:76
+msgid "Set meetings days."
+msgstr ""
+
+#: bot/commands.py:78
+msgid "Join meetings."
+msgstr ""
+
+#: bot/commands.py:79
+msgid "Skip meetings."
+msgstr ""
+
+#: bot/commands.py:80
+msgid "Set the days when you can join meetings."
+msgstr ""
+
+#: bot/commands.py:81
+msgid "Join only today's meeting."
+msgstr ""
+
+#: bot/commands.py:82
+msgid "Skip only today's meeting."
+msgstr ""
+
+#: bot/commands.py:83
+msgid "Schedule a personal vacation."
+msgstr ""
+
+#: bot/commands.py:84
+msgid "Unschedule the personal vacation."
+msgstr ""
+
+#: bot/commands.py:86
+msgid "Get the chat state that I store."
+msgstr ""
+
+#: bot/handlers.py:91
+msgid "Error saving language state: {error}"
+msgstr ""
+
+#: bot/handlers.py:118
+msgid ""
+"OK, we'll meet at {meeting_time} on {week_days} starting than on "
+"{start_date}!"
+msgstr ""
+
+#: bot/handlers.py:129
+msgid ""
+"\n"
+"                        Please write the meetings time in the {iso8601} "
+"format with an offset relative to the UTC time zone.\n"
+"\n"
+"                        You can calculate the time on the site "
+"{time_url}.\n"
+"\n"
+"                        Example:\n"
+"\n"
+"                        /{set_meetings_time} {sample_time}\n"
+"                        "
+msgstr ""
+
+#: bot/handlers.py:158
+msgid "You've already joined, @{username}!"
+msgstr ""
+
+#: bot/handlers.py:165
+msgid ""
+"\n"
+"                        You've just joined, @{username}!\n"
+"\n"
+"                        You can skip meetings via the /{command_skip} "
+"command.\n"
+"                        "
+msgstr ""
+
+#: bot/handlers.py:186
+msgid ""
+"\n"
+"                        See you later, @{username}!\n"
+"\n"
+"                        You can join via the /{command_join} command.\n"
+"                        "
+msgstr ""
+
+#: bot/handlers.py:198
+msgid "You've not yet joined, @{username}!"
+msgstr ""
+
+#: bot/meeting.py:14
+msgid "Meeting time!"
+msgstr ""
+
+#: bot/meeting.py:16
+msgid "Nobody has joined the meeting!"
+msgstr ""
+
+#: bot/messages.py:13
+msgid ""
+"\n"
+"        I can help you conduct daily (or at least regular) meetings.\n"
+"\n"
+"        You can control me by sending these commands:\n"
+"        "
+msgstr ""
+
+#: bot/messages.py:29
+msgid "Global commands"
+msgstr ""
+
+#: bot/messages.py:34
+msgid "Team settings commands"
+msgstr ""
+
+#: bot/messages.py:37
+msgid "Personal settings commands"
+msgstr ""
+
+#: bot/messages.py:41
+msgid "Chat information commands"
+msgstr ""
+
+#: bot/messages.py:49
+msgid "@{username}, what did you do last working day?"
+msgstr ""
+
+#: bot/messages.py:50
+msgid "@{username}, what will you do today?"
+msgstr ""
+
+#: bot/messages.py:51
+msgid "@{username}, what (if anything) is blocking your progress?"
+msgstr ""
+

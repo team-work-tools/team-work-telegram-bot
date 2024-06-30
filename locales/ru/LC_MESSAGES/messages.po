@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-06-03 13:20+0300\n"
+"POT-Creation-Date: 2024-06-30 15:25+0300\n"
 "PO-Revision-Date: 2024-05-11 19:50+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -19,127 +19,153 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.15.0\n"
 
-#: bot/commands.py:64
-#, fuzzy
-msgid "Enable me."
-msgstr "включи меня"
-
-#: bot/commands.py:65
-#, fuzzy
-msgid "Get a help message."
-msgstr "получи это сообщение"
-
 #: bot/commands.py:66
-#, fuzzy
-msgid "Disable me."
-msgstr "включи меня"
+msgid "Enable me."
+msgstr "Включи меня"
 
 #: bot/commands.py:67
-msgid "Cancel the current operation with the bot."
-msgstr ""
+msgid "Get a help message."
+msgstr "Получи это сообщение"
+
+#: bot/commands.py:68
+msgid "Set a language."
+msgstr "Установи язык"
 
 #: bot/commands.py:69
-#, fuzzy
-msgid "Set up regular meetings."
-msgstr "установи время и дату начала дейли"
+msgid "Disable me."
+msgstr "Выключи меня"
 
-#: bot/commands.py:71
-#, fuzzy
-msgid "Set meetings time zone."
-msgstr "установи время и дату начала дейли"
+#: bot/commands.py:70
+msgid "Cancel the current operation with the bot."
+msgstr "Заверши мою текущую операцию"
 
 #: bot/commands.py:72
-#, fuzzy
-msgid "Set meetings time."
-msgstr "установи время и дату начала дейли"
+msgid "Set up regular meetings."
+msgstr "Установи время и дату начала дейли"
 
-#: bot/commands.py:73
-#, fuzzy
-msgid "Set meetings days."
-msgstr "установи время и дату начала дейли"
+#: bot/commands.py:74
+msgid "Set meetings time zone."
+msgstr "Установи время и дату начала дейли"
 
 #: bot/commands.py:75
-#, fuzzy
-msgid "Join meetings."
-msgstr "установи время и дату начала дейли"
+msgid "Set meetings time."
+msgstr "Установи время и дату начала дейли"
 
 #: bot/commands.py:76
-#, fuzzy
-msgid "Skip meetings."
-msgstr "установи время и дату начала дейли"
-
-#: bot/commands.py:77
-msgid "Set the days when you can join meetings."
-msgstr ""
+msgid "Set meetings days."
+msgstr "Установи дни встреч"
 
 #: bot/commands.py:78
-#, fuzzy
-msgid "Join only today's meeting."
-msgstr "установи время и дату начала дейли"
+msgid "Join meetings."
+msgstr "Просоединиться к встречам"
 
 #: bot/commands.py:79
-msgid "Skip only today's meeting."
-msgstr ""
+msgid "Skip meetings."
+msgstr "Пропустить встречи"
 
 #: bot/commands.py:80
-msgid "Schedule a personal vacation."
-msgstr ""
+msgid "Set the days when you can join meetings."
+msgstr "Выбрать день, когда ты можешь присоединиться к встрече"
 
 #: bot/commands.py:81
-msgid "Unschedule the personal vacation."
-msgstr ""
+msgid "Join only today's meeting."
+msgstr "Присоедини́ться только к сегодняшней встрече"
+
+#: bot/commands.py:82
+msgid "Skip only today's meeting."
+msgstr "Пропустить только сегодняшнюю встречу"
 
 #: bot/commands.py:83
-msgid "Get the chat state that I store."
-msgstr ""
+msgid "Schedule a personal vacation."
+msgstr "Запланировать отпуск"
 
-#: bot/handlers.py:82
+#: bot/commands.py:84
+msgid "Unschedule the personal vacation."
+msgstr "Отменить отпуск"
+
+#: bot/commands.py:86
+msgid "Get the chat state that I store."
+msgstr "Посмотреть состояние бота"
+
+#: bot/handlers.py:91
+msgid "Error saving language state: {error}"
+msgstr "Ошибка сохранения языка!"
+
+#: bot/handlers.py:118
 msgid ""
-"OK, we'll meet at {meeting_time} on {week_days} starting not earlier than"
-" on {start_date}!"
+"OK, we'll meet at {meeting_time} on {week_days} starting than on "
+"{start_date}!"
 msgstr ""
 "ОК, встретимся в {meeting_time} в(о) {week_days}, начиная не раньше чем "
 "{start_date}!"
 
-#: bot/handlers.py:93
+#: bot/handlers.py:129
 msgid ""
 "\n"
-"                        Please write the meeting time in the {iso8601} "
+"                        Please write the meetings time in the {iso8601} "
 "format with an offset relative to the UTC time zone.\n"
+"\n"
 "                        You can calculate the time on the site "
 "{time_url}.\n"
+"\n"
 "                        Example:\n"
+"\n"
 "                        /{set_meetings_time} {sample_time}\n"
 "                        "
 msgstr ""
+"\n"
+"                        Пожалуйста, укажи время встречи в формате "
+"{iso8601} с учетом смещения относительно часового пояса UTC.\n"
+"                        Ты можешь рассчитать время на сайте {time_url}.\n"
+"                        Пример:\n"
+"                        /{set_meetings_time} {sample_time}\n"
+"                        "
 
-#: bot/handlers.py:119
+#: bot/handlers.py:158
 msgid "You've already joined, @{username}!"
 msgstr "Ты уже подписался(лась), @{username}!"
 
-#: bot/handlers.py:126
+#: bot/handlers.py:165
 msgid ""
 "\n"
 "                        You've just joined, @{username}!\n"
+"\n"
 "                        You can skip meetings via the /{command_skip} "
 "command.\n"
 "                        "
 msgstr ""
+"\n"
+"                        Ты только что присоединился(лась), @{username}!\n"
+"                        Вы можете пропустить встречи с помощью команды "
+"/{command_skip}.\n"
 
-#: bot/handlers.py:146
+#: bot/handlers.py:186
 msgid ""
 "\n"
 "                        See you later, @{username}!\n"
+"\n"
 "                        You can join via the /{command_join} command.\n"
 "                        "
 msgstr ""
+"\n"
+"                        Увидемся позже, @{username}!\n"
+"                        Ты можешь присоедениться при помощи команды "
+"/{command_join} .\n"
+"                        "
 
-#: bot/handlers.py:157
-msgid "You've not joined anyway, @{username}!"
+#: bot/handlers.py:198
+msgid "You've not yet joined, @{username}!"
 msgstr "Ты и так подписан(а), @{username}!"
 
+#: bot/meeting.py:14
+msgid "Meeting time!"
+msgstr "Установи время и дату начала дейли"
+
+#: bot/meeting.py:16
+msgid "Nobody has joined the meeting!"
+msgstr "Никто не присоединился ко встрече"
+
 #: bot/messages.py:13
-#, fuzzy
 msgid ""
 "\n"
 "        I can help you conduct daily (or at least regular) meetings.\n"
@@ -148,23 +174,36 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"        Я могу помочь тебе проводить Ежедневные встречи.\n"
+"        Я могу помочь тебе проводить ежедневные встречи.\n"
 "\n"
 "        Ты можешь управлять мной при помощи следующих команд:\n"
 "        "
 
+#: bot/messages.py:29
+msgid "Global commands"
+msgstr "Оcновные команды"
+
+#: bot/messages.py:34
+msgid "Team settings commands"
+msgstr "Настройки для команды"
+
+#: bot/messages.py:37
+msgid "Personal settings commands"
+msgstr "Персональные настройки"
+
+#: bot/messages.py:41
+msgid "Chat information commands"
+msgstr "Настройки чата"
+
 #: bot/messages.py:49
-#, fuzzy
 msgid "@{username}, what did you do last working day?"
 msgstr "@{username}, что ты делал(а) вчера?"
 
 #: bot/messages.py:50
-#, fuzzy
 msgid "@{username}, what will you do today?"
 msgstr "@{username}, что будешь делать сегодня?"
 
 #: bot/messages.py:51
-#, fuzzy
 msgid "@{username}, what (if anything) is blocking your progress?"
 msgstr "@{username}, что (если такое есть) блокирует твой прогресс?"
 

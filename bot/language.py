@@ -7,3 +7,6 @@ class Language(Enum):
     ru = "ru"
     en = "en"
     default = "en"
+
+    def __str__(self):
+        return self.value

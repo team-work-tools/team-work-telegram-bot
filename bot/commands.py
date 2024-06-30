@@ -7,6 +7,7 @@ class BotCommands(BaseModel):
     # global commands
     start: str
     help: str
+    lang: str
     stop: str
     cancel: str
     # team settings
@@ -34,6 +35,7 @@ bot_command_names = BotCommandNames(
     # global commands
     start="start",
     help="help",
+    lang="lang",
     stop="stop",
     cancel="cancel",
     # team settings
@@ -63,6 +65,7 @@ def bot_command_descriptions() -> BotCommandDescriptions:
         # global commands
         start=_("Enable me."),
         help=_("Get a help message."),
+        lang=_("Set a language."),
         stop=_("Disable me."),
         cancel=_("Cancel the current operation with the bot."),
         # team settings

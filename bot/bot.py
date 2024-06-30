@@ -15,6 +15,9 @@ from pytz import utc
 from .constants import jobstore
 from aiogram.utils.i18n import I18n
 from aiogram.utils.i18n.middleware import FSMI18nMiddleware
+from aiogram.utils.i18n import I18n, gettext as _
+from aiogram.types import BotCommand
+
 
 
 def init_scheduler(settings: Settings) -> AsyncIOScheduler:
@@ -58,12 +61,13 @@ async def main(settings: Settings) -> None:
     )
 
     async def send_message(chat_id: ChatId, message: str):
-        return await bot.send_message(chat_id=chat_id, text=message)
+        translated_message = _(message)
+        return await bot.send_message(chat_id=chat_id, text=translated_message)
 
     scheduler = init_scheduler(settings=settings)
     await restore_scheduled_jobs(scheduler=scheduler, send_message=send_message)
 
-    router = handlers.make_router(scheduler=scheduler, send_message=send_message)
+    router = handlers.make_router(scheduler=scheduler, send_message=send_message, i18n=i18n)
 
     dp.include_router(router)
 
