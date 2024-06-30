@@ -21,6 +21,7 @@ from .meeting import schedule_meeting
 from .reminder import update_reminders
 from .messages import make_help_message
 from .state import ChatState, save_state, get_user, load_user_pm, create_user_pm, save_user_pm
+from .timezones import guess_time_zone, make_timezones_inline_keybard
 
 
 def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage, bot: Bot):
@@ -47,7 +48,7 @@ def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage, bot: Bot
     )
 
     handle_callbacks(
-        scheduler=scheduler, send_message=send_message, router=router, bot=bot
+        router=router, bot=bot
     )
 
     return router
@@ -92,32 +93,61 @@ def handle_team_settings_commands(
             message: Message, message_text: str, chat_state: ChatState
     ):
         try:
-            time_zone = message_text.split(" ")[1]
-            timezone(time_zone)
-        except IndexError:
+            argument = message_text.split(" ")[1]
+
+            try:
+                if ":" not in argument:
+                    raise IndexError
+
+                hour = int(argument.split(":")[0])
+                minute = int(argument.split(":")[1])
+
+                timezones = guess_time_zone(hour, minute)
+
+                if timezones:
+                    await message.reply(
+                        text="Chose your time zone",
+                        reply_markup=make_timezones_inline_keybard(timezones)
+                    )
+                else:
+                    await message.reply("Sorry, no time zones found")
+
+                return
+            except IndexError:
+                pass
+
+            try:
+                timezone(argument)
+                time_zone = argument
+                chat_state.default_time_zone = time_zone
+                await save_state(chat_state)
+                await message.reply(
+                    "Time zone is successfully set to {time_zone}"
+                    .format(time_zone=time_zone)
+                )
+                return
+            except UnknownTimeZoneError:
+                await message.reply("Such time zone does not exist, please chack the spelling")
+                time_zone = None
+
+
+        except (IndexError, ValueError):
             await message.reply(
                 dedent(
                     """
-                    Please write the time zone.
+                    Please write the time zone or your current local time.
 
-                    Example:
+                    Examples:
                     /{set_meetings_time_zone} {sample_time_zone}
+                    or
+                    /{set_meetings_time_zone} {sample_time}
                     """.format(
                         set_meetings_time_zone=bot_command_names.set_meetings_time_zone,
-                        sample_time_zone=sample_time_zone
+                        sample_time_zone=sample_time_zone,
+                        sample_time=sample_time
                     )
                 )
             )
-            return
-        except UnknownTimeZoneError:
-            await message.reply("Such time zone does not exist, please chack the spelling")
-            return
-        chat_state.default_time_zone = time_zone
-        await save_state(chat_state)
-        await message.reply(
-            "Time zone is successfully set to {time_zone}"
-            .format(time_zone=time_zone)
-        )
 
 
     @router.message(
@@ -397,59 +427,6 @@ def handle_info_commands(
             parse_mode=ParseMode.HTML,
         )
 
-    @router.message(Command(bot_command_names.guess_time_zone), HasMessageText(), HasChatState())
-    async def guess_time_zone(message: Message, message_text: str, chat_state: ChatState):
-        try:
-            time_str = message_text.split(" ")[1]
-            hour = int(time_str.split(":")[0])
-            minute = int(time_str.split(":")[1])
-        except (ValueError, IndexError):
-                 await message.reply(
-                     dedent(
-                         _(
-                             """
-                             Please write the meetings time in the hh:mm format.
-                             
-                             Example:
-                             /{set_meetings_time} {sample_time}
-                             """
-                         ).format(
-                             set_meetings_time=bot_command_names.set_meetings_time,
-                             sample_time=sample_time,
-                         )
-                     )
-                 )
-                 return
-
-        utcnow = datetime.now(UTC)
-        local = datetime.now(UTC)
-        local = local.replace(hour=hour, minute=minute)
-        offset = timedelta(days = 0, seconds=(local - utcnow).seconds).total_seconds() // 60
-
-        res_timezones = []
-        for time_zone in all_timezones:
-            timezone_offset = timezone(time_zone).utcoffset(datetime.now()).total_seconds() // 60
-            if timezone_offset == offset:
-                res_timezones.append(time_zone)
-
-        if res_timezones:
-            buttons = []
-            counter = 0
-            for time_zone in res_timezones:
-                if counter % 3 == 0:
-                    buttons.append([])
-                buttons[counter // 3].append(InlineKeyboardButton(
-                    text=time_zone,
-                    callback_data=f"default_time_zone {time_zone}")
-                )
-                counter += 1
-            await message.reply(
-                "These timezones found",
-                reply_markup=InlineKeyboardMarkup(inline_keyboard=buttons)
-            )
-        else:
-            await message.reply("Sorry, no timezones found")
-
 
 def handle_user_responses(
     scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router
@@ -473,7 +450,7 @@ def handle_user_responses(
 
 
 def handle_callbacks(
-        scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router, bot: Bot
+        router: Router, bot: Bot
     ):
     @router.callback_query(
         HasCallbackPrefix("default_time_zone"),
@@ -487,8 +464,17 @@ def handle_callbacks(
         time_zone = callback_query.data.split(" ")[1]
         chat_state.default_time_zone = time_zone
         await save_state(chat_state)
-        await send_message(
-            message="Time zone is successfully set to {time_zone}"
-            .format(time_zone=time_zone),
+
+        if callback_query.message == None:
+            return
+
+        await bot.edit_message_reply_markup(
+            message_id=callback_query.message.message_id,
             chat_id=chat_state.chat_id
+        )
+        await bot.edit_message_text(
+            message_id=callback_query.message.message_id,
+            chat_id=chat_state.chat_id,
+            text="Time zone is successfully set to {time_zone}"
+            .format(time_zone=time_zone)
         )
