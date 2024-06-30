@@ -430,13 +430,13 @@ def handle_info_commands(
             buttons = []
             counter = 0
             for time_zone in res_timezones:
-                counter += 1
                 if counter % 4 == 0:
                     buttons.append([])
                 buttons[counter // 4].append(InlineKeyboardButton(
                     text=time_zone,
                     callback_data=time_zone)
                 )
+                counter += 1
             await message.reply(
                 "These timezones found",
                 reply_markup=InlineKeyboardMarkup(inline_keyboard=buttons)
