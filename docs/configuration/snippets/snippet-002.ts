@@ -162,7 +162,8 @@ export const machine = createMachine({
         },
 
         "4266726": {
-          description: "Reply to 4162417: \n\n\"The time period entered was in an incorrect format. Click 'enter again' to try again.\" \n\nThe message contains two buttons 'enter again' and 'cancel'.",
+          description: "Reply to 4162417: \n\n\"The interval <interval from the message> is not in the format 'hh:mm-hh:mm'.\n\nPress 'Enter again' to enter the interval again.\n\nPress 'Cancel' to cancel editing this interval.\" \n\nThe message contains two buttons: 'Enter again' and 'Cancel'.",
+
           on: {
             "User taps 'cancel'": {
               target: "#/set_personal_working_time.Chat.Cancel changing interval",
