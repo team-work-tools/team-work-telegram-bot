@@ -6,7 +6,7 @@ from textwrap import dedent
 from aiogram import Bot, Router, html
 from aiogram.enums import ParseMode
 from aiogram.filters.command import Command
-from aiogram.types import Message
+from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.utils.i18n import gettext as _
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
@@ -427,12 +427,20 @@ def handle_info_commands(
                 res_timezones.append(time_zone)
 
         if res_timezones:
-            res = "These timezones found: \n"
-            res += "\n".join(res_timezones)
-            res += "\n use /{set_meetings_time_zone} command to set your timezone"\
-            .format(set_meetings_time_zone=bot_command_names.set_meetings_time_zone)
-
-            await message.reply(res)
+            buttons = []
+            counter = 0
+            for time_zone in res_timezones:
+                counter += 1
+                if counter % 4 == 0:
+                    buttons.append([])
+                buttons[counter // 4].append(InlineKeyboardButton(
+                    text=time_zone,
+                    callback_data=time_zone)
+                )
+            await message.reply(
+                "These timezones found",
+                reply_markup=InlineKeyboardMarkup(inline_keyboard=buttons)
+            )
         else:
             await message.reply("Sorry, no timezones found")
 
