@@ -62,7 +62,7 @@ export const machine = createMachine({
     },
     
     Environment: {
-      description: "\n- Definition: \"Chat\" is a private chat or Telegram group without topics or a topic\n- User and Bot are members of a Chat\n- The Bot may read messages and respond in the Chat\n- The Bot username is <bot>",
+      description: "- Definition: \"Chat\" is a private chat or Telegram group without topics or a topic.\n- Definition: \"Period\" is a block of time.\n- User and Bot are members of a Chat\n- The Bot may read messages and respond in the Chat\n- The Bot username is <bot>",
 
       on: {
         "User opens the chat": {
