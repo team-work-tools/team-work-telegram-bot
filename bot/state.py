@@ -79,7 +79,7 @@ async def get_joined_users(chat_state: ChatState) -> List[ChatUser]:
     return [user for user in chat_state.users.values() if user.is_joined]
 
 
-async def create_state(chat_id: ChatId, topic_id: Optional[int] = None) -> ChatState:
+async def create_state(chat_id: ChatId, topic_id: Optional[int]) -> ChatState:
     """Create a new chat state with the given chat ID.
     
     Args:
@@ -93,7 +93,7 @@ async def create_state(chat_id: ChatId, topic_id: Optional[int] = None) -> ChatS
     return await ChatState(chat_id=chat_id, topic_id=topic_id).create()
 
 
-async def load_state(chat_id: ChatId, topic_id: Optional[int] = None) -> ChatState:
+async def load_state(chat_id: ChatId, topic_id: Optional[int]) -> ChatState:
     """Load a chat state by chat ID or create a new one if not found.
     
     Args:
