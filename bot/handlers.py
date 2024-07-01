@@ -2,6 +2,7 @@ from datetime import time, datetime, timedelta, UTC
 from pytz import timezone, all_timezones
 from pytz.exceptions import UnknownTimeZoneError
 from textwrap import dedent
+from re import compile, escape
 
 from aiogram import Bot, Router, html, F
 from aiogram.enums import ParseMode
@@ -92,46 +93,11 @@ def handle_team_settings_commands(
     async def set_meetings_time_zone(
             message: Message, message_text: str, chat_state: ChatState
     ):
-        try:
-            argument = message_text.split(" ")[1]
-
-            try:
-                if ":" not in argument:
-                    raise IndexError
-
-                hour = int(argument.split(":")[0])
-                minute = int(argument.split(":")[1])
-
-                timezones = guess_time_zone(hour, minute)
-
-                if timezones:
-                    await message.reply(
-                        text="Chose your time zone",
-                        reply_markup=make_timezones_inline_keybard(timezones)
-                    )
-                else:
-                    await message.reply("Sorry, no time zones found")
-
-                return
-            except IndexError:
-                pass
-
-            try:
-                timezone(argument)
-                time_zone = argument
-                chat_state.default_time_zone = time_zone
-                await save_state(chat_state)
-                await message.reply(
-                    "Time zone is successfully set to {time_zone}"
-                    .format(time_zone=time_zone)
-                )
-                return
-            except UnknownTimeZoneError:
-                await message.reply("Such time zone does not exist, please chack the spelling")
-                time_zone = None
-
-
-        except (IndexError, ValueError):
+        command_pattern = compile(
+            r'^/{0}\s+((\d{{2}}:\d{{2}})|([A-Za-z_/]+))$'
+            .format(escape(bot_command_names.set_meetings_time_zone))
+        )
+        if not command_pattern.match(message_text):
             await message.reply(
                 dedent(
                     """
@@ -148,6 +114,41 @@ def handle_team_settings_commands(
                     )
                 )
             )
+            return
+
+        time_pattern = compile(r"^\d{2}:\d{2}$")
+        argument = message_text.split(" ")[1]
+
+        if time_pattern.match(argument):
+            hour = int(argument.split(":")[0])
+            minute = int(argument.split(":")[1])
+
+            timezones = guess_time_zone(hour, minute)
+
+            if timezones:
+                await message.reply(
+                    text="Chose your time zone",
+                    reply_markup=make_timezones_inline_keybard(timezones)
+                )
+            else:
+                await message.reply("Sorry, no time zones found")
+
+            return
+
+        try:
+            timezone(argument)
+            time_zone = argument
+            chat_state.default_time_zone = time_zone
+            await save_state(chat_state)
+            await message.reply(
+                "Time zone is successfully set to {time_zone}"
+                .format(time_zone=time_zone)
+            )
+            return
+        except UnknownTimeZoneError:
+            await message.reply("Such time zone does not exist, please chack the spelling"
+                                .format())
+            time_zone = None
 
 
     @router.message(
@@ -184,9 +185,9 @@ def handle_team_settings_commands(
             await message.reply(
                 dedent(
                     """
-                    Please set your timezone first
+                    Please set your timezone first.
 
-                    You can do this with /{set_meetings_time_zone} command
+                    You can do this with the /{set_meetings_time_zone} command.
                     """
                     .format(set_meetings_time_zone=bot_command_names.set_meetings_time_zone)
                 )
@@ -475,6 +476,6 @@ def handle_callbacks(
         await bot.edit_message_text(
             message_id=callback_query.message.message_id,
             chat_id=chat_state.chat_id,
-            text="Time zone is successfully set to {time_zone}"
+            text="Time zone is successfully set to {time_zone}".format(time_zone=time_zone)
             .format(time_zone=time_zone)
         )

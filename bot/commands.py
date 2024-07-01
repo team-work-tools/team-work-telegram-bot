@@ -87,5 +87,5 @@ def bot_command_descriptions() -> BotCommandDescriptions:
         unschedule_personal_vacation=_("Unschedule the personal vacation."),
         # info settings
         get_chat_state=_("Get the chat state that I store."),
-        guess_time_zone=_("Get list of possible time zones based on given current time")
+        guess_time_zone=_("Get a list of possible time zones based on the given current time.")
     )
