@@ -1,15 +1,15 @@
 import { createMachine } from "xstate";
 
 export const machine = createMachine({
-  /** @xstate-layout N4IgpgJg5mDOIC5QHpZgC4H0AOYBOsA9gHYCGANphKQJbkCemeYAtjcRPjvjYRAHQBRYgDcaeEizDF0AYgCqaPAAJCuYrGXoAFmGWBCEG2l0AbQAMAXUShshWDXS9i1kAA9EAFgCMATn5eANgBmLy8ggFYPAHYADnCfDw8AGhB6RCCfcP4fKPDwrzMAnLMQxIBfMpTUDG4CEgoqWgYmVnZOPFreAUV8fgBJCHIwWVIAM3R8ZXCzM2UWWHMrJBBbe0cSF3cETKjsvLMonwCAJgiosx8UtIRjvP9jjyCAj3Djnzj3iqq0LFw6sko1DojGYbA4XD+XX4ACFCOh+AAJUgcIZaXTKADGhBYLGRAgAyhhlAAVGhSABaJGGYwmKmms3mixcqwcTk2iF8Zi8-EOj3CAVC+S8HgCV0Qr12BzMeSihwyhSiXxA1V++CIAMawJaYPanT4MLhiLxqJ0eixOLx-EJ6BJZLAlOIw1csHQxjA-Bp+AAFPSAJSyFW1dUNIHNUFtCE8fWw+FIlF6U2Y7G4jhWomkilUpnLFnrZzLLa+ULZc7SoIPGJmU5ihBRDzHfjHKICwLxLnhOJKwN-YOApog1rgjqQ-UAYSM8LeMSCdeOsmdromHvG3r9AZ+Qfqfa14aHeoE4+MjfeM-r2ZsdlZGwLiBi9f4L0iUWOTebOxr4Si3Ol09bTxePhdhuPZbpqYaDrqI4HhO-Dll4L4BFEIwrnSMxzAsljMpeebsggMSIfwRRcrK9YnLE4Q1l+ASEYcZjeG8XjxD4XhATUIEaqGA46pGeBQoe8IZNO3gePOLpusutI+jM-rdmqoGcdqEbDlG0FHoJQTCeeKzYWyN4IJyWQxEcxEXGYlYdjWxzPA+QRmTEX4+HZ5wBKxqr-CG-aKXuUH8Px-B5PyASIaJi7up6eBSWYMnAXJHGebukEqb5MEBUFiFabmumgIWzHcsUZYVlWQQ1kERnZHRBRVscVX4RUlQgMQfBwC4snudu4HccpvF8FhaxZW4iDVTEhGJKVoTCXW0Q1gAtN4hGVuZeQafZMzhK5m5xTuEE8VCwhiBIxBSDIvVXvm2WDfyI2PDE43CpNUQ1i8I3HKERnhKVwnHOt7EeVtnX7vwPR4CdOF6e9fhhB4VZmQEn6MQ9qSeAEw2IREMweDdQSlYq9Wtb2YFcUpANA-0gxgCD-VbB2uyQ9D+Fw5+H53D4RwzocRk3fB32xb9HVEz5MYU9e503GZ3IrfZUTlkJJWBLBGNcs8+HBNK3NtQTXmJd1Agxka8ZomayZ4kLZ0DTc8F+BLsrSxpj0lDRFzI7DcSBF9uMxerCkJTt0aGnGZMG0mFqptatqZo6Ju4S9sr8FbUvHDLiMIB4jnZD4H0CkF7z2Wr+Ne9tXV8ROkd6aETz8CUdNxFDX4xI9fgPFDL53rZwRre7bE8+1hPeUlflTqexwlyLwo3bBoRSxkk8p-XZix1jcPTh2RS5-J8UFwDflwQhUTD2bjHTjyFbPtMryVscNZpYR7wdhchws14OPfJ3nvr-9Plbyewl74WRYPs+gQNLp0OO9Sytl5pSxIgkFmwQgir02nzXu2tkpHlSkFXeOYdLC33nkaiwoIhGSssvUUScZxBAfDEaqpwij8niFLeBvMe5ayLkeAACswMQhAACumgpCwFgKQGA8BMF9Wwb-O8FdbJDWrgcLwdck5hGooFdOKsfzIzqmUIAA */
+  /** @xstate-layout N4IgpgJg5mDOIC5QGUwBcAEEwDMCGArgDaZoCWAtmBgF4D2AdtWQxnhgMIAWeaAdAFEGANzIAnRlQZoAxAFVYYMRjoAHMA1gY0XaoEIQHmgDaABgC6iUKrqwy5RpZAAPRABYAjAE4+7gGwBmd3d-AFZXAHYADhDPV1cAGhAAT0R-TxC+T3CQkPcTXyyTQLiAXxLE1ExsfGJSSmp6JgwWNk5DPgUlPgBJCCIwGTwcNCUMEJMTDApYUwskEGtbewZHFwR08Myck3DPXwAmUPCTT0SUhH2cn33Xf19XEP3PaOeyivQsXEISbXraRmYrHY3F4fAAQnR+AAJPAMPrUHTUADGdAoFFhED4lQwABV6gAtAGDYajcaTaazRyLOxkBzzNZeEzuPi7W4hXxBXLuVy+M6IR6bHYmHLhXZpfLhN4gbHVb51Kj-JotYHtCHQjH9bS6DAotEYrEfPFUQlMGROWBoXhgPhDEZiAAUZIAlDIZV9ar8FY1Aa0Qfw1XwYXDNYidaj0XCDZgjWATWBKfNqctVogvEFMsdhf4bpETIc+Qhwq59nx9uEOX4YkyQtEpW6aj9yF6Ac0gW1QX7S89-EX9maLVabSSHc7XR9ZR6mw0W8r2-xO09Ij3iwmrDYaXTQGtIsW+A8wuF9mXyxsCyFwszhUvK3cHp46+P3Y2-t7W772p3s+4j75wsS7WMExTDM5hUuuyb0ogkS-nwBRMqKxYHFEIQFheviwbsJgeE87gxJ47gPlUT7ytOSptp2n7dh4rj9paIxDnajoTC69Zyp6pE+iqHbtGkS7UauCzgbSKyQQgjIZJEezwScJi5jWBb7Pce7+LJkQXp4qnHL4hGfA2JGKpxc58J2OTsr4v60YOtpKExJgsY+ensQZb5cfO7SmeZv4CUmwkpmJ+HMoUWY5nm-gFv4kmZFheR5vssXQWU5QgAwdDYPA8ysZOL4zuRhhgUsvmiXFkSwXEEVBNRRYRAWAC0Hiwbmck5P4rhqRMIQ6ROz7NmR76gkIogSAwUhoPlG4iVuiCXOh9y3JEFXclV4QFg8pX7EEkkhBF1H7J1xFOa+s6dp0YhjRBk0IFt3jBK4eayb4564ctyRuL4JW-qEEytcEEWSklmXdRxLlGSdPTwmdhUXTWmw3Xd0GPeeZ5XJ4ew9rsknzd+e2OVOzlHaqkIQ5uzhTbJzJtWp4TZnx4V+HwLW5n4rXmSpHX-Q5bG44duWggGQbwlqyLhhiRMTSTFzft4FOitTLUrUUGEnG9D3RH4u3s0ROPZb1rngpCgYagi2q6hGmLYjGcai3562inw0tU-sNMvQgrgaZknjbRy5nPGp2Oc9rhkUXliZCcTDLBOhRRw9Et0XpEK3eDct1HjuKkBGz7ya-7PWBx+7SLsu+xW6J3LzfTQRU2kleuwnJh2-4RzuEuNYFH7WU58DQegl+P7hMXF24UuLI5oe4yPLm+wFp5sHPDWJy7Cj7h-ZnunZ0D+Pcd3VHcv34tBPhe6Hn4LUe7sW0KSpDVUwhsQowE-ht4DeM825oIeeZfchwVYepjk6HcqESSikW68mdj2fwe5IhxUOAUdkMQqaP30tzPqr9+AAAUxBgFEHQAgWgqCwFgHgGA6U1zfzFuHHcfAo7FRjjsJuBYI58DMh7AI7VoKRESiUIAA */
   context: {},
-  id: "/set_personal_daily_reminder_period",
+  id: "Set default time zone in a Chat",
   initial: "Environment",
   states: {
     Environment: {
       on: {
         "User opens the Сhat": {
-          target: "#/set_personal_daily_reminder_period.User.Idle",
+          target: "#Set default time zone in a Chat.User.Idle",
         },
       },
       description:
@@ -21,7 +21,7 @@ export const machine = createMachine({
         Idle: {
           on: {
             "after 500 ms": {
-              target: "#/set_personal_daily_reminder_period.Chat.3983414",
+              target: "#Set default time zone in a Chat.Chat.3983414",
             },
           },
         },
@@ -34,7 +34,7 @@ export const machine = createMachine({
             "Set TimeZone": {
               after: {
                 "500": {
-                  target: "#/set_personal_daily_reminder_period.Chat.3212267",
+                  target: "#Set default time zone in a Chat.Chat.3212267",
                 },
               },
 
@@ -43,7 +43,7 @@ export const machine = createMachine({
 
               on: {
                 "after 500 ms": {
-                  target: "#/set_personal_daily_reminder_period.Chat.2983742",
+                  target: "#Set default time zone in a Chat.Chat.2983742",
                 }
               }
             },
@@ -59,7 +59,7 @@ export const machine = createMachine({
         "2983742": {
           after: {
             "500": {
-              target: "#/set_personal_daily_reminder_period.User.Idle",
+              target: "#Set default time zone in a Chat.User.Idle",
             },
           },
           description:
@@ -68,7 +68,7 @@ export const machine = createMachine({
         "3212267": {
           on: {
             "after 500 ms": {
-              target: "#/set_personal_daily_reminder_period.User.Idle",
+              target: "#Set default time zone in a Chat.User.Idle",
             },
           },
           description:
@@ -78,7 +78,7 @@ export const machine = createMachine({
           after: {
             "500": {
               target:
-                "#/set_personal_daily_reminder_period.Bot.Handle the command",
+                "#Set default time zone in a Chat.Bot.Handle the command",
             },
           },
           description:
@@ -89,7 +89,7 @@ export const machine = createMachine({
           after: {
             "500": {
               target:
-                "#/set_personal_daily_reminder_period.Bot.Handle the command",
+                "#Set default time zone in a Chat.Bot.Handle the command",
             }
           },
         },
