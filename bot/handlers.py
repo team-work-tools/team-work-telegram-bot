@@ -55,6 +55,14 @@ def handle_global_commands(
 ):
     @router.message(Command(bot_command_names.start), HasChatState())
     async def start(message: Message, chat_state: ChatState):
+        if message.chat.type == "group":
+            await message.answer(
+                "Unfortunately, only supergroups and private chats are supported. "
+                "Please promote this group to a supergroup by enabling the history of messages for new members "
+                "or by enabling topics."
+            )
+            return
+
         await get_help(message=message, chat_state=chat_state)
 
         # Register user if it is personal message
