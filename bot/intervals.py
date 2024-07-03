@@ -12,7 +12,7 @@ class IntervalException(Exception):
 
 class InvalidTimeFormatException(IntervalException):
     """Raised when the time format is invalid"""
-    def __init__(self, time_str, message="Time format must be either HH:MM or HH.MM"):
+    def __init__(self, time_str: str, message="Time format must be either HH:MM or HH.MM"):
         self.time_str = time_str
         self.message = message
         super().__init__(self.message)
@@ -20,26 +20,29 @@ class InvalidTimeFormatException(IntervalException):
 
 class InvalidIntervalException(IntervalException):
     """Raised when the interval is invalid"""
-    def __init__(self, start_time, end_time, message="Start time must be earlier than end time"):
-        self.start_time = start_time
-        self.end_time = end_time
-        self.message = message
+    def __init__(self, start_time: time, end_time: time, message: str = "Start time must be earlier than end time"):
+        self.start_time: time = start_time
+        self.end_time: time = end_time
+        self.message: str = message
         super().__init__(self.message)
 
 
+IMMUTABLE_DATE = datetime(year=2024, month=1, day=1)
+
+
 class Interval(BaseModel):
-    start_time: time
-    end_time: time
+    start_time: datetime
+    end_time: datetime
     tz: str = "UTC"
 
     @computed_field
     @property
-    def start_time_utc(self) -> time:
+    def start_time_utc(self) -> datetime:
         return self.convert_to_utc(self.start_time)
 
     @computed_field
     @property
-    def end_time_utc(self) -> time:
+    def end_time_utc(self) -> datetime:
         return self.convert_to_utc(self.end_time)
 
     @field_validator("tz")
@@ -49,19 +52,19 @@ class Interval(BaseModel):
         except UnknownTimeZoneError:
             raise ValueError("You should pass valid zone name")
 
-    def convert_to_utc(self, local_time: time) -> time:
-        local_dt = datetime.combine(datetime.today(), local_time).replace(tzinfo=timezone(self.tz))
+    def convert_to_utc(self, local_time: datetime) -> datetime:
+        local_dt = local_time.replace(tzinfo=timezone(self.tz))
         utc_dt = local_dt.astimezone(utc)
-        return utc_dt.time()
+        return utc_dt
 
     @classmethod
     def from_string(cls, interval_str: str, tz: str = "UTC"):
         start_str, end_str = interval_str.replace(" ", "").split('-')
-        start_time = cls.parse_time(start_str)
-        end_time = cls.parse_time(end_str)
+        start_time = datetime.combine(IMMUTABLE_DATE, cls.parse_time(start_str))
+        end_time = datetime.combine(IMMUTABLE_DATE, cls.parse_time(end_str))
 
         if start_time >= end_time:
-            raise InvalidIntervalException(start_time, end_time)
+            raise InvalidIntervalException(start_time.time(), end_time.time())
 
         return cls(start_time=start_time, end_time=end_time, tz=tz)
 
@@ -78,11 +81,11 @@ class Interval(BaseModel):
             raise InvalidTimeFormatException(time_str)
 
     def convert_to_timezone(self, new_tz: str):
-        start_dt = datetime.combine(datetime.today(), self.start_time).replace(tzinfo=timezone(self.tz))
-        end_dt = datetime.combine(datetime.today(), self.end_time).replace(tzinfo=timezone(self.tz))
+        start_dt = self.start_time.replace(tzinfo=timezone(self.tz))
+        end_dt = self.end_time.replace(tzinfo=timezone(self.tz))
         new_start_dt = start_dt.astimezone(timezone(new_tz))
         new_end_dt = end_dt.astimezone(timezone(new_tz))
-        return Interval(start_time=new_start_dt.time(), end_time=new_end_dt.time(), tz=new_tz)
+        return Interval(start_time=new_start_dt, end_time=new_end_dt, tz=new_tz)
 
     def to_string(self):
         return f"{self.start_time.strftime('%H:%M')} - {self.end_time.strftime('%H:%M')}"
@@ -103,10 +106,10 @@ class Interval(BaseModel):
         return f"Interval({self.to_string()}, tz={self.tz})"
 
     def overlaps_with(self, other):
-        start_a = self.start_time_utc
-        end_a = self.end_time_utc
-        start_b = other.start_time_utc
-        end_b = other.end_time_utc
+        start_a = self.start_time_utc.time()
+        end_a = self.end_time_utc.time()
+        start_b = other.start_time_utc.time()
+        end_b = other.end_time_utc.time()
 
         return max(start_a, start_b) < min(end_a, end_b)
 
@@ -121,13 +124,13 @@ class Interval(BaseModel):
             return []
 
         # Sort intervals by start time
-        sorted_intervals = sorted(intervals, key=lambda x: x.start_time)
+        sorted_intervals = sorted(intervals, key=lambda x: x.start_time.time())
 
         merged_intervals = [sorted_intervals[0]]
         for current in sorted_intervals[1:]:
             last = merged_intervals[-1]
 
-            if current.overlaps_with(last) or current.start_time <= last.end_time:
+            if current.overlaps_with(last) or current.start_time.time() <= last.end_time.time():
                 # Merge intervals
                 merged_intervals[-1] = Interval(
                     start_time=min(last.start_time, current.start_time),
@@ -152,4 +155,4 @@ class DaySchedule(BaseModel):
         self.intervals.append(interval)
 
     def remove_interval(self, interval: Interval):
-        self.intervals = [i for i in self.intervals if i != interval]
+        self.intervals.remove(interval)
