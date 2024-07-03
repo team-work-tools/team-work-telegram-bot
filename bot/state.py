@@ -1,6 +1,5 @@
 from datetime import datetime
 from typing import Annotated, Optional, Dict, List
-from zoneinfo import ZoneInfo
 
 import pymongo
 from beanie import Document, Indexed

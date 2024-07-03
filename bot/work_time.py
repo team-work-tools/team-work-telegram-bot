@@ -4,7 +4,6 @@ from datetime import datetime
 
 from aiogram import Bot, Router, F
 from aiogram.filters.command import Command
-from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, InlineQuery, CallbackQuery, InlineQueryResultArticle, InputTextMessageContent
 from aiogram.utils.i18n import gettext as _
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
@@ -75,7 +74,7 @@ chat_db = {
 def handle_working_time(
         scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router, bot: Bot
 ):
-    @router.message(Command(bot_command_names.set_default_working_time), HasMessageText())
+    @router.message(Command(bot_command_names.set_default_working_time), HasMessageText(), HasMessageUserUsername())
     async def set_default_working_time(message: Message, message_text: str):
         cmd = "/" + bot_command_names.set_default_working_time
         interval = message_text.replace(cmd, "").strip()
