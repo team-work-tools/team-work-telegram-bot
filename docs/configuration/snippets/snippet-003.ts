@@ -129,7 +129,7 @@ export const machine = createMachine({
         },
 
         "2983432": {
-          description: "Message: \"Press one of the buttons to choose a time zone.\"\n\nInline buttons:\n\n- Buttons are in a table.\n\n- The table has two columns.\n\n- The button in the last row may span two columns if there's an odd number of found time zones.\n\n- Each button corresponds to a found time zone.\n\n- Button names are sorted in the ascending order in the left-to-right, top-to-bottom direction.",
+          description: "Message:\n\n\"It's currently `{{date}} {{time}}` in all time zones below. Press one of the buttons to choose a time zone.\"\n\nInline buttons:\n\n- Buttons are in a table.\n\n- The table has two columns.\n\n- The button in the last row may span two columns if there's an odd number of found time zones.\n\n- Each button corresponds to a found time zone.\n\n- Button names are sorted in the ascending order in the left-to-right, top-to-bottom direction.",
 
           on: {
             "User presses a button with the name {time_zone}": {
