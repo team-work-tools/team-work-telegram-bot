@@ -29,7 +29,7 @@ async def send_reminder_messages(
 
     have_to_reply = list(user.non_replied_daily_msgs)
     messages = make_daily_messages("")
-    reminder_message = "Please reply to these daily meeting questions:"
+    reminder_message = _("Please reply to these daily meeting questions:")
     chat_type = chat.type
 
     try:
