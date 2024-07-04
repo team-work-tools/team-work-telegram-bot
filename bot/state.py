@@ -112,9 +112,6 @@ async def load_state(chat_id: ChatId, topic_id: Optional[int]) -> ChatState:
         case _:
             return await create_state(chat_id=chat_id, topic_id=topic_id)
 
-async def set_language(self, lang: str):
-    self.language = Language(lang)
-
 async def save_state(chat_state: ChatState) -> None:
     """Save the given chat state to the database.
     
