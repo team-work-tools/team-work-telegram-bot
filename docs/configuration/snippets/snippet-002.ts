@@ -1,9 +1,9 @@
 import { createMachine } from "xstate";
 
 export const machine = createMachine({
-  /** @xstate-layout N4IgpgJg5mDOIC5QHpZgC4H0AOYBOsA9gHYCGANpgO6F4DWAlsVJugwLZgB0AqmnlwCSEcmADEAZQwACXARIVpNekyjS2nANoAGALqJQ2QrAZsSBkAA9EAWgBsAVgDMXAOwAmOwEYAHA4faDq4AnK4OADQgAJ62QVxO7g4+ACw+3slewY7BAL45kagYOPhEZJTKjMysHNwAQoToXAASpMQiYOoAFh0AxoTs7K0QXADC3T100kwAZoTSpABGhACu6F0dfPhiOvpIIEYmZsQW1ghOdllc7sHBydquacmuCRHRiGFcDr7OyXZ+gYE8gU0Fg5KUKNRaJUWBo6g1mkNROtpH0BkNRuNJjM5osVmt0N1pJs8NsvLtDMZTAxzHtTncnA4uCl3NpkudPCEvHZIjEELcuMkHO5fF4vK4vO4fK57kCQIVQSUFOUoapqpwuPVGi02kiCb1+oM2rx+NJOqRYNIAFaEJiQaScDCqWBiTXSNBtWA7CwHKk00CnLzabzxXzBQNc5KhP48xBPZJcbRpILisVs36y+XFeRlSEqKqwjXw7XtZGow3DYmm83qObWpj2sCO5gW6YMAjoMSWWDoUjobikaZ9vAACgC2gAlGJM2ClbnoWq4VrER09SiDejK2aLehazbiA2m1AW23u169j6jidEKK7PGxSzgk4fNonE-XDGEL8Ez4fE5E8-fHcDxEgzEEs3BZU8xhGouAAUWIAA3NsSE4YgO0rQhcGIbdCR6M10DPClDmpY5aVsQMngFP4nF+W8fHcJwwg-TImQ8RN7kydxUk8UCihnHMKlVAsxl7eJXEFX9kk7bte37Qd8FHbQJynMD+IhQT8xgkTGkYiSaMI-ZKUvMiEBsDJgiZG4fxFcTrgcbk3gQYUxPcYU43-C5cnyOVVMVASVU09VtPiYJJK8KSux7PsuAHIdFOU6c-PUgLoKC-CQrC5IDIvEirwQCVPC4Ow7CfX5tGuB4nA-ew7C4LIQjc1zfxlbzEuzZKoIXDFRLuICny8MQKCoUgok9PRvSM3KTLM586pSLwvl6rkuI-ZJkncLgbw8Yrbnov5XF4hV2sg+dhPS3rnh8AbKx7bALTwO0FlWHd92IMBSDwZEqEbOgIBG7LJr9Kxr1vOqJSFZ5nlZcV30cjIvCK7QxSDe4fxfNlDvA2cNNS7hgou-qxBu0g7ukAByGwyYB4igdOYJWSZBIuV-P9RVCj8mc2x9pUCJIkZSTG1JOoStPO8rLuuk1botMmAGoqfG89AdI-1Y1czbWSDMMkbFV5eTCVx4hSZxubsa4zcFpLhcCvGxb6q6ialkmLSgB6wH3J70Be6Q3o+r6fr+qJqd9FXgactk5vEpH6XZKrHMlWrBWKgJQl+W53Et465xFtKevFwnidJkgpjQ-AEIoYPjNVhBipcfxPOlJ8ElcWHeV-CzHyyX4fBuVknC84E+Kt7Obe6xp1uccUnG2RWiJDvLhV-Jk0iUxwhWfdbmJZHwmQcLIuOeRIsicTOIJH3Gx4FRJGK8afNDJCaadD04gODG-GMYy7+638LPlcNfGKshZgdVqvks44y6vjTwdhtqO3wOoZ25MRitB6GAcgCtySGSfgvLIjJQrhSlP4IIqQHK8gWvcAUqREyuS5OJBwyRT7YxSpA860DYGVymtXRIKQqLQzfGKP4etrwBA2hDfqv4QgvgzqAoe4DmFnVEgAETANMUgyxyD4hqLAcgDQUQPV7CRF0uiej6L7BaBiCA942AsXvEuQ5y7kBLsiHsCxRAcNpogP8tVOJBGWtoR8SRmKBHjGGSMzJ-HXC8Iw-ynUFGNFdFQPApg4DIiYPYxQ9ZlhSzAJYNYTBsCrGkK2NBEA4GfXyasBA0gAA8Sx0AAD4amwjsWXCg9T3HP2vKKQ2QQhT+N6akLwQSYHxCSBkDwdDhR2GiR1U6otRIAHVSBUmYEU2gyIsnwNhNo4xZpmAdE4LAWApAYBlJRHsmA24clrCGG6d2EAcIHLgMcmAHS8rfARpKV8FxziXSeEE548QuJXSTJGOwrIZnWwvsFESzBVDOJJrgCALS8AOKMWsPCrRLkIOwEilFDj5g9D6HgCA8KdzSE2XgMmFpDkvI6LciAaCMApLEBPd+byTILRZFcMcC0+a+GYgyDaLdwXhXobeFkUSZFHTPhAuJowUFoPOVi+FaTWnkHRdIRlogzHSFZWwzweqMhm3GRy6uf4gxMkEX4RIbJirMRgbVfwDFyEeBSALaVWMYlzNzo0AAShgPAURlVwtWWq1FFBNXauZRafVxVtpGuWqa2eWD54mWvt44+BVQp0OSA6p8dUDbBF6bfRwkLz4sNEgG9ghAkKrNXOGtFroHo1oQikhtpcI2OOmHgfoCLXFgDNWHCitUwj0JFfRcqooObBA2sW7wwLi3+EYuWuV8zGgAEEIDItXIHGsyJYB4UgOo8QtRnrF0xfs7ccxXaNn3Lcw93QIAnq1QwWA2ByAjUeYStgbb1A1GkIQaYyI909r7bu3sixzQdAYMB0g5cGCfoHUO04NgFoWXBQ8QUvgYHBI-P4CyEpMhBn8OVcqA8fKyNlfI9dXBq21pXISUDvb2AHqPc+0QLpz37kvdi8lD1kUPvYy+iAhAUnEF0aS99n7g2tGDdsnR6ALT1gJG+rV-0U05Q8flRkrk7i3nsl8+uQizgBAFNZNkKNfDiTyN5CTjL4B7DatR2JNRH5purmhtaLhtaOFSLOn8DJqrNz-s8GiFnQggMHjKphrn1TEnc1XMONhny6d8TDFkki468nsIbQU9wYGRlfn+Hwq6aPxf4EIdoiXOHJYNjymG957j02y9eCyUo9NipZE4TIC0ytxcXDV7TDJUifCeHvFuzw1rPGqlxbQPK2RH1+eVYq-WfWLgRDqRj+o0RtCG500zlxx0TZbjRJ4rXTJcrqj1nrnliMtzWznDbxZdS4XXEaMYYAJgl1mPMJYhTVwJaVtgkyjFZppGLXcCS3w82OXsIycFzUN4piAo90empNsllXGWDcJotxWj3HaB0bBmz7byucNaY2wiRam+d5ioU6rlX8GO2y4kT6eqFhWgsGOXvbbXLtisePqzkrrPuYnToiknnQGT0H9UipXWs8bLusPeTQM+C+Wd5DzvPDRxfeCSFe3EFQtL4HHnku32LWDEj-nJS-hM9YhiTIInkMlI3KLlGYveqe2PGXnmgKfLCwkHNvX3DVU4lTwMrv1rw115WnSdDJK+7DvQ+bzhnDWSAlxX4gqEz6cCK+QMDIy0c+Hmu31GUaLhSTy-a4VFHAMi5F8RMa1qo3AFLtCUul-ElXd852L63L4EyutXxAMCEa-ASLXei-uVexn8UVRwXFm5mylFKWP8q2VTxH05IC82gxrWuEpVITxSHXhW-Ecqtr6bPguL3sBLmB9QPjZ4bfnhf5p6+IGFrQEt6ArCBcXwSMXpJ8dfWjAABQeiQhWBpWeROTgG3wdxcD6lfGuClBD1Dzh0DF0zm07muDWm8FAPL2UVUXUU0UOUUz0XeiSy0wO0YgsjjHCm8HCwyB8A-Hpk+SISulcnpiCGkWiy9VmW92CgSSSV1Q7XSUcUyWyVyRLgKTWGKXIAgG3xTATG8AeB-FnTCCGUckDCXgCDNjFC5F8H7gcEINtkWWWRJzUFmE+lXEpX-XIN2SxSeSOTgO33CnWjBmvluCDGs2GUNgZHmgmUFEXjMMvlhSgDJUJFujxUbQoFf2IwTD3ilH-0CEm0FSFDcH-mjnFXWjCJhUVUcV41VU7QcW3z-HVglBbj8GlB7m2gdSUjcBSBKlvAmVfAYRLzkQG0vgDXQCDRDUiLDVKPiNNySxfnslTx-E8ikUCGCGYgmKuHIUi3CklBfHyPSnozrTUHEPVXcKqM+Ey0fGbx-AwN5FfHm0lAlH2i4P8QZHWNEi3R3SYxGn3VXEfWPVEAQNnQ1hfH8WLUTAXQu0GQFCP3uGPyfHojvyo37yEI2LAFbT52Y3A0JHeI4zAC+LvFvl-G4LoLCFnychCDcH6mTnoT3kTFsxyCAA */
+  /** @xstate-layout N4IgpgJg5mDOIC5QGUwBcAEB3A9gJwGsBLAOygwAscBXPWAOgFVYw96BJCAGzAGJVMuQqXJVasANoAGALqJQABxywiaIjhLyQAD0QBaAKwBmAOz0pRgGwAOI9YCc1k-YBMUgIwAaEAE99JsykPI3drA0cQg0sDAF8Y7wFsfGIySho6egAhHDR6AAkAQxJuMAw0ClKAYxwAWxqiiHoAYQrKggxSADMcDAKAIxpMctLmVl5pOSQQJRU1DS1dBCt7A3oTIIAWGyl7UKkw7z8Ea2s162io3ZcTF3dQuIT0JOFUsQzs3MLinjKKjGq6g1mq12l0ev1Br8Riw8ON3JNFMpVOpNFNFhsLKtrBs3BsrC5LM53JZDoh7Bt6BsDLdrHcTO4XE4pCYHiBEkIUqJ0gwPvkGj9hv9avVikwYZQCrAMAArHCkSAYGpgdAiWC8D4YPBgBRcIhwCZaGbI+ZoxCWRz0KKmVzWZkY9wmUkINynFxGa5GKQGCwrQmWVns5IiNLiLI5PnfUqCgEixqjPASqVoHqy0iK5VqMhSzpEOhoXjaWBoApoMD0AqdUt4AAU3qkAEp+E8OcG3jzw18SlChYDRfHE2UU3KSOmVVmMDm8wapka5qjQIs7pYKQ63PY7BY7I7fIgtuYTp6Th5rNcXC5YvE2c2g69ufQAKIkABuuY0SpI+f7OAUYBISb+lQUCW06IrMKILPo7g7FI9C0vYJjYhsrjuOuRhOiYFIbKEWFug6truCEAbXi8XKhi0Jb0KYVK2BsBZFiWZYVlWtZBI2gYkSGGTkbkVEGDRIHTEic4QQghguPYlFIVR2GoduRwGBS1IOpYlh2AyNLWERgg3qRXFATxERYbRhbFqW5aVqwLENk22kcW2wIUUYhnuBsAmzuBpoIOplj0CpdhbFI4kIWhO6iSp9D2ISyE4oynospe7GcpxDDcZSgUmGpvAFFwWAFD4kiyIaQkeQu+gbLaEXYu4BguYFxIuBsTobDi9BLjcKnkieNjxY8tlJfZqUYh6tK8P2CharALBSlqEAYH01BoMmI4kGABQJoKWDKgQEB5W5xUmqVXmWC4vniSe7q2s4qkkqFl0RQYNw7FhxJdVpzz9Xeg3pZlY0TVNGAAOTaADe1gQdOiIFBx3mMSBjhPYHherSTqWF69AEgSdyXSY4QXr172tp9+lpcN7ijeK41wP9AMANQg4VM77fOEMIFErqeg6NUeNEGVOnc4QRZ6UjLpYsMEZpCXER9ZHE0NGUjb9VNwBgUBar+c0LUtGArWt3abWA227QzoHGszi7VZRDrEji5JbPB1hOt6Emeqp54PQ4TgbD1V59YTMsUXLP0U39ytFB0H6sE+2Wg6bIkmOFzg3I4qPnCEfM7EYlr7FhXo7OabpvS2t7+7kOLGPSRjjMbglg2biBnmE5jRPBAXkpFfO3Ip8dw6YUjlUYGyFzpyUOaX56mARcIIjXseedcouURXGUBHYTkdy5lrd+Xfe2KYQ92UTAcEoSBLk6wGCU5NysA00RSVGAXD09P7ng4segEiuGID05KkKe6TVIXRg4B6jIVi2BQnjH2BNi56SPipdqVdn5MxEuebElJUZey3MpA4oVqqBUtKTWwzgLAuH3tLWBuQAAiYBOgFGoFwIYRAlSwC4Dkf4WoSwonVGwyoHDSxSjdKzew78jBCPDlWKOXBw7dmLH0HgMdhJz3PJaBSNxVHlwcC4PmpgTphAxE4Bqq47hkL9hQsMgg8CqGVoKUgEjsrSOoOKUs2hMCkAUAtCceouAQDPgmNxC0EAYAADwDDQAAPmCWoJU4jI7ZTCQokqLMoYUltFhHGdJbi81wc1RSVgthwxxvYBGg9Ja+xgSlYmAB1AoyJUjdHWn8Rx58olwFYZgQCRQYDpkmgUGAvj-hATINYsALjejFAwCwYo-5SjMNgL0sACTX6QzCJnPuA9XDegdJFLRuD9iZ0Qhlc8GFbDMhMeU0eDkyDBkFMWBQP5Zq2NiVwbh7TBkwCTAUO5CpHl4Ekb0So1Q8AQGuT0JpeAAZSlmfMsZs0IAP3QMrXgZcJ5GEWXXLyedLTlWXI4WwuwHraKpGlJC+wTiXECmc3SFSKK3xIPfKRHSrmpB+ZIl5GA4U8H4RgJFx92rcqwsdNJaKRJCx8ucMIYRzx4hUnzP0KjcLehuNibElKR6pQAEroDwD4AZnTgwsuymyjlCKpQ8vgQSfl9UhXVxfui8ePkUKqXUo4DCClZV2AijjZwD0apWEgYlUx1LciapqDgF8qQbER1+YajUWpQ1PmsX8A1UjOh4FqDI-o8ibXIM8vBMwOMnDx1Rm6c8N0jjxwkucHEx0HT7H9VLQNFyACCEBZqCh2jq5M3ZYCAUgPQvgmRNYaF1UMpMPRVbKhHA0CZvaID9vZUQWAOo8rTP+WoBNZQmGlBwJ0bsHaJxppqHuks-RJSlCILugoUciBcEzQs7NtcRLvwsGld0ednDNQagYdO9JKTd0ulYc4NxVUDWJiGsNUY-j7tTemwUPaKhzp4OqIdI5GXvMHJqBU074N9p+BAHAysSBsOBUu29Oqiidq3SwnIUo0zlEXeyo2SDH2eT0KjCKWE+LXBuFheCOyjjmjMOEYkxa+LRA8HES8RG4XwCmAG8pRUWOHT0C5PEEUoYKU0Qeb9oU9DuiEwEL01JbS3CMMYEDd54yKdnspqCOxYJejdHYWwJ44Z8xPJRc0pKTgBEMhZ0M8YOAlGs4o5TkV3AOepEYZzdg3ZOgJBJc0KEcQBAZGZsz-n3g5BC4kxYZmilrE2NsXYtocFHHfhidGClqqcZxmuTL7ZPj8kg1UYUDQctLKWMufNRXbQlbrU6FT1JBYMmMBYcqsUjANfMRGLs0Y2uihaGANo4dui9AGB4wUVnGZKZZqYCq5wVgYmoqEN1unoi+T2fsPu9IGTe3k1SmbnYBQAQW3GcUQEpSphWrNJUY4oCyZNqFvb5oJK1pxDiFyylGq4ItAjN2OMHopbxNN3kz2Ws9ljGKc+n2MPfdHJmAHni8wdfRT-MwNgsYISpJFZq8Xwreicrcb0mCMrTcfC+NNJB3xoFJ0+giKx1PC00zaWwOnytnn2TsZngUmR71KdAx73E+esZCCdWq39IrRDxPx-QZ4Is8wQlEdSKF1zTdSrxGiKvDqoMouEJCosW4rDkvoVYP9mTFPXFFAe5viZORoi5a3LN36MkFuJO4HgVgZxCuV80ax1w4hPFSElThfcB2+rSIPixUYRYwnYeC1UQgDdCoZu3NgilO1l-6BXRcley3HhXLP9cCSrCKTdwkxh1zwXTl7S7vnbThBUg1NPY9zWWCb86UWuS4YR4RvpjuGU1iXBkj6uwI-6AAAUtQvhoJCqm8zAcz2B2-M8PkfXbJqjVewg2CIUmi+VDEgqWdTZr8PUDFFqG0PoYw5hbT2GrWB1tRFXsxxi9grS9EJAcA7gXnJBuColFkTglnxlrzVWJg1CwEsS5UjTsSkTTDBTKBGVcRIHcUwBzAfggAn2XAiwHkMS1zMxOC8GyWalantgyicmogsHX2qVqXIHqW7HwJaWo1eU6RmX3xgAnwIgQiX3G2OjcAKXF0hhyRYIQjYPJAekcHX3IiZXIBuU+XuRiWjS4An1uARnMHCELSiC9ACBdy8jMxOgCBz2T2XFIVfwPhLmaDvgfhHSgH1SjUkQn09DPFam4zCHWAcHallSCDOC2DyRuDYJKWQLf0PmDS1R1TQ18JwOMMsMtBOFBxIS9Gv1wWyJlzzRckZE4NcPISDXoHA3DR0KTT8OygkKsIczKLsAKRQkYIE1ML4w2WCCj3cHXxbTbSgzygwzg1nX7QkNOBuBchKx9VOydC73QTiI8AdBCBxnX1qIx2g0PW7UmJ4AnwFkdx2ArxsAegwhRigjWH12aiKVuGFhcLiCAA */
   context: {},
-  id: "/set_personal_working_time",
+  id: "Set working hours",
   initial: "Environment",
   states: {
     User: {
@@ -11,9 +11,9 @@ export const machine = createMachine({
       states: {
         Idle: {
           on: {
-            "Set personal working time": {
+            "Set working hours": {
               target:
-                "#/set_personal_working_time.Chat.3983414",
+                "#Set working hours.Chat.3983414",
 
               reenter: true,
             }
@@ -39,8 +39,8 @@ export const machine = createMachine({
 
             "User has joined meetings": {
               on: {
-                "Bot sends": {
-                  target: "#/set_personal_working_time.Chat.4027381",
+                "Bot replies": {
+                  target: "#Set working hours.Chat.4027381",
                   reenter: true
                 }
               }
@@ -49,7 +49,7 @@ export const machine = createMachine({
             "User has to join meetings first": {
               after: {
                 "500": {
-                  target: "#/set_personal_working_time.Chat.3745834",
+                  target: "#Set working hours.Chat.3745834",
                   reenter: true
                 }
               }
@@ -62,7 +62,7 @@ export const machine = createMachine({
     },
     
     Environment: {
-      description: "- Definition: \"Chat\" is a private chat or Telegram group without topics or a topic.\n- Definition: \"Interval\" is a block of time.\n- User and Bot are members of a Chat\n- The Bot may read messages and respond in the Chat\n- The Bot username is <bot>",
+      description: "- Definition: \"Chat\" is a private chat or Telegram group without topics or a topic.\n- Definition: \"Interval\" is a block of time.\n- User and Bot are members of a Chat\n- The Bot may read messages and respond in the Chat\n- The Bot username is <bot>\n- `{working_hours_type}` is `{working_hours_default}` or `{working_hours_personal}`\n- `{working_hours_default}` is `Default`\n- `{working_hours_default}` is `Personal`",
 
       on: {
         "User opens the chat": {
@@ -81,32 +81,32 @@ export const machine = createMachine({
               description: "Here's your schedule",
               on: {
                 "always": {
-                  target: "#/set_personal_working_time.User.Idle",
+                  target: "#Set working hours.User.Idle",
                   reenter: true
                 },
 
                 "User presses red button near the weekday": {
-                  target: "#/set_personal_working_time.Chat.Add the day to the schedule",
-                  reenter: true
-                },
-
-                "User presses '-'": {
-                  target: "#/set_personal_working_time.Chat.Removing the interval",
+                  target: "#Set working hours.Chat.Add the day to the schedule",
                   reenter: true
                 },
 
                 "User presses '+'": {
-                  target: "#/set_personal_working_time.Chat.Default timeslot creation",
+                  target: "#Set working hours.Chat.Default timeslot creation",
                   reenter: true
                 },
 
                 "User presses green button near the weekday": {
-                  target: "#/set_personal_working_time.Chat.Remove the day from the schedule",
+                  target: "#Set working hours.Chat.Remove the day from the schedule",
                   reenter: true
                 },
 
                 "User presses an interval": {
-                  target: "#/set_personal_working_time.Chat.Bot writes the interval in user text input field",
+                  target: "#Set working hours.Chat.Bot writes the interval in user text input field",
+                  reenter: true
+                },
+
+                "User presses 'x'": {
+                  target: "#Set working hours.Chat.Removing the interval",
                   reenter: true
                 }
               }
@@ -115,7 +115,7 @@ export const machine = createMachine({
         "Default timeslot creation": {
           on: {
             "Bot creates 23:59-23:59 interval in the table": {
-                  target: "#/set_personal_working_time.Chat.Bot writes the interval in user text input field",
+                  target: "#Set working hours.Chat.Bot writes the interval in user text input field",
                   reenter: true
                 }
           }
@@ -124,7 +124,7 @@ export const machine = createMachine({
         "Bot writes the interval in user text input field": {
           on: {
             "User input: <bot> <time interval>": {
-              target: "#/set_personal_working_time.Chat.Waiting for the user timeslot change message",
+              target: "#Set working hours.Chat.Waiting for the user timeslot change message",
               reenter: true,
             },
           }
@@ -133,7 +133,7 @@ export const machine = createMachine({
         "Waiting for the user timeslot change message": {
           on: {
             "User changes text and sends the message": {
-              target: "#/set_personal_working_time.Chat.4253713",
+              target: "#Set working hours.Chat.4253713",
               reenter: true,
             }
           }
@@ -162,13 +162,13 @@ export const machine = createMachine({
 
           on: {
             "User presses 'Cancel'": {
-              target: "#/set_personal_working_time.Chat.Cancel changing interval",
+              target: "#Set working hours.Chat.Cancel changing interval",
               reenter: true
             }
           },
 
           always: {
-            target: "#/set_personal_working_time.Chat.Retry changing interval",
+            target: "#Set working hours.Chat.Retry changing interval",
             reenter: true,
             guard: "User presses 'Enter again'"
           }
@@ -177,7 +177,7 @@ export const machine = createMachine({
         "Cancel changing interval": {
           on: {
             "Bot deletes #4266726 #4162417": {
-              target: "#/set_personal_working_time.Chat.4027381",
+              target: "#Set working hours.Chat.4027381",
               reenter: true
             }
           }
@@ -186,7 +186,7 @@ export const machine = createMachine({
         "Retry changing interval": {
           on: {
             "Bot deletes #4266726 #4162417": {
-              target: "#/set_personal_working_time.Chat.Bot writes the interval in user text input field",
+              target: "#Set working hours.Chat.Bot writes the interval in user text input field",
               reenter: true
             }
           }
@@ -195,7 +195,7 @@ export const machine = createMachine({
         "Removing the interval": {
               on: {
                 "Bot removes the interval from the table": {
-                  target: "#/set_personal_working_time.Chat.4027381",
+                  target: "#Set working hours.Chat.4027381",
                   reenter: true
                 }
               }
@@ -204,7 +204,7 @@ export const machine = createMachine({
         "Add the day to the schedule": {
           on: {
             "Button changes to green and schedule displays the active time of the day from the database if available": {
-              target: "#/set_personal_working_time.Chat.4027381",
+              target: "#Set working hours.Chat.4027381",
               reenter: true
             }
           }
@@ -213,18 +213,18 @@ export const machine = createMachine({
         "Remove the day from the schedule": {
           on: {
             "Button changes to red and schedule does not display any timeslots in this day": {
-              target: "#/set_personal_working_time.Chat.4027381",
+              target: "#Set working hours.Chat.4027381",
               reenter: true
             }
           }
         },
 
         "3983414": {
-          description: "\"/set_personal_working_time",
+          description: "\"/set_working_hours",
 
           after: {
             "500": {
-              target: "#/set_personal_working_time.Bot.Handle the command",
+              target: "#Set working hours.Bot.Handle the command",
               reenter: true
             }
           }
@@ -235,7 +235,7 @@ export const machine = createMachine({
 
           after: {
             "500": {
-              target: "#/set_personal_working_time.User.Idle",
+              target: "#Set working hours.User.Idle",
               reenter: true
             }
           }
