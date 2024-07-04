@@ -345,7 +345,7 @@ def handle_personal_settings_commands(
 
             if not user.is_joined:
                 await message.reply(
-                    "You have to join daily meetings first!\nUse the /join command."
+                    _("You have to join daily meetings first!\nUse the /join command.")
                 )
 
             if not user_pm:
