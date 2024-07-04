@@ -6,9 +6,14 @@ This document describes [roles](#roles), how [responsibilities](#responsibilitie
 
 ### Team 12
 
-Leader: ... GitHub username with a link to the GitHub profile ...
+Leader: [@scruffyscarf](https://github.com/scruffyscarf)
 
-Members: ... GitHub usernames with links to GitHub profiles ...
+Members: 
+- [@scruffyscarf](https://github.com/scruffyscarf)
+- [@polina193535](https://github.com/polina193535)
+- [@ElinaNotElina](https://github.com/ElinaNotElina)
+- [@GurbanG](https://github.com/GurbanG)
+- [@Guzinba](https://github.com/Guzinba)
 
 ### Team 34
 
@@ -85,6 +90,8 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
 - [@deemp](https://github.com/deemp/)
 - [@belyakova-anna](https://github.com/belyakova-anna)
 - [@Dayanaoak](https://github.com/Dayanaoak)
+- [@polina193535](https://github.com/polina193535)
+- [@ElinaNotElina](https://github.com/ElinaNotElina)
 
 #### [Quality Assurance](https://github.com/team-work-tools/team-work-telegram-bot/labels/Quality%20Assurance)
 
@@ -99,6 +106,7 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
 
 - [@deemp](https://github.com/deemp/)
 - [@ghshark63](https://github.com/ghshark63)
+- [@Guzinba](https://github.com/Guzinba)
 
 #### [Requirements](https://github.com/team-work-tools/team-work-telegram-bot/labels/Requirements)
 
@@ -115,7 +123,8 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
 
 - [@deemp](https://github.com/deemp/)
 - [@belyakova-anna](https://github.com/belyakova-anna)
-
+- [@scruffyscarf](https://github.com/scruffyscarf)
+  
 #### [Team Management](https://github.com/team-work-tools/team-work-telegram-bot/labels/Team%20Management)
 
 ##### Task activity
@@ -127,6 +136,7 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
 
 - [@deemp](https://github.com/deemp/)
 - [@belyakova-anna](https://github.com/belyakova-anna)
+- [@ElinaNotElina](https://github.com/ElinaNotElina)
 
 #### [Bot](https://github.com/team-work-tools/team-work-telegram-bot/labels/Bot)
 
@@ -141,6 +151,11 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
 - [@examplefirstaccount](https://github.com/examplefirstaccount)
 - [@Fullerite](https://github.com/Fullerite)
 - [@belyakova-anna](https://github.com/belyakova-anna)
+- [@scruffyscarf](https://github.com/scruffyscarf)
+- [@polina193535](https://github.com/polina193535)
+- [@ElinaNotElina](https://github.com/ElinaNotElina)
+- [@GurbanG](https://github.com/GurbanG)
+- [@Guzinba](https://github.com/Guzinba)
 
 #### [Database Administration](https://github.com/team-work-tools/team-work-telegram-bot/labels/Database%20Administration)
 
@@ -152,6 +167,8 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
 ##### Responsible people
 
 - [@ghshark63](https://github.com/ghshark63)
+- [@polina193535](https://github.com/polina193535)
+- [@Guzinba](https://github.com/Guzinba)
 
 #### [Development](https://github.com/team-work-tools/team-work-telegram-bot/labels/Development)
 
@@ -167,6 +184,11 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
 - [@examplefirstaccount](https://github.com/examplefirstaccount)
 - [@Fullerite](https://github.com/Fullerite)
 - [@belyakova-anna](https://github.com/belyakova-anna)
+- [@scruffyscarf](https://github.com/scruffyscarf)
+- [@polina193535](https://github.com/polina193535)
+- [@ElinaNotElina](https://github.com/ElinaNotElina)
+- [@GurbanG](https://github.com/GurbanG)
+- [@Guzinba](https://github.com/Guzinba)
 
 #### [DevOps](https://github.com/team-work-tools/team-work-telegram-bot/labels/DevOps)
 
@@ -184,6 +206,8 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
 
 - [@examplefirstaccount](https://github.com/examplefirstaccount)
 - [@Fullerite](https://github.com/Fullerite)
+- [@scruffyscarf](https://github.com/scruffyscarf)
+- [@GurbanG](https://github.com/GurbanG)
 
 #### [Internationalization](https://github.com/team-work-tools/team-work-telegram-bot/labels/Internationalization)
 
@@ -194,6 +218,7 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
 ##### Responsible people
 
 - [@belyakova-anna](https://github.com/belyakova-anna)
+- [@ElinaNotElina](https://github.com/ElinaNotElina)
 
 #### [LLMs](https://github.com/team-work-tools/team-work-telegram-bot/labels/LLMs)
 
@@ -220,6 +245,9 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
 
 - [@examplefirstaccount](https://github.com/examplefirstaccount)
 - [@Fullerite](https://github.com/Fullerite)
+- [@scruffyscarf](https://github.com/scruffyscarf)
+- [@polina193535](https://github.com/polina193535)
+
 
 #### [Mini App](https://github.com/team-work-tools/team-work-telegram-bot/labels/Mini%20App), [Backend](https://github.com/team-work-tools/team-work-telegram-bot/labels/Backend)
 
@@ -282,6 +310,7 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
 ##### Responsible people
 
 - [@Dayanaoak](https://github.com/Dayanaoak)
+- [@GurbanG](https://github.com/GurbanG)
 
 #### [Research](https://github.com/team-work-tools/team-work-telegram-bot/labels/Research)
 
@@ -295,6 +324,8 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
 ##### Responsible people
 
 - [@Dayanaoak](https://github.com/Dayanaoak)
+- [@polina193535](https://github.com/polina193535)
+  
 
 #### [Security](https://github.com/team-work-tools/team-work-telegram-bot/labels/Security)
 
@@ -310,6 +341,8 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
 
 - [@examplefirstaccount](https://github.com/examplefirstaccount)
 - [@Fullerite](https://github.com/Fullerite)
+- [@scruffyscarf](https://github.com/scruffyscarf)
+- [@Guzinba](https://github.com/Guzinba)
 
 #### [Task Management](https://github.com/team-work-tools/team-work-telegram-bot/labels/Task%20Management)
 
@@ -323,6 +356,8 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
 
 - [@deemp](https://github.com/deemp/)
 - [@belyakova-anna](https://github.com/belyakova-anna)
+- [@polina193535](https://github.com/polina193535)
+
 
 #### [UI/UX](https://github.com/team-work-tools/team-work-telegram-bot/labels/UI%2FUX)
 
@@ -336,5 +371,6 @@ Each area has an issue label starting with a capital letter (see all [labels](ht
 ##### Responsible people
 
 - [@Dayanaoak](https://github.com/Dayanaoak)
+- [@ElinaNotElina](https://github.com/ElinaNotElina)
 
 [^soap]: [Software Architecture in Practice, 4th ed](https://libstc.cc/#/stc/nid:dy6kmolzlnucrcnq9ud92ev92)

@@ -1,6 +1,7 @@
-from pydantic import BaseModel
-from .language import Language
 from aiogram.utils.i18n import gettext as _
+from pydantic import BaseModel
+
+from .language import Language
 
 
 class BotCommands(BaseModel):
@@ -19,6 +20,7 @@ class BotCommands(BaseModel):
     join: str
     skip: str
     set_personal_meetings_days: str
+    set_reminder_period: str
     join_today: str
     skip_today: str
     schedule_personal_vacation: str
@@ -47,6 +49,7 @@ bot_command_names = BotCommandNames(
     join="join",
     skip="skip",
     set_personal_meetings_days="set_personal_meetings_days",
+    set_reminder_period="set_reminder_period",
     join_today="join_today",
     skip_today="skip_today",
     schedule_personal_vacation="schedule_personal_vacation",
@@ -78,6 +81,7 @@ def bot_command_descriptions() -> BotCommandDescriptions:
         join=_("Join meetings."),
         skip=_("Skip meetings."),
         set_personal_meetings_days=_("Set the days when you can join meetings."),
+        set_reminder_period=_("Set how often you'll be reminded about unanswered questions."),
         join_today=_("Join only today's meeting."),
         skip_today=_("Skip only today's meeting."),
         schedule_personal_vacation=_("Schedule a personal vacation."),

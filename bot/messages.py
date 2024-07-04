@@ -1,12 +1,14 @@
-from .language import Language
-from .commands import bot_command_names, bot_command_descriptions
-from textwrap import dedent
-from .constants import day_of_week_pretty
-from aiogram import html
-from datetime import datetime
-from . import commands
 from dataclasses import dataclass
+from datetime import datetime
+from textwrap import dedent
+from typing import List
+
+from aiogram import html
 from aiogram.utils.i18n import gettext as _
+
+from .commands import bot_command_descriptions, bot_command_names
+from .constants import day_of_week_pretty
+from .language import Language
 
 
 def bot_intro():
@@ -19,8 +21,8 @@ def bot_intro():
     ).strip()
 
 def make_help_message() -> str:
-    command_names = commands.bot_command_names
-    command_descriptions = commands.bot_command_descriptions()
+    command_names = bot_command_names
+    command_descriptions = bot_command_descriptions()
 
     return dedent(
         f"""
@@ -35,6 +37,8 @@ def make_help_message() -> str:
         /{command_names.set_meetings_time} - {command_descriptions.set_meetings_time}
         
         {html.bold(_("Personal settings commands"))}
+        /{command_names.set_personal_meetings_days} - {command_descriptions.set_personal_meetings_days}
+        /{command_names.set_reminder_period} - {command_descriptions.set_reminder_period}
         /{command_names.join} - {command_descriptions.join}
         /{command_names.skip} - {command_descriptions.skip}
         
@@ -44,11 +48,11 @@ def make_help_message() -> str:
     ).strip()
 
 
-def make_daily_messages(username: str) -> [str]:
+def make_daily_messages(usernames: str) -> List[str]:
     return [
-        _("@{username}, what did you do last working day?").format(username=username),
-        _("@{username}, what will you do today?").format(username=username),
-        _("@{username}, what (if anything) is blocking your progress?").format(
-            username=username
+        _("What did you do last working day? {usernames}").format(usernames=usernames),
+        _("What will you do today? {usernames}").format(usernames=usernames),
+        _("What (if anything) is blocking your progress? {usernames}").format(
+            usernames=usernames
         ),
     ]

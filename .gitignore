@@ -3,3 +3,6 @@
 folder/.env
 data
 __pycache__
+node_modules
+.idea
+.venv

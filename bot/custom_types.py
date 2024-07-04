@@ -1,13 +1,15 @@
-from typing import Protocol
+from typing import Protocol, Optional
+
 from aiogram import Bot
 from aiogram.types import Message
-from .state import ChatState
+
 from . import state
 from .chat import ChatId
+from .state import ChatState
 
 
 class SendMessage(Protocol):
-    async def __call__(self, chat_id: ChatId, message: str) -> Message: ...
+    async def __call__(self, chat_id: ChatId, message: str, message_thread_id: Optional[int] = None) -> Message: ...
 
 
 class SaveState(Protocol):
