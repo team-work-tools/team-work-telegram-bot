@@ -13,3 +13,13 @@ class Language(LanguageBase):
     ru: str = "ru"
     en: str = "en"
     default: str = "en"
+
+
+class InlineKeyboardButtonName(LanguageBase):
+    en: str = "🇬🇧 English"
+    ru: str = "🇷🇺 Русский"
+
+
+class CallbackData(LanguageBase):
+    en: str = "lang_en"
+    ru: str = "lang_ru"
