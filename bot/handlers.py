@@ -39,7 +39,7 @@ def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage, bot: Bot
     router = Router()
 
     handle_global_commands(
-        scheduler=scheduler, send_message=send_message, router=router, i18n=i18n
+        scheduler=scheduler, send_message=send_message, router=router, bot=bot, i18n=i18n
     )
 
     handle_team_settings_commands(
@@ -67,7 +67,7 @@ class LanguageForm(StatesGroup):
 
 def handle_global_commands(
 
-        scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router, i18n: I18n
+        scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router, bot: Bot, i18n: I18n
 
 ):
     @router.message(Command(bot_command_names.start), HasChatState())
@@ -126,8 +126,8 @@ def handle_global_commands(
 
 
 def handle_team_settings_commands(
+    scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router, bot: Bot
 
-        scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router
 ):
     @router.message(
         Command(bot_command_names.set_meetings_time), HasMessageText(), HasChatState()
@@ -194,7 +194,7 @@ def handle_team_settings_commands(
 
 
 def handle_personal_settings_commands(
-        scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router
+    scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router, bot: Bot
 
 ):
     @router.message(
