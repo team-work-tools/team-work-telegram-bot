@@ -94,9 +94,7 @@ def handle_global_commands(
 
     @router.message(Command(bot_command_names.help), HasChatState())
     async def get_help(message: Message, chat_state: ChatState, i18n: I18n):
-        I18n.current_locale = chat_state.language
-        await message.reply(i18n.gettext(make_help_message()))
-
+        await message.reply(make_help_message())
 
     @router.message(Command(bot_command_names.set_language), HasChatState())
     async def set_lang(message: types.Message, chat_state: ChatState, state: FSMContext, i18n: I18n):
