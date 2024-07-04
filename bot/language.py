@@ -4,10 +4,12 @@ from enum import Enum
 from pydantic import BaseModel
 
 
-class Language(Enum):
-    ru = "ru"
-    en = "en"
-    default = "en"
-
+class LanguageBase(Enum):
     def __str__(self):
         return self.value
+
+
+class Language(LanguageBase):
+    ru: str = "ru"
+    en: str = "en"
+    default: str = "en"
