@@ -6,7 +6,7 @@ from aiogram import types
 from aiogram.filters.command import Command
 from aiogram.types import Message
 from aiogram.types import BotCommand, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
-from .state import ChatState, save_state, load_state
+from .state import ChatState, save_state, load_state, get_user, load_user_pm, create_user_pm, save_user_pm
 from .filters import HasMessageText, HasMessageUserUsername, HasChatState
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from .meeting import schedule_meeting
