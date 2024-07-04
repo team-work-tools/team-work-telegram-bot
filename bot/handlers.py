@@ -101,12 +101,12 @@ def handle_global_commands(
     async def set_lang(message: types.Message, chat_state: ChatState, state: FSMContext, i18n: I18n):
         await state.set_state(LanguageForm.choosing)
         keyboard = InlineKeyboardMarkup(inline_keyboard=[
-            [InlineKeyboardButton(text="English", callback_data='lang_en')],
-            [InlineKeyboardButton(text="Русский", callback_data='lang_ru')],
+            [InlineKeyboardButton(text=str(InlineKeyboardButtonName.en), callback_data=str(CallbackData.en))],
+            [InlineKeyboardButton(text=str(InlineKeyboardButtonName.ru), callback_data=str(CallbackData.ru))],
         ])
         await message.answer("Please choose your language / Пожалуйста, выберите язык", reply_markup=keyboard)
 
-    @router.callback_query(lambda c: c.data == 'lang_en' or c.data == 'lang_ru')
+    @router.callback_query(lambda c: c.data == str(CallbackData.en) or c.data == str(CallbackData.ru))
     async def process_callback_button_language(callback_query: types.CallbackQuery, i18n: I18n):
         chat_id = callback_query.message.chat.id
         chat_state = await load_state(chat_id)
