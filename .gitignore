@@ -1,6 +1,6 @@
 .direnv
 .mypy_cache
-folder/.env
+.env
 data
 __pycache__
 node_modules
