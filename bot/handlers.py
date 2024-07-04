@@ -35,7 +35,7 @@ from textwrap import dedent
 import logging
 from aiogram.enums import ParseMode
 
-def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage, i18n: I18n):
+def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage, bot: Bot, i18n: I18n):
     router = Router()
 
     handle_global_commands(
