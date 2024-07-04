@@ -31,7 +31,7 @@ def make_help_message() -> str:
         {html.bold(_("Global commands"))}
         /{command_names.start} - {command_descriptions.start}
         /{command_names.help} - {command_descriptions.help}
-        /{command_names.lang} - {command_descriptions.lang}
+        /{command_names.set_language} - {command_descriptions.set_language}
         
         {html.bold(_("Team settings commands"))}
         /{command_names.set_meetings_time} - {command_descriptions.set_meetings_time}

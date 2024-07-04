@@ -97,8 +97,8 @@ def handle_global_commands(
         await message.reply(i18n.gettext(make_help_message()))
 
 
-    @router.message(Command(bot_command_names.lang), HasChatState())
-    async def set_lang(message: types.Message, chat_state: ChatState, state: FSMContext,  i18n: I18n):
+    @router.message(Command(bot_command_names.set_language), HasChatState())
+    async def set_lang(message: types.Message, chat_state: ChatState, state: FSMContext, i18n: I18n):
         await state.set_state(LanguageForm.choosing)
         keyboard = InlineKeyboardMarkup(inline_keyboard=[
             [InlineKeyboardButton(text="English", callback_data='lang_en')],
