@@ -65,9 +65,8 @@ async def main(settings: Settings) -> None:
         default=DefaultBotProperties(parse_mode=ParseMode.HTML),
     )
 
-    async def send_message(chat_id: ChatId, message: str):
-        translated_message = _(message)
-        return await bot.send_message(chat_id=chat_id, text=translated_message)
+    async def send_message(chat_id: ChatId, message: str, message_thread_id: Optional[int] = None):
+        return await bot.send_message(chat_id=chat_id, text=message, message_thread_id=message_thread_id)
 
     scheduler = init_scheduler(settings=settings)
     await restore_scheduled_jobs(scheduler=scheduler, send_message=send_message)
