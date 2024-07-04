@@ -1,7 +1,7 @@
 import { createMachine } from "xstate";
 
 export const machine = createMachine({
-  /** @xstate-layout N4IgpgJg5mDOIC5QGUwBcAEB3A9gJwGsBLAOygwAscBXPWAOgFVYw96BJCAGzAGJVMuQqXJVasANoAGALqJQABxywiaIjhLyQAD0QBaAKwBmAOz0pRgGwAOI9YCc1k-YBMUgIwAaEAE99JsykPI3drA0cQg0sDAF8Y7wFsfGIySho6egAhHDR6AAkAQxJuMAw0ClKAYxwAWxqiiHoAYQrKggxSADMcDAKAIxpMctLmVl5pOSQQJRU1DS1dBCt7A3oTIIAWGyl7UKkw7z8Ea2s162io3ZcTF3dQuIT0JOFUsQzs3MLinjKKjGq6g1mq12l0ev1Br8Riw8ON3JNFMpVOpNFNFhsLKtrBs3BsrC5LM53JZDoh7Bt6BsDLdrHcTO4XE4pCYHiBEkIUqJ0gwPvkGj9hv9avVikwYZQCrAMAArHCkSAYGpgdAiWC8D4YPBgBRcIhwCZaGbI+ZoxCWRz0KKmVzWZkY9wmUkINynFxGa5GKQGCwrQmWVns5IiNLiLI5PnfUqCgEixqjPASqVoHqy0iK5VqMhSzpEOhoXjaWBoApoMD0AqdUt4AAU3qkAEp+E8OcG3jzw18SlChYDRfHE2UU3KSOmVVmMDm8wapka5qjQIs7pYKQ63PY7BY7I7fIgtuYTp6Th5rNcXC5YvE2c2g69ufQAKIkABuuY0SpI+f7OAUYBISb+lQUCW06IrMKILPo7g7FI9C0vYJjYhsrjuOuRhOiYFIbKEWFug6truCEAbXi8XKhi0Jb0KYVK2BsBZFiWZYVlWtZBI2gYkSGGTkbkVEGDRIHTEic4QQghguPYlFIVR2GoduRwGBS1IOpYlh2AyNLWERgg3qRXFATxERYbRhbFqW5aVqwLENk22kcW2wIUUYhnuBsAmzuBpoIOplj0CpdhbFI4kIWhO6iSp9D2ISyE4oynospe7GcpxDDcZSgUmGpvAFFwWAFD4kiyIaQkeQu+gbLaEXYu4BguYFxIuBsTobDi9BLjcKnkieNjxY8tlJfZqUYh6tK8P2CharALBSlqEAYH01BoMmI4kGABQJoKWDKgQEB5W5xUmqVXmWC4vniSe7q2s4qkkqFl0RQYNw7FhxJdVpzz9Xeg3pZlY0TVNGAAOTaADe1gQdOiIFBx3mMSBjhPYHherSTqWF69AEgSdyXSY4QXr172tp9+lpcN7ijeK41wP9AMANQg4VM77fOEMIFErqeg6NUeNEGVOnc4QRZ6UjLpYsMEZpCXER9ZHE0NGUjb9VNwBgUBar+c0LUtGArWt3abWA227QzoHGszi7VZRDrEji5JbPB1hOt6Emeqp54PQ4TgbD1V59YTMsUXLP0U39ytFB0H6sE+2Wg6bIkmOFzg3I4qPnCEfM7EYlr7FhXo7OabpvS2t7+7kOLGPSRjjMbglg2biBnmE5jRPBAXkpFfO3Ip8dw6YUjlUYGyFzpyUOaX56mARcIIjXseedcouURXGUBHYTkdy5lrd+Xfe2KYQ92UTAcEoSBLk6wGCU5NysA00RSVGAXD09P7ng4segEiuGID05KkKe6TVIXRg4B6jIVi2BQnjH2BNi56SPipdqVdn5MxEuebElJUZey3MpA4oVqqBUtKTWwzgLAuH3tLWBuQAAiYBOgFGoFwIYRAlSwC4Dkf4WoSwonVGwyoHDSxSjdKzew78jBCPDlWKOXBw7dmLH0HgMdhJz3PJaBSNxVHlwcC4PmpgTphAxE4Bqq47hkL9hQsMgg8CqGVoKUgEjsrSOoOKUs2hMCkAUAtCceouAQDPgmNxC0EAYAADwDDQAAPmCWoJU4jI7ZTCQokqLMoYUltFhHGdJbi81wc1RSVgthwxxvYBGg9Ja+xgSlYmAB1AoyJUjdHWn8Rx58olwFYZgQCRQYDpkmgUGAvj-hATINYsALjejFAwCwYo-5SjMNgL0sACTX6QzCJnPuA9XDegdJFLRuD9iZ0Qhlc8GFbDMhMeU0eDkyDBkFMWBQP5Zq2NiVwbh7TBkwCTAUO5CpHl4Ekb0So1Q8AQGuT0JpeAAZSlmfMsZs0IAP3QMrXgZcJ5GEWXXLyedLTlWXI4WwuwHraKpGlJC+wTiXECmc3SFSKK3xIPfKRHSrmpB+ZIl5GA4U8H4RgJFx92rcqwsdNJaKRJCx8ucMIYRzx4hUnzP0KjcLehuNibElKR6pQAEroDwD4AZnTgwsuymyjlCKpQ8vgQSfl9UhXVxfui8ePkUKqXUo4DCClZV2AijjZwD0apWEgYlUx1LciapqDgF8qQbER1+YajUWpQ1PmsX8A1UjOh4FqDI-o8ibXIM8vBMwOMnDx1Rm6c8N0jjxwkucHEx0HT7H9VLQNFyACCEBZqCh2jq5M3ZYCAUgPQvgmRNYaF1UMpMPRVbKhHA0CZvaID9vZUQWAOo8rTP+WoBNZQmGlBwJ0bsHaJxppqHuks-RJSlCILugoUciBcEzQs7NtcRLvwsGld0ednDNQagYdO9JKTd0ulYc4NxVUDWJiGsNUY-j7tTemwUPaKhzp4OqIdI5GXvMHJqBU074N9p+BAHAysSBsOBUu29Oqiidq3SwnIUo0zlEXeyo2SDH2eT0KjCKWE+LXBuFheCOyjjmjMOEYkxa+LRA8HES8RG4XwCmAG8pRUWOHT0C5PEEUoYKU0Qeb9oU9DuiEwEL01JbS3CMMYEDd54yKdnspqCOxYJejdHYWwJ44Z8xPJRc0pKTgBEMhZ0M8YOAlGs4o5TkV3AOepEYZzdg3ZOgJBJc0KEcQBAZGZsz-n3g5BC4kxYZmilrE2NsXYtocFHHfhidGClqqcZxmuTL7ZPj8kg1UYUDQctLKWMufNRXbQlbrU6FT1JBYMmMBYcqsUjANfMRGLs0Y2uihaGANo4dui9AGB4wUVnGZKZZqYCq5wVgYmoqEN1unoi+T2fsPu9IGTe3k1SmbnYBQAQW3GcUQEpSphWrNJUY4oCyZNqFvb5oJK1pxDiFyylGq4ItAjN2OMHopbxNN3kz2Ws9ljGKc+n2MPfdHJmAHni8wdfRT-MwNgsYISpJFZq8Xwreicrcb0mCMrTcfC+NNJB3xoFJ0+giKx1PC00zaWwOnytnn2TsZngUmR71KdAx73E+esZCCdWq39IrRDxPx-QZ4Is8wQlEdSKF1zTdSrxGiKvDqoMouEJCosW4rDkvoVYP9mTFPXFFAe5viZORoi5a3LN36MkFuJO4HgVgZxCuV80ax1w4hPFSElThfcB2+rSIPixUYRYwnYeC1UQgDdCoZu3NgilO1l-6BXRcley3HhXLP9cCSrCKTdwkxh1zwXTl7S7vnbThBUg1NPY9zWWCb86UWuS4YR4RvpjuGU1iXBkj6uwI-6AAAUtQvhoJCqm8zAcz2B2-M8PkfXbJqjVewg2CIUmi+VDEgqWdTZr8PUDFFqG0PoYw5hbT2GrWB1tRFXsxxi9grS9EJAcA7gXnJBuColFkTglnxlrzVWJg1CwEsS5UjTsSkTTDBTKBGVcRIHcUwBzAfggAn2XAiwHkMS1zMxOC8GyWalantgyicmogsHX2qVqXIHqW7HwJaWo1eU6RmX3xgAnwIgQiX3G2OjcAKXF0hhyRYIQjYPJAekcHX3IiZXIBuU+XuRiWjS4An1uARnMHCELSiC9ACBdy8jMxOgCBz2T2XFIVfwPhLmaDvgfhHSgH1SjUkQn09DPFam4zCHWAcHallSCDOC2DyRuDYJKWQLf0PmDS1R1TQ18JwOMMsMtBOFBxIS9Gv1wWyJlzzRckZE4NcPISDXoHA3DR0KTT8OygkKsIczKLsAKRQkYIE1ML4w2WCCj3cHXxbTbSgzygwzg1nX7QkNOBuBchKx9VOydC73QTiI8AdBCBxnX1qIx2g0PW7UmJ4AnwFkdx2ArxsAegwhRigjWH12aiKVuGFhcLiCAA */
+  /** @xstate-layout N4IgpgJg5mDOIC5QGUwBcAEB3A9gJwGsBLAOygwAscBXPWAOgFVYw96BJCAGzAGJVMuQqXJVasANoAGALqJQABxywiaIjhLyQAD0QBaAKwAOI-QBMRgMxHjAdgAsBgGwGDZgDQgAnvqMBGentbA1sATiC-Zyk-KXsAXzjPAWx8YjJKGjp6ACEcNHoACQBDEm4wDDQKcoBjHABbOpKIegBhKuqCDFIAMxwMIoAjGkxK8uZWXmk5JBAlFTUNLV0ESydQg3pbKVinIylQvz2bTx8EE02jF2cDs1szP0OEpPQU4XSxLNz84tKeCqqMLUGk1Wu1Oj0+oNhv8xiw8JM-NNFMpVOpNDNlvYpJYNkZ7GZYqszE4wn4nCdEOFAm5Dg9bH4LFtbE8QMkhGlRJkGF9Ck0-qNAfVGqUmHDKEVYBgAFY4UiQDB1MDoESwXjaWBoIpoMD0IrdbV4AAUBm2AEp+C92SIMuIcnleb9ygKgcLmuM8OLJTK5RAFUq1GRJLItHNUYsMYgYrF6JZQlYXIcpMFQh5vIgCfZ6E4nNZ7JZ9pYwgSzCy2alrR9ufafmUYYLgSL3Z6Kn1vSQ-crAxhukQ6Gg1RqtTq9QbjWaLYJy+8uXbvnynQCXSCmxQJS3pbL24rO1BJT2+1MQyiFujQMsHk5M347gW9pZrLYKQh7E56FITPmTNEjLczGYDKWlpTpyto8gAskUHJ1sAEBFF4cQYCQeT9K8UGwV4vBfBg1AKLB2qSgKsDVFUEDUDwh4zKGJ5LJSBJZms9h+KEDixm49hPi+oRZrGxLMXmcaPIkrJAW8IGfPaABKYB1DgABu1oCsApAGrJRRcHEmHITheFwHWREkWRYAUci8xojRZx7PQNj+NZuycY+aYIGEph4jEVh7DmP6hIBk6iTa4n5C0eBgFq1oQGA3RFGRmDKawqlcN2+AYDBcEaVhRQQBABEAuFkXRV0JAqWp-SlBgAzUGgaAaHuSWqNhpSsBgeRVB6sV4PFNUeop6FxMZszHmZEZnE4ZjcQYOL3O5thrE+MSWJmI1sfY4QhP+3lCWWfmVrO9AQVB3WpShVrpOhmmYNpQ7ZeU+mQIZfVUYNZ6ICYAShPeViWGSoQjdNs2RK9lx4lYJqTSWG0iVB20AKIkPJeAaIqhW8E2OAKGAJBXYCq5oPdA3hk9CB6AyThSJsBiOB5l7jYWs04uY80WJehyXCaRg+ahFYzm0Woxg4xjzQOmrarq+qsGOUjmptkNc9jvMU-NuOmfjOj6CEASXg42wOLc6zko5rhZliWLGG9TH2Ix7PHWJDDc-ksZWIx9iC0OIujiaEsThz062rbMZxvNfj2IrYanirCAMsS9G5iTZjMVYT56Nm9DfUWgd-lYSaW8B-k27LWK3NYfjI2KCjBbALCSiUBVFVwwfUUN9g2PQZtSLHwQxO77GOQ8y2BCTRihFI5MHI4YPPL50s+3nre2IXxeNaXcAVxggBo5IA8H+ISFHpKYVcVqQhODdChKXwXXj1hyYuIxPSOzvvsDmnLPthWXcoSD7YeLOCEWdbTLPP57Pfw88PSL3LrpQAqeSbyKNvNq8UD5HyKMlHqZ9lbLCMB-Zug8cTvRTMSSwT5whcVjEET6VgvrzR-pPLIvsAFzybKA5eAooDBXRslcqlUNAIRIFvY+yDgyUTxqHNBeJea5jzMYaIZInzZlfJEZacYDC4NWPEcGE9OZT3-jPOhJcy6MIBMFX0wB2FVRIFwnhiCT69X4SZEO5kvzN3dtsT600KazX2FxdYTJdgMhsONSh6jqF53-IWPwlhJjWP6krIR6ZA6ZiTC+F8l58QMyfH+Eayd7zvXekEfx3tAn-2CfSMJEhERHiieZYkdFrDbApu+EID90yVIyZkj6eI1hOFydbUEBTsx3CcMAjADDdIAHIWglGqGALgwyUHRIQBYCwMYSS3A-LPAwqSohvhCLGbEg9G4OE6Tnbp+R8S9OJOEpEkTbFDTMObSwfcR6KKkC4J5etTj-hNFZVy2YIjjXWuPL2XTfYplzCmc5ZSrkEy4ubZZxDsRyL-E+fMARPzoPGm3XxHTVEAsOUCswIKzAIguQ9VB+hbjPzTq4Eaa0Sb4MckimM75UWWHRZSg521fZYSwHgVQukBSwOKqQbCYptTaBiiQBQFVuxEEmRAAZpAJVoAQBgAAPEMNAAA+FVahFTVz3lwdVMzzLAqsj4n5TFKWpOWqNAezKQb7BGjmNlf98gAHUiionSL0LqAJqDCqIIqWAXBkLERKDAP05cigwAGSGsgvKwCipKr6FgpRMYBtgJGoyETiWzOvAyTZ9wqarHGkEVJoTRoEn+jeNp2YnUaMCquMgCkASagUGjX0-KuBnSxqG3lRRW3yg7f0aotQ8AQAUn0X1rBhmSjTRmxNGBwo8HwhgXg+JxpFMNUNdYGxXCz3uAcFmXc3mxjudNchBgmLMsvLW-JgVxmTO7Y29IHau2LvQLpVdxIllOBXYxEajFbCboJgXLiVwtYhBJDEI9kYTBcUJG-BMJgwg3tzjzKSaA8BeEfVAa0L6sJvuXZ+05P7V1khudeIDYc8XrHMLEOMeZ7yNxxKk3Yz97z-jvDYbYfgUNHPoMAK2AB9Ssgm0BeDRghIgkoBPAWE1yQTaM6AaH3mCgR5Shp6BueSws31IhbJ-P+Di6SCTbCcU8t+eLmRYqtji2WMnRJyfEKJ8TYBJPSaEyJ3KUUuBoA0pR5YRM8yfKQ7+bxFgjBPlcHc2Izh7zGGWfcXjvt7Mckc3QZzEmuiSlyj6VTNj64EwwQSGwOIRrhH8CSaRQXGWODelsZiawEhCSQuFeAMwpYBLa-l8+AXYl3IOE88mA9wvMccnoZlz96nRELOg-8YQALWezttd04KCthyJtsLiew3DvXcu82aP5FlYIprFnJi3f62ndBwMoq2ev6F01ZIeeLrB7dcCx0DBxwhkoZNghb-ybPbS+LdklKxFFwfJvcLYA8cx+ATjc0m-4sQjwHmSM7-2lszh5DWfki4hRNGB7M5Rz8tg7D2AeupCdIijVNl9Ji19A6YvRxdgKDpazOjxyKNoYAOgFV6P0IYkqBQrbUxCsOM3SaXHWEbYwhxyYJxcFmd8n5Yj0gZFZpnVCqxzkdHWJcjYxSri9JueU24Ay7gJ+ZVYb9m5bHxPiQO15LyzTjMnVuu7d34hYrxrH85dcc7dAbtcVUNyCtNyqKVfYLdDVjCSLM-hDgf1q0kljr4TQ8UiCrwslhvf2j2k28oljELIUQTZ9CUeCZFtGnmaan17wx2OHS9BVkBt4juFBm5Of8hSRkvJdIikO1xHL2LjWmz7dQ++p9J89Jqd8zNsSHYjPhJqLyVr1owVQonQit5sVNdErbx6kP5YRbSZYgYhPoe1gCHvmbpUtYDJQle-O5rnaee+8AkLyX7OZeRdraP88qyTgsu14P4wQsQf02wMYkQziGsKYs8vGMMcMCM6MaAh++goSNGA2LgjcKYH4ayY2f4dyZO9wIM6C2I6uS+2K7K2MqBhMhYGwHGLgRYb0SYzgcO9wWY9SZWf4iiwQ2eT+nWfGhY8s9gNBHGMYiiy0gBfEniCcGwMeSYuyb0JIb0KiGuAhvs9sAcIhP+d2hM6cGSscDw0Q6wBYtKpwicXEYQDMP4jgy0745BHWK+fGtC-gohQQyceKOyzM4WlWjknkb4xsAcrcdkqhFBAOzqgQhSoSohDImYb8yOH8lwtgH8qS+wGw30FMvEzK-sSWQSxGbhs89A5MjEZC-4g2qSzKo0DwhYcKsc1gzEuRPMwKeIKYohzgb430A8SY2IP4JgB2pgBIrEMi40HcfyYRGOda9AAACsFPJDQDOkvBml1pcr-qSpHCEIootP9KEJTvNDGPNHiE8jciaHmI0fkJytysunyrvO1AKu2JOl1PGmKgqlKjKjQXbs3FiEPMxNsMDK8umG4C5AnttqEpEGMY4YCrLG6h6uQF6nWA8RUP6nAEGpgDGmGrOjADQT9sTo8ocO8rHP8XMlakUeTC4HsPMpEA4RDOobLNzE+uQAKC2m2rqrcVwKIXRm+LsMPIoiMSEJatEM3BNm-ImEPIvhCbZjzGMiQBMglGibhjcfFKIS9IKVTMkdXtfCxr3A7vbjEDmGsHwWoU4b7OhphthvKTXG4UxEUcxCEi8mEA0nMv3EUfSCYHikEAcC4Gcfxh5vJmJpllJslD6U5oprAMpupDQeNrcOYMYIwSmMwcEISTHgysEBDs4tTF6SliIGlrABlq5lloGbJp5lvtFIPjocrFVAoIgMtJmB-IPHCrEB5E8p4DwPqPoHcG+C9nNhYObLVp4GqlVHUIgBDhcHWZ9A2U2SANylABQCgc+M-LpteJ7npuTLDiAFgEQBAJUJGASJ4FUEQNObOY3J4AFu2T0T+KtHiObIohxFSLWU4lBo2WKdSUaXZkGeln6XmQGTltwhABGTcnclAUxKQTcD4tIkmCaiuf7PMu+E1nEEAA */
   context: {},
   id: "Set working hours",
   initial: "Environment",
@@ -38,9 +38,9 @@ export const machine = createMachine({
             },
 
             "User has joined meetings": {
-              on: {
-                "Bot replies": {
-                  target: "#Set working hours.Chat.4027381",
+              after: {
+                "500": {
+                  target: "#Set working hours.Chat.9238492",
                   reenter: true
                 }
               }
@@ -57,12 +57,57 @@ export const machine = createMachine({
           },
 
           initial: "Check info about the User"
+        },
+
+        "Making the {day} not a working day": {
+          description: "- Update {{chat_settings_type}} Chat settings:\n    - Remove all intervals for the {day}.\n    - Mark the {day} as not a working day.",
+
+          on: {
+            "Bot updates the schedule": {
+              target: "#Set working hours.Chat.4027381",
+              reenter: true,
+              description: "- The {button} becomes red\n- Working hours for {day} disappear."
+            }
+          }
+        },
+
+        "Removing the {interval}": {
+          description: "- Update {{chat_settings_type}} Chat settings:\n    - Remove the {interval} for the {day}.\n    - If it was the last interval for the {day}, mark the {day} as not a working day.",
+          on: {
+            "Bot updates the schedule": {
+              target: "#Set working hours.Chat.4027381",
+              reenter: true,
+              description: "- Bot re-renders intervals using the settings.\n- If the day isn't a working day, Bot makes the button near the {day} red."
+            }
+          }
+        },
+
+        "Creating default interval for {day}": {
+          description: "- Update {{chat_settings_type}} Chat settings:\n    - Add the `{default_interval}` for the {day}.",
+
+          on: {
+            "Bot adds the default interval and buttons for it under other intervals for the {day}": {
+                  target: "#Set working hours.Chat.4027381",
+                  reenter: true
+                }
+          }
+        },
+
+        "Making the {day} a working day": {
+          on: {
+            "Bot updates the schedule": {
+              target: "#Set working hours.Chat.4027381",
+              reenter: true,
+              description: "- The {button} becomes green\n- Bot re-renders intervals using the settings."
+            }
+          },
+          description: "- Update {{chat_settings_type}} Chat settings:\n    - Add the {default_interval} for the {day}."
         }
       }
     },
     
     Environment: {
-      description: "- Definition: \"Chat\" is a private chat or Telegram group without topics or a topic.\n- Definition: \"Interval\" is a block of time.\n- User and Bot are members of a Chat\n- The Bot may read messages and respond in the Chat\n- The Bot username is <bot>\n- `{working_hours_type}` is `{working_hours_default}` or `{working_hours_personal}`\n- `{working_hours_default}` is `Default`\n- `{working_hours_default}` is `Personal`",
+      description: "- Definition: \"Chat\" is a private chat or Telegram group without topics or a topic.\n- Definition: \"Interval\" is a block of time.\n- User and Bot are members of a Chat\n- The Bot may read messages and respond in the Chat\n- The Bot username is <bot>\n- `{working_hours_type}` is `{working_hours_default}` or `{working_hours_personal}`\n- `{working_hours_default}` is `Default`\n- `{working_hours_default}` is `Personal`\n- `{default_interval}` is `23:59 - 23:59`\n- `{chat_settings_type}` is 'default' if `{working_hours_type}` is `{working_hours_default}` else 'personal'",
 
       on: {
         "User opens the chat": {
@@ -78,48 +123,34 @@ export const machine = createMachine({
         "Previous messages": {},
 
         "4027381": {
-              description: "Here's your schedule",
+              description: "Message:\n\n\"Here's {'the default' if {working_hours_type} is {working_hours_default} else 'your'} working hours schedule for a week.\n\nThe red button to the right of a day of the week means there are no working hours this day. Press the red button to make this day a working day. The button will become green.\n\nPress the green button to remove all working hours for this day and make this day a day off.\n\nFor working days, there's at least one working hours interval in the `hh:mm - hh:mm` format.\n\nPress an interval to edit it.\n\nPress ✖️ to remove an interval.\n\nPress ➕ to add an interval.\"",
               on: {
-                "always": {
-                  target: "#Set working hours.User.Idle",
-                  reenter: true
-                },
-
-                "User presses red button near the weekday": {
-                  target: "#Set working hours.Chat.Add the day to the schedule",
-                  reenter: true
-                },
-
-                "User presses '+'": {
-                  target: "#Set working hours.Chat.Default timeslot creation",
-                  reenter: true
-                },
-
-                "User presses green button near the weekday": {
-                  target: "#Set working hours.Chat.Remove the day from the schedule",
-                  reenter: true
-                },
-
                 "User presses an interval": {
                   target: "#Set working hours.Chat.Bot writes the interval in user text input field",
                   reenter: true
                 },
 
-                "User presses 'x'": {
-                  target: "#Set working hours.Chat.Removing the interval",
+                "User presses ✖️ near {interval} of a {day}": {
+                  target: "#Set working hours.Bot.Removing the {interval}",
+                  reenter: true
+                },
+
+                "User presses ➕ near {interval} of a {day}": {
+                  target: "#Set working hours.Bot.Creating default interval for {day}",
+                  reenter: true
+                },
+
+                "User presses the green {button} near a {day}": {
+                  target: "#Set working hours.Bot.Making the {day} not a working day",
+                  reenter: true
+                },
+
+                "User presses the red {button} near a {day}": {
+                  target: "#Set working hours.Bot.Making the {day} a working day",
                   reenter: true
                 }
               }
             },
-
-        "Default timeslot creation": {
-          on: {
-            "Bot creates 23:59-23:59 interval in the table": {
-                  target: "#Set working hours.Chat.Bot writes the interval in user text input field",
-                  reenter: true
-                }
-          }
-        },
 
         "Bot writes the interval in user text input field": {
           on: {
@@ -192,33 +223,6 @@ export const machine = createMachine({
           }
         },
 
-        "Removing the interval": {
-              on: {
-                "Bot removes the interval from the table": {
-                  target: "#Set working hours.Chat.4027381",
-                  reenter: true
-                }
-              }
-            },
-
-        "Add the day to the schedule": {
-          on: {
-            "Button changes to green and schedule displays the active time of the day from the database if available": {
-              target: "#Set working hours.Chat.4027381",
-              reenter: true
-            }
-          }
-        },
-
-        "Remove the day from the schedule": {
-          on: {
-            "Button changes to red and schedule does not display any timeslots in this day": {
-              target: "#Set working hours.Chat.4027381",
-              reenter: true
-            }
-          }
-        },
-
         "3983414": {
           description: "\"/set_working_hours",
 
@@ -238,6 +242,41 @@ export const machine = createMachine({
               target: "#Set working hours.User.Idle",
               reenter: true
             }
+          }
+        },
+
+        "9238492": {
+          description: "Reply to 3983414:\n\n\"Press 'Default' to set working hours that will be used as default personal working hours by all people.\n\nPress 'Personal' to set personal working hours.\"\n\nInline buttons:\n\n[Default] [Personal]",
+
+          always: [{
+            target: "{working_hours_type} is {working_hours_default}",
+            guard: "User presses 'Default'",
+            reenter: true
+          }, {
+            target: "{working_hours_type} is {working_hours_personal}",
+            reenter: true,
+            guard: "User presses 'Personal'"
+          }]
+        },
+
+        "{working_hours_type} is {working_hours_personal}": {
+          always: {
+            target: "{working_hours_type} is defined",
+            reenter: true
+          }
+        },
+
+        "{working_hours_type} is {working_hours_default}": {
+          always: {
+            target: "{working_hours_type} is defined",
+            reenter: true
+          }
+        },
+
+        "{working_hours_type} is defined": {
+          always: {
+            target: "4027381",
+            reenter: true
           }
         }
       },
