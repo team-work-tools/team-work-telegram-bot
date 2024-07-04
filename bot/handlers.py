@@ -107,21 +107,23 @@ def handle_global_commands(
 
     @router.callback_query(lambda c: c.data == str(CallbackData.en) or c.data == str(CallbackData.ru))
     async def process_callback_button_language(callback_query: types.CallbackQuery, i18n: I18n):
-        chat_id = callback_query.message.chat.id
-        chat_state = await load_state(chat_id)
-        new_language = 'en' if callback_query.data == 'lang_en' else 'ru'
-        chat_state.language = new_language
-        i18n.current_locale = new_language
+        match message := callback_query.message:
+            case Message():
+                chat_id = message.chat.id
+                chat_state = await load_state(chat_id=chat_id, topic_id=message.message_thread_id)
+                new_language = Language.en if callback_query.data == str(CallbackData.en) else Language.ru
+                chat_state.language = new_language
+                i18n.current_locale = str(new_language)
 
-
-        try:
-            await save_state(chat_state)
-            await callback_query.answer()
-            confirmation_message = 'English language selected!' if new_language == 'en' else 'Выбран русский язык!'
-            await callback_query.message.answer(confirmation_message)
-        except Exception as e:
-            await callback_query.answer()
-            await callback_query.message.answer(_('Error saving language state: {error}').format(error=e))
+                try:
+                    await save_state(chat_state)
+                    await callback_query.answer()
+                    await message.reply(_("English language selected!"))
+                except Exception as e:
+                    await callback_query.answer()
+                    await message.reply(
+                        _("Error saving language state: {error}").format(error=e)
+                    )
 
 
 def handle_team_settings_commands(
@@ -226,7 +228,7 @@ def handle_personal_settings_commands(
     @router.message(
         Command(bot_command_names.skip), HasMessageUserUsername(), HasChatState()
     )
-    async def unsubscribe(message: Message, username: str, chat_state: ChatState):        
+    async def unsubscribe(message: Message, username: str, chat_state: ChatState):
         user = await get_user(chat_state, username)
         if user.is_joined:
             user.is_joined = False
