@@ -82,7 +82,7 @@ def handle_global_commands(
             if not user_pm and username:
                 user_pm = await create_user_pm(username=username, chat_id=user_cht_id)
                 await save_user_pm(user_pm=user_pm)
-                await message.reply("You successfully registered in the bot!")
+                await message.reply(_("Nice to meet you!"))
 
             await update_reminders(
                 bot=bot,
