@@ -1,5 +1,5 @@
 from aiogram.filters import Filter
-from aiogram.types import Message, User
+from aiogram.types import Message, CallbackQuery, User
 
 from .state import load_state
 
@@ -13,8 +13,8 @@ class HasMessageText(Filter):
 
 
 class HasMessageUserUsername(Filter):
-    async def __call__(self, message: Message):
-        match user := message.from_user:
+    async def __call__(self, obj: Message | CallbackQuery):
+        match user := obj.from_user:
             case User():
                 match user.username:
                     case str():
@@ -23,9 +23,14 @@ class HasMessageUserUsername(Filter):
 
 
 class HasChatState(Filter):
-    async def __call__(self, message: Message):
-        chat_state = await load_state(message.chat.id, message.message_thread_id)
-        return {"chat_state": chat_state}
+    async def __call__(self, obj: Message | CallbackQuery):
+        match obj:
+            case Message():
+                chat_state = await load_state(obj.chat.id, obj.message_thread_id)
+                return {"chat_state": chat_state}
+            case CallbackQuery():
+                chat_state = await load_state(obj.message.chat.id, obj.message.message_thread_id)
+                return {"chat_state": chat_state}
 
 
 class IsReplyToMeetingMessage(Filter):
