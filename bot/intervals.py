@@ -1,9 +1,9 @@
-from typing import List
+from typing import List, Tuple
 from collections import Counter
 from datetime import datetime, time
 from zoneinfo import ZoneInfo
 
-from pydantic import BaseModel, computed_field, field_validator
+from pydantic import BaseModel, field_validator
 from pytz import timezone, UnknownTimeZoneError
 
 
@@ -33,19 +33,9 @@ IMMUTABLE_DATE = datetime(year=2024, month=1, day=1)
 
 
 class Interval(BaseModel):
-    start_time: datetime
-    end_time: datetime
+    start_time_utc: datetime
+    end_time_utc: datetime
     tz: str = "UTC"
-
-    @computed_field
-    @property
-    def start_time_utc(self) -> datetime:
-        return self.convert_to_utc(self.start_time)
-
-    @computed_field
-    @property
-    def end_time_utc(self) -> datetime:
-        return self.convert_to_utc(self.end_time)
 
     @field_validator("tz")
     def zone_must_be_valid(cls, tz: str):
@@ -54,11 +44,6 @@ class Interval(BaseModel):
         except UnknownTimeZoneError:
             raise ValueError("You should pass valid zone name")
         return tz
-
-    @staticmethod
-    def convert_to_utc(local_time: datetime) -> datetime:
-        utc_dt = local_time.astimezone(ZoneInfo("UTC"))
-        return utc_dt
 
     @classmethod
     def from_string(cls, interval_str: str, tz: str = "UTC"):
@@ -69,7 +54,15 @@ class Interval(BaseModel):
         if start_time >= end_time:
             raise InvalidIntervalException(start_time.time(), end_time.time())
 
-        return cls(start_time=start_time, end_time=end_time, tz=tz)
+        start_time_utc = cls.convert_to_utc(start_time)
+        end_time_utc = cls.convert_to_utc(end_time)
+
+        return cls(start_time_utc=start_time_utc, end_time_utc=end_time_utc, tz=tz)
+
+    @staticmethod
+    def convert_to_utc(local_time: datetime) -> datetime:
+        utc_dt = local_time.astimezone(ZoneInfo("UTC"))
+        return utc_dt
 
     @staticmethod
     def parse_time(time_str: str) -> time:
@@ -83,13 +76,19 @@ class Interval(BaseModel):
         except ValueError:
             raise InvalidTimeFormatException(time_str)
 
-    def convert_to_timezone(self, new_tz: str):
-        new_start_dt = self.start_time.astimezone(ZoneInfo(new_tz))
-        new_end_dt = self.end_time.astimezone(ZoneInfo(new_tz))
-        return Interval(start_time=new_start_dt, end_time=new_end_dt, tz=new_tz)
+    def convert_to_timezone(self, new_tz: str) -> Tuple[datetime, datetime]:
+        new_start_dt = self.start_time_utc.astimezone(ZoneInfo(new_tz))
+        new_end_dt = self.end_time_utc.astimezone(ZoneInfo(new_tz))
+        return new_start_dt, new_end_dt
 
-    def to_string(self):
-        return f"{self.start_time.strftime('%H:%M')} - {self.end_time.strftime('%H:%M')}"
+    def to_string(self, tz: str = "UTC"):
+        if tz == "UTC":
+            start_time = self.start_time_utc
+            end_time = self.end_time_utc
+        else:
+            start_time, end_time = self.convert_to_timezone(new_tz=tz)
+
+        return f"{start_time.strftime('%H:%M')} - {end_time.strftime('%H:%M')}"
 
     def __hash__(self):
         return hash((self.start_time_utc, self.end_time_utc))
@@ -125,16 +124,10 @@ class Interval(BaseModel):
             return []
 
         # Sort intervals by start time
-        sorted_intervals = sorted(intervals, key=lambda x: x.start_time.time())
-
-        print("Debug:\n")
-        for i in sorted_intervals:
-            print(i.to_string(), i.start_time, i.end_time, i.tz, "\n")
+        sorted_intervals = sorted(intervals, key=lambda x: x.start_time_utc.time())
 
         # Exclude repeating intervals
         counter = Counter(sorted_intervals)
-        print("Debug:\n")
-        print(counter)
         unique = []
         n_unique = []
         for interval in sorted_intervals:
@@ -150,17 +143,17 @@ class Interval(BaseModel):
             for current in unique[1:]:
                 last = merged_intervals[-1]
 
-                if current.overlaps_with(last) or current.start_time.time() <= last.end_time.time():
+                if current.overlaps_with(last) or current.start_time_utc.time() <= last.end_time_utc.time():
                     # Merge intervals
                     merged_intervals[-1] = Interval(
-                        start_time=min(last.start_time, current.start_time),
-                        end_time=max(last.end_time, current.end_time),
+                        start_time_utc=min(last.start_time_utc, current.start_time_utc),
+                        end_time_utc=max(last.end_time_utc, current.end_time_utc),
                         tz=last.tz
                     )
                 else:
                     merged_intervals.append(current)
 
-        return list(sorted(merged_intervals + n_unique, key=lambda x: x.start_time.time()))
+        return list(sorted(merged_intervals + n_unique, key=lambda x: x.start_time_utc.time()))
 
 
 DEFAULT_INTERVAL = Interval.from_string("9:00 - 17:00", "Europe/Moscow")
@@ -180,10 +173,11 @@ class DaySchedule(BaseModel):
         self.intervals.append(interval)
         self.intervals = Interval.merge_intervals(self.intervals)
 
-    def remove_interval(self, interval: Interval) -> None:
+    def remove_interval(self, interval: Interval, ignore_inclusion=False) -> None:
         self.intervals.remove(interval)
-        if len(self.intervals) == 0 and self.included:
-            self.toggle_inclusion()
+        if not ignore_inclusion:
+            if len(self.intervals) == 0 and self.included:
+                self.toggle_inclusion()
 
     @staticmethod
     def is_workday(day: str) -> bool:
