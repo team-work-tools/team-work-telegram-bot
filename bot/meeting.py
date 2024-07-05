@@ -11,15 +11,23 @@ from .messages import make_daily_messages
 from .state import load_state, save_state, get_joined_users
 
 
-async def send_meeting_messages(chat_id: ChatId, topic_id: Optional[int], send_message: SendMessage):
+async def send_meeting_messages(
+    chat_id: ChatId, topic_id: Optional[int], send_message: SendMessage
+):
     chat_state = await load_state(chat_id=chat_id, topic_id=topic_id)
     current_day = datetime.now().weekday()
-    await send_message(chat_id=chat_id, message=_("Meeting time!"), message_thread_id=topic_id)
-     
+    await send_message(
+        chat_id=chat_id, message=_("Meeting time!"), message_thread_id=topic_id
+    )
+
     joined_users = await get_joined_users(chat_state)
     today_workers = [user for user in joined_users if current_day in user.meeting_days]
     if not today_workers:
-        await send_message(chat_id=chat_id, message=_("Nobody has joined the meeting!"), message_thread_id=topic_id)
+        await send_message(
+            chat_id=chat_id,
+            message=_("Nobody has joined the meeting!"),
+            message_thread_id=topic_id,
+        )
     else:
 
         # Creating list of joined to meeting users
@@ -31,7 +39,9 @@ async def send_meeting_messages(chat_id: ChatId, topic_id: Optional[int], send_m
         # Sending daily messages
         chat_state.meeting_msg_ids = []
         for message in daily_messages:
-            new_msg = await send_message(chat_id=chat_id, message=message, message_thread_id=topic_id)
+            new_msg = await send_message(
+                chat_id=chat_id, message=message, message_thread_id=topic_id
+            )
 
             chat_state.meeting_msg_ids.append(new_msg.message_id)
 

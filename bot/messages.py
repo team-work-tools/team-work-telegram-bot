@@ -20,6 +20,7 @@ def bot_intro():
         """
     ).strip()
 
+
 def make_help_message() -> str:
     command_names = bot_command_names
     command_descriptions = bot_command_descriptions()

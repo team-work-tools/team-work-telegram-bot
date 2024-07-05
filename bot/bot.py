@@ -44,16 +44,14 @@ async def restore_scheduled_jobs(
 
 
 async def on_startup():
-    bot_commands = [
-        BotCommands()
-    ]
+    bot_commands = [BotCommands()]
 
 
 async def main(settings: Settings) -> None:
     await db.main(settings=settings)
 
     dp = Dispatcher()
-    
+
     dp.update.middleware(MyI18nMiddleware(i18n=i18n))
 
     bot = Bot(
@@ -61,14 +59,19 @@ async def main(settings: Settings) -> None:
         default=DefaultBotProperties(parse_mode=ParseMode.HTML),
     )
 
-    async def send_message(chat_id: ChatId, message: str, message_thread_id: Optional[int] = None):
-        return await bot.send_message(chat_id=chat_id, text=message, message_thread_id=message_thread_id)
+    async def send_message(
+        chat_id: ChatId, message: str, message_thread_id: Optional[int] = None
+    ):
+        return await bot.send_message(
+            chat_id=chat_id, text=message, message_thread_id=message_thread_id
+        )
 
     scheduler = init_scheduler(settings=settings)
     await restore_scheduled_jobs(scheduler=scheduler, send_message=send_message)
 
-    router = handlers.make_router(scheduler=scheduler, send_message=send_message, bot=bot, i18n=i18n)
-
+    router = handlers.make_router(
+        scheduler=scheduler, send_message=send_message, bot=bot, i18n=i18n
+    )
 
     dp.include_router(router)
 

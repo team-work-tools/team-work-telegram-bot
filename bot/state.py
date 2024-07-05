@@ -11,9 +11,11 @@ from .language import Language
 
 
 class ChatUser(BaseModel):
-    username: str = "" 
+    username: str = ""
     is_joined: bool = False
-    meeting_days: set[int] = set(range(0, 5))  # default value - [0 - 4] = Monday - Friday
+    meeting_days: set[int] = set(
+        range(0, 5)
+    )  # default value - [0 - 4] = Monday - Friday
     reminder_period: Optional[int] = None
     non_replied_daily_msgs: set[int] = set(range(0, 3))
 
@@ -28,10 +30,10 @@ class ChatUser(BaseModel):
 
 async def create_user(username: str) -> ChatUser:
     """Create a new user with the given username.
-    
+
     Args:
         username (str): The username of the user to create.
-    
+
     Returns:
         ChatUser: The newly created user instance.
     """
@@ -51,17 +53,17 @@ class ChatState(Document):
 
 async def get_user(chat_state: ChatState, username: str) -> ChatUser:
     """Load a user from the ChatState by username or create a new one if not found.
-    
+
     Args:
         chat_state (ChatState): ChatState object of the current chat
         username (str): The username of the user to load or create.
-    
+
     Returns:
         ChatUser: The ChatUser instance found or created.
     """
     if username in chat_state.users:
         return chat_state.users[username]
-    
+
     user = await create_user(username)
     chat_state.users[username] = user
     return user
@@ -81,11 +83,11 @@ async def get_joined_users(chat_state: ChatState) -> List[ChatUser]:
 
 async def create_state(chat_id: ChatId, topic_id: Optional[int]) -> ChatState:
     """Create a new chat state with the given chat ID.
-    
+
     Args:
         chat_id (ChatId): The ID of the chat for which to create a state.
         topic_id (int): The ID of the topic associated with the chat state.
-    
+
     Returns:
         ChatState: The newly created chat state instance.
     """
@@ -95,11 +97,11 @@ async def create_state(chat_id: ChatId, topic_id: Optional[int]) -> ChatState:
 
 async def load_state(chat_id: ChatId, topic_id: Optional[int]) -> ChatState:
     """Load a chat state by chat ID or create a new one if not found.
-    
+
     Args:
         chat_id (ChatId): The ID of the chat to load the state for.
         topic_id (int): The ID of the topic associated with the chat state.
-    
+
     Returns:
         ChatState: The chat state instance found or created.
     """
@@ -112,9 +114,10 @@ async def load_state(chat_id: ChatId, topic_id: Optional[int]) -> ChatState:
         case _:
             return await create_state(chat_id=chat_id, topic_id=topic_id)
 
+
 async def save_state(chat_state: ChatState) -> None:
     """Save the given chat state to the database.
-    
+
     Args:
         chat_state (ChatState): The chat state instance to save.
     """

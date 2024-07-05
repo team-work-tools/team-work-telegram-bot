@@ -81,7 +81,9 @@ def bot_command_descriptions() -> BotCommandDescriptions:
         join=_("Join meetings."),
         skip=_("Skip meetings."),
         set_personal_meetings_days=_("Set the days when you can join meetings."),
-        set_reminder_period=_("Set how often you'll be reminded about unanswered questions."),
+        set_reminder_period=_(
+            "Set how often you'll be reminded about unanswered questions."
+        ),
         join_today=_("Join only today's meeting."),
         skip_today=_("Skip only today's meeting."),
         schedule_personal_vacation=_("Schedule a personal vacation."),
