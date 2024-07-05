@@ -1,5 +1,6 @@
-from aiogram import html
-from bot.intervals import DaySchedule
+from datetime import datetime
+
+from .intervals import DaySchedule
 
 ENCODING = "utf-8"
 
@@ -36,9 +37,6 @@ default_time_zone = "Europe/Moscow"
 
 days_array = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
-empty_day_schedule = [DaySchedule() for _ in range(len(days_array))]
+empty_schedule = {day: DaySchedule(name=day) for day in days_array}
 
-for i in range(len(days_array)):
-    empty_day_schedule[i].name = days_array[i]
-
-default_user_schedule = empty_day_schedule
+default_user_schedule = empty_schedule
