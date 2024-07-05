@@ -97,7 +97,7 @@ def handle_global_commands(
             [InlineKeyboardButton(text=str(InlineKeyboardButtonName.en), callback_data=str(CallbackData.en))],
             [InlineKeyboardButton(text=str(InlineKeyboardButtonName.ru), callback_data=str(CallbackData.ru))],
         ])
-        await message.reply("🌐 Please choose your language.\n🌐 Пожалуйста, выберите язык.", reply_markup=keyboard)
+        await message.reply("🌐 Choose a language.\n🌐 Выбери язык.", reply_markup=keyboard)
 
     @router.callback_query(lambda c: c.data == str(CallbackData.en) or c.data == str(CallbackData.ru))
     async def process_callback_button_language(callback_query: types.CallbackQuery, i18n: I18n):
