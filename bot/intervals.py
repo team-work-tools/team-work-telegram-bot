@@ -1,8 +1,10 @@
 from typing import List
+from collections import Counter
 from datetime import datetime, time
+from zoneinfo import ZoneInfo
 
 from pydantic import BaseModel, computed_field, field_validator
-from pytz import timezone, utc, UnknownTimeZoneError
+from pytz import timezone, UnknownTimeZoneError
 
 
 class IntervalException(Exception):
@@ -21,8 +23,8 @@ class InvalidTimeFormatException(IntervalException):
 class InvalidIntervalException(IntervalException):
     """Raised when the interval is invalid"""
     def __init__(self, start_time: time, end_time: time, message: str = "Start time must be earlier than end time"):
-        self.start_time: time = start_time
-        self.end_time: time = end_time
+        self.start_time: str = start_time.strftime("%H:%M")
+        self.end_time: str = end_time.strftime("%H:%M")
         self.message: str = message
         super().__init__(self.message)
 
@@ -51,17 +53,18 @@ class Interval(BaseModel):
             timezone(tz)
         except UnknownTimeZoneError:
             raise ValueError("You should pass valid zone name")
+        return tz
 
-    def convert_to_utc(self, local_time: datetime) -> datetime:
-        local_dt = local_time.replace(tzinfo=timezone(self.tz))
-        utc_dt = local_dt.astimezone(utc)
+    @staticmethod
+    def convert_to_utc(local_time: datetime) -> datetime:
+        utc_dt = local_time.astimezone(ZoneInfo("UTC"))
         return utc_dt
 
     @classmethod
     def from_string(cls, interval_str: str, tz: str = "UTC"):
         start_str, end_str = interval_str.replace(" ", "").split('-')
-        start_time = datetime.combine(IMMUTABLE_DATE, cls.parse_time(start_str))
-        end_time = datetime.combine(IMMUTABLE_DATE, cls.parse_time(end_str))
+        start_time = datetime.combine(IMMUTABLE_DATE, cls.parse_time(start_str), ZoneInfo(tz))
+        end_time = datetime.combine(IMMUTABLE_DATE, cls.parse_time(end_str), ZoneInfo(tz))
 
         if start_time >= end_time:
             raise InvalidIntervalException(start_time.time(), end_time.time())
@@ -81,10 +84,8 @@ class Interval(BaseModel):
             raise InvalidTimeFormatException(time_str)
 
     def convert_to_timezone(self, new_tz: str):
-        start_dt = self.start_time.replace(tzinfo=timezone(self.tz))
-        end_dt = self.end_time.replace(tzinfo=timezone(self.tz))
-        new_start_dt = start_dt.astimezone(timezone(new_tz))
-        new_end_dt = end_dt.astimezone(timezone(new_tz))
+        new_start_dt = self.start_time.astimezone(ZoneInfo(new_tz))
+        new_end_dt = self.end_time.astimezone(ZoneInfo(new_tz))
         return Interval(start_time=new_start_dt, end_time=new_end_dt, tz=new_tz)
 
     def to_string(self):
@@ -126,33 +127,67 @@ class Interval(BaseModel):
         # Sort intervals by start time
         sorted_intervals = sorted(intervals, key=lambda x: x.start_time.time())
 
-        merged_intervals = [sorted_intervals[0]]
-        for current in sorted_intervals[1:]:
-            last = merged_intervals[-1]
+        print("Debug:\n")
+        for i in sorted_intervals:
+            print(i.to_string(), i.start_time, i.end_time, i.tz, "\n")
 
-            if current.overlaps_with(last) or current.start_time.time() <= last.end_time.time():
-                # Merge intervals
-                merged_intervals[-1] = Interval(
-                    start_time=min(last.start_time, current.start_time),
-                    end_time=max(last.end_time, current.end_time),
-                    tz=last.tz
-                )
+        # Exclude repeating intervals
+        counter = Counter(sorted_intervals)
+        print("Debug:\n")
+        print(counter)
+        unique = []
+        n_unique = []
+        for interval in sorted_intervals:
+            if counter[interval] == 1:
+                unique.append(interval)
             else:
-                merged_intervals.append(current)
+                n_unique.append(interval)
 
-        return merged_intervals
+        # Merge unique intervals
+        merged_intervals = []
+        if len(unique) > 0:
+            merged_intervals.append(unique[0])
+            for current in unique[1:]:
+                last = merged_intervals[-1]
+
+                if current.overlaps_with(last) or current.start_time.time() <= last.end_time.time():
+                    # Merge intervals
+                    merged_intervals[-1] = Interval(
+                        start_time=min(last.start_time, current.start_time),
+                        end_time=max(last.end_time, current.end_time),
+                        tz=last.tz
+                    )
+                else:
+                    merged_intervals.append(current)
+
+        return list(sorted(merged_intervals + n_unique, key=lambda x: x.start_time.time()))
+
+
+DEFAULT_INTERVAL = Interval.from_string("9:00 - 17:00", "Europe/Moscow")
 
 
 class DaySchedule(BaseModel):
-    name: str = ""
-    included: bool = True
+    name: str
+    included: bool = False
     intervals: List[Interval] = []
 
-    def toggle_inclusion(self):
+    def toggle_inclusion(self) -> None:
         self.included = not self.included
+        if self.included and len(self.intervals) == 0:
+            self.add_interval(DEFAULT_INTERVAL)
 
-    def add_interval(self, interval: Interval):
+    def add_interval(self, interval: Interval) -> None:
         self.intervals.append(interval)
+        self.intervals = Interval.merge_intervals(self.intervals)
 
-    def remove_interval(self, interval: Interval):
+    def remove_interval(self, interval: Interval) -> None:
         self.intervals.remove(interval)
+        if len(self.intervals) == 0 and self.included:
+            self.toggle_inclusion()
+
+    @staticmethod
+    def is_workday(day: str) -> bool:
+        return day not in {"Saturday", "Sunday"}
+
+    def __hash__(self):
+        return hash(self.name)
