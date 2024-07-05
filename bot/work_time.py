@@ -1,10 +1,11 @@
 import re
-from textwrap import dedent
-from datetime import datetime
 
+import asyncio
 from aiogram import Bot, Router, F
 from aiogram.filters.command import Command
-from aiogram.types import Message, InlineQuery, CallbackQuery, InlineQueryResultArticle, InputTextMessageContent
+from aiogram.types import Message, CallbackQuery
+from aiogram.fsm.context import FSMContext
+from aiogram.utils import markdown as fmt
 from aiogram.utils.i18n import gettext as _
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
@@ -12,255 +13,183 @@ from .commands import bot_command_names
 from .custom_types import SendMessage
 from .messages import make_interval_validation_message
 from .callbacks import IntervalCallback, WeekdayCallback
-from .constants import interval_format, sample_interval
+from .fsm_states import IntervalEditingState
 from .intervals import Interval
-from .filters import HasChatState, HasMessageUserUsername, HasMessageText
-from .keyboards import get_schedule_keyboard, get_interval_error_keyboard
-from .state import ChatState, save_state, get_user, load_user_pm, create_user_pm, save_user_pm
+from .filters import HasChatState, HasMessageUserUsername
+from .keyboards import get_schedule_keyboard
+from .state import ChatState, save_state, get_user, load_user_pm
 
 
-EDIT_HANDLE_IVL = \
-    r'^edit\s+\w+\s+\d{1,2}[:.]\d{2}\s*-\s*\d{1,2}[:.]\d{2}\s*-->\s*\d{1,2}[:.]\d{2}\s*-\s*\d{1,2}[:.]\d{2}$'
+INTERVAL_PATTERN = r"\b\d{1,2}[:.]\d{2}\s*-\s*\d{1,2}[:.]\d{2}\b"
 
-EDIT_PARSE_IVL = \
-    r'^edit\s+(?P<weekday>\w+)\s+(?P<start_time1>\d{1,2}[:.]\d{2})\s*-\s*(?P<end_time1>\d{1,2}[:.]\d{2})\s*-->' \
-    r'\s*(?P<start_time2>\d{1,2}[:.]\d{2})\s*-\s*(?P<end_time2>\d{1,2}[:.]\d{2})$'
-
-ADD_HANDLE_IVL = r'^add\s+\w+\s+\d{1,2}[:.]\d{2}\s*-\s*\d{1,2}[:.]\d{2}$'
-ADD_IVL = r'^add\s+(?P<weekday>\w+)\s+(?P<start_time>\d{1,2}[:.]\d{2})\s*-\s*(?P<end_time>\d{1,2}[:.]\d{2})$'
-
-schedule_db = {
-            "Monday": {
-                "include": True,
-                "intervals": ["9:00 - 18:00"]
-            },
-            "Tuesday": {
-                "include": False,
-                "intervals": []
-            },
-            "Wednesday": {
-                "include": True,
-                "intervals": ["10:00 - 17:00"]
-            },
-            "Thursday": {
-                "include": False,
-                "intervals": []
-            },
-            "Friday": {
-                "include": True,
-                "intervals": ["9:00 - 18:00"]
-            },
-            "Saturday": {
-                "include": False,
-                "intervals": []
-            },
-            "Sunday": {
-                "include": False,
-                "intervals": []
-            }
-        }
-
-chat_db = {
-    "default_working_time": "9:00 - 17:00",
-    "personal_default_working_time": "8:00 - 18:00",
-    "schedule_msg": None,
-    "tz": "Europe/Moscow",
-    "shift": 0,
-    "edit_interval_message": None,
-    "message_with_keyboard": None
-}
+# TODO: Apply tz validation in Interval class
+# TODO: Handle two scenarios for timezone changing via shift and write logic for intervals for those cases
+# TODO: Check code and messages by scenario: https://github.com/team-work-tools/team-work-telegram-bot/pull/106
+# TODO: Write logic for setting group schedule: https://t.me/c/2215513034/6/2076, https://t.me/c/2215513034/6/2083
 
 
 def handle_working_time(
         scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router, bot: Bot
 ):
-    @router.message(Command(bot_command_names.set_default_working_time), HasMessageText(), HasMessageUserUsername())
-    async def set_default_working_time(message: Message, message_text: str):
-        cmd = "/" + bot_command_names.set_default_working_time
-        interval = message_text.replace(cmd, "").strip()
-
-        is_valid, status_msg = make_interval_validation_message(interval_str=interval, tz="UTC")
-        if is_valid:
-            chat_db["default_working_time"] = interval
-            await message.answer(
-                _(
-                    "Your group default working time is set to {interval}"
-                ).format(interval=interval)
-            )
-        else:
-            await message.answer(
-                dedent(
-                    _(
-                        f"""
-                        Please write group default working time in {interval_format} format.
-                        
-                        Example:
-                        
-                        /{set_default_working_time} {sample_interval}
-                        """
-                    ).format(
-                        interval_format=interval_format,
-                        set_default_working_time=bot_command_names.set_default_working_time,
-                        sample_interval=sample_interval
-                    )
-                )
-            )
-
-    @router.message(Command(bot_command_names.set_personal_default_working_time), HasMessageText())
-    async def set_personal_default_working_time(message: Message, message_text: str):
-        cmd = "/" + bot_command_names.set_personal_default_working_time
-        interval = message_text.replace(cmd, "").strip()
-
-        is_valid, status_msg = make_interval_validation_message(interval_str=interval, tz="UTC")
-        if is_valid:
-            chat_db["personal_default_working_time"] = interval
-            await message.answer(
-                _(
-                    "Your personal default working time is set to {interval}"
-                ).format(interval=interval)
-            )
-        else:
-            await message.answer(
-                dedent(
-                    _(
-                        f"""
-                            Please write your personal default working time in {interval_format} format.
-
-                            Example:
-
-                            /{set_personal_default_working_time} {sample_interval}
-                            """
-                    ).format(
-                        interval_format=interval_format,
-                        set_default_working_time=bot_command_names.set_personal_default_working_time,
-                        sample_interval=sample_interval
-                    )
-                )
-            )
-
     @router.message(Command(bot_command_names.set_personal_working_time), HasMessageUserUsername(), HasChatState())
     async def show_user_schedule(message: Message, username: str, chat_state: ChatState):
-        personal_default_interval = chat_db["personal_default_working_time"]
-        group_default_interval = chat_db["default_working_time"]
 
-        if personal_default_interval is not None or group_default_interval is not None:
-            default = personal_default_interval if personal_default_interval is not None else group_default_interval
+        user = await get_user(chat_state, username)
+        user_pm = await load_user_pm(username)
+        week_schedule = user.schedule
+        tz = user_pm.personal_time_zone
 
-            for weekday in schedule_db:
-                if len(schedule_db[weekday]["intervals"]) == 0 and schedule_db[weekday]["include"]:
-                    schedule_db[weekday]["intervals"].append(default)
+        layout = get_schedule_keyboard(week_schedule=week_schedule, tz=tz)
+        schedule_msg = await message.answer(f"@{username}, here is your schedule", reply_markup=layout)
 
-            layout = get_schedule_keyboard(schedule_db)
-            schedule_msg = await message.answer(f"@{username}, here is your schedule", reply_markup=layout)
-            chat_db["schedule_msg"] = schedule_msg
-        else:
-            await message.answer("You should set up default group or personal working time first!")
+        user.schedule_msg = schedule_msg.message_id
+        await save_state(chat_state)
 
-    @router.inline_query(F.query.regexp(EDIT_HANDLE_IVL))
-    async def show_inline_interval_editing(inline_query: InlineQuery):
-        message_with_keyboard = chat_db["message_with_keyboard"]
-        edit_interval_message = chat_db["edit_interval_message"]
+    @router.callback_query(IntervalCallback.filter(F.action == "edit"), HasMessageUserUsername(), HasChatState())
+    async def show_interval_editing_instruction(
+            cb: CallbackQuery,
+            state: FSMContext,
+            callback_data: IntervalCallback,
+            username: str,
+            chat_state: ChatState
+    ):
 
-        if message_with_keyboard is not None and edit_interval_message is not None:
-            await message_with_keyboard.delete()
-            await edit_interval_message.delete()
+        weekday = callback_data.weekday
+        interval_str = callback_data.interval
 
-        suggestion = InlineQueryResultArticle(
-            id=inline_query.query,
-            title=inline_query.query,
-            input_message_content=InputTextMessageContent(
-                message_text=inline_query.query
-            )
-        )
-        await inline_query.answer([suggestion], is_personal=True)
+        instruction_text = "Send me the new interval in the hh:mm - hh:mm format."
+        example_text = "Example: "
+        text = fmt.text(instruction_text, "\n", example_text, fmt.hcode("19:00 - 22:30"), sep="")
 
-    @router.message(F.text.regexp(EDIT_HANDLE_IVL), HasMessageUserUsername(), HasChatState())
-    async def handle_interval_editing(message: Message, username: str, chat_state: ChatState):
+        await state.set_state(IntervalEditingState.EnterNewInterval)
 
-        parse_pattern = re.compile(EDIT_PARSE_IVL)
-        parse_match = parse_pattern.match(message.text)
-        if parse_match:
-            weekday = parse_match.group("weekday")
-            st_time_prev = parse_match.group("start_time1")
-            end_time_prev = parse_match.group("end_time1")
-            st_time_edit = parse_match.group("start_time2")
-            end_time_edit = parse_match.group("end_time2")
+        await cb.answer()
+        edit_message = await cb.message.answer(text=fmt.text(text))
 
-            interval_prev = f"{st_time_prev} - {end_time_prev}"
-            interval_edit = f"{st_time_edit} - {end_time_edit}"
+        user = await get_user(chat_state, username)
+        user.to_edit_weekday = weekday
+        user.to_edit_interval = interval_str
+        user.to_delete_msg_ids.add(edit_message.message_id)
+        await save_state(chat_state)
 
-            is_valid, status_msg = make_interval_validation_message(interval_str=interval_edit, tz=chat_db["tz"])
+    @router.message(
+        IntervalEditingState.EnterNewInterval,
+        HasMessageUserUsername(),
+        HasChatState()
+    )
+    async def handle_interval_editing(message: Message, state: FSMContext, username: str, chat_state: ChatState):
 
+        parse_pattern = re.compile(INTERVAL_PATTERN)
+        parse_match = re.findall(parse_pattern, message.text)
+
+        user = await get_user(chat_state, username)
+        user_pm = await load_user_pm(username)
+        tz = user_pm.personal_time_zone
+
+        user.to_delete_msg_ids.add(message.message_id)
+
+        # User entered two "valid" intervals
+        if len(parse_match) > 1:
+            msg = await message.answer("Please, enter only one interval.")
+            user.to_delete_msg_ids.add(msg.message_id)
+
+        # User entered one "valid" interval
+        if len(parse_match) == 1:
+            new_interval = parse_match[0]
+            is_valid, status_msg = make_interval_validation_message(interval_str=new_interval, tz=tz)
+
+            # Interval is valid
             if is_valid:
+                old_interval_obj = Interval.from_string(user.to_edit_interval, tz)
+                new_interval_obj = Interval.from_string(new_interval, tz)
+                user.schedule[user.to_edit_weekday].remove_interval(old_interval_obj, ignore_inclusion=True)
+                user.schedule[user.to_edit_weekday].add_interval(new_interval_obj)
 
-                intervals = schedule_db[weekday]["intervals"]
-                if interval_prev in intervals:
-                    intervals.remove(interval_prev)
-                    intervals.append(interval_edit)
-                    schedule_db[weekday]["intervals"] = intervals
+                layout = get_schedule_keyboard(user.schedule, tz)
+                await bot.edit_message_reply_markup(
+                    chat_id=chat_state.chat_id,
+                    message_id=user.schedule_msg,
+                    reply_markup=layout
+                )
 
-                layout = get_schedule_keyboard(schedule_db)
-                if chat_db["schedule_msg"]:
-                    old_msg = chat_db["schedule_msg"]
-                    await old_msg.edit_reply_markup(reply_markup=layout)
+                success_msg = await message.answer("You successfully edited interval!")
+                await asyncio.sleep(1)
+                await success_msg.delete()
+                for msg_id in user.to_delete_msg_ids:
+                    await bot.delete_message(chat_id=chat_state.chat_id, message_id=msg_id)
 
-                await message.delete()
+                user.to_delete_msg_ids = set()
 
+                await state.clear()
+
+            # Interval is not valid
             else:
-                layout = get_interval_error_keyboard(interval_prev, weekday)
-                keyboard_msg = await message.reply(text=status_msg, reply_markup=layout)
+                msg = await message.answer(status_msg)
+                user.to_delete_msg_ids.add(msg.message_id)
 
-                chat_db["edit_interval_message"] = message
-                chat_db["message_with_keyboard"] = keyboard_msg
+        # Text entered by user is not interval
+        if len(parse_match) == 0:
+            instruction_text = "Please send me the valid interval in the hh:mm - hh:mm format."
+            example_text = "Example: "
+            text = fmt.text(instruction_text, "\n", example_text, fmt.hcode("19:00 - 22:30"), sep="")
 
-    @router.callback_query(IntervalCallback.filter(F.action == 'add'))
-    async def add_interval(cb: CallbackQuery, callback_data: IntervalCallback):
+            msg = await message.answer(fmt.text(text))
+            user.to_delete_msg_ids.add(msg.message_id)
 
-        personal_default_interval = chat_db["personal_default_working_time"]
-        group_default_interval = chat_db["default_working_time"]
-        default = personal_default_interval if personal_default_interval is not None else group_default_interval
+        await save_state(chat_state)
 
-        weekday = callback_data.weekday
-        schedule_db[weekday]["intervals"].append(default)
-
-        layout = get_schedule_keyboard(schedule_db)
-        await cb.message.edit_reply_markup(reply_markup=layout)
-
-    @router.callback_query(IntervalCallback.filter(F.action == 'remove'))
-    async def remove_interval(cb: CallbackQuery, callback_data: IntervalCallback):
-        personal_default_interval = chat_db["personal_default_working_time"]
-        group_default_interval = chat_db["default_working_time"]
-        default = personal_default_interval if personal_default_interval is not None else group_default_interval
+    @router.callback_query(IntervalCallback.filter(F.action == 'add'), HasMessageUserUsername(), HasChatState())
+    async def add_interval(cb: CallbackQuery, callback_data: IntervalCallback, username: str, chat_state: ChatState):
 
         weekday = callback_data.weekday
-        interval = callback_data.interval.replace("|", ":")
-        schedule_db[weekday]["intervals"].remove(interval)
+        interval_str = callback_data.interval
 
-        if len(schedule_db[weekday]["intervals"]) == 0 and schedule_db[weekday]["include"]:
-            schedule_db[weekday]["intervals"].append(default)
+        user = await get_user(chat_state, username)
+        user_pm = await load_user_pm(username)
+        week_schedule = user.schedule
+        tz = user_pm.personal_time_zone
 
-        layout = get_schedule_keyboard(schedule_db)
+        interval = Interval.from_string(interval_str, tz)
+        week_schedule[weekday].add_interval(interval)
+
+        layout = get_schedule_keyboard(week_schedule, tz)
         await cb.message.edit_reply_markup(reply_markup=layout)
+        await save_state(chat_state)
 
-    @router.callback_query(WeekdayCallback.filter(F.action == 'toggle'))
-    async def toggle_weekday(cb: CallbackQuery, callback_data: WeekdayCallback):
-        personal_default_interval = chat_db["personal_default_working_time"]
-        group_default_interval = chat_db["default_working_time"]
-        default = personal_default_interval if personal_default_interval is not None else group_default_interval
+    @router.callback_query(IntervalCallback.filter(F.action == 'remove'), HasMessageUserUsername(), HasChatState())
+    async def remove_interval(cb: CallbackQuery, callback_data: IntervalCallback, username: str, chat_state: ChatState):
 
         weekday = callback_data.weekday
-        schedule_db[weekday]["include"] = not schedule_db[weekday]["include"]
+        interval_str = callback_data.interval
 
-        if len(schedule_db[weekday]["intervals"]) == 0 and schedule_db[weekday]["include"]:
-            schedule_db[weekday]["intervals"].append(default)
+        user = await get_user(chat_state, username)
+        user_pm = await load_user_pm(username)
+        week_schedule = user.schedule
+        tz = user_pm.personal_time_zone
 
-        layout = get_schedule_keyboard(schedule_db)
+        interval = Interval.from_string(interval_str, tz)
+        week_schedule[weekday].remove_interval(interval)
+
+        layout = get_schedule_keyboard(week_schedule, tz)
         await cb.message.edit_reply_markup(reply_markup=layout)
+        await save_state(chat_state)
 
-    @router.callback_query(F.data == "cancel_editing_interval")
-    async def cancel_editing_interval(cb: CallbackQuery):
-        message_with_keyboard = cb.message
-        edit_interval_message = cb.message.reply_to_message
+    @router.callback_query(WeekdayCallback.filter(F.action == 'toggle'), HasMessageUserUsername(), HasChatState())
+    async def toggle_weekday(cb: CallbackQuery, callback_data: WeekdayCallback, username: str, chat_state: ChatState):
 
-        await message_with_keyboard.delete()
-        await edit_interval_message.delete()
+        weekday = callback_data.weekday
+
+        user = await get_user(chat_state, username)
+        user_pm = await load_user_pm(username)
+        week_schedule = user.schedule
+        tz = user_pm.personal_time_zone
+
+        week_schedule[weekday].toggle_inclusion()
+
+        layout = get_schedule_keyboard(week_schedule, tz)
+        await cb.message.edit_reply_markup(reply_markup=layout)
+        await save_state(chat_state)
+
+    @router.callback_query(F.data == "#")
+    async def handle_placeholders(cb: CallbackQuery):
+        await cb.answer()
