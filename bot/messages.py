@@ -60,20 +60,22 @@ def make_daily_messages(usernames: str) -> List[str]:
 
 
 def make_interval_validation_message(interval_str: str, tz: str) -> Tuple[bool, str]:
+    new = "Please, reenter interval."
     try:
         interval = Interval.from_string(interval_str=interval_str, tz=tz)
-        msg = _("Successfully parsed interval: {interval}").format(interval=interval)
+        msg = _("Successfully parsed interval: {interval}\n{new}").format(interval=interval, new=new)
         return True, msg
     except InvalidTimeFormatException as e:
-        msg = _("Error: Invalid time format for '{time}'. {msg}").format(time=e.time_str, msg=e.message)
+        msg = _("Invalid time format for '{time}'. {msg}\n{new}").format(time=e.time_str, msg=e.message, new=new)
         return False, msg
     except InvalidIntervalException as e:
-        msg = _("Error: {msg} (start: {start}, end: {end})").format(
+        msg = _("{msg} (start: {start}, end: {end})\n{new}").format(
             msg=e.message,
             start=e.start_time,
-            end=e.end_time
+            end=e.end_time,
+            new=new
         )
         return False, msg
     except Exception as e:
-        msg = _("Error: An unexpected error occurred. {error}").format(error=str(e))
+        msg = _("An unexpected error occurred. {error}").format(error=str(e))
         return False, msg
