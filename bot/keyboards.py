@@ -1,6 +1,10 @@
+from typing import Dict
+
 from aiogram.utils.keyboard import InlineKeyboardBuilder, InlineKeyboardMarkup, InlineKeyboardButton
 
 from .callbacks import IntervalCallback, WeekdayCallback
+from .intervals import Interval, DaySchedule, DEFAULT_INTERVAL
+from .constants import days_array
 
 INCLUDED_1 = "✅"
 INCLUDED_2 = "🗹"
@@ -12,55 +16,53 @@ ADD = "➕"
 REMOVE = "✖️"
 
 
-def get_interval_keyboard(interval: str, weekday: str) -> InlineKeyboardBuilder:
+def get_interval_keyboard(interval: Interval, weekday: str, tz: str) -> InlineKeyboardBuilder:
     builder = InlineKeyboardBuilder()
-    interval_std = interval.replace(":", "|")
+    interval_str = interval.to_string(tz=tz)
+    default_interval_str = DEFAULT_INTERVAL.to_string(tz=tz)
 
-    builder.button(text=interval, switch_inline_query_current_chat=f"edit  {weekday}  {interval}  -->  {interval}")
-    builder.button(text=REMOVE, callback_data=IntervalCallback(weekday=weekday, interval=interval_std, action='remove'))
-    builder.button(text=ADD, callback_data=IntervalCallback(weekday=weekday, interval=interval_std, action='add'))
+    builder.button(
+        text=interval_str,
+        callback_data=IntervalCallback(weekday=weekday, interval=interval_str, action='edit')
+    )
+    builder.button(
+        text=REMOVE,
+        callback_data=IntervalCallback(weekday=weekday, interval=interval_str, action='remove')
+    )
+    builder.button(
+        text=ADD,
+        callback_data=IntervalCallback(weekday=weekday, interval=default_interval_str, action='add')
+    )
     builder.adjust(3)
 
     return builder
 
 
-def get_weekday_keyboard(weekday: str, content: dict) -> InlineKeyboardBuilder:
+def get_weekday_keyboard(weekday: DaySchedule, tz: str) -> InlineKeyboardBuilder:
     builder = InlineKeyboardBuilder()
-    included_text = INCLUDED_3 if content["include"] else NOT_INCLUDED_3
+    included_text = INCLUDED_3 if weekday.included else NOT_INCLUDED_3
 
-    day = InlineKeyboardButton(text=f"{weekday}", callback_data="#")
+    day = InlineKeyboardButton(text=f"{weekday.name}", callback_data="#")
     status = InlineKeyboardButton(
         text=included_text,
-        callback_data=WeekdayCallback(weekday=weekday, action="toggle").pack()
+        callback_data=WeekdayCallback(weekday=weekday.name, action="toggle").pack()
     )
 
     builder.row(day, status)
 
-    if content["include"]:
-        for interval in content["intervals"]:
-            interval_builder = get_interval_keyboard(interval, weekday)
+    if weekday.included:
+        for interval in weekday.intervals:
+            interval_builder = get_interval_keyboard(interval, weekday.name, tz)
             builder.attach(interval_builder)
 
     return builder
 
 
-def get_schedule_keyboard(week_schedule: dict) -> InlineKeyboardMarkup:
+def get_schedule_keyboard(week_schedule: Dict[str, DaySchedule], tz: str) -> InlineKeyboardMarkup:
     builder = InlineKeyboardBuilder()
 
-    for weekday, content in week_schedule.items():
-        weekday_builder = get_weekday_keyboard(weekday, content)
+    for weekday in days_array:
+        weekday_builder = get_weekday_keyboard(week_schedule[weekday], tz)
         builder.attach(weekday_builder)
 
     return builder.as_markup()
-
-
-def get_interval_error_keyboard(interval: str, weekday: str) -> InlineKeyboardMarkup:
-    builder = InlineKeyboardBuilder()
-
-    builder.button(text="Cancel", callback_data="cancel_editing_interval")
-    builder.button(
-        text="Enter the interval again",
-        switch_inline_query_current_chat=f"edit  {weekday}  {interval}  -->  {interval}"
-    )
-
-    return builder.adjust(2).as_markup()
