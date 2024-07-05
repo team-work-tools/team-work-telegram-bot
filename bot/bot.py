@@ -3,7 +3,6 @@ from typing import Optional
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
-from aiogram.utils.i18n import I18n
 from aiogram.utils.i18n.middleware import FSMI18nMiddleware
 from apscheduler.jobstores.memory import MemoryJobStore
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
@@ -13,9 +12,8 @@ from . import db, handlers
 from .commands import BotCommands
 from .constants import jobstore
 
-from aiogram.utils.i18n import I18n
-from aiogram.utils.i18n.middleware import FSMI18nMiddleware
-from aiogram.utils.i18n import I18n, gettext as _
+from .i18n import i18n
+from .i18n_middleware import MyI18nMiddleware
 from aiogram.types import BotCommand
 from .custom_types import ChatId, SendMessage
 from .meeting import schedule_meeting
@@ -55,10 +53,8 @@ async def main(settings: Settings) -> None:
     await db.main(settings=settings)
 
     dp = Dispatcher()
-
-    i18n = I18n(path="locales", default_locale="en", domain="messages")
-    fsmi18n = FSMI18nMiddleware(i18n)
-    fsmi18n.setup(router=dp)
+    
+    dp.update.middleware(MyI18nMiddleware(i18n=i18n))
 
     bot = Bot(
         token=settings.bot_token,

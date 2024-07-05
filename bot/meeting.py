@@ -2,7 +2,7 @@ import logging
 from datetime import datetime
 from typing import Optional
 
-from aiogram.utils.i18n import gettext as _
+from .i18n import _
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from .constants import day_of_week, jobstore

@@ -10,10 +10,9 @@ from .state import ChatState, save_state, load_state, get_user, load_user_pm, cr
 from .filters import HasMessageText, HasMessageUserUsername, HasChatState
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from .meeting import schedule_meeting
-from aiogram.fsm.context import FSMContext
-from aiogram.fsm.state import State, StatesGroup
 from .custom_types import SendMessage, SaveState, LoadState
-from aiogram.utils.i18n import I18n, gettext as _
+from aiogram.utils.i18n import I18n
+from .i18n import _
 from .constants import (
     day_of_week_pretty,
     datetime_time_format,
@@ -62,10 +61,6 @@ def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage, bot: Bot
     return router
 
 
-class LanguageForm(StatesGroup):
-    choosing = State()
-
-
 def handle_global_commands(
 
         scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router, bot: Bot, i18n: I18n
@@ -97,8 +92,7 @@ def handle_global_commands(
         await message.reply(make_help_message())
 
     @router.message(Command(bot_command_names.set_language), HasChatState())
-    async def set_lang(message: types.Message, chat_state: ChatState, state: FSMContext, i18n: I18n):
-        await state.set_state(LanguageForm.choosing)
+    async def set_language(message: types.Message, chat_state: ChatState, i18n: I18n):
         keyboard = InlineKeyboardMarkup(inline_keyboard=[
             [InlineKeyboardButton(text=str(InlineKeyboardButtonName.en), callback_data=str(CallbackData.en))],
             [InlineKeyboardButton(text=str(InlineKeyboardButtonName.ru), callback_data=str(CallbackData.ru))],

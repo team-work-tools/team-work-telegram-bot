@@ -1,4 +1,4 @@
-from aiogram.utils.i18n import gettext as _
+from .i18n import _
 from pydantic import BaseModel
 
 from .language import Language

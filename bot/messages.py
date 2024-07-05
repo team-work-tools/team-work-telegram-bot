@@ -4,7 +4,7 @@ from textwrap import dedent
 from typing import List
 
 from aiogram import html
-from aiogram.utils.i18n import gettext as _
+from .i18n import _
 
 from .commands import bot_command_descriptions, bot_command_names
 from .constants import day_of_week_pretty
