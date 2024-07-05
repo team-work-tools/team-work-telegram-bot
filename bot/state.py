@@ -14,12 +14,18 @@ from .constants import default_time_zone, default_user_schedule
 class ChatUser(BaseModel):
     username: str = "" 
     is_joined: bool = False
-    schedule: List[DaySchedule] = default_user_schedule
+    schedule: Dict[str, DaySchedule] = default_user_schedule
     personal_default_working_time: Optional[Interval] = None
     time_zone_shift: int = 0
     meeting_days: set[int] = set(range(0, 5))  # default value - [0 - 4] = Monday - Friday
     reminder_period: Optional[int] = None
     non_replied_daily_msgs: set[int] = set(range(0, 3))
+
+    # TODO: relocate these fields to cache (Redis for example)
+    schedule_msg: Optional[int] = None
+    to_delete_msg_ids: set[int] = set()
+    to_edit_weekday: Optional[str] = None
+    to_edit_interval: Optional[str] = None
 
     def __hash__(self):
         return hash(self.username)
