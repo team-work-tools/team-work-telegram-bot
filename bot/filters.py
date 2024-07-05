@@ -1,5 +1,5 @@
 from aiogram.filters import Filter
-from aiogram.types import CallbackQuery, Message, User
+from aiogram.types import CallbackQuery, InaccessibleMessage, Message, User
 from aiogram import Bot
 
 from .state import load_state
@@ -36,10 +36,13 @@ class HasChatStateCallback(Filter):
         self.bot = bot
 
     async def __call__(self, callback: CallbackQuery):
-        if callback.message == None:
-            return False
-        chat_state = await load_state(chat_id=callback.message.chat.id)
-        return {"chat_state": chat_state}
+        if type(callback.message) == Message:
+            chat_state = await load_state(
+                chat_id=callback.message.chat.id,
+                topic_id=callback.message.message_thread_id,
+            )
+            return {"chat_state": chat_state}
+        return False
 
 
 class HasCallbackPrefix(Filter):
