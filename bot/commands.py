@@ -41,7 +41,7 @@ bot_command_names = BotCommandNames(
     cancel="cancel",
     # team settings
     set_up_meetings="set_up_meetings",
-    set_meetings_time_zone="set_meetings_time_zone",
+    set_meetings_time_zone="set_time_zone",
     set_meetings_time="set_meetings_time",
     set_meetings_days="set_meetings_days",
     # personal settings
