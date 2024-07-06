@@ -14,6 +14,7 @@ class ChatUser(BaseModel):
     username: str = "" 
     is_joined: bool = False
     meeting_days: set[int] = set(range(0, 5))  # default value - [0 - 4] = Monday - Friday
+    time_zone: Optional[str] = None
     reminder_period: Optional[int] = None
     non_replied_daily_msgs: set[int] = set(range(0, 3))
 
@@ -46,7 +47,7 @@ class ChatState(Document):
     meeting_time_minute: Optional[int] = None
     meeting_msg_ids: list[int] = []
     topic_id: Optional[int] = None
-    default_time_zone: Optional[str] = "Europe/Moscow"
+    default_time_zone: str = "Europe/Moscow"
     chat_id: Annotated[ChatId, Indexed(index_type=pymongo.ASCENDING)]
     users: Dict[str, ChatUser] = dict()
 

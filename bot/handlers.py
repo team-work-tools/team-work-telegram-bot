@@ -170,19 +170,6 @@ def handle_team_settings_commands(
             )
             return
 
-        if chat_state.default_time_zone == None:
-            await message.reply(
-                dedent(
-                    """
-                    Please set your timezone first.
-
-                    You can do this with the /{set_meetings_time_zone} command.
-                    """
-                    .format(set_meetings_time_zone=bot_command_names.set_meetings_time_zone)
-                )
-            )
-            return
-
         chat_state.meeting_time_hour = hour
         chat_state.meeting_time_minute = minute
         chat_state.topic_id = topic_id
