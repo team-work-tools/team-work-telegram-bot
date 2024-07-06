@@ -17,8 +17,12 @@ for countrycode in country_timezones:
         )
 
 
-def get_time_zone_hint(prompt: str) -> list:
+def get_time_zone_hint(prompt: str, personal: bool = False) -> list:
     res = []
+    if personal:
+        command = bot_command_names.set_personal_time_zone
+    else:
+        command = bot_command_names.set_meetings_time_zone
     for option in hint_options:
         if prompt in option["option"].lower():
             res.append(
@@ -26,12 +30,12 @@ def get_time_zone_hint(prompt: str) -> list:
                     id=str(uuid4()),
                     title=option["option"],
                     input_message_content=InputTextMessageContent(
-                        message_text=f"/{bot_command_names.set_meetings_time_zone} {option['time_zone']}"
+                        message_text=f"/{command} {option['time_zone']}"
                     )
                 )
             )
 
     if len(res) > 50:
-        return []
+        return res[:50]
 
     return res

@@ -38,6 +38,7 @@ def make_help_message() -> str:
         /{command_names.set_meetings_time_zone} - {command_descriptions.set_meetings_time_zone}
         
         {html.bold(_("Personal settings commands"))}
+        /{command_names.set_personal_time_zone} - {command_descriptions.set_personal_time_zone}
         /{command_names.set_personal_meetings_days} - {command_descriptions.set_personal_meetings_days}
         /{command_names.set_reminder_period} - {command_descriptions.set_reminder_period}
         /{command_names.join} - {command_descriptions.join}

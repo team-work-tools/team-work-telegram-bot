@@ -18,6 +18,7 @@ class BotCommands(BaseModel):
     # personal settings
     join: str
     skip: str
+    set_personal_time_zone: str
     set_personal_meetings_days: str
     set_reminder_period: str
     join_today: str
@@ -47,6 +48,7 @@ bot_command_names = BotCommandNames(
     # personal settings
     join="join",
     skip="skip",
+    set_personal_time_zone="set_personal_time_zone",
     set_personal_meetings_days="set_personal_meetings_days",
     set_reminder_period="set_reminder_period",
     join_today="join_today",
@@ -73,6 +75,7 @@ def bot_command_descriptions() -> BotCommandDescriptions:
         # team settings
         set_up_meetings=_("Set up regular meetings."),
         # TODO use the time zone
+        set_personal_time_zone=_("Set personal time zone."),
         set_meetings_time_zone=_("Set meetings time zone."),
         set_meetings_time=_("Set meetings time."),
         set_meetings_days=_("Set meetings days."),
