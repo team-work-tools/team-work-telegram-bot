@@ -1,9 +1,8 @@
-from datetime import time, datetime, timedelta, UTC
-from pytz import timezone, all_timezones, country_timezones, country_names
+from datetime import time, datetime
+from pytz import timezone 
 from pytz.exceptions import UnknownTimeZoneError
 from textwrap import dedent
 from re import compile, escape
-from uuid import uuid4
 
 from aiogram import Bot, Router, html, F
 from aiogram.enums import ParseMode
@@ -23,7 +22,7 @@ from .meeting import schedule_meeting
 from .reminder import update_reminders
 from .messages import make_help_message
 from .state import ChatState, save_state, get_user, load_user_pm, create_user_pm, save_user_pm
-from .timezones import guess_time_zone, make_timezones_inline_keybard, get_time_zone_hint
+from .timezones import get_time_zone_hint
 
 
 def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage, bot: Bot):
@@ -95,7 +94,7 @@ def handle_team_settings_commands(
             message: Message, message_text: str, chat_state: ChatState
     ):
         command_pattern = compile(
-            r'^/{0}\s+((\d{{2}}:\d{{2}})|([A-Za-z_/]+))$'
+            r'^/{0}\s+([A-Za-z_/]+)$'
             .format(escape(bot_command_names.set_meetings_time_zone))
         )
         if not command_pattern.match(message_text):
@@ -111,12 +110,10 @@ def handle_team_settings_commands(
             await message.reply(
                 dedent(
                     """
-                    Please write the time zone or your current local time.
+                    Please write your time zone.
 
                     Examples:
                     /{set_meetings_time_zone} {sample_time_zone}
-                    or
-                    /{set_meetings_time_zone} {sample_time}
                     """.format(
                         set_meetings_time_zone=bot_command_names.set_meetings_time_zone,
                         sample_time_zone=sample_time_zone,
@@ -127,28 +124,9 @@ def handle_team_settings_commands(
             )
             return
 
-        time_pattern = compile(r"^\d{2}:\d{2}$")
-        argument = message_text.split(" ")[1]
-
-        if time_pattern.match(argument):
-            hour = int(argument.split(":")[0])
-            minute = int(argument.split(":")[1])
-
-            timezones = guess_time_zone(hour, minute)
-
-            if timezones:
-                await message.reply(
-                    text="Chose your time zone",
-                    reply_markup=make_timezones_inline_keybard(timezones)
-                )
-            else:
-                await message.reply("Sorry, no time zones found")
-
-            return
-
+        time_zone = message_text.split(" ")[1]
         try:
-            timezone(argument)
-            time_zone = argument
+            timezone(time_zone)
             chat_state.default_time_zone = time_zone
             await save_state(chat_state)
             await message.reply(
