@@ -1,14 +1,15 @@
 from datetime import time, datetime, timedelta, UTC
-from pytz import timezone, all_timezones
+from pytz import timezone, all_timezones, country_timezones, country_names
 from pytz.exceptions import UnknownTimeZoneError
 from textwrap import dedent
 from re import compile, escape
+from uuid import uuid4
 
 from aiogram import Bot, Router, html, F
 from aiogram.enums import ParseMode
 from aiogram.filters.command import Command
-from aiogram.filters.callback_data import CallbackData
-from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
+from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton,\
+                          CallbackQuery, InlineQuery 
 from aiogram.utils.i18n import gettext as _
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
@@ -22,7 +23,7 @@ from .meeting import schedule_meeting
 from .reminder import update_reminders
 from .messages import make_help_message
 from .state import ChatState, save_state, get_user, load_user_pm, create_user_pm, save_user_pm
-from .timezones import guess_time_zone, make_timezones_inline_keybard
+from .timezones import guess_time_zone, make_timezones_inline_keybard, get_time_zone_hint
 
 
 def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage, bot: Bot):
@@ -48,9 +49,9 @@ def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage, bot: Bot
         scheduler=scheduler, send_message=send_message, router=router
     )
 
-    handle_callbacks(
-        router=router, bot=bot
-    )
+    handle_callbacks(router=router, bot=bot)
+
+    handle_inline_queries(router=router)
 
     return router
 
@@ -98,6 +99,15 @@ def handle_team_settings_commands(
             .format(escape(bot_command_names.set_meetings_time_zone))
         )
         if not command_pattern.match(message_text):
+            buttons = [
+                [
+                    InlineKeyboardButton(
+                        text="Get hints".format(),
+                        switch_inline_query_current_chat=""
+                    )
+                 ]
+            ]
+            keyboard = InlineKeyboardMarkup(inline_keyboard=buttons)
             await message.reply(
                 dedent(
                     """
@@ -112,7 +122,8 @@ def handle_team_settings_commands(
                         sample_time_zone=sample_time_zone,
                         sample_time=sample_time
                     )
-                )
+                ),
+                reply_markup=keyboard
             )
             return
 
@@ -480,3 +491,11 @@ def handle_callbacks(
             text="Time zone is successfully set to {time_zone}".format(time_zone=time_zone)
             .format(time_zone=time_zone)
         )
+
+
+def handle_inline_queries(router: Router):
+    @router.inline_query(
+    )
+    async def guess_time_zone(query: InlineQuery):
+        results = get_time_zone_hint(query.query)
+        await query.answer(results)
