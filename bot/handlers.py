@@ -109,6 +109,9 @@ def handle_team_settings_commands(
 
                     Examples:
                     /{set_meetings_time_zone} {sample_time_zone}
+                    
+                    You can use button below to pass your local time, date, country or continent 
+                    to get timezone hints
                     """.format(
                         set_meetings_time_zone=bot_command_names.set_meetings_time_zone,
                         sample_time_zone=sample_time_zone,
@@ -266,6 +269,9 @@ def handle_personal_settings_commands(
 
                     Examples:
                     /{set_personal_time_zone} {sample_time_zone}
+                    
+                    You can use button below to pass your local time, date, country or continent 
+                    to get timezone hints
                     """.format(
                         set_personal_time_zone=bot_command_names.set_personal_time_zone,
                         sample_time_zone=sample_time_zone,
