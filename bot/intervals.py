@@ -1,9 +1,9 @@
 from typing import List, Tuple
 from collections import Counter
-from datetime import datetime, time
+from datetime import datetime, time, timedelta
 from zoneinfo import ZoneInfo
 
-from pydantic import BaseModel, field_validator
+from pydantic import BaseModel
 from pytz import timezone, UnknownTimeZoneError
 
 
@@ -37,16 +37,17 @@ class Interval(BaseModel):
     end_time_utc: datetime
     tz: str = "UTC"
 
-    @field_validator("tz")
-    def zone_must_be_valid(cls, tz: str):
+    @staticmethod
+    def validate_zone(tz: str):
         try:
             timezone(tz)
         except UnknownTimeZoneError:
             raise ValueError("You should pass valid zone name")
-        return tz
 
     @classmethod
-    def from_string(cls, interval_str: str, tz: str = "UTC"):
+    def from_string(cls, interval_str: str, tz: str = "UTC", shift: int = 0):
+        cls.validate_zone(tz)
+
         start_str, end_str = interval_str.replace(" ", "").split('-')
         start_time = datetime.combine(IMMUTABLE_DATE, cls.parse_time(start_str), ZoneInfo(tz))
         end_time = datetime.combine(IMMUTABLE_DATE, cls.parse_time(end_str), ZoneInfo(tz))
@@ -54,8 +55,10 @@ class Interval(BaseModel):
         if start_time >= end_time:
             raise InvalidIntervalException(start_time.time(), end_time.time())
 
-        start_time_utc = cls.convert_to_utc(start_time)
-        end_time_utc = cls.convert_to_utc(end_time)
+        hour_delta = timedelta(hours=shift)
+
+        start_time_utc = cls.convert_to_utc(start_time) - hour_delta
+        end_time_utc = cls.convert_to_utc(end_time) - hour_delta
 
         return cls(start_time_utc=start_time_utc, end_time_utc=end_time_utc, tz=tz)
 
@@ -76,17 +79,19 @@ class Interval(BaseModel):
         except ValueError:
             raise InvalidTimeFormatException(time_str)
 
-    def convert_to_timezone(self, new_tz: str) -> Tuple[datetime, datetime]:
-        new_start_dt = self.start_time_utc.astimezone(ZoneInfo(new_tz))
-        new_end_dt = self.end_time_utc.astimezone(ZoneInfo(new_tz))
+    def convert_to_timezone(self, new_tz: str, shift: int) -> Tuple[datetime, datetime]:
+        self.validate_zone(new_tz)
+
+        hour_delta = timedelta(hours=shift)
+
+        new_start_dt = self.start_time_utc.astimezone(ZoneInfo(new_tz)) + hour_delta
+        new_end_dt = self.end_time_utc.astimezone(ZoneInfo(new_tz)) + hour_delta
         return new_start_dt, new_end_dt
 
-    def to_string(self, tz: str = "UTC"):
-        if tz == "UTC":
-            start_time = self.start_time_utc
-            end_time = self.end_time_utc
-        else:
-            start_time, end_time = self.convert_to_timezone(new_tz=tz)
+    def to_string(self, tz: str = "UTC", shift: int = 0):
+        self.validate_zone(tz)
+
+        start_time, end_time = self.convert_to_timezone(new_tz=tz, shift=shift)
 
         return f"{start_time.strftime('%H:%M')} - {end_time.strftime('%H:%M')}"
 
@@ -169,9 +174,10 @@ class DaySchedule(BaseModel):
         if self.included and len(self.intervals) == 0:
             self.add_interval(DEFAULT_INTERVAL)
 
-    def add_interval(self, interval: Interval) -> None:
+    def add_interval(self, interval: Interval, merge=False) -> None:
         self.intervals.append(interval)
-        self.intervals = Interval.merge_intervals(self.intervals)
+        if merge:
+            self.intervals = Interval.merge_intervals(self.intervals)
 
     def remove_interval(self, interval: Interval, ignore_inclusion=False) -> None:
         self.intervals.remove(interval)

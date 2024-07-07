@@ -21,9 +21,6 @@ from .state import ChatState, save_state, get_user, load_user_pm
 
 INTERVAL_PATTERN = r"\b\d{1,2}[:.]\d{2}\s*-\s*\d{1,2}[:.]\d{2}\b"
 
-# TODO: Apply tz validation in Interval class
-# TODO: Handle two scenarios for timezone changing via shift and write logic for intervals for those cases
-# TODO: Check code and messages by scenario: https://github.com/team-work-tools/team-work-telegram-bot/pull/106
 # TODO: Write logic for setting group schedule: https://t.me/c/2215513034/6/2076, https://t.me/c/2215513034/6/2083
 
 
@@ -38,7 +35,7 @@ def handle_working_time(
         week_schedule = user.schedule
         tz = user_pm.personal_time_zone
 
-        layout = get_schedule_keyboard(week_schedule=week_schedule, tz=tz)
+        layout = get_schedule_keyboard(week_schedule, tz, user.time_zone_shift)
         schedule_msg = await message.answer(f"@{username}, here is your schedule", reply_markup=layout)
 
         user.schedule_msg = schedule_msg.message_id
@@ -99,12 +96,12 @@ def handle_working_time(
 
             # Interval is valid
             if is_valid:
-                old_interval_obj = Interval.from_string(user.to_edit_interval, tz)
-                new_interval_obj = Interval.from_string(new_interval, tz)
+                old_interval_obj = Interval.from_string(user.to_edit_interval, tz, user.time_zone_shift)
+                new_interval_obj = Interval.from_string(new_interval, tz, user.time_zone_shift)
                 user.schedule[user.to_edit_weekday].remove_interval(old_interval_obj, ignore_inclusion=True)
                 user.schedule[user.to_edit_weekday].add_interval(new_interval_obj)
 
-                layout = get_schedule_keyboard(user.schedule, tz)
+                layout = get_schedule_keyboard(user.schedule, tz, user.time_zone_shift)
                 await bot.edit_message_reply_markup(
                     chat_id=chat_state.chat_id,
                     message_id=user.schedule_msg,
@@ -151,7 +148,7 @@ def handle_working_time(
         interval = Interval.from_string(interval_str, tz)
         week_schedule[weekday].add_interval(interval)
 
-        layout = get_schedule_keyboard(week_schedule, tz)
+        layout = get_schedule_keyboard(week_schedule, tz, user.time_zone_shift)
         await cb.message.edit_reply_markup(reply_markup=layout)
         await save_state(chat_state)
 
@@ -166,10 +163,10 @@ def handle_working_time(
         week_schedule = user.schedule
         tz = user_pm.personal_time_zone
 
-        interval = Interval.from_string(interval_str, tz)
+        interval = Interval.from_string(interval_str, tz, user.time_zone_shift)
         week_schedule[weekday].remove_interval(interval)
 
-        layout = get_schedule_keyboard(week_schedule, tz)
+        layout = get_schedule_keyboard(week_schedule, tz, user.time_zone_shift)
         await cb.message.edit_reply_markup(reply_markup=layout)
         await save_state(chat_state)
 
@@ -185,7 +182,7 @@ def handle_working_time(
 
         week_schedule[weekday].toggle_inclusion()
 
-        layout = get_schedule_keyboard(week_schedule, tz)
+        layout = get_schedule_keyboard(week_schedule, tz, user.time_zone_shift)
         await cb.message.edit_reply_markup(reply_markup=layout)
         await save_state(chat_state)
 

@@ -16,7 +16,7 @@ class ChatUser(BaseModel):
     is_joined: bool = False
     schedule: Dict[str, DaySchedule] = default_user_schedule
     personal_default_working_time: Optional[Interval] = None
-    time_zone_shift: int = 0
+    time_zone_shift: int = 0  # 0 for dynamic schedule; {UTC_offset_old - UTC_offset_new} for static schedule;
     meeting_days: set[int] = set(range(0, 5))  # default value - [0 - 4] = Monday - Friday
     reminder_period: Optional[int] = None
     non_replied_daily_msgs: set[int] = set(range(0, 3))
