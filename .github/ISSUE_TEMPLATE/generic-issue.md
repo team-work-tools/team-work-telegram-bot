@@ -1,9 +1,9 @@
 ---
-name: Scenario issue
-about: A template for Scenario issues
-title: 'Scenario: {{scenario_name}}'
-labels: Architecture, Project Documentation, Scenario, UI/UX
-assignees: deemp
+name: Generic issue
+about: This is a template for issues without particular specific properties.
+title: ''
+labels: ''
+assignees: ''
 
 ---
 
