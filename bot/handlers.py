@@ -537,4 +537,4 @@ def handle_inline_queries(router: Router):
             results = get_time_zone_hint(words[1], personal=True)
         else:
             results = []
-        await query.answer(results)
+        await query.answer(results, cache_time=10)
