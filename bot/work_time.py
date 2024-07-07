@@ -6,7 +6,6 @@ from aiogram.filters.command import Command
 from aiogram.types import Message, CallbackQuery
 from aiogram.fsm.context import FSMContext
 from aiogram.utils import markdown as fmt
-from aiogram.utils.i18n import gettext as _
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from .commands import bot_command_names

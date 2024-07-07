@@ -10,7 +10,6 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from pytz import utc
 
 from . import db, handlers
-from .commands import BotCommands
 from .constants import jobstore
 from .custom_types import ChatId, SendMessage
 from .meeting import schedule_meeting
@@ -39,12 +38,6 @@ async def restore_scheduled_jobs(
                 scheduler=scheduler,
                 send_message=send_message,
             )
-
-
-async def on_startup():
-    bot_commands = [
-        BotCommands()
-    ]
 
 
 async def main(settings: Settings) -> None:

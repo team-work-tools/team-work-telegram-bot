@@ -131,7 +131,7 @@ def handle_team_settings_commands(
                     start_date=html.bold(meeting_time.strftime("%Y-%m-%d")),
                 )
             )
-        except Exception as e:
+        except Exception:
             await message.reply(
                 dedent(
                     _(
@@ -251,7 +251,7 @@ def handle_personal_settings_commands(
                     meeting_days=html.bold(", ".join(day_tokens))
                 )
             )
-        except Exception as e:
+        except Exception:
             await message.reply(
                 dedent(
                     _(

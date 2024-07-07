@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from .intervals import DaySchedule
 
 ENCODING = "utf-8"

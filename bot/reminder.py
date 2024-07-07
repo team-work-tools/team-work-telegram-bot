@@ -9,7 +9,7 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 
 from .messages import make_daily_messages
-from .constants import day_of_week, jobstore
+from .constants import jobstore
 from .custom_types import ChatId, SendMessage
 from .state import load_state, load_user_pm, get_user, ChatState
 from textwrap import dedent
