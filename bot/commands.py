@@ -1,8 +1,6 @@
 from aiogram.utils.i18n import gettext as _
 from pydantic import BaseModel
 
-from .language import Language
-
 
 class BotCommands(BaseModel):
     # global commands

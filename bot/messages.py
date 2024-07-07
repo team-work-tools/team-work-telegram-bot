@@ -1,5 +1,3 @@
-from dataclasses import dataclass
-from datetime import datetime
 from textwrap import dedent
 from typing import List, Tuple
 
@@ -7,8 +5,6 @@ from aiogram import html
 from aiogram.utils.i18n import gettext as _
 
 from .commands import bot_command_descriptions, bot_command_names
-from .constants import day_of_week_pretty
-from .language import Language
 from .intervals import Interval, InvalidTimeFormatException, InvalidIntervalException
 
 
