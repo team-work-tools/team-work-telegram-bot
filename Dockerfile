@@ -15,4 +15,4 @@ COPY locales locales
 
 ENV PYTHONUNBUFFERED=1
 
-CMD ["/bin/bash", "-c", "poetry run bot start"]
+CMD ["/bin/bash", "-c", "poetry run pytest bot/tests.py; poetry run bot start"]

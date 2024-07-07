@@ -47,12 +47,6 @@ async def restore_scheduled_jobs(
             )
 
 
-async def on_startup():
-    bot_commands = [
-        BotCommands()
-    ]
-
-
 async def main(settings: Settings) -> None:
     await db.main(settings=settings)
 
@@ -73,7 +67,7 @@ async def main(settings: Settings) -> None:
     scheduler = init_scheduler(settings=settings)
     await restore_scheduled_jobs(scheduler=scheduler, send_message=send_message)
 
-    router = handlers.make_router(scheduler=scheduler, send_message=send_message, bot=bot)
+    router = await handlers.make_router(scheduler=scheduler, send_message=send_message, bot=bot)
 
     dp.include_router(router)
 

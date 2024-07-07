@@ -3,6 +3,8 @@ from aiogram.types import Message, User
 
 from .state import load_state
 
+from typing import Any, Dict
+
 
 class HasMessageText(Filter):
     async def __call__(self, message: Message):
@@ -41,3 +43,14 @@ class IsReplyToMeetingMessage(Filter):
                     return {"replied_meeting_msg_num": i}
 
         return False
+
+
+class PassArguments(Filter):
+    arguments = Dict[str, Any]
+
+    def __init__(self, **kwargs):
+        super().__init__()
+        self.arguments = kwargs
+
+    async def __call__(self, message: Message):
+        return self.arguments
