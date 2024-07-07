@@ -110,8 +110,7 @@ def handle_team_settings_commands(
                     Examples:
                     /{set_meetings_time_zone} {sample_time_zone}
                     
-                    You can use button below to pass your local time, date, country or continent 
-                    to get timezone hints
+                    You can use button below and pass your local time, date, country or continent to get timezone hints
                     """.format(
                         set_meetings_time_zone=bot_command_names.set_meetings_time_zone,
                         sample_time_zone=sample_time_zone,
@@ -245,7 +244,7 @@ def handle_personal_settings_commands(
         Command(bot_command_names.set_personal_time_zone), HasMessageText(), HasChatState(),
         HasMessageUserUsername()
     )
-    async def set_meetings_time_zone(
+    async def set_personal_time_zone(
         message: Message, message_text: str, chat_state: ChatState, username: str
     ):
         command_pattern = compile(
@@ -270,8 +269,7 @@ def handle_personal_settings_commands(
                     Examples:
                     /{set_personal_time_zone} {sample_time_zone}
                     
-                    You can use button below to pass your local time, date, country or continent 
-                    to get timezone hints
+                    You can use button below and pass your local time, date, country or continent to get timezone hints
                     """.format(
                         set_personal_time_zone=bot_command_names.set_personal_time_zone,
                         sample_time_zone=sample_time_zone,
