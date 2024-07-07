@@ -3,9 +3,9 @@
   
   on: 
     push: 
-      branches: myBranch
+      branches: team-12-ci
     pull_request: 
-      branches: myBranch
+      branches: team-12-ci
   
   permissions: { }
   
