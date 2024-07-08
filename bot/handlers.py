@@ -52,6 +52,7 @@ from .filters import (
 from .meeting import schedule_meeting
 from .reminder import update_reminders
 from .messages import make_help_message
+from .messages import make_daily_messages
 
 from textwrap import dedent
 import logging
@@ -430,6 +431,29 @@ def handle_info_commands(
             parse_mode=ParseMode.HTML,
         )
 
+    @router.message(Command(bot_command_names.get_report), HasChatState())
+    async def get_report(message: Message, chat_state: ChatState):
+        questions = make_daily_messages("")
+
+        responses_by_topic = {i: [] for i in range(len(questions))}
+
+        for username, user in chat_state.users.items():
+            for idx, response in user.responses.items():
+                if response:
+                    responses_by_topic[idx].append(f"@{username}: {response}")
+
+        report_message = "#Daily_Report\n\n"
+
+        for idx, question in enumerate(questions):
+            report_message += f"{question}\n"
+            if responses_by_topic[idx]:
+                report_message += "\n".join(responses_by_topic[idx]) + "\n"
+            else:
+                report_message += "No responses.\n"
+            report_message += "\n"
+
+        await message.reply(report_message.strip())
+
 
 def handle_user_responses(
     scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router
@@ -449,5 +473,9 @@ def handle_user_responses(
                 non_replied_msgs = user.non_replied_daily_msgs
 
                 if replied_meeting_msg_num in non_replied_msgs:
+                    user.responses[replied_meeting_msg_num] = message.text
                     non_replied_msgs.remove(replied_meeting_msg_num)
                     await save_state(chat_state)
+                    await message.reply(_("Your response has been recorded."))
+                else:
+                    await message.reply(_("You have already responded to this message or it is no longer valid."))

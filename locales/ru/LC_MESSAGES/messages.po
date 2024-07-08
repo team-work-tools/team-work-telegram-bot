@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-07-05 10:20+0300\n"
+"POT-Creation-Date: 2024-07-07 02:28+0300\n"
 "PO-Revision-Date: 2024-05-11 19:50+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -69,7 +69,7 @@ msgstr "Выбрать день, когда ты можешь присоедин
 
 #: bot/commands.py:86
 msgid "Set how often you'll be reminded about unanswered questions."
-msgstr ""
+msgstr "Установить частоту напоминаний о неотвеченных вопросах."
 
 #: bot/commands.py:89
 msgid "Join only today's meeting."
@@ -91,19 +91,23 @@ msgstr "Отменить отпуск"
 msgid "Get the chat state that I store."
 msgstr "Посмотреть состояние бота"
 
-#: bot/handlers.py:87
+#: bot/commands.py:95
+msgid "Get the report."
+msgstr "Запросить репорт"
+
+#: bot/handlers.py:110
 msgid "Nice to meet you!"
 msgstr "Привет!"
 
-#: bot/handlers.py:122
-msgid "Current language selected!"
+#: bot/handlers.py:168
+msgid "English language selected!"
 msgstr "Выбран русский язык!"
 
-#: bot/handlers.py:126
+#: bot/handlers.py:172
 msgid "Error saving language state: {error}"
 msgstr "Ошибка сохранения языка! {error}"
 
-#: bot/handlers.py:167
+#: bot/handlers.py:212
 msgid ""
 "OK, we'll meet at {meeting_time} on {week_days} starting not earlier than"
 " on {start_date}!"
@@ -111,7 +115,7 @@ msgstr ""
 "ОК, встретимся в {meeting_time} в(о) {week_days}, начиная не раньше "
 "{start_date}!"
 
-#: bot/handlers.py:178
+#: bot/handlers.py:223
 msgid ""
 "\n"
 "                        Please write the meetings time in the {iso8601} "
@@ -133,11 +137,11 @@ msgstr ""
 "                        /{set_meetings_time} {sample_time}\n"
 "                        "
 
-#: bot/handlers.py:209
+#: bot/handlers.py:253
 msgid "You've already joined, @{username}!"
 msgstr "Ты уже подписался(лась), @{username}!"
 
-#: bot/handlers.py:217
+#: bot/handlers.py:261
 msgid ""
 "\n"
 "                        You've just joined, @{username}!\n"
@@ -151,7 +155,7 @@ msgstr ""
 "                        Вы можете пропустить встречи с помощью команды "
 "/{command_skip}.\n"
 
-#: bot/handlers.py:239
+#: bot/handlers.py:281
 msgid ""
 "\n"
 "                        See you later, @{username}!\n"
@@ -165,15 +169,15 @@ msgstr ""
 "/{command_join} .\n"
 "                        "
 
-#: bot/handlers.py:251
+#: bot/handlers.py:293
 msgid "You've not yet joined, @{username}!"
 msgstr "Ты и так подписан(а), @{username}!"
 
-#: bot/handlers.py:290
+#: bot/handlers.py:333
 msgid "OK, from now you will only receive messages on {meeting_days}."
-msgstr ""
+msgstr "ОК, с этого момента вы будете получать сообщения только в {meeting_days}."
 
-#: bot/handlers.py:299
+#: bot/handlers.py:340
 msgid ""
 "\n"
 "                        Please indicate your personal working days.\n"
@@ -185,25 +189,39 @@ msgid ""
 "                        /{set_personal_meetings_days} Monday-Wednesday, "
 "Friday \n"
 "                        "
-msgstr "Пожалуйста, укажите свои персональные рабочие дни"
-
-#: bot/handlers.py:331
-msgid "Reminder period set to {period} minutes"
 msgstr ""
+"\n"
+"                        Пожалуйста, укажите свои личные рабочие дни.\n"
+"\n"
+"                        Вам следует использовать \",\" или \" \" в качестве разделителя.\n"
+"\n"
+"                        Пример:\n"
+"\n"
+"                        /{set_personal_meetings_days} Понедельник-Среда, "
+"Пятница \n"
+"                        "
 
-#: bot/handlers.py:350
+#: bot/handlers.py:375
+msgid "Reminder period set to {period} minutes"
+msgstr "Период напоминания установлен на {period} минут."
+
+#: bot/handlers.py:392
 msgid ""
 "You have to join daily meetings first!\n"
 "Use the /join command."
 msgstr ""
+"Сначала вам нужно присоединиться к ежедневным совещаниям!\n"
+"Используйте команду /join."
 
-#: bot/handlers.py:357
+#: bot/handlers.py:399
 msgid ""
 "@{username} I don't have access to your personal messages.\n"
 "Please write to @{bot_username} and type /start."
 msgstr ""
+"@{username}, у меня нет доступа к вашим личным сообщениям.\n"
+"Пожалуйста, напиши @{bot_username} и введи /start."
 
-#: bot/handlers.py:369
+#: bot/handlers.py:408
 msgid ""
 "\n"
 "                        Please indicate the reminder period in minutes.\n"
@@ -213,10 +231,25 @@ msgid ""
 "                        /{set_reminder_period} 30\n"
 "                        "
 msgstr ""
+"\n"
+"                        Пожалуйста, укажите период напоминания в минутах.\n"
+"\n"
+"                        Например:\n"
+"\n"
+"                        /{set_reminder_period} 30\n"
+"
+
+#: bot/handlers.py:479
+msgid "Your response has been recorded."
+msgstr "Ваш ответ был записан"
+
+#: bot/handlers.py:481
+msgid "You have already responded to this message or it is no longer valid."
+msgstr "Вы уже ответили на это сообщение, или оно больше не действительно."
 
 #: bot/meeting.py:20
 msgid "Meeting time!"
-msgstr "Установи время и дату начала дейли"
+msgstr "Время встречи!"
 
 #: bot/meeting.py:28
 msgid "Nobody has joined the meeting!"
@@ -236,21 +269,37 @@ msgstr ""
 "        Ты можешь управлять мной при помощи следующих команд:\n"
 "        "
 
-#: bot/messages.py:54
-msgid "What did you do last working day? {usernames}"
-msgstr "@{username}, что ты делал(а) вчера?"
+#: bot/messages.py:32
+msgid "Global commands"
+msgstr "Оcновные команды"
+
+#: bot/messages.py:37
+msgid "Team settings commands"
+msgstr "Настройки для команды"
+
+#: bot/messages.py:40
+msgid "Personal settings commands"
+msgstr "Персональные настройки"
+
+#: bot/messages.py:46
+msgid "Chat information commands"
+msgstr "Настройки чата"
 
 #: bot/messages.py:55
-msgid "What will you do today? {usernames}"
-msgstr "@{username}, что будешь делать сегодня?"
+msgid "What did you do last working day? {usernames}"
+msgstr "Что ты делал(а) вчера? {usernames}"
 
 #: bot/messages.py:56
+msgid "What will you do today? {usernames}"
+msgstr "Что будешь делать сегодня? {usernames}"
+
+#: bot/messages.py:57
 msgid "What (if anything) is blocking your progress? {usernames}"
-msgstr "@{username}, что (если такое есть) блокирует твой прогресс?"
+msgstr "Что (если такое есть) блокирует твой прогресс {usernames}?"
 
 #: bot/reminder.py:32
 msgid "Please reply to these daily meeting questions:"
-msgstr ""
+msgstr "Пожалуйста, ответьте на эти вопросы ежедневного совещания:"
 
 #: bot/reminder.py:76
 msgid ""
@@ -261,6 +310,12 @@ msgid ""
 " daily meeting questions.\n"
 "                            "
 msgstr ""
+"\n"
+"                            {username}, пожалуйста, разблокируйте {bot_username} "
+"(это я) в нашем приватном чате\n"
+"                            чтобы я мог отправлять вам напоминания о пропущенных"
+" вопросах daily.\n"
+"                            "
 
 #~ msgid "subscribe so that I send you messages"
 #~ msgstr "подпишись, чтобы я отправлял тебе сообщения"
@@ -278,6 +333,11 @@ msgstr ""
 #~ " the /{command_subscribe} command!\n"
 #~ "                        "
 #~ msgstr ""
+#~ "\n"
+#~ "                        Никто еще не присоединился :(\n"
+#~ "                        Вы можете подписаться с помощью"
+#~ " команды /{command_subscribe}!\n"
+#~ "                        "
 
 #~ msgid "You've been unjoined, @{username}!"
 #~ msgstr "Ты отписался(лась), @{username}!"
@@ -288,6 +348,10 @@ msgstr ""
 #~ "                  You can join via the /{command_join} command!\n"
 #~ "                  "
 #~ msgstr ""
+#~ "\n"
+#~ "                  До встречи, @{username}!\n"
+#~ "                  Ты можешь присоединиться с помощью команды /{command_join}!\n"
+#~ "                  "
 
 #~ msgid ""
 #~ "\n"
@@ -390,4 +454,102 @@ msgstr ""
 
 #~ msgid "Chat information commands"
 #~ msgstr "Настройки чата"
+
+#~ msgid "Set how often you'll be reminded about unanswered questions."
+#~ msgstr "Установите частоту напоминаний о неотвеченных вопросах."
+
+#~ msgid "Get the report about daily messages."
+#~ msgstr "Получить репорт о daily-сообщениях"
+
+#~ msgid "Nice to meet you!"
+#~ msgstr "Привет!"
+
+#~ msgid "English language selected!"
+#~ msgstr "Выбран русский язык!"
+
+#~ msgid "OK, from now you will only receive messages on {meeting_days}."
+#~ msgstr ""
+#~ "ОК, с этого момента вы будете "
+#~ "получать сообщения только в {meeting_days}."
+
+#~ msgid ""
+#~ "\n"
+#~ "                        Please indicate your personal working days.\n"
+#~ "\n"
+#~ "                        You should use \",\" or \" \" as a separator.\n"
+#~ "\n"
+#~ "                        Example:\n"
+#~ "\n"
+#~ "                        /{set_personal_meetings_days} "
+#~ "Monday-Wednesday, Friday \n"
+#~ "                        "
+#~ msgstr ""
+#~ "\n"
+#~ "                        Пожалуйста, укажите свои личные рабочие дни.\n"
+#~ "\n"
+#~ "                        Вам следует использовать "
+#~ "\",\" или \" \" в качестве "
+#~ "разделителя.\n"
+#~ "\n"
+#~ "                        Пример:\n"
+#~ "\n"
+#~ "                        /{set_personal_meetings_days} "
+#~ "Понедельник-Среда, Пятница \n"
+#~ "                        "
+
+#~ msgid "Reminder period set to {period} minutes"
+#~ msgstr "Период напоминания установлен на {period} минут."
+
+#~ msgid ""
+#~ "You have to join daily meetings first!\n"
+#~ "Use the /join command."
+#~ msgstr ""
+#~ "Сначала вам нужно присоединиться к ежедневным совещаниям!\n"
+#~ "Используйте команду /join."
+
+#~ msgid ""
+#~ "@{username} I don't have access to your personal messages.\n"
+#~ "Please write to @{bot_username} and type /start."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "\n"
+#~ "                        Please indicate the "
+#~ "reminder period in minutes.\n"
+#~ "\n"
+#~ "                        Example:\n"
+#~ "\n"
+#~ "                        /{set_reminder_period} 30\n"
+#~ "                        "
+#~ msgstr ""
+#~ "\n"
+#~ "                        Пожалуйста, укажите период"
+#~ " напоминания в минутах.\n"
+#~ "\n"
+#~ "                        Например:\n"
+#~ "\n"
+#~ "                        /{set_reminder_period} 30\n"
+#~ "                        "
+
+#~ msgid "Please reply to these daily meeting questions:"
+#~ msgstr "Пожалуйста, ответьте на эти вопросы ежедневного совещания:"
+
+#~ msgid ""
+#~ "\n"
+#~ "                            {username}, please "
+#~ "unblock {bot_username} (it's me) in our"
+#~ " private chat\n"
+#~ "                            so that I can "
+#~ "send you reminders about missed daily"
+#~ " meeting questions.\n"
+#~ "                            "
+#~ msgstr ""
+#~ "\n"
+#~ "                            {username}, пожалуйста, "
+#~ "разблокируйте {bot_username} (это я) в "
+#~ "нашем приватном чате\n"
+#~ "                            чтобы я мог "
+#~ "отправлять вам напоминания о пропущенных "
+#~ "вопросах daily.\n"
+#~ "                            "
 
