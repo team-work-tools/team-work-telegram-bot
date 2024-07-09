@@ -1,10 +1,8 @@
 name: "{% raw %}{{ form_name }}{% endraw %}"
 description: "{% raw %}{{ form_description }}{% endraw %}"
 title: "{% raw %}{{ form_title }}{% endraw %}"
-labels: []
+labels: [{% raw %}{{ labels }}{% endraw %}]
 
-assignees:
-  - octocat
 body:
   - type: markdown
     attributes:
