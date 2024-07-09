@@ -21,6 +21,7 @@ jinja2 \
     -D form_name='Task' \
     -D type='task' \
     -D form_description='Create a task.' \
+    -D form_title=' ' \
     -D when_completed='This issue MUST be closed when all its subtasks are completed.'\
     -o "$ISSUE_TEMPLATE_DIR"/task.yml \
     "$TEMPLATE_TMP"
