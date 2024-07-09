@@ -74,6 +74,11 @@ For each Text subtask that was worked on, there MUST be evidence of the work.
   - In parentheses after the Text subtask.
   - In a sublist under the Text subtask.
 
+A subtask is completed when:
+
+- It is a Text subtask and the evidence shows the subtask was completed, e.g., the PR was merged, the decision was made, etc.
+- It is not a Text subtask and the issue is closed.
+
 When a subtask is completed, the subtask checkbox in the Subtask list MUST be ticked.
 
 Example of a Subtask list:
