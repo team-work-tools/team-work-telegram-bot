@@ -13,7 +13,8 @@ jinja2 \
     -D form_description='Propose a scenario.' \
     -D form_title='Scenario: {{scenario_description}}' \
     -D thanks='Thanks for proposing a new scenario!' \
-    -D when_completed='This issue MUST be closed only when the Customer agrees the scenario is completed!'\
+    -D when_completed='This issue MUST be closed only when the Customer agrees the scenario is completed!' \
+    -D assignees='deemp' \
     -o "$ISSUE_TEMPLATE_DIR"/scenario.yml \
     "$TEMPLATE_TMP"
 
