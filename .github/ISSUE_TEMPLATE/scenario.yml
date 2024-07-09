@@ -1,7 +1,7 @@
 name: "Scenario"
 description: "Propose a scenario."
 title: "Scenario: {{scenario_description}}"
-labels: ['Architecture', 'Project Documentation', 'Scenario', 'UI/UX']
+labels: ["Architecture", "Project Documentation", "Scenario", "UI/UX"]
 
 body:
   - type: markdown
