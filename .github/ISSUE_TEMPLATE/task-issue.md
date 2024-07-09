@@ -1,21 +1,21 @@
 ---
-name: Scenario issue
-about: A template for Scenario issues
-title: 'Scenario: {{scenario name}}'
-labels: Architecture, Project Documentation, Scenario, UI/UX
-assignees: deemp
+name: Task issue
+about: A template for Task issues
+title: ''
+labels: ''
+assignees: ''
 
 ---
 
 ## Details
 
-Explain the scenario here.
+Explain the task here.
 
 <details> <summary>Instructions</summary>
 
 The "Details" section and these Instructions MUST be kept.
 
-Before these Instructions, the scenario explanation and details MUST be written.
+Before these Instructions, the task explanation and details MUST be written.
 
 Links to related issues, PRs, artifacts, files, etc., MAY be included.
 
@@ -94,6 +94,6 @@ Example of a Subtask list:
 - [ ] Not yet completed
 ```
 
-This issue MUST be closed when the Customer agrees the scenario is completed.
+This issue MUST be closed when all its subtasks are completed.
 
 </details>
