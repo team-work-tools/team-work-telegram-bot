@@ -17,9 +17,9 @@ The "Details" section and these Instructions MUST be kept.
 
 Before these Instructions, the task explanation and details MUST be written.
 
-Acceptance criteria SHOULD be written.
-
 Links to related issues, PRs, artifacts, files, etc., MAY be included.
+
+Acceptance criteria SHOULD be written.
 
 </details>
 
