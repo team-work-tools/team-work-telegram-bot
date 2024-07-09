@@ -70,27 +70,27 @@ If a Text subtask seems to require its own subtasks, you MUST:
 1. Create a new Task issue for this subtask.
 1. Replace the Text subtask with a link to the issue.
 
-When a subtask is completed, you MUST tick the subtask checkbox in the Subtask list.
-
-When a Text subtask is completed, whenever possible, you MUST provide evidence that the subtask was completed.
+For each Text subtask that was worked on, there MUST be evidence of the work.
 
 - You MUST apply one of these rules that best matches your case:
-  - If the subtask was completed in a merged PR, you MUST provide a link to the PR.
-  - If the subtask required making a decision, you MUST provide (a link to) the decision, reasoning behind the decision, and GitHub usernames of the decision-makers.
-  - If the subtask was about producing or updating an artifact, you MUST provide a (perma)link to that (updated) artifact.
-  - If the subtask was completed for some other reason, provide that reason.
+  - If the subtask was worked on in a (merged) PR, you MUST provide a link to the PR.
+  - If the subtask requires making a decision, you MUST provide GitHub usernames of decision-makers, (a link to) the decision, and reasoning behind the decision.
+  - If the subtask is about producing or updating an artifact, you MUST provide a (perma)link to that (updated) artifact.
+  - If the subtask was completed for some reason, you MUST provide that reason.
 - You MUST write evidence in one of these formats:
   - In parentheses after the Text subtask.
   - In a sublist under the Text subtask.
 
+When a subtask is completed, you MUST tick the subtask checkbox in the Subtask list.
+
 Example of a Subtask list:
 
 ```text
-- [x] Do 42 (https://github.com/team-work-tools/team-work-telegram-bot/pull/43)
+- [x] Do 42 ({{link to a PR that completed this subtask}})
 - [x] #42
-- [x] https://github.com/team-work-tools/team-work-telegram-bot/issues/42
+- [x] {{link to the issue #42}}
 - [x] Decide with developers whether to use Foo or Bar.
-  - @dev1, @dev2 decided to not use Foo.
+  - @dev1, @dev2 decided to use Foo because Bar can't do blah-blah.
 - [x] Do Baz.
   - @dev1 decided to not do Baz due to lack of time.
 - [ ] Not yet completed
