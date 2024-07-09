@@ -1,37 +1,4 @@
----
-name: Task issue
-about: A template for Task issues
-title: ''
-labels: ''
-assignees: ''
-
----
-
-## Details
-
-Explain the task here.
-
-<details> <summary>Instructions</summary>
-
-The "Details" section and these Instructions MUST be kept.
-
-Before these Instructions, the task explanation and details MUST be written.
-
-Links to related issues, PRs, artifacts, files, etc., MAY be included.
-
-Acceptance criteria SHOULD be written.
-
-</details>
-
-## Subtasks
-
-- [ ] List subtasks here.
-
-<details> <summary>Instructions</summary>
-
-The "Subtasks" section and these Instructions MUST be kept.
-
-Before these Instructions, clear and actionable subtasks MUST be listed in a single-level checkbox list (`Subtask list`) with at least one item.
+Clear and actionable subtasks MUST be listed in a single-level checkbox list (`Subtask list`) with at least one item.
 
 Each list item MUST be one of these:
 
@@ -51,12 +18,12 @@ Each list item MUST be one of these:
 
 - A textual description of a subtask (`Textual subtask`).
   - Rules:
-    - The description MUST NOT:
-      - include checkboxes;
-      - end with a list item.
+  - The description MUST NOT:
+    - include checkboxes;
+    - end with a list item.
 
   - Example:
-  
+
     ```text
     - [ ] Do Foo
     ```
@@ -82,18 +49,17 @@ A subtask is completed when:
 When a subtask is completed, the subtask checkbox in the Subtask list MUST be ticked.
 
 Example of a Subtask list:
-
+{{ '{' }}{{ '% raw %}' }}{% raw %}
 ```text
-- [x] Do 42 ({{link to a PR that completed this subtask}})
+- [x] Do 42 ({{ link to a PR that completed this subtask }})
 - [x] #42
-- [x] {{link to the issue #42}}
+- [x] {{ link to the issue #42 }}
 - [x] Decide with developers whether to use Foo or Bar.
-  - @dev1, @dev2 decided to use Foo because Bar can't do blah-blah.
+    - @dev1, @dev2 decided to use Foo because Bar can't do blah-blah.
 - [x] Do Baz.
-  - @dev1 decided to not do Baz due to lack of time.
+    - @dev1 decided to not do Baz due to lack of time.
 - [ ] Not yet completed
 ```
-
-This issue MUST be closed when all its subtasks are completed.
-
-</details>
+{% endraw %}{{ '{' }}{{ '% endraw %}' }}{% raw %}
+{{ when_completed }}
+{% endraw %}
