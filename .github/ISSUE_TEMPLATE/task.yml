@@ -1,6 +1,6 @@
-name: Scenario
-description: Propose a scenario.
-title: "Scenario: "
+name: "Task"
+description: "Create a task."
+title: ""
 labels: []
 
 assignees:
