@@ -65,17 +65,14 @@ If a Text subtask seems to require its own subtasks, a new Task issue MUST be cr
 
 For each Text subtask that was worked on, there MUST be evidence of the work.
 
-One of these rules MUST be applied as best matches the case:
-
-- If the subtask was worked on in a (merged) PR, a link to the PR MUST be provided.
-- If the subtask requires making a decision, GitHub usernames of the decision-makers, a link to the decision, and the reasoning behind the decision MUST be provided.
-- If the subtask is about producing or updating an artifact, a (perma)link to that (updated) artifact MUST be provided.
-- If the subtask was completed for some other reason, that reason MUST be provided.
-
-Evidence MUST be written in one of these formats:
-
-- In parentheses after the Text subtask.
-- In a sublist under the Text subtask.
+- One of these rules MUST be applied as best matches the case:
+  - If the subtask was worked on in a (merged) PR, a link to the PR MUST be provided.
+  - If the subtask requires making a decision, GitHub usernames of the decision-makers, a link to the decision, and the reasoning behind the decision MUST be provided.
+  - If the subtask is about producing or updating an artifact, a (perma)link to that (updated) artifact MUST be provided.
+  - If the subtask was completed for some other reason, that reason MUST be provided.
+- Evidence MUST be written in one of these formats:
+  - In parentheses after the Text subtask.
+  - In a sublist under the Text subtask.
 
 When a subtask is completed, the subtask checkbox in the Subtask list MUST be ticked.
 
