@@ -9,7 +9,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for proposing a new scenario!
+        
         
         Please check the glossary.
   - type: textarea
@@ -17,13 +17,13 @@ body:
     attributes:
       label: Details
       placeholder: |
-        Explain the scenario here!
+        Explain the task here!
     validations:
       required: true
   - type: markdown
     attributes:
       value: |
-        The scenario details MUST be written.
+        The task details MUST be written.
 
         Links to related issues, PRs, artifacts, files, etc. MAY be included.
 
@@ -101,5 +101,5 @@ body:
         - [ ] Not yet completed
         ```
         
-        This issue MUST be closed only when the Customer agrees the scenario is completed!
+        This issue MUST be closed when all its subtasks are completed.
 
