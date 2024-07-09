@@ -8,8 +8,12 @@ body:
     attributes:
       value: |
         Thanks for proposing a new scenario!
+    
+        Write a descriptive `{scenario_description}` in the format `{actor} {verb} {something}`.
+    
+        Take the names of existing [Scenario issue](https://github.com/team-work-tools/team-work-telegram-bot/issues?q=is%3Aopen+is%3Aissue+label%3AScenario) as examples.
         
-        Please check the glossary.
+        Please use the terms from the [glossary](https://github.com/team-work-tools/team-work-telegram-bot/blob/main/docs/glossary.md).
   - type: textarea
     id: details
     attributes:
