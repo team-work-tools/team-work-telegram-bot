@@ -12,7 +12,11 @@ jinja2 \
     -D type='scenario' \
     -D form_description='Propose a scenario' \
     -D form_title='Scenario: {{scenario_description}}' \
-    -D thanks='Thanks for proposing a new scenario!' \
+    -D intro='Thanks for proposing a new scenario!
+    
+        Write a descriptive `{scenario_description}` in the format `{actor} {verb} {something}`.
+    
+        Take the names of existing [Scenario issue](https://github.com/team-work-tools/team-work-telegram-bot/issues?q=is%3Aopen+is%3Aissue+label%3AScenario) as examples.' \
     -D when_completed='This issue MUST be closed only when the Customer agrees the scenario is completed!' \
     -D assignees='deemp' \
     -D labels='"Architecture", "Project Documentation", "Scenario", "UI/UX"' \
