@@ -55,8 +55,9 @@ A list item MUST be one of these:
 
 - A textual description of a subtask (`Text subtask`).
   - Rules:
-    - The description MUST NOT include checkboxes.
-    - The description MUST NOT end with a list item.
+    - The description MUST NOT:
+      - include checkboxes;
+      - end with a list item.
 
   - Example:
   
