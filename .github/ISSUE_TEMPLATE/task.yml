@@ -1,6 +1,6 @@
 name: "Task"
 description: "Create a task."
-title: " "
+title: "{{task_description}}"
 labels: []
 
 assignees:
