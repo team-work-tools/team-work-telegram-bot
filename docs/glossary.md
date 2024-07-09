@@ -3,21 +3,25 @@
 >[!NOTE]
 > The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" in this document and in this repository are to be interpreted as described in [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) and [RFC 8174](https://www.rfc-editor.org/rfc/rfc8174).
 
+## Actor
+
+A [Bot](#bot) or a [User](#user).
+
 ## Assignee
 
 A person who is responsible for completing an [issue](https://github.com/team-work-tools/team-work-telegram-bot/issues).
 
 ## Bot
 
-An instance of the bot developed in this repository.
+An instance of the bot developed in this [Repository](#repository).
 
 ## Customer
 
-The customer in the project.
+The customer in the [Project](#project).
 
 ## Forum
 
-A Supergroup with Topics enabled.
+A [Supergroup](#supergroup) with [Topics](#topic) enabled.
 
 ## Group
 
@@ -31,7 +35,7 @@ Explained [here](https://www.oracle.com/ce-help/playbook/display-content/ar02-po
 
 ## Private chat
 
-A private chat (not a group) of a User and a Bot.
+A private chat (not a group) of a [User](#user) and a [Bot](#bot).
 
 ## Procedure
 
@@ -41,9 +45,17 @@ Explained [here](https://www.oracle.com/ce-help/playbook/display-content/ar02-po
 
 Explained [here](https://www.oracle.com/ce-help/playbook/display-content/ar02-policy-process-or-procedure#the_process).
 
+## Project
+
+The [team-work-telegram-bot](https://github.com/team-work-tools/team-work-telegram-bot) project.
+
 ## PR
 
 A [pull request](https://github.com/team-work-tools/team-work-telegram-bot/pulls).
+
+## Repository
+
+[Project](#repository) repository ([link](https://github.com/team-work-tools/team-work-telegram-bot)).
 
 ## Responsibility
 
@@ -59,11 +71,15 @@ A [pull request](https://github.com/team-work-tools/team-work-telegram-bot/pulls
 
 ## Reviewer
 
-A person who is responsible for reviewing a PR.
+A person who is responsible for reviewing a [PR](#pr).
 
 ## Roadmap issue
 
-An [issue](https://github.com/team-work-tools/team-work-telegram-bot/issues/79) that stores the project roadmap.
+An [issue](https://github.com/team-work-tools/team-work-telegram-bot/issues/79) that stores the [Project](#project) roadmap.
+
+## Sprint
+
+See [Sprint](./configuration/sprint.md)
 
 ## Supergroup
 
@@ -74,23 +90,24 @@ A Telegram group where:
 
 ## Task Management, Architecture, UI/UX, etc
 
-People that have these Responsibilities according to the Responsibility distribution.
+People that have these [Responsibilities](#responsibility) according to the [Responsibility distribution](#responsibility-distribution).
 
 ## Team
 
 A team working on this project.
+There are teams `12`, `34`, `56`.
 
 ## Teams
 
-All teams that work on this project.
+All [teams](#team) that work on this project.
 
 ## Topic
 
-A chat within a Supergroup.
+A chat within a [Supergroup](#supergroup).
 
 ## User
 
-A user of the Bot.
+A user of the [Bot](#bot).
 
 ## Variable
 
@@ -122,4 +139,4 @@ A user of the Bot.
 
 - The `{S}` variable is a number that denotes the index of the current sprint.
   
-  Sprint indices are given [here](https://github.com/team-work-tools/team-work-telegram-bot/issues/79).
+  [Sprint](#sprint) indices are given in the [Roadmap issue](#roadmap-issue).
