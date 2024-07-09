@@ -1,0 +1,37 @@
+name: Scenario
+description: Propose a scenario.
+title: "Scenario: "
+labels: []
+
+assignees:
+  - octocat
+body:
+  - type: markdown
+    attributes:
+      value: |
+        {% raw %}{{ thanks }}
+        
+        Please check the glossary.{% endraw %}
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      placeholder: |
+        Explain the {% raw %}{{ type }}{% endraw %} here!
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        {% filter indent(width=8) %}{% include './details.md' %}{% endfilter %}
+  - type: textarea
+    id: subtasks
+    attributes:
+      label: Subtasks
+      placeholder: Provide the subtasks here!
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        {% filter indent(width=8) %}{% include './subtasks.md' %}{% endfilter %}
