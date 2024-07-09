@@ -15,7 +15,7 @@ jinja2 \
     -D thanks='Thanks for proposing a new scenario!' \
     -D when_completed='This issue MUST be closed only when the Customer agrees the scenario is completed!' \
     -D assignees='deemp' \
-    -D labels="'Architecture', 'Project Documentation', 'Scenario', 'UI/UX'" \
+    -D labels='"Architecture", "Project Documentation", "Scenario", "UI/UX"' \
     -o "$ISSUE_TEMPLATE_DIR"/scenario.yml \
     "$TEMPLATE_TMP"
 
