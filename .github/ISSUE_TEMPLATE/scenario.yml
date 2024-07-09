@@ -1,10 +1,8 @@
 name: "Scenario"
 description: "Propose a scenario."
 title: "Scenario: {{scenario_description}}"
-labels: []
+labels: ['Architecture', 'Project Documentation', 'Scenario', 'UI/UX']
 
-assignees:
-  - octocat
 body:
   - type: markdown
     attributes:
