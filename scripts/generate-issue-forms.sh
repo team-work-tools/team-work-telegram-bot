@@ -28,6 +28,7 @@ jinja2 \
     -D type='task' \
     -D form_description='Create a task' \
     -D form_title='{{task_description}}' \
+    -D intro='In the issue title, replace `{{task_description}}` with a short task description.' \
     -D when_completed='This issue MUST be closed when all its subtasks are completed.'\
     -o "$ISSUE_TEMPLATE_DIR"/task.yml \
     "$TEMPLATE_TMP"
