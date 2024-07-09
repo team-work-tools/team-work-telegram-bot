@@ -13,11 +13,11 @@ A person who is responsible for completing an [issue](https://github.com/team-wo
 
 ## Bot
 
-An instance of the bot developed in this repository.
+An instance of the bot developed in this [Repository](#repository).
 
 ## Customer
 
-The customer in the project.
+The customer in the [Project](#project).
 
 ## Forum
 
@@ -95,6 +95,7 @@ People that have these [Responsibilities](#responsibility) according to the [Res
 ## Team
 
 A team working on this project.
+There are teams `12`, `34`, `56`.
 
 ## Teams
 
