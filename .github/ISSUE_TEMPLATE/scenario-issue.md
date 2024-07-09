@@ -1,7 +1,7 @@
 ---
 name: Scenario issue
 about: A template for Scenario issues
-title: 'Scenario: {{scenario_name}}'
+title: 'Scenario: {{scenario name}}'
 labels: Architecture, Project Documentation, Scenario, UI/UX
 assignees: deemp
 
