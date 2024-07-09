@@ -74,8 +74,8 @@ When a subtask is completed, you MUST tick the subtask checkbox in the Subtask l
 
 When a Text subtask is completed, whenever possible, you MUST provide evidence that the subtask was completed.
 
-- You MUST apply one of these evidence rules:
-  - If the subtask was completed in a PR, you MUST provide a link to the PR.
+- You MUST apply one of these rules that best matches your case:
+  - If the subtask was completed in a merged PR, you MUST provide a link to the PR.
   - If the subtask required making a decision, you MUST provide (a link to) the decision, reasoning behind the decision, and GitHub usernames of the decision-makers.
   - If the subtask was about producing or updating an artifact, you MUST provide a (perma)link to that (updated) artifact.
   - If the subtask was completed for some other reason, provide that reason.
@@ -96,6 +96,6 @@ Example of a Subtask list:
 - [ ] Not yet completed
 ```
 
-You MUST NOT close the issue until the Customer agrees to close it.
+You MUST NOT close this issue until the Customer agrees to close it.
 
 </details>
