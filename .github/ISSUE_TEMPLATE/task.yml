@@ -9,7 +9,7 @@ body:
       value: |
         
         
-        Please use the terms from the [glossary](https://github.com/team-work-tools/team-work-telegram-bot/blob/main/docs/glossary.md).
+        Use the terms from the [glossary](https://github.com/team-work-tools/team-work-telegram-bot/blob/main/docs/glossary.md).
   - type: textarea
     id: details
     attributes:
