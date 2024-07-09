@@ -1,5 +1,5 @@
 name: "Scenario"
-description: "Propose a scenario."
+description: "Propose a scenario"
 title: "Scenario: {{scenario_description}}"
 labels: ["Architecture", "Project Documentation", "Scenario", "UI/UX"]
 
