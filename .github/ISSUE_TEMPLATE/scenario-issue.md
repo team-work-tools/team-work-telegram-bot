@@ -49,7 +49,7 @@ Each list item MUST be one of these:
     - [ ] #42
     ```
 
-- A textual description of a subtask (`Text subtask`).
+- A textual description of a subtask (`Textual subtask`).
   - Rules:
     - The description MUST NOT:
       - include checkboxes;
@@ -61,9 +61,9 @@ Each list item MUST be one of these:
     - [ ] Do Foo
     ```
 
-If a Text subtask seems to require its own subtasks, a new Task issue MUST be created for this subtask. The Text subtask MUST then be replaced with a link to the new issue.
+If a Textual subtask seems to require its own subtasks, a new Task issue MUST be created for this subtask. The Textual subtask MUST then be replaced with a link to the new issue.
 
-For each Text subtask that was worked on, there MUST be evidence of the work.
+For each Textual subtask that was worked on, there MUST be evidence of the work.
 
 - One of these rules MUST be applied as best matches the case:
   - If the subtask was worked on in a (merged) PR, a link to the PR MUST be provided.
@@ -71,13 +71,13 @@ For each Text subtask that was worked on, there MUST be evidence of the work.
   - If the subtask is about producing or updating an artifact, a (perma)link to that (updated) artifact MUST be provided.
   - If the subtask was completed for some other reason, that reason MUST be provided.
 - Evidence MUST be written in one of these formats:
-  - In parentheses after the Text subtask.
-  - In a sublist under the Text subtask.
+  - In parentheses after the Textual subtask.
+  - In a sublist under the Textual subtask.
 
 A subtask is completed when:
 
-- It is a Text subtask and the evidence shows the subtask was completed, e.g., the PR was merged, the decision was made, etc.
-- It is not a Text subtask and the issue is closed.
+- It is a Textual subtask and the evidence shows the subtask was completed, e.g., the PR was merged, the decision was made, etc.
+- It is not a Textual subtask and the issue is closed.
 
 When a subtask is completed, the subtask checkbox in the Subtask list MUST be ticked.
 
