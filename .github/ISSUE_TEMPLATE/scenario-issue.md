@@ -15,7 +15,7 @@ Explain the scenario here.
 
 You MUST keep the "Details" section and these Instructions.
 
-You MUST write above these Instructions.
+You MUST write before these Instructions.
 
 In this section, you MUST explain the scenario.
 
@@ -33,7 +33,7 @@ You MAY include links to related issues, PRs, artifacts, files, etc.
 
 You MUST keep the "Subtasks" section and these Instructions.
 
-You MUST write above these Instructions.
+You MUST write before these Instructions.
 
 In the Subtasks section, you MUST list subtasks in a single-level checkbox list (`Subtask list`) with at least one item.
 
