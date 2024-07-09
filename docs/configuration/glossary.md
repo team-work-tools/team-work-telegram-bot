@@ -1,9 +1,12 @@
 # Glossary
 
+>[!NOTE]
+> The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" in this document and in this repository are to be interpreted as described in [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) and [RFC 8174](https://www.rfc-editor.org/rfc/rfc8174).
+
 ## Variables
 
 - Words in curly brackets are variables. Example: {variable}.
-- Variables can be highlighted as inline code.
+- Variables MAY be highlighted as inline code.
   - Format:
 
     ~~~md
@@ -47,7 +50,6 @@
 - `Topic` - A chat within a Supergroup.
 - `Forum` - A Supergroup with Topics enabled.
 - `Private chat` - A private chat (not a group) of a User and a Bot.
-- `UPPERCASE` words that have a specified meaning in [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) and [RFC 8174](https://www.rfc-editor.org/rfc/rfc8174) have that meaning in this document or a document that references this document.
 - `Policy`, `Process`, `Procedure` are explained [here](https://www.oracle.com/ce-help/playbook/display-content/ar02-policy-process-or-procedure).
 - [Responsibility](./roles-and-responsibilities.md#def-responsibility) <a id="def-responsibility"></a>
 - [Responsibility labels](./roles-and-responsibilities.md#def-responsibility-label) <a id="def-responsibility-labels"></a>
