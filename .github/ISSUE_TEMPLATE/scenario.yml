@@ -1,6 +1,6 @@
-name: Scenario
-description: Propose a scenario.
-title: "Scenario: "
+name: "Scenario"
+description: "Propose a scenario."
+title: "Scenario: {{ scenario name }}"
 labels: []
 
 assignees:
