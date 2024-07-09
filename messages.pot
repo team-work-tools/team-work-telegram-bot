@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-07-07 02:18+0300\n"
+"POT-Creation-Date: 2024-06-30 15:25+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,101 +17,85 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.15.0\n"
 
-#: team-work-telegram-bot/bot/commands.py:71
+#: bot/commands.py:66
 msgid "Enable me."
 msgstr ""
 
-#: team-work-telegram-bot/bot/commands.py:72
+#: bot/commands.py:67
 msgid "Get a help message."
 msgstr ""
 
-#: team-work-telegram-bot/bot/commands.py:73
-msgid "Set my interface language."
+#: bot/commands.py:68
+msgid "Set a language."
 msgstr ""
 
-#: team-work-telegram-bot/bot/commands.py:74
+#: bot/commands.py:69
 msgid "Disable me."
 msgstr ""
 
-#: team-work-telegram-bot/bot/commands.py:75
+#: bot/commands.py:70
 msgid "Cancel the current operation with the bot."
 msgstr ""
 
-#: team-work-telegram-bot/bot/commands.py:77
+#: bot/commands.py:72
 msgid "Set up regular meetings."
 msgstr ""
 
-#: team-work-telegram-bot/bot/commands.py:79
+#: bot/commands.py:74
 msgid "Set meetings time zone."
 msgstr ""
 
-#: team-work-telegram-bot/bot/commands.py:80
+#: bot/commands.py:75
 msgid "Set meetings time."
 msgstr ""
 
-#: team-work-telegram-bot/bot/commands.py:81
+#: bot/commands.py:76
 msgid "Set meetings days."
 msgstr ""
 
-#: team-work-telegram-bot/bot/commands.py:83
+#: bot/commands.py:78
 msgid "Join meetings."
 msgstr ""
 
-#: team-work-telegram-bot/bot/commands.py:84
+#: bot/commands.py:79
 msgid "Skip meetings."
 msgstr ""
 
-#: team-work-telegram-bot/bot/commands.py:85
+#: bot/commands.py:80
 msgid "Set the days when you can join meetings."
 msgstr ""
 
-#: team-work-telegram-bot/bot/commands.py:86
-msgid "Set how often you'll be reminded about unanswered questions."
-msgstr ""
-
-#: team-work-telegram-bot/bot/commands.py:89
+#: bot/commands.py:81
 msgid "Join only today's meeting."
 msgstr ""
 
-#: team-work-telegram-bot/bot/commands.py:90
+#: bot/commands.py:82
 msgid "Skip only today's meeting."
 msgstr ""
 
-#: team-work-telegram-bot/bot/commands.py:91
+#: bot/commands.py:83
 msgid "Schedule a personal vacation."
 msgstr ""
 
-#: team-work-telegram-bot/bot/commands.py:92
+#: bot/commands.py:84
 msgid "Unschedule the personal vacation."
 msgstr ""
 
-#: team-work-telegram-bot/bot/commands.py:94
+#: bot/commands.py:86
 msgid "Get the chat state that I store."
 msgstr ""
 
-#: team-work-telegram-bot/bot/commands.py:95
-msgid "Get the report."
-msgstr ""
-
-#: team-work-telegram-bot/bot/handlers.py:110
-msgid "Nice to meet you!"
-msgstr ""
-
-#: team-work-telegram-bot/bot/handlers.py:168
-msgid "English language selected!"
-msgstr ""
-
-#: team-work-telegram-bot/bot/handlers.py:172
+#: bot/handlers.py:91
 msgid "Error saving language state: {error}"
 msgstr ""
 
-#: team-work-telegram-bot/bot/handlers.py:212
+#: bot/handlers.py:118
 msgid ""
-"OK, we'll meet at {meeting_time} on {week_days} starting not earlier than"
-" on {start_date}!"
+"OK, we'll meet at {meeting_time} on {week_days} starting than on "
+"{start_date}!"
 msgstr ""
 
-#: team-work-telegram-bot/bot/handlers.py:223
+#: bot/handlers.py:129
 msgid ""
 "\n"
 "                        Please write the meetings time in the {iso8601} "
@@ -126,11 +110,11 @@ msgid ""
 "                        "
 msgstr ""
 
-#: team-work-telegram-bot/bot/handlers.py:253
+#: bot/handlers.py:158
 msgid "You've already joined, @{username}!"
 msgstr ""
 
-#: team-work-telegram-bot/bot/handlers.py:261
+#: bot/handlers.py:165
 msgid ""
 "\n"
 "                        You've just joined, @{username}!\n"
@@ -140,7 +124,7 @@ msgid ""
 "                        "
 msgstr ""
 
-#: team-work-telegram-bot/bot/handlers.py:281
+#: bot/handlers.py:186
 msgid ""
 "\n"
 "                        See you later, @{username}!\n"
@@ -149,72 +133,19 @@ msgid ""
 "                        "
 msgstr ""
 
-#: team-work-telegram-bot/bot/handlers.py:293
+#: bot/handlers.py:198
 msgid "You've not yet joined, @{username}!"
 msgstr ""
 
-#: team-work-telegram-bot/bot/handlers.py:333
-msgid "OK, from now you will only receive messages on {meeting_days}."
-msgstr ""
-
-#: team-work-telegram-bot/bot/handlers.py:340
-msgid ""
-"\n"
-"                        Please indicate your personal working days.\n"
-"\n"
-"                        You should use \",\" or \" \" as a separator.\n"
-"\n"
-"                        Example:\n"
-"\n"
-"                        /{set_personal_meetings_days} Monday-Wednesday, "
-"Friday \n"
-"                        "
-msgstr ""
-
-#: team-work-telegram-bot/bot/handlers.py:375
-msgid "Reminder period set to {period} minutes"
-msgstr ""
-
-#: team-work-telegram-bot/bot/handlers.py:392
-msgid ""
-"You have to join daily meetings first!\n"
-"Use the /join command."
-msgstr ""
-
-#: team-work-telegram-bot/bot/handlers.py:399
-msgid ""
-"@{username} I don't have access to your personal messages.\n"
-"Please write to @{bot_username} and type /start."
-msgstr ""
-
-#: team-work-telegram-bot/bot/handlers.py:408
-msgid ""
-"\n"
-"                        Please indicate the reminder period in minutes.\n"
-"\n"
-"                        Example:\n"
-"\n"
-"                        /{set_reminder_period} 30\n"
-"                        "
-msgstr ""
-
-#: team-work-telegram-bot/bot/handlers.py:479
-msgid "Your response has been recorded."
-msgstr ""
-
-#: team-work-telegram-bot/bot/handlers.py:481
-msgid "You have already responded to this message or it is no longer valid."
-msgstr ""
-
-#: team-work-telegram-bot/bot/meeting.py:20
+#: bot/meeting.py:14
 msgid "Meeting time!"
 msgstr ""
 
-#: team-work-telegram-bot/bot/meeting.py:28
+#: bot/meeting.py:16
 msgid "Nobody has joined the meeting!"
 msgstr ""
 
-#: team-work-telegram-bot/bot/messages.py:15
+#: bot/messages.py:13
 msgid ""
 "\n"
 "        I can help you conduct daily (or at least regular) meetings.\n"
@@ -223,45 +154,31 @@ msgid ""
 "        "
 msgstr ""
 
-#: team-work-telegram-bot/bot/messages.py:32
+#: bot/messages.py:29
 msgid "Global commands"
 msgstr ""
 
-#: team-work-telegram-bot/bot/messages.py:37
+#: bot/messages.py:34
 msgid "Team settings commands"
 msgstr ""
 
-#: team-work-telegram-bot/bot/messages.py:40
+#: bot/messages.py:37
 msgid "Personal settings commands"
 msgstr ""
 
-#: team-work-telegram-bot/bot/messages.py:46
+#: bot/messages.py:41
 msgid "Chat information commands"
 msgstr ""
 
-#: team-work-telegram-bot/bot/messages.py:55
-msgid "What did you do last working day? {usernames}"
+#: bot/messages.py:49
+msgid "@{username}, what did you do last working day?"
 msgstr ""
 
-#: team-work-telegram-bot/bot/messages.py:56
-msgid "What will you do today? {usernames}"
+#: bot/messages.py:50
+msgid "@{username}, what will you do today?"
 msgstr ""
 
-#: team-work-telegram-bot/bot/messages.py:57
-msgid "What (if anything) is blocking your progress? {usernames}"
-msgstr ""
-
-#: team-work-telegram-bot/bot/reminder.py:32
-msgid "Please reply to these daily meeting questions:"
-msgstr ""
-
-#: team-work-telegram-bot/bot/reminder.py:76
-msgid ""
-"\n"
-"                            {username}, please unblock {bot_username} "
-"(it's me) in our private chat\n"
-"                            so that I can send you reminders about missed"
-" daily meeting questions.\n"
-"                            "
+#: bot/messages.py:51
+msgid "@{username}, what (if anything) is blocking your progress?"
 msgstr ""
 
