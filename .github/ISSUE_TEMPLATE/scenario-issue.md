@@ -13,15 +13,13 @@ Explain the scenario here.
 
 <details> <summary>Instructions</summary>
 
-You MUST keep the "Details" section and these Instructions.
+The "Details" section and these Instructions MUST be kept.
 
-You MUST write before these Instructions.
+Before these Instructions, the scenario explanation and details MUST be written.
 
-In this section, you MUST explain the scenario.
+Acceptance criteria SHOULD be written.
 
-You SHOULD include acceptance criteria for this scenario.
-
-You MAY include links to related issues, PRs, artifacts, files, etc.
+Links to related issues, PRs, artifacts, files, etc., MAY be included.
 
 </details>
 
@@ -31,13 +29,11 @@ You MAY include links to related issues, PRs, artifacts, files, etc.
 
 <details> <summary>Instructions</summary>
 
-You MUST keep the "Subtasks" section and these Instructions.
+The "Subtasks" section and these Instructions MUST be kept.
 
-You MUST write before these Instructions.
+Before these Instructions, clear and actionable subtasks MUST be listed in a single-level checkbox list (`Subtask list`) with at least one item.
 
-In the Subtasks section, you MUST list subtasks in a single-level checkbox list (`Subtask list`) with at least one item.
-
-A list item MUST be one of these:
+Each list item MUST be one of these:
 
 - A link to an issue.
   - Example:
@@ -65,23 +61,23 @@ A list item MUST be one of these:
     - [ ] Do Foo
     ```
 
-If a Text subtask seems to require its own subtasks, you MUST:
-
-1. Create a new Task issue for this subtask.
-1. Replace the Text subtask with a link to the issue.
+If a Text subtask seems to require its own subtasks, a new Task issue MUST be created for this subtask. The Text subtask MUST then be replaced with a link to the new issue.
 
 For each Text subtask that was worked on, there MUST be evidence of the work.
 
-- You MUST apply one of these rules that best matches your case:
-  - If the subtask was worked on in a (merged) PR, you MUST provide a link to the PR.
-  - If the subtask requires making a decision, you MUST provide GitHub usernames of the decision-makers, (a link to) the decision, and reasoning behind the decision.
-  - If the subtask is about producing or updating an artifact, you MUST provide a (perma)link to that (updated) artifact.
-  - If the subtask was completed for some reason, you MUST provide that reason.
-- You MUST write evidence in one of these formats:
-  - In parentheses after the Text subtask.
-  - In a sublist under the Text subtask.
+One of these rules MUST be applied as best matches the case:
 
-When a subtask is completed, you MUST tick the subtask checkbox in the Subtask list.
+- If the subtask was worked on in a (merged) PR, a link to the PR MUST be provided.
+- If the subtask requires making a decision, GitHub usernames of the decision-makers, a link to the decision, and the reasoning behind the decision MUST be provided.
+- If the subtask is about producing or updating an artifact, a (perma)link to that (updated) artifact MUST be provided.
+- If the subtask was completed for some other reason, that reason MUST be provided.
+
+Evidence MUST be written in one of these formats:
+
+- In parentheses after the Text subtask.
+- In a sublist under the Text subtask.
+
+When a subtask is completed, the subtask checkbox in the Subtask list MUST be ticked.
 
 Example of a Subtask list:
 
@@ -96,6 +92,6 @@ Example of a Subtask list:
 - [ ] Not yet completed
 ```
 
-You MUST NOT close this issue until the Customer agrees to close it.
+This issue MUST be closed when the Customer agrees the scenario is completed.
 
 </details>
