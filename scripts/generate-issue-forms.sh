@@ -14,9 +14,9 @@ jinja2 \
     -D form_title='Scenario: {{scenario_description}}' \
     -D intro='Thanks for proposing a new scenario!
     
-        Write a descriptive `{scenario_description}` in the format `{actor} {verb} {something}`.
+        In the issue title, replace `{{scenario_description}}` with a short scenario description in the format `Actor does something`.
     
-        Take the names of existing [Scenario issue](https://github.com/team-work-tools/team-work-telegram-bot/issues?q=is%3Aopen+is%3Aissue+label%3AScenario) as examples.' \
+        See examples of names in this format in existing [Scenario issues](https://github.com/team-work-tools/team-work-telegram-bot/issues?q=is%3Aopen+is%3Aissue+label%3AScenario).' \
     -D when_completed='This issue MUST be closed only when the Customer agrees the scenario is completed!' \
     -D assignees='deemp' \
     -D labels='"Architecture", "Project Documentation", "Scenario", "UI/UX"' \
