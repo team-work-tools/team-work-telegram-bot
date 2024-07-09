@@ -74,7 +74,7 @@ For each Text subtask that was worked on, there MUST be evidence of the work.
 
 - You MUST apply one of these rules that best matches your case:
   - If the subtask was worked on in a (merged) PR, you MUST provide a link to the PR.
-  - If the subtask requires making a decision, you MUST provide GitHub usernames of decision-makers, (a link to) the decision, and reasoning behind the decision.
+  - If the subtask requires making a decision, you MUST provide GitHub usernames of the decision-makers, (a link to) the decision, and reasoning behind the decision.
   - If the subtask is about producing or updating an artifact, you MUST provide a (perma)link to that (updated) artifact.
   - If the subtask was completed for some reason, you MUST provide that reason.
 - You MUST write evidence in one of these formats:
