@@ -7,9 +7,9 @@ body:
   - type: markdown
     attributes:
       value: |
-        {% raw %}{{ thanks }}
+        {% raw %}{{ intro }}
         
-        Please check the glossary.{% endraw %}
+        Use the terms from the [glossary](https://github.com/team-work-tools/team-work-telegram-bot/blob/main/docs/glossary.md).{% endraw %}
   - type: textarea
     id: details
     attributes:
