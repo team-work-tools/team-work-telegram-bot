@@ -124,7 +124,18 @@ async def save_state(chat_state: ChatState) -> None:
     """
 
     await chat_state.save()
+async def reset_state(chat_state: ChatState) -> None:
+    """Reset the given chat state in the database.
 
+    Args:
+        chat_state (ChatState): The chat state instance to reset.
+    """
+    chat_state.language = Language.default
+    chat_state.meeting_time = None
+    chat_state.meeting_msg_ids = []
+    chat_state.users.clear()
+
+    await chat_state.save()
 
 class UserPM(Document):
     username: str
