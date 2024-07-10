@@ -19,7 +19,7 @@ jinja2 \
         See examples of names in this format in existing [Scenario issues](https://github.com/team-work-tools/team-work-telegram-bot/issues?q=is%3Aopen+is%3Aissue+label%3AScenario).' \
     -D when_completed='This issue MUST be closed only when the Customer agrees the scenario is completed!' \
     -D assignees='deemp' \
-    -D labels='"Architecture", "Project Documentation", "Scenario", "UI/UX"' \
+    -D labels='"Architecture", "Project Documentation", "UI/UX", "[Scenario]"' \
     -o "$ISSUE_TEMPLATE_DIR"/scenario.yml \
     "$TEMPLATE_TMP"
 
@@ -30,5 +30,6 @@ jinja2 \
     -D form_title='{{task_description}}' \
     -D intro='In the issue title, replace `{{task_description}}` with a short task description.' \
     -D when_completed='This issue MUST be closed when all its subtasks are completed.'\
+    -D labels='"[Task]"' \
     -o "$ISSUE_TEMPLATE_DIR"/task.yml \
     "$TEMPLATE_TMP"
