@@ -65,4 +65,28 @@ def get_schedule_keyboard(week_schedule: Dict[str, DaySchedule], tz: str, shift:
         weekday_builder = get_weekday_keyboard(week_schedule[weekday], tz, shift)
         builder.attach(weekday_builder)
 
+    cancel = InlineKeyboardButton(text="Cancel", callback_data="cancel_schedule")
+    save = InlineKeyboardButton(text="Save", callback_data="save_schedule")
+    builder.row(cancel, save)
+
     return builder.as_markup()
+
+
+def get_schedule_options() -> InlineKeyboardMarkup:
+    builder = InlineKeyboardBuilder()
+
+    builder.button(text="Default", callback_data="default_schedule")
+    builder.button(text="Personal", callback_data="personal_schedule")
+
+    return builder.adjust(2).as_markup()
+
+
+def get_interval_edit_options(weekday: str, interval_str: str) -> InlineKeyboardMarkup:
+    builder = InlineKeyboardBuilder()
+
+    builder.button(
+        text="Enter again",
+        callback_data=IntervalCallback(weekday=weekday, interval=interval_str, action='edit'))
+    builder.button(text="Cancel", callback_data="cancel_interval_edit")
+
+    return builder.adjust(2).as_markup()
