@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import List, Tuple, Dict
 from collections import Counter
 from datetime import datetime, time, timedelta
 from zoneinfo import ZoneInfo
@@ -14,7 +14,7 @@ class IntervalException(Exception):
 
 class InvalidTimeFormatException(IntervalException):
     """Raised when the time format is invalid"""
-    def __init__(self, time_str: str, message="Time format must be either HH:MM or HH.MM"):
+    def __init__(self, time_str: str, message="Time must be in HH:MM format."):
         self.time_str = time_str
         self.message = message
         super().__init__(self.message)
@@ -22,7 +22,7 @@ class InvalidTimeFormatException(IntervalException):
 
 class InvalidIntervalException(IntervalException):
     """Raised when the interval is invalid"""
-    def __init__(self, start_time: time, end_time: time, message: str = "Start time must be earlier than end time"):
+    def __init__(self, start_time: time, end_time: time, message: str = "Start time must be earlier than end time."):
         self.start_time: str = start_time.strftime("%H:%M")
         self.end_time: str = end_time.strftime("%H:%M")
         self.message: str = message
@@ -72,8 +72,6 @@ class Interval(BaseModel):
         try:
             if ':' in time_str:
                 return datetime.strptime(time_str, "%H:%M").time()
-            elif '.' in time_str:
-                return datetime.strptime(time_str, "%H.%M").time()
             else:
                 raise InvalidTimeFormatException(time_str)
         except ValueError:
@@ -131,34 +129,22 @@ class Interval(BaseModel):
         # Sort intervals by start time
         sorted_intervals = sorted(intervals, key=lambda x: x.start_time_utc.time())
 
-        # Exclude repeating intervals
-        counter = Counter(sorted_intervals)
-        unique = []
-        n_unique = []
-        for interval in sorted_intervals:
-            if counter[interval] == 1:
-                unique.append(interval)
+        # Merge intervals
+        merged_intervals = list()
+        merged_intervals.append(sorted_intervals[0])
+        for current in sorted_intervals[1:]:
+            last = merged_intervals[-1]
+
+            if current.overlaps_with(last) or current.start_time_utc.time() <= last.end_time_utc.time():
+                merged_intervals[-1] = Interval(
+                    start_time_utc=min(last.start_time_utc, current.start_time_utc),
+                    end_time_utc=max(last.end_time_utc, current.end_time_utc),
+                    tz=last.tz
+                )
             else:
-                n_unique.append(interval)
+                merged_intervals.append(current)
 
-        # Merge unique intervals
-        merged_intervals = []
-        if len(unique) > 0:
-            merged_intervals.append(unique[0])
-            for current in unique[1:]:
-                last = merged_intervals[-1]
-
-                if current.overlaps_with(last) or current.start_time_utc.time() <= last.end_time_utc.time():
-                    # Merge intervals
-                    merged_intervals[-1] = Interval(
-                        start_time_utc=min(last.start_time_utc, current.start_time_utc),
-                        end_time_utc=max(last.end_time_utc, current.end_time_utc),
-                        tz=last.tz
-                    )
-                else:
-                    merged_intervals.append(current)
-
-        return list(sorted(merged_intervals + n_unique, key=lambda x: x.start_time_utc.time()))
+        return merged_intervals
 
 
 DEFAULT_INTERVAL = Interval.from_string("9:00 - 17:00", "Europe/Moscow")
@@ -174,10 +160,8 @@ class DaySchedule(BaseModel):
         if self.included and len(self.intervals) == 0:
             self.add_interval(DEFAULT_INTERVAL)
 
-    def add_interval(self, interval: Interval, merge=False) -> None:
+    def add_interval(self, interval: Interval) -> None:
         self.intervals.append(interval)
-        if merge:
-            self.intervals = Interval.merge_intervals(self.intervals)
 
     def remove_interval(self, interval: Interval, ignore_inclusion=False) -> None:
         self.intervals.remove(interval)
@@ -185,9 +169,33 @@ class DaySchedule(BaseModel):
             if len(self.intervals) == 0 and self.included:
                 self.toggle_inclusion()
 
+    def normalize_intervals(self):
+        # Delete duplicates
+        unique_intervals = set(self.intervals)
+        # Sort and merge intervals
+        if len(self.intervals) > 1:
+            self.intervals = Interval.merge_intervals(unique_intervals)
+        else:
+            self.intervals = list(unique_intervals)
+        return self
+
+    def is_empty(self):
+        return not self.included and len(self.intervals) == 0
+
     @staticmethod
     def is_workday(day: str) -> bool:
         return day not in {"Saturday", "Sunday"}
 
     def __hash__(self):
         return hash(self.name)
+
+    def __eq__(self, other):
+        if not isinstance(other, DaySchedule):
+            return False
+        return (self.name == other.name and
+                self.included == other.included and
+                self.intervals == other.intervals)
+
+
+def schedule_is_empty(schedule: Dict[str, DaySchedule]) -> bool:
+    return all(weekday.is_empty() for weekday in schedule.values())
