@@ -7,21 +7,26 @@ from pydantic import BaseModel
 
 from .chat import ChatId
 from .language import Language
-from .intervals import DaySchedule, Interval
-from .constants import default_time_zone, default_user_schedule
+from .intervals import DaySchedule
+from .constants import default_time_zone, default_schedule
 
 
 class ChatUser(BaseModel):
-    username: str = "" 
+    username: str = ""
     is_joined: bool = False
-    schedule: Dict[str, DaySchedule] = default_user_schedule
-    personal_default_working_time: Optional[Interval] = None
-    time_zone_shift: int = 0  # 0 for dynamic schedule; {UTC_offset_old - UTC_offset_new} for static schedule;
+    time_zone: str = default_time_zone
+
     meeting_days: set[int] = set(range(0, 5))  # default value - [0 - 4] = Monday - Friday
-    reminder_period: Optional[int] = None
     non_replied_daily_msgs: set[int] = set(range(0, 3))
 
+    reminder_period: Optional[int] = None
+
+    schedule: Dict[str, DaySchedule] = default_schedule
+    temp_schedule: Optional[Dict[str, DaySchedule]] = None
+    time_zone_shift: int = 0  # 0 for dynamic schedule; {UTC_offset_old - UTC_offset_new} for static schedule;
+
     # TODO: relocate these fields to cache (Redis for example)
+    schedule_mode: Optional[str] = None
     schedule_msg: Optional[int] = None
     to_delete_msg_ids: set[int] = set()
     to_edit_weekday: Optional[str] = None
@@ -53,12 +58,16 @@ async def create_user(username: str) -> ChatUser:
 class ChatState(Document):
     language: Language = Language.default
     time_zone: str = default_time_zone
-    default_working_time: Optional[Interval] = None
-    meeting_time: Optional[datetime] = None
-    meeting_msg_ids: list[int] = []
     topic_id: Optional[int] = None
     chat_id: Annotated[ChatId, Indexed(index_type=pymongo.ASCENDING)]
     users: Dict[str, ChatUser] = dict()
+
+    meeting_time: Optional[datetime] = None
+    meeting_msg_ids: list[int] = []
+
+    schedule: Dict[str, DaySchedule] = default_schedule
+    temp_schedule: Optional[Dict[str, DaySchedule]] = None
+    time_zone_shift: int = 0  # 0 for dynamic schedule; {UTC_offset_old - UTC_offset_new} for static schedule;
 
 
 async def get_user(chat_state: ChatState, username: str) -> ChatUser:
@@ -138,7 +147,6 @@ async def save_state(chat_state: ChatState) -> None:
 class UserPM(Document):
     username: str
     chat_id: Annotated[ChatId, Indexed(index_type=pymongo.ASCENDING)]
-    personal_time_zone: str = default_time_zone
 
 
 async def create_user_pm(username: str, chat_id: ChatId) -> UserPM:
