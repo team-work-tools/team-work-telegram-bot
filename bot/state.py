@@ -16,6 +16,7 @@ class ChatUser(BaseModel):
     meeting_days: set[int] = set(range(0, 5))  # default value - [0 - 4] = Monday - Friday
     reminder_period: Optional[int] = None
     non_replied_daily_msgs: set[int] = set(range(0, 3))
+    responses: Dict[int, str] = {}
 
     def __hash__(self):
         return hash(self.username)
@@ -47,6 +48,7 @@ class ChatState(Document):
     topic_id: Optional[int] = None
     chat_id: Annotated[ChatId, Indexed(index_type=pymongo.ASCENDING)]
     users: Dict[str, ChatUser] = dict()
+    is_active: bool = True
 
 
 async def get_user(chat_state: ChatState, username: str) -> ChatUser:
@@ -122,6 +124,18 @@ async def save_state(chat_state: ChatState) -> None:
 
     await chat_state.save()
 
+async def reset_state(chat_state: ChatState) -> None:
+    """Reset the given chat state in the database.
+
+    Args:
+        chat_state (ChatState): The chat state instance to reset.
+    """
+    chat_state.language = Language.default
+    chat_state.meeting_time = None
+    chat_state.meeting_msg_ids = []
+    chat_state.users.clear()
+
+    await chat_state.save()
 
 class UserPM(Document):
     username: str
