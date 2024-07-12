@@ -88,6 +88,11 @@ def make_router(
 
     return router
 
+async def check_is_active(message: Message, chat_state: ChatState):
+    if not chat_state.is_active:
+        await message.reply(_("The chat is currently stopped. Use /start to activate it."))
+        return False
+    return True
 
 def handle_global_commands(
     scheduler: AsyncIOScheduler,
@@ -98,8 +103,9 @@ def handle_global_commands(
 ):
     @router.message(Command(bot_command_names.start), HasChatState())
     async def start(message: Message, chat_state: ChatState):
+        chat_state.is_active = True
+        await save_state(chat_state)
         await get_help(message=message, chat_state=chat_state, i18n=i18n)
-
         # Register user if it is personal message
         if message.chat.type == "private":
             username = message.from_user.username if message.from_user else None
@@ -119,10 +125,22 @@ def handle_global_commands(
 
     @router.message(Command(bot_command_names.help), HasChatState())
     async def get_help(message: Message, chat_state: ChatState, i18n: I18n):
+        if not await check_is_active(message, chat_state):
+            return
         await message.reply(make_help_message())
+
+    @router.message(Command("stop"), HasChatState())
+    async def stop(message: Message, chat_state: ChatState, i18n: I18n):
+        scheduler.remove_all_jobs()
+        chat_state.is_active = False
+        await save_state(chat_state)
+        await message.reply(_("All current scenarios have been stopped, and scheduled messages have been canceled."))
+
 
     @router.message(Command(bot_command_names.set_language), HasChatState())
     async def set_language(message: types.Message, chat_state: ChatState, i18n: I18n):
+        if not await check_is_active(message, chat_state):
+            return
         keyboard = InlineKeyboardMarkup(
             inline_keyboard=[
                 [
@@ -183,6 +201,8 @@ def handle_team_settings_commands(
     async def set_meetings_time(
         message: Message, message_text: str, chat_state: ChatState
     ):
+        if not await check_is_active(message, chat_state):
+            return
         meeting_time_str = message_text.split(" ", 1)
         topic_id = message.message_thread_id
 
@@ -248,6 +268,8 @@ def handle_personal_settings_commands(
         Command(bot_command_names.join), HasMessageUserUsername(), HasChatState()
     )
     async def subscribe(message: Message, username: str, chat_state: ChatState):
+        if not await check_is_active(message, chat_state):
+            return
         user = await get_user(chat_state, username)
         if user.is_joined:
             await message.reply(
@@ -273,6 +295,8 @@ def handle_personal_settings_commands(
         Command(bot_command_names.skip), HasMessageUserUsername(), HasChatState()
     )
     async def unsubscribe(message: Message, username: str, chat_state: ChatState):
+        if not await check_is_active(message, chat_state):
+            return
         user = await get_user(chat_state, username)
         if user.is_joined:
             user.is_joined = False
@@ -304,6 +328,8 @@ def handle_personal_settings_commands(
     async def set_personal_meetings_days(
         message: Message, username: str, message_text: str, chat_state: ChatState
     ):
+        if not await check_is_active(message, chat_state):
+            return
         try:
             msg_spt = message_text.split()
             if len(msg_spt) == 1:
@@ -363,6 +389,8 @@ def handle_personal_settings_commands(
     async def set_reminder_period(
         message: Message, username: str, message_text: str, chat_state: ChatState
     ):
+        if not await check_is_active(message, chat_state):
+            return
         try:
             period_minutes = int(message_text.split(" ", 1)[1])
             if period_minutes <= 0:
@@ -434,6 +462,8 @@ def handle_info_commands(
 
     @router.message(Command(bot_command_names.reset), HasChatState())
     async def reset(message: Message, chat_state: ChatState):
+        if not await check_is_active(message, chat_state):
+            return
         await reset_state(chat_state)
         await message.reply(_("The state has been successfully reset. Use the /get_chat_state command "
                               "to view the current state."))
@@ -441,6 +471,8 @@ def handle_info_commands(
 
     @router.message(Command(bot_command_names.get_report), HasChatState())
     async def get_report(message: Message, chat_state: ChatState):
+        if not await check_is_active(message, chat_state):
+            return
         questions = make_daily_messages("")
 
         responses_by_topic = {i: [] for i in range(len(questions))}
