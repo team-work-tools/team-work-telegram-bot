@@ -1,5 +1,4 @@
 from typing import List, Tuple, Dict
-from collections import Counter
 from datetime import datetime, time, timedelta
 from zoneinfo import ZoneInfo
 
@@ -77,7 +76,7 @@ class Interval(BaseModel):
         except ValueError:
             raise InvalidTimeFormatException(time_str)
 
-    def convert_to_timezone(self, new_tz: str, shift: int) -> Tuple[datetime, datetime]:
+    def convert_to_timezone(self, new_tz: str, shift: int = 0) -> Tuple[datetime, datetime]:
         self.validate_zone(new_tz)
 
         hour_delta = timedelta(hours=shift)
@@ -182,10 +181,6 @@ class DaySchedule(BaseModel):
     def is_empty(self):
         return not self.included and len(self.intervals) == 0
 
-    @staticmethod
-    def is_workday(day: str) -> bool:
-        return day not in {"Saturday", "Sunday"}
-
     def __hash__(self):
         return hash(self.name)
 
@@ -199,3 +194,16 @@ class DaySchedule(BaseModel):
 
 def schedule_is_empty(schedule: Dict[str, DaySchedule]) -> bool:
     return all(weekday.is_empty() for weekday in schedule.values())
+
+
+def is_working_time(schedule: Dict[str, DaySchedule], meeting_day: str, meeting_time: time) -> bool:
+    if not schedule[meeting_day].included:
+        return False
+
+    for interval in schedule[meeting_day].intervals:
+        st, end = interval.convert_to_timezone(interval.tz)
+        st, end = st.time().replace(tzinfo=None), end.time().replace(tzinfo=None)
+        if st <= meeting_time <= end:
+            return True
+
+    return False
