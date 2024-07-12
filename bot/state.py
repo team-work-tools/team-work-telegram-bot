@@ -16,7 +16,6 @@ class ChatUser(BaseModel):
     is_joined: bool = False
     time_zone: str = default_time_zone
 
-    meeting_days: set[int] = set(range(0, 5))  # default value - [0 - 4] = Monday - Friday
     non_replied_daily_msgs: set[int] = set(range(0, 3))
 
     reminder_period: Optional[int] = None

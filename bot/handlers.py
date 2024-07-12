@@ -9,8 +9,7 @@ from aiogram.utils.i18n import gettext as _
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from .commands import bot_command_names
-from .constants import (day_of_week_to_num, day_of_week_pretty, iso8601,
-                        sample_time, time_url)
+from .constants import (day_of_week_pretty, iso8601, sample_time, time_url)
 from .custom_types import SendMessage
 from .filters import HasChatState, HasMessageText, HasMessageUserUsername, IsReplyToMeetingMessage
 from .meeting import schedule_meeting
@@ -208,64 +207,6 @@ def handle_personal_settings_commands(
                 dedent(
                     _("You've not yet joined, @{username}!").format(
                         username=username
-                    )
-                )
-            )
-
-    @router.message(
-        Command(bot_command_names.set_personal_meetings_days), HasMessageUserUsername(), HasMessageText(), HasChatState()
-    )
-    async def set_personal_meetings_days(
-            message: Message, username: str, message_text: str, chat_state: ChatState
-    ):
-        try:
-            msg_spt = message_text.split()
-            if len(msg_spt) == 1:
-                raise Exception
-
-            meeting_days_str = " ".join(msg_spt[1:])
-            day_tokens = meeting_days_str.replace(",", " ").lower().split()
-
-            days_num: set[int] = set()
-
-            for token in day_tokens:
-                if not token:
-                    continue
-
-                if "-" in token:
-                    start_day, end_day = token.split("-")
-                    start_num = day_of_week_to_num[start_day]
-                    end_num = day_of_week_to_num[end_day]
-                    days_num.update(range(start_num, end_num + 1))
-                else:
-                    days_num.add(day_of_week_to_num[token])
-
-            user = await get_user(chat_state, username)
-            user.meeting_days = days_num
-            await save_state(chat_state)
-
-            await message.reply(
-                _(
-                    "OK, from now you will only receive messages on {meeting_days}."
-                ).format(
-                    meeting_days=html.bold(", ".join(day_tokens))
-                )
-            )
-        except Exception:
-            await message.reply(
-                dedent(
-                    _(
-                        """
-                        Please indicate your personal working days.
-
-                        You should use "," or " " as a separator.
-
-                        Example:
-
-                        /{set_personal_meetings_days} Monday-Wednesday, Friday 
-                        """
-                    ).format(
-                        set_personal_meetings_days=bot_command_names.set_personal_meetings_days
                     )
                 )
             )
