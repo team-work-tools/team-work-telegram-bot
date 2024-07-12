@@ -10,6 +10,7 @@ from .chat import ChatId
 from .constants import default_time_zone
 from .intervals import DaySchedule, default_schedule
 from .language import Language
+from .data_types import RecurringData
 
 
 class ChatUser(BaseModel):
@@ -64,6 +65,7 @@ class ChatState(Document):
     topic_id: Optional[int] = None
     chat_id: Annotated[ChatId, Indexed(index_type=pymongo.ASCENDING)]
     users: Dict[str, ChatUser] = dict()
+    recurring_messages: Dict[str, RecurringData] = dict()
 
     meeting_time: Optional[datetime] = None
     meeting_msg_ids: list[int] = []

@@ -6,6 +6,7 @@ from aiogram import Bot, Router, html, types
 from aiogram.enums import ParseMode
 from aiogram.enums.chat_type import ChatType
 from aiogram.filters.command import Command
+from aiogram.fsm.context import FSMContext
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from aiogram.utils.i18n import I18n
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
@@ -22,8 +23,10 @@ from .filters import (
 from .i18n import _
 from .intervals import pretty_weekdays, schedule_is_empty
 from .language import CallbackData, InlineKeyboardButtonName, Language, all_languages
+from .fsm_states import RecurringAddingState
 from .meeting import schedule_meeting
 from .messages import make_chat_state_messages, make_daily_messages, make_help_message
+from .recurring_message import handle_recurring_message, update_recurring_message
 from .reminder import update_reminders
 from .state import (
     ChatState,
@@ -64,6 +67,10 @@ def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage, bot: Bot
 
     handle_user_responses(scheduler=scheduler, send_message=send_message, router=router)
 
+    handle_recurring_message(
+        scheduler=scheduler, send_message=send_message, router=router, bot=bot
+    )
+
     return router
 
 
@@ -103,6 +110,18 @@ def handle_global_commands(
                 username=username,
                 scheduler=scheduler,
                 send_message=send_message,
+            )
+
+            await update_recurring_message(
+                bot=bot,
+                scheduler=scheduler,
+                send_message=send_message,
+            )
+
+            await update_recurring_message(
+                bot=bot,
+                scheduler=scheduler,
+                send_message=send_message
             )
 
     @router.message(Command(bot_command_names.help), HasChatState())
@@ -254,6 +273,16 @@ def handle_team_settings_commands(
                 )
             )
 
+    @router.message(Command(bot_command_names.add_recurring_message), HasChatState())
+    async def add_recurring_message(message: Message, chat_state: ChatState, state: FSMContext):
+        await message.answer(
+            _("Send me the message title so that I can use it as the message identifier. The title must be a string in plain English (Allowed: Lowercase and uppercase letters, spaces). Length limit - {N} symbols.")
+            .format(
+                N=200  # todo: another number of symbols
+            )
+        )
+        await state.set_state(RecurringAddingState.EnterRecurringTitle)
+
 
 def handle_personal_settings_commands(
     scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router, bot: Bot
@@ -316,7 +345,7 @@ def handle_personal_settings_commands(
         HasChatState(),
     )
     async def set_reminder_period(
-        message: Message, username: str, message_text: str, chat_state: ChatState
+            message: Message, username: str, message_text: str, chat_state: ChatState
     ):
         try:
             period_minutes = int(message_text.split(" ", 1)[1])
@@ -429,7 +458,7 @@ def handle_info_commands(
 
 
 def handle_user_responses(
-    scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router
+        scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router
 ):
     @router.message(HasMessageUserUsername(), HasChatState(), IsReplyToMeetingMessage())
     async def set_meetings_time(
