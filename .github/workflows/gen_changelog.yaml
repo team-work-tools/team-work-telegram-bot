@@ -10,6 +10,8 @@ on:
     branches:
       - 146-create-changelog
 
+permissions:
+  contents: write
 
 # Определяет задачи, которые будут выполнены в рамках workflow
 jobs:
