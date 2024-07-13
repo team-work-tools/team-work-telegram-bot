@@ -1,6 +1,7 @@
 services:
   bot:
     tty: true
+    depends_on: [mongodb]
     build:
       dockerfile: Dockerfile
     env_file:
