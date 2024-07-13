@@ -5,6 +5,12 @@ from aiogram import Bot, Router, html
 from aiogram.enums import ParseMode
 from aiogram.filters.command import Command
 from aiogram.types import Message
+from aiogram.types import (
+    BotCommand,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    CallbackQuery,
+)
 from aiogram.utils.i18n import gettext as _
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
@@ -12,12 +18,24 @@ from .commands import bot_command_names
 from .constants import (day_of_week_to_num, day_of_week_pretty, iso8601,
                         sample_time, time_url)
 from .custom_types import SendMessage
+from aiogram.utils.i18n import I18n
+from .i18n import _
 from .filters import HasChatState, HasMessageText, HasMessageUserUsername, IsReplyToMeetingMessage
 from .meeting import schedule_meeting
 from .reminder import update_reminders
 from .messages import make_help_message
-from .state import ChatState, save_state, get_user, load_user_pm, create_user_pm, save_user_pm
-
+from .messages import make_daily_messages
+from .state import (
+    ChatState,
+    save_state,
+    reset_state,
+    load_state,
+    get_user,
+    load_user_pm,
+    create_user_pm,
+    save_user_pm,
+)
+from .language import Language, InlineKeyboardButtonName, CallbackData
 
 def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage, bot: Bot):
     router = Router()
@@ -44,6 +62,11 @@ def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage, bot: Bot
 
     return router
 
+async def check_is_active(message: Message, chat_state: ChatState):
+    if not chat_state.is_active:
+        await message.reply(_("The chat is currently stopped. Use /start to activate it."))
+        return False
+    return True
 
 def handle_global_commands(
         scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router, bot: Bot
@@ -73,6 +96,66 @@ def handle_global_commands(
     async def get_help(message: Message, chat_state: ChatState):
         await message.reply(make_help_message())
 
+    @router.message(Command("stop"), HasChatState())
+    async def stop(message: Message, chat_state: ChatState, i18n: I18n):
+        scheduler.remove_all_jobs()
+        chat_state.is_active = False
+        await save_state(chat_state)
+        await message.reply(_("All current scenarios have been stopped, and scheduled messages have been canceled."))
+
+    @router.message(Command(bot_command_names.set_language), HasChatState())
+    async def set_language(message: Message, chat_state: ChatState, i18n: I18n):
+        if not await check_is_active(message, chat_state):
+            return
+        keyboard = InlineKeyboardMarkup(
+            inline_keyboard=[
+                [
+                    InlineKeyboardButton(
+                        text=str(InlineKeyboardButtonName.en),
+                        callback_data=str(CallbackData.en),
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        text=str(InlineKeyboardButtonName.ru),
+                        callback_data=str(CallbackData.ru),
+                    )
+                ],
+            ]
+        )
+        await message.reply(
+            "🌐 Choose a language.\n🌐 Выбери язык.", reply_markup=keyboard
+        )
+
+    @router.callback_query(
+        lambda c: c.data == str(CallbackData.en) or c.data == str(CallbackData.ru)
+    )
+    async def process_callback_button_language(
+            callback_query: CallbackQuery, i18n: I18n
+    ):
+        match message := callback_query.message:
+            case Message():
+                chat_id = message.chat.id
+                chat_state = await load_state(
+                    chat_id=chat_id, topic_id=message.message_thread_id
+                )
+                new_language = (
+                    Language.en
+                    if callback_query.data == str(CallbackData.en)
+                    else Language.ru
+                )
+                chat_state.language = new_language
+                i18n.current_locale = str(new_language)
+
+                try:
+                    await save_state(chat_state)
+                    await callback_query.answer()
+                    await message.reply(_("English language selected!"))
+                except Exception as e:
+                    await callback_query.answer()
+                    await message.reply(
+                        _("Error saving language state: {error}").format(error=e)
+                    )
 
 def handle_team_settings_commands(
         scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router, bot: Bot
@@ -339,6 +422,38 @@ def handle_info_commands(
             parse_mode=ParseMode.HTML,
         )
 
+    @router.message(Command(bot_command_names.reset), HasChatState())
+    async def reset(message: Message, chat_state: ChatState):
+        if not await check_is_active(message, chat_state):
+            return
+        await reset_state(chat_state)
+        await message.reply(_("The state has been successfully reset. Use the /get_chat_state command "
+                              "to view the current state."))
+
+    @router.message(Command(bot_command_names.get_report), HasChatState())
+    async def get_report(message: Message, chat_state: ChatState):
+        if not await check_is_active(message, chat_state):
+            return
+        questions = make_daily_messages("")
+
+        responses_by_topic = {i: [] for i in range(len(questions))}
+
+        for username, user in chat_state.users.items():
+            for idx, response in user.responses.items():
+                if response:
+                    responses_by_topic[idx].append(f"@{username}: {response}")
+
+        report_message = "#Daily_Report\n\n"
+
+        for idx, question in enumerate(questions):
+            report_message += f"{question}\n"
+            if responses_by_topic[idx]:
+                report_message += "\n".join(responses_by_topic[idx]) + "\n"
+            else:
+                report_message += "No responses.\n"
+            report_message += "\n"
+
+        await message.reply(report_message.strip())
 
 def handle_user_responses(
     scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router
@@ -357,5 +472,9 @@ def handle_user_responses(
                 non_replied_msgs = user.non_replied_daily_msgs
 
                 if replied_meeting_msg_num in non_replied_msgs:
+                    user.responses[replied_meeting_msg_num] = message.text
                     non_replied_msgs.remove(replied_meeting_msg_num)
                     await save_state(chat_state)
+                    await message.reply(_("Your response has been recorded."))
+                else:
+                    await message.reply(_("You have already responded to this message or it is no longer valid."))
