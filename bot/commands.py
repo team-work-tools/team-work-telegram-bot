@@ -1,4 +1,4 @@
-from aiogram.utils.i18n import gettext as _
+from .i18n import _
 from pydantic import BaseModel
 
 from .language import Language
@@ -8,6 +8,7 @@ class BotCommands(BaseModel):
     # global commands
     start: str
     help: str
+    set_language: str
     stop: str
     cancel: str
     # team settings
@@ -26,6 +27,8 @@ class BotCommands(BaseModel):
     unschedule_personal_vacation: str
     # info
     get_chat_state: str
+    reset: str
+    get_report: str
 
 
 class BotCommandNames(BotCommands):
@@ -36,6 +39,7 @@ bot_command_names = BotCommandNames(
     # global commands
     start="start",
     help="help",
+    set_language="set_language",
     stop="stop",
     cancel="cancel",
     # team settings
@@ -54,6 +58,8 @@ bot_command_names = BotCommandNames(
     unschedule_personal_vacation="unschedule_personal_vacation",
     # info
     get_chat_state="get_chat_state",
+    reset="reset",
+    get_report="get_report"
 )
 
 
@@ -66,6 +72,7 @@ def bot_command_descriptions() -> BotCommandDescriptions:
         # global commands
         start=_("Enable me."),
         help=_("Get a help message."),
+        set_language=_("Set my interface language."),
         stop=_("Disable me."),
         cancel=_("Cancel the current operation with the bot."),
         # team settings
@@ -78,11 +85,15 @@ def bot_command_descriptions() -> BotCommandDescriptions:
         join=_("Join meetings."),
         skip=_("Skip meetings."),
         set_personal_meetings_days=_("Set the days when you can join meetings."),
-        set_reminder_period=_("Set how often you'll be reminded about unanswered questions."),
+        set_reminder_period=_(
+            "Set how often you'll be reminded about unanswered questions."
+        ),
         join_today=_("Join only today's meeting."),
         skip_today=_("Skip only today's meeting."),
         schedule_personal_vacation=_("Schedule a personal vacation."),
         unschedule_personal_vacation=_("Unschedule the personal vacation."),
         # info settings
         get_chat_state=_("Get the chat state that I store."),
+        reset=_("Reset the chat state."),
+        get_report=_("Get the report."),
     )
