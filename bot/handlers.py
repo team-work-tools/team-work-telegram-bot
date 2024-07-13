@@ -129,7 +129,7 @@ def handle_global_commands(
             return
         await message.reply(make_help_message())
 
-    @router.message(Command("stop"), HasChatState())
+    @router.message(Command(bot_command_names.stop), HasChatState())
     async def stop(message: Message, chat_state: ChatState, i18n: I18n):
         scheduler.remove_all_jobs()
         chat_state.is_active = False
