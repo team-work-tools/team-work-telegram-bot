@@ -1,9 +1,10 @@
 from typing import Dict
+from uuid import UUID
 
 from aiogram.utils.keyboard import InlineKeyboardBuilder, InlineKeyboardMarkup, InlineKeyboardButton
 
 from .callbacks import IntervalCallback, WeekdayCallback
-from .intervals import Interval, DaySchedule, DEFAULT_INTERVAL
+from .intervals import Interval, DaySchedule
 from .constants import days_array
 
 INCLUDED_1 = "✅"
@@ -19,19 +20,19 @@ REMOVE = "✖️"
 def get_interval_keyboard(interval: Interval, weekday: str, tz: str, shift: int) -> InlineKeyboardBuilder:
     builder = InlineKeyboardBuilder()
     interval_str = interval.to_string(tz=tz, shift=shift)
-    default_interval_str = DEFAULT_INTERVAL.to_string(tz=tz, shift=shift)
+    interval_uid = interval.id
 
     builder.button(
         text=interval_str,
-        callback_data=IntervalCallback(weekday=weekday, interval=interval_str, action='edit')
+        callback_data=IntervalCallback(weekday=weekday, interval=interval_uid, action='edit')
     )
     builder.button(
         text=REMOVE,
-        callback_data=IntervalCallback(weekday=weekday, interval=interval_str, action='remove')
+        callback_data=IntervalCallback(weekday=weekday, interval=interval_uid, action='remove')
     )
     builder.button(
         text=ADD,
-        callback_data=IntervalCallback(weekday=weekday, interval=default_interval_str, action='add')
+        callback_data=IntervalCallback(weekday=weekday, interval=interval_uid, action='add')
     )
     builder.adjust(3)
 
@@ -81,12 +82,12 @@ def get_schedule_options() -> InlineKeyboardMarkup:
     return builder.adjust(2).as_markup()
 
 
-def get_interval_edit_options(weekday: str, interval_str: str) -> InlineKeyboardMarkup:
+def get_interval_edit_options(weekday: str, interval_uid: UUID) -> InlineKeyboardMarkup:
     builder = InlineKeyboardBuilder()
 
     builder.button(
         text="Enter again",
-        callback_data=IntervalCallback(weekday=weekday, interval=interval_str, action='edit'))
+        callback_data=IntervalCallback(weekday=weekday, interval=interval_uid, action='edit'))
     builder.button(text="Cancel", callback_data="cancel_interval_edit")
 
     return builder.adjust(2).as_markup()

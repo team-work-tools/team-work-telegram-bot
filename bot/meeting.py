@@ -17,11 +17,23 @@ async def send_meeting_messages(chat_id: ChatId, topic_id: Optional[int], send_m
     chat_state = await load_state(chat_id=chat_id, topic_id=topic_id)
     current_day = datetime.now().weekday()
     current_day = days_array[current_day]
-    current_time = datetime.now().astimezone(ZoneInfo(chat_state.time_zone)).time().replace(second=0, microsecond=0)
+    current_time = datetime.now().astimezone(ZoneInfo(chat_state.time_zone)).time().replace(
+        second=0,
+        microsecond=0,
+        tzinfo=None
+    )
+
     await send_message(chat_id=chat_id, message=_("Meeting time!"), message_thread_id=topic_id)
-     
+
     joined_users = await get_joined_users(chat_state)
-    today_workers = [user for user in joined_users if is_working_time(user.schedule, current_day, current_time)]
+    today_workers = [user for user in joined_users if is_working_time(
+        schedule=user.schedule,
+        tz=user.time_zone,
+        shift=user.time_zone_shift,
+        meeting_day=current_day,
+        meeting_time=current_time
+    )]
+
     if not today_workers:
         await send_message(chat_id=chat_id, message=_("Nobody has joined the meeting!"), message_thread_id=topic_id)
     else:

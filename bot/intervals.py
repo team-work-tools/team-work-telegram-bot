@@ -1,3 +1,4 @@
+from uuid import UUID, uuid4
 from typing import List, Tuple, Dict
 from datetime import datetime, time, timedelta
 from zoneinfo import ZoneInfo
@@ -29,12 +30,13 @@ class InvalidIntervalException(IntervalException):
 
 
 IMMUTABLE_DATE = datetime(year=2024, month=1, day=1)
+DEFAULT_INTERVAL = "9:00 - 17:00"
 
 
 class Interval(BaseModel):
     start_time_utc: datetime
     end_time_utc: datetime
-    tz: str = "UTC"
+    id: UUID = uuid4()
 
     @staticmethod
     def validate_zone(tz: str):
@@ -59,7 +61,7 @@ class Interval(BaseModel):
         start_time_utc = cls.convert_to_utc(start_time) - hour_delta
         end_time_utc = cls.convert_to_utc(end_time) - hour_delta
 
-        return cls(start_time_utc=start_time_utc, end_time_utc=end_time_utc, tz=tz)
+        return cls(start_time_utc=start_time_utc, end_time_utc=end_time_utc)
 
     @staticmethod
     def convert_to_utc(local_time: datetime) -> datetime:
@@ -76,7 +78,7 @@ class Interval(BaseModel):
         except ValueError:
             raise InvalidTimeFormatException(time_str)
 
-    def convert_to_timezone(self, new_tz: str, shift: int = 0) -> Tuple[datetime, datetime]:
+    def convert_to_timezone(self, new_tz: str, shift: int) -> Tuple[datetime, datetime]:
         self.validate_zone(new_tz)
 
         hour_delta = timedelta(hours=shift)
@@ -105,7 +107,7 @@ class Interval(BaseModel):
         return self.to_string()
 
     def __repr__(self):
-        return f"Interval({self.to_string()}, tz={self.tz})"
+        return f"Interval({self.to_string()}, uid={self.id})"
 
     def overlaps_with(self, other):
         start_a = self.start_time_utc.time()
@@ -117,11 +119,6 @@ class Interval(BaseModel):
 
     @staticmethod
     def merge_intervals(intervals):
-        distinct_tzs = set([timezone(interval.tz).utcoffset(datetime.now()) for interval in intervals])
-
-        if len(distinct_tzs) != 1:
-            raise ValueError("Intervals have to have same timezone offset")
-
         if not intervals:
             return []
 
@@ -138,7 +135,6 @@ class Interval(BaseModel):
                 merged_intervals[-1] = Interval(
                     start_time_utc=min(last.start_time_utc, current.start_time_utc),
                     end_time_utc=max(last.end_time_utc, current.end_time_utc),
-                    tz=last.tz
                 )
             else:
                 merged_intervals.append(current)
@@ -146,7 +142,9 @@ class Interval(BaseModel):
         return merged_intervals
 
 
-DEFAULT_INTERVAL = Interval.from_string("9:00 - 17:00", "Europe/Moscow")
+def get_default_interval(tz: str, shift: int) -> Interval:
+    Interval.validate_zone(tz)
+    return Interval.from_string(DEFAULT_INTERVAL, tz, shift)
 
 
 class DaySchedule(BaseModel):
@@ -154,19 +152,25 @@ class DaySchedule(BaseModel):
     included: bool = False
     intervals: List[Interval] = []
 
-    def toggle_inclusion(self) -> None:
+    def toggle_inclusion(self, tz: str, shift: int) -> None:
         self.included = not self.included
         if self.included and len(self.intervals) == 0:
-            self.add_interval(DEFAULT_INTERVAL)
+            self.add_interval(get_default_interval(tz, shift))
 
     def add_interval(self, interval: Interval) -> None:
         self.intervals.append(interval)
 
-    def remove_interval(self, interval: Interval, ignore_inclusion=False) -> None:
+    def remove_interval(self, interval: Interval, tz: str, shift: int, ignore_inclusion=False) -> None:
         self.intervals.remove(interval)
         if not ignore_inclusion:
             if len(self.intervals) == 0 and self.included:
-                self.toggle_inclusion()
+                self.toggle_inclusion(tz, shift)
+
+    def get_interval(self, uid: UUID) -> Interval | None:
+        for interval in self.intervals:
+            if interval.id == uid:
+                return interval
+        return None
 
     def normalize_intervals(self):
         # Delete duplicates
@@ -196,14 +200,45 @@ def schedule_is_empty(schedule: Dict[str, DaySchedule]) -> bool:
     return all(weekday.is_empty() for weekday in schedule.values())
 
 
-def is_working_time(schedule: Dict[str, DaySchedule], meeting_day: str, meeting_time: time) -> bool:
+def is_working_time(
+        schedule: Dict[str, DaySchedule],
+        tz: str,
+        shift: int,
+        meeting_day: str,
+        meeting_time: time
+) -> bool:
     if not schedule[meeting_day].included:
         return False
 
     for interval in schedule[meeting_day].intervals:
-        st, end = interval.convert_to_timezone(interval.tz)
+        st, end = interval.convert_to_timezone(tz, shift)
         st, end = st.time().replace(tzinfo=None), end.time().replace(tzinfo=None)
         if st <= meeting_time <= end:
             return True
 
     return False
+
+
+def calculate_shift(old_tz: str, new_tz: str, old_shift: int, is_schedule_static: bool) -> int:
+    """Call this function every time you change the time zone.
+
+    Args:
+        old_tz (str): Previous user/chat time zone.
+        new_tz (str): New user/chat time zone.
+        old_shift (int): Previous time zone shift.
+        is_schedule_static (bool): True if user wants to keep intervals same after changing time zone, False otherwise.
+
+    Returns:
+        int: New time zone shift.
+    """
+    Interval.validate_zone(old_tz)
+    Interval.validate_zone(new_tz)
+
+    old_offset = datetime.now(ZoneInfo(old_tz)).utcoffset().total_seconds() // 3600
+    new_offset = datetime.now(ZoneInfo(new_tz)).utcoffset().total_seconds() // 3600
+    delta = int(old_offset - new_offset)
+
+    if is_schedule_static:
+        return old_shift + delta
+    else:
+        return old_shift

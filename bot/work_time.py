@@ -13,16 +13,27 @@ from .custom_types import SendMessage
 from .messages import make_interval_validation_message, make_interval_editing_instruction, make_interval_editing_error
 from .callbacks import IntervalCallback, WeekdayCallback
 from .fsm_states import IntervalEditingState
-from .intervals import Interval, schedule_is_empty
+from .intervals import Interval, schedule_is_empty, get_default_interval
 from .filters import HasChatState, HasMessageUserUsername
 from .keyboards import get_schedule_keyboard, get_schedule_options, get_interval_edit_options
-from .state import ChatState, save_state, get_user
+from .state import ChatState, ChatUser, save_state, get_user
 
 
 INTERVAL_PATTERN = r"^\d{1,2}:\d{2}\s*-\s*\d{1,2}:\d{2}$"
 
-# TODO: Consider the case: After changing timezone working interval changed from 22:00 - 00:00 to 23:00 - 01:00 (fix it)
-# TODO: Think how to extract duplicating code
+
+def get_schedule_by_mode(chat_state: ChatState, user: ChatUser):
+    mode = user.schedule_mode
+    if mode == "personal":
+        week_schedule = user.temp_schedule
+        tz = user.time_zone
+        shift = user.time_zone_shift
+    else:
+        week_schedule = chat_state.temp_schedule
+        tz = chat_state.time_zone
+        shift = chat_state.time_zone_shift
+
+    return week_schedule, tz, shift
 
 
 def handle_working_hours(
@@ -78,7 +89,7 @@ def handle_working_hours(
     ):
 
         weekday = callback_data.weekday
-        interval_str = callback_data.interval
+        interval_uid = callback_data.interval
 
         text = make_interval_editing_instruction()
 
@@ -90,7 +101,7 @@ def handle_working_hours(
         # Cache
         user = await get_user(chat_state, username)
         user.to_edit_weekday = weekday
-        user.to_edit_interval = interval_str
+        user.to_edit_interval = interval_uid
         user.to_delete_msg_ids.add(edit_message.message_id)
         await save_state(chat_state)
 
@@ -115,26 +126,19 @@ def handle_working_hours(
 
         # User entered one "valid" interval
         else:
-            mode = user.schedule_mode
-            if mode == "personal":
-                week_schedule = user.temp_schedule
-                tz = user.time_zone
-                shift = user.time_zone_shift
-            else:
-                week_schedule = chat_state.temp_schedule
-                tz = chat_state.time_zone
-                shift = chat_state.time_zone_shift
+            week_schedule, tz, shift = get_schedule_by_mode(chat_state=chat_state, user=user)
 
             weekday = user.to_edit_weekday
-            old_interval = user.to_edit_interval
+            old_interval_uid = user.to_edit_interval
+
             new_interval = parse_match[0]
-            is_valid, error_msg_text = make_interval_validation_message(interval_str=new_interval, tz=tz)
+            is_valid, error_msg_text = make_interval_validation_message(interval_str=new_interval, tz=tz, shift=shift)
 
             # Interval is valid
             if is_valid:
-                old_interval_obj = Interval.from_string(old_interval, tz, shift)
-                new_interval_obj = Interval.from_string(new_interval, tz, shift)
-                week_schedule[weekday].remove_interval(old_interval_obj, ignore_inclusion=True)
+                old_interval_obj = week_schedule[weekday].get_interval(uid=old_interval_uid)
+                new_interval_obj = Interval.from_string(interval_str=new_interval, tz=tz, shift=shift)
+                week_schedule[weekday].remove_interval(old_interval_obj, tz, shift, ignore_inclusion=True)
                 week_schedule[weekday].add_interval(new_interval_obj)
 
                 layout = get_schedule_keyboard(week_schedule, tz, shift)
@@ -157,7 +161,7 @@ def handle_working_hours(
                 return
 
         error_msg_text = make_interval_editing_error(error_msg=error_msg_text)
-        layout = get_interval_edit_options(weekday=user.to_edit_weekday, interval_str=user.to_edit_interval)
+        layout = get_interval_edit_options(weekday=user.to_edit_weekday, interval_uid=user.to_edit_interval)
         error_msg = await message.answer(text=error_msg_text, reply_markup=layout)
 
         user.to_delete_msg_ids.add(error_msg.message_id)
@@ -183,21 +187,12 @@ def handle_working_hours(
     async def add_interval(cb: CallbackQuery, callback_data: IntervalCallback, username: str, chat_state: ChatState):
 
         weekday = callback_data.weekday
-        interval_str = callback_data.interval
 
         user = await get_user(chat_state, username)
 
-        mode = user.schedule_mode
-        if mode == "personal":
-            week_schedule = user.temp_schedule
-            tz = user.time_zone
-            shift = user.time_zone_shift
-        else:
-            week_schedule = chat_state.temp_schedule
-            tz = chat_state.time_zone
-            shift = chat_state.time_zone_shift
+        week_schedule, tz, shift = get_schedule_by_mode(chat_state=chat_state, user=user)
 
-        interval = Interval.from_string(interval_str, tz)
+        interval = get_default_interval(tz=tz, shift=shift)
         week_schedule[weekday].add_interval(interval)
 
         layout = get_schedule_keyboard(week_schedule, tz, shift)
@@ -208,22 +203,14 @@ def handle_working_hours(
     async def remove_interval(cb: CallbackQuery, callback_data: IntervalCallback, username: str, chat_state: ChatState):
 
         weekday = callback_data.weekday
-        interval_str = callback_data.interval
+        interval_uid = callback_data.interval
 
         user = await get_user(chat_state, username)
 
-        mode = user.schedule_mode
-        if mode == "personal":
-            week_schedule = user.temp_schedule
-            tz = user.time_zone
-            shift = user.time_zone_shift
-        else:
-            week_schedule = chat_state.temp_schedule
-            tz = chat_state.time_zone
-            shift = chat_state.time_zone_shift
+        week_schedule, tz, shift = get_schedule_by_mode(chat_state=chat_state, user=user)
 
-        interval = Interval.from_string(interval_str, tz, shift)
-        week_schedule[weekday].remove_interval(interval)
+        interval = week_schedule[weekday].get_interval(interval_uid)
+        week_schedule[weekday].remove_interval(interval, tz, shift)
 
         layout = get_schedule_keyboard(week_schedule, tz, shift)
         await cb.message.edit_reply_markup(reply_markup=layout)
@@ -236,17 +223,9 @@ def handle_working_hours(
 
         user = await get_user(chat_state, username)
 
-        mode = user.schedule_mode
-        if mode == "personal":
-            week_schedule = user.temp_schedule
-            tz = user.time_zone
-            shift = user.time_zone_shift
-        else:
-            week_schedule = chat_state.temp_schedule
-            tz = chat_state.time_zone
-            shift = chat_state.time_zone_shift
+        week_schedule, tz, shift = get_schedule_by_mode(chat_state=chat_state, user=user)
 
-        week_schedule[weekday].toggle_inclusion()
+        week_schedule[weekday].toggle_inclusion(tz, shift)
 
         layout = get_schedule_keyboard(week_schedule, tz, shift)
         await cb.message.edit_reply_markup(reply_markup=layout)

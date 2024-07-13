@@ -9,6 +9,9 @@ from .commands import bot_command_descriptions, bot_command_names
 from .intervals import Interval, InvalidTimeFormatException, InvalidIntervalException
 
 
+DEFAULT_EDITING_INTERVAL = "19:00 - 22:30"
+
+
 def bot_intro():
     return _(
         """
@@ -56,9 +59,9 @@ def make_daily_messages(usernames: str) -> List[str]:
     ]
 
 
-def make_interval_validation_message(interval_str: str, tz: str) -> Tuple[bool, str]:
+def make_interval_validation_message(interval_str: str, tz: str, shift: int) -> Tuple[bool, str]:
     try:
-        interval = Interval.from_string(interval_str=interval_str, tz=tz)
+        interval = Interval.from_string(interval_str=interval_str, tz=tz, shift=shift)
         msg = _("Successfully parsed interval: {interval}").format(interval=interval)
         return True, msg
     except InvalidTimeFormatException as e:
@@ -81,7 +84,7 @@ def make_interval_editing_instruction() -> str:
     example_text = "Example: "
     note = "Notes:\nThe example provides an interval copyable by clicking or tapping it."
 
-    text = fmt.text(instruction_text, "\n", example_text, fmt.hcode("19:00 - 22:30"), "\n", note, sep="")
+    text = fmt.text(instruction_text, "\n", example_text, fmt.hcode(DEFAULT_EDITING_INTERVAL), "\n", note, sep="")
     return text
 
 

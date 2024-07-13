@@ -1,3 +1,4 @@
+from uuid import UUID
 from datetime import datetime
 from typing import Annotated, Optional, Dict, List
 
@@ -29,7 +30,7 @@ class ChatUser(BaseModel):
     schedule_msg: Optional[int] = None
     to_delete_msg_ids: set[int] = set()
     to_edit_weekday: Optional[str] = None
-    to_edit_interval: Optional[str] = None
+    to_edit_interval: Optional[UUID] = None
 
     def __hash__(self):
         return hash(self.username)
