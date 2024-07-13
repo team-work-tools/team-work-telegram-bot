@@ -43,8 +43,8 @@ jobs:
     - name: Commit Changelog
       # Команды для выполнения
       run: |  
-        git config --global user.name 'github-actions'
-        git config --global user.email 'github-actions@github.com'
+        git config --global user.name 'scruffyscarf'
+        git config --global user.email 'scruffyscarf@github.com'
         git add CHANGELOG.md
         git commit -m "Refreshed CHANGELOG.md"
         git push https://github.com/${{ github.repository }}.git HEAD:146-create-changelog
