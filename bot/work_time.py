@@ -274,8 +274,6 @@ def handle_working_hours(
             chat_state.temp_schedule = norm_schedule
             chat_state.schedule = chat_state.temp_schedule
             chat_state.temp_schedule = None
-            if schedule_is_empty(user.schedule):
-                user.schedule = chat_state.schedule
 
         user.schedule_mode = None
         user.schedule_msg = None
