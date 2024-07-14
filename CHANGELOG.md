@@ -203,6 +203,7 @@ All notable changes to this project will be documented in this file.
 - *(issues)* Update default labels
 - *(gen_changelog)* Fix instruction
 - *(gen_changelog)* Update
+- *(README.md)* Some changes
 
 ### 🚜 Refactor
 
