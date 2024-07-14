@@ -10,10 +10,10 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from pytz import utc
 
 from . import db, handlers
-from .commands import BotCommands
 from .constants import jobstore
 from .custom_types import ChatId, SendMessage
 from .meeting import schedule_meeting
+from .middlewares import GroupCommandFilterMiddleware
 from .settings import Settings
 from .state import ChatState
 
@@ -40,12 +40,6 @@ async def restore_scheduled_jobs(
             )
 
 
-async def on_startup():
-    bot_commands = [
-        BotCommands()
-    ]
-
-
 async def main(settings: Settings) -> None:
     await db.main(settings=settings)
 
@@ -62,6 +56,8 @@ async def main(settings: Settings) -> None:
 
     async def send_message(chat_id: ChatId, message: str, message_thread_id: Optional[int] = None):
         return await bot.send_message(chat_id=chat_id, text=message, message_thread_id=message_thread_id)
+
+    dp.update.outer_middleware(GroupCommandFilterMiddleware())
 
     scheduler = init_scheduler(settings=settings)
     await restore_scheduled_jobs(scheduler=scheduler, send_message=send_message)

@@ -8,7 +8,10 @@ from .state import ChatState, UserPM
 async def main(settings: Settings):
     # Create Motor client
     client = AsyncIOMotorClient(
-        f"{settings.mongo_host}://{settings.mongo_username}:{settings.mongo_password}@{settings.mongo_host}:{settings.mongo_port}"
+        # TODO enable user and password
+        # f"mongodb://{settings.mongo_username}:{settings.mongo_password}@{settings.mongo_host}:{settings.mongo_port}"
+        f"mongodb://{settings.mongo_host}:{settings.mongo_port}",
+        tz_aware=True
     )
 
     db = client["bot_states"]

@@ -1,4 +1,4 @@
-from aiogram import html
+from .intervals import DaySchedule
 
 ENCODING = "utf-8"
 
@@ -15,6 +15,10 @@ time_url = "https://time.lol"
 
 iso8601 = "ISO 8601"
 
+interval_format = "HH:MM or HH.MM"
+
+sample_interval = "9:00 - 17:00"
+
 datetime_time_format = "%H:%M %Y-%m-%d"
 
 day_of_week = "0-6"
@@ -26,3 +30,11 @@ day_of_week_to_num = {
 }
 
 sample_time = "2024-06-03T14:00:00+03:00"
+
+default_time_zone = "Europe/Moscow"
+
+days_array = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+
+empty_schedule = {day: DaySchedule(name=day) for day in days_array}
+
+default_user_schedule = empty_schedule
