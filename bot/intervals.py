@@ -1,4 +1,3 @@
-from pydantic import BaseModel, field_validator
 from uuid import UUID, uuid4
 from typing import List, Tuple, Dict
 from datetime import datetime, time, timedelta

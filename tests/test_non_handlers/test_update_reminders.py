@@ -2,7 +2,8 @@ import pytest
 from unittest.mock import AsyncMock
 
 from bot.reminder import update_reminders
-from tests.utils import *
+from bot.state import ChatState, save_state
+from tests.utils import TEST_USER, TEST_USER_2, register_2_users, set_meeting_time, set_reminder_period_2_users
 
 
 @pytest.mark.asyncio

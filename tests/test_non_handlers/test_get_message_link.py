@@ -1,5 +1,5 @@
 from bot.reminder import get_message_link
-from tests.utils import *
+from tests.utils import TEST_CHAT
 
 
 def test_get_message_link():
@@ -10,12 +10,12 @@ def test_get_message_link():
     assert get_message_link(chat_id=TEST_CHAT.id,
                             message_id=msg_id,
                             thread_id=None,
-                            chat_type="supergroup") == f"https://t.me/c/%s/%s" % (str(TEST_CHAT.id)[4:], msg_id)
+                            chat_type="supergroup") == "https://t.me/c/%s/%s" % (str(TEST_CHAT.id)[4:], msg_id)
 
     assert get_message_link(chat_id=TEST_CHAT.id,
                             message_id=msg_id,
                             thread_id=1,
-                            chat_type="supergroup") == f"https://t.me/c/%s/%s/%s" % (str(TEST_CHAT.id)[4:], msg_id, 1)
+                            chat_type="supergroup") == "https://t.me/c/%s/%s/%s" % (str(TEST_CHAT.id)[4:], msg_id, 1)
 
     assert get_message_link(chat_id=TEST_CHAT.id,
                             message_id=msg_id,
