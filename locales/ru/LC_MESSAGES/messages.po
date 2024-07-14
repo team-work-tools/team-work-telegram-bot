@@ -162,7 +162,7 @@ msgid ""
 msgstr ""
 "\n"
 "                        Увидимся позже, @{username}!\n"
-"                        Вы можете присоедениться при помощи команды "
+"                        Вы можете присоединиться при помощи команды "
 "/{command_join} .\n"
 "                        "
 
@@ -190,7 +190,7 @@ msgstr ""
 "\n"
 "                        Пожалуйста, укажите свои личные рабочие дни.\n"
 "\n"
-"                        Вам следует использовать \",\" или \" \" в качестве разделителя.\n"
+"                        Используйте \",\" или \" \" в качестве разделителя.\n"
 "\n"
 "                        Пример:\n"
 "\n"
@@ -215,7 +215,7 @@ msgid ""
 "@{username} I don't have access to your personal messages.\n"
 "Please write to @{bot_username} and type /start."
 msgstr ""
-"@{username}б У меня нет доступа к Вашим личным сообщениям.\n"
+"@{username}, у меня нет доступа к Вашим личным сообщениям.\n"
 "Пожалуйста, напишите @{bot_username} и введите /start."
 
 #: bot/handlers.py:407
@@ -276,7 +276,7 @@ msgstr "Настройки чата"
 
 #: bot/messages.py:54
 msgid "What did you do last working day? {usernames}"
-msgstr "Что Вы делали вчераб @{username}?"
+msgstr "Что Вы делали вчера, @{username}?"
 
 #: bot/messages.py:55
 msgid "What will you do today? {usernames}"
