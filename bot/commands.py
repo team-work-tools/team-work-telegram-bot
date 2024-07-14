@@ -18,6 +18,7 @@ class BotCommands(BaseModel):
     # personal settings
     join: str
     skip: str
+    set_personal_time_zone: str
     set_personal_meetings_days: str
     set_reminder_period: str
     join_today: str
@@ -26,6 +27,7 @@ class BotCommands(BaseModel):
     unschedule_personal_vacation: str
     # info
     get_chat_state: str
+    guess_time_zone: str
 
 
 class BotCommandNames(BotCommands):
@@ -40,12 +42,13 @@ bot_command_names = BotCommandNames(
     cancel="cancel",
     # team settings
     set_up_meetings="set_up_meetings",
-    set_meetings_time_zone="set_meetings_time_zone",
+    set_meetings_time_zone="set_time_zone",
     set_meetings_time="set_meetings_time",
     set_meetings_days="set_meetings_days",
     # personal settings
     join="join",
     skip="skip",
+    set_personal_time_zone="set_personal_time_zone",
     set_personal_meetings_days="set_personal_meetings_days",
     set_reminder_period="set_reminder_period",
     join_today="join_today",
@@ -54,6 +57,7 @@ bot_command_names = BotCommandNames(
     unschedule_personal_vacation="unschedule_personal_vacation",
     # info
     get_chat_state="get_chat_state",
+    guess_time_zone="guess_time_zone"
 )
 
 
@@ -71,6 +75,7 @@ def bot_command_descriptions() -> BotCommandDescriptions:
         # team settings
         set_up_meetings=_("Set up regular meetings."),
         # TODO use the time zone
+        set_personal_time_zone=_("Set personal time zone."),
         set_meetings_time_zone=_("Set meetings time zone."),
         set_meetings_time=_("Set meetings time."),
         set_meetings_days=_("Set meetings days."),
@@ -85,4 +90,5 @@ def bot_command_descriptions() -> BotCommandDescriptions:
         unschedule_personal_vacation=_("Unschedule the personal vacation."),
         # info settings
         get_chat_state=_("Get the chat state that I store."),
+        guess_time_zone=_("Get a list of possible time zones based on the given current time.")
     )
