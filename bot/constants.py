@@ -37,4 +37,4 @@ days_array = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
 
 empty_schedule = {day: DaySchedule(name=day) for day in days_array}
 
-default_user_schedule = empty_schedule
+default_schedule = empty_schedule

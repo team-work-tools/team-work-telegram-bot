@@ -1,9 +1,11 @@
+from uuid import UUID
+
 from aiogram.filters.callback_data import CallbackData
 
 
 class IntervalCallback(CallbackData, prefix="interval", sep="|"):
     weekday: str
-    interval: str
+    interval: UUID
     action: str  # add, remove, edit
 
 
