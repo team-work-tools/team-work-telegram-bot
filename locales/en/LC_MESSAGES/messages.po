@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-07-14 19:35+0300\n"
+"POT-Creation-Date: 2024-07-14 22:18+0300\n"
 "PO-Revision-Date: 2024-05-11 19:53+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -19,58 +19,48 @@ msgstr ""
 "Generated-By: Babel 2.14.0\n"
 
 #: bot/commands.py:85
-#, fuzzy
 msgid "Enable me."
-msgstr "enable me"
+msgstr ""
 
 #: bot/commands.py:86
-#, fuzzy
 msgid "Get a help message."
-msgstr "get this help message"
+msgstr ""
 
 #: bot/commands.py:87
-#, fuzzy
 msgid "Disable me."
-msgstr "enable me"
+msgstr ""
 
 #: bot/commands.py:88
 msgid "Cancel the current operation with the bot."
 msgstr ""
 
 #: bot/commands.py:90
-#, fuzzy
 msgid "Set up regular meetings."
-msgstr "set the meeting start time and date"
+msgstr ""
 
 #: bot/commands.py:92
-#, fuzzy
 msgid "Set personal time zone."
-msgstr "set the meeting start time and date"
+msgstr ""
 
 #: bot/commands.py:93
-#, fuzzy
 msgid "Set meetings time zone."
-msgstr "set the meeting start time and date"
+msgstr ""
 
 #: bot/commands.py:94
-#, fuzzy
 msgid "Set meetings time."
-msgstr "set the meeting start time and date"
+msgstr ""
 
 #: bot/commands.py:95
-#, fuzzy
 msgid "Set meetings days."
-msgstr "set the meeting start time and date"
+msgstr ""
 
 #: bot/commands.py:97
-#, fuzzy
 msgid "Join meetings."
-msgstr "set the meeting start time and date"
+msgstr ""
 
 #: bot/commands.py:98
-#, fuzzy
 msgid "Skip meetings."
-msgstr "set the meeting start time and date"
+msgstr ""
 
 #: bot/commands.py:99
 msgid "Set the days when you can join meetings."
@@ -81,9 +71,8 @@ msgid "Set how often you'll be reminded about unanswered questions."
 msgstr ""
 
 #: bot/commands.py:101
-#, fuzzy
 msgid "Join only today's meeting."
-msgstr "set the meeting start time and date"
+msgstr ""
 
 #: bot/commands.py:102
 msgid "Skip only today's meeting."
@@ -101,15 +90,15 @@ msgstr ""
 msgid "Get the chat state that I store."
 msgstr ""
 
-#: bot/handlers.py:146
+#: bot/handlers.py:150
 msgid "Chat default time zone is successfully set to {time_zone}"
 msgstr ""
 
-#: bot/handlers.py:151
+#: bot/handlers.py:155
 msgid "Such time zone does not exist, please chack the spelling"
 msgstr ""
 
-#: bot/handlers.py:171
+#: bot/handlers.py:175
 msgid ""
 "\n"
 "                        Please write the meetings time in the hh:mm "
@@ -120,19 +109,17 @@ msgid ""
 "                        "
 msgstr ""
 
-#: bot/handlers.py:230
+#: bot/handlers.py:234
 msgid ""
 "OK, we'll meet at {meeting_time} on {week_days} starting not earlier than"
 " on {start_date}!"
 msgstr ""
-"OK, we'll meet at {meeting_time} on {week_days} starting not earlier than"
-" on {start_date}!"
 
-#: bot/handlers.py:323
+#: bot/handlers.py:327
 msgid "You've already joined, @{username}!"
-msgstr "You've already joined, @{username}!"
+msgstr ""
 
-#: bot/handlers.py:331
+#: bot/handlers.py:335
 msgid ""
 "\n"
 "                        You've just joined, @{username}!\n"
@@ -142,7 +129,7 @@ msgid ""
 "                        "
 msgstr ""
 
-#: bot/handlers.py:353
+#: bot/handlers.py:357
 msgid ""
 "\n"
 "                        See you later, @{username}!\n"
@@ -151,16 +138,15 @@ msgid ""
 "                        "
 msgstr ""
 
-#: bot/handlers.py:365
-#, fuzzy
+#: bot/handlers.py:369
 msgid "You've not yet joined, @{username}!"
-msgstr "You've not joined anyway, @{username}!"
+msgstr ""
 
-#: bot/handlers.py:404
+#: bot/handlers.py:408
 msgid "OK, from now you will only receive messages on {meeting_days}."
 msgstr ""
 
-#: bot/handlers.py:413
+#: bot/handlers.py:417
 msgid ""
 "\n"
 "                        Please indicate your personal working days.\n"
@@ -174,17 +160,17 @@ msgid ""
 "                        "
 msgstr ""
 
-#: bot/handlers.py:445
+#: bot/handlers.py:449
 msgid "Reminder period set to {period} minutes"
 msgstr ""
 
-#: bot/handlers.py:471
+#: bot/handlers.py:475
 msgid ""
 "@{username} I don't have access to your personal messages.\n"
 "Please write to @{bot_username} and type /start."
 msgstr ""
 
-#: bot/handlers.py:483
+#: bot/handlers.py:487
 msgid ""
 "\n"
 "                        Please indicate the reminder period in minutes.\n"
@@ -195,17 +181,33 @@ msgid ""
 "                        "
 msgstr ""
 
+#: bot/handlers.py:566
+msgid "{0}"
+msgstr ""
+
+#: bot/handlers.py:581
+msgid "task successfully created {0}"
+msgstr ""
+
+#: bot/handlers.py:594 bot/handlers.py:617 bot/handlers.py:640
+msgid ""
+"\n"
+"Send number of task you want to modify in reply to this message\n"
+"\n"
+"Task numbers are:\n"
+"{tasks}\n"
+"                    "
+msgstr ""
+
 #: bot/meeting.py:21
-#, fuzzy
 msgid "Meeting time!"
-msgstr "set the meeting start time and date"
+msgstr ""
 
 #: bot/meeting.py:40
 msgid "Nobody has joined the meeting!"
 msgstr ""
 
 #: bot/messages.py:15
-#, fuzzy
 msgid ""
 "\n"
 "        I can help you conduct daily (or at least regular) meetings.\n"
@@ -213,11 +215,6 @@ msgid ""
 "        You can control me by sending these commands:\n"
 "        "
 msgstr ""
-"\n"
-"        I can help you conduct Daily meetings.\n"
-"\n"
-"        You can control me by sending these commands:\n"
-"        "
 
 #: bot/messages.py:32
 msgid "Global commands"
@@ -240,19 +237,16 @@ msgid "Chat information commands"
 msgstr ""
 
 #: bot/messages.py:64
-#, fuzzy
 msgid "What did you do last working day? {usernames}"
-msgstr "@{username}, what did you do last working day?"
+msgstr ""
 
 #: bot/messages.py:65
-#, fuzzy
 msgid "What will you do today? {usernames}"
-msgstr "@{username}, what will you do today?"
+msgstr ""
 
 #: bot/messages.py:66
-#, fuzzy
 msgid "What (if anything) is blocking your progress? {usernames}"
-msgstr "@{username}, what (if anything) is blocking your progress?"
+msgstr ""
 
 #: bot/reminder.py:78
 msgid ""
@@ -681,5 +675,436 @@ msgstr ""
 #~ "                        See you later, @{username}!\n"
 #~ "                        You can join via the /{command_join} command.\n"
 #~ "                        "
+#~ msgstr ""
+
+#~ msgid ""
+#~ "\n"
+#~ "                    Send number of task "
+#~ "you want to modify in reply to "
+#~ "this message\n"
+#~ "\n"
+#~ "                    Task numbers are:\n"
+#~ "                    {tasks}\n"
+#~ "                    "
+#~ msgstr ""
+
+#~ msgid "Send new task text in reply to this message"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Send new task deadline in reply to this message\n"
+#~ "the format is dd.mm.yyyy HH:MM"
+#~ msgstr ""
+
+#~ msgid "Enable me."
+#~ msgstr "enable me"
+
+#~ msgid "Get a help message."
+#~ msgstr "get this help message"
+
+#~ msgid "Disable me."
+#~ msgstr "enable me"
+
+#~ msgid "Cancel the current operation with the bot."
+#~ msgstr ""
+
+#~ msgid "Set up regular meetings."
+#~ msgstr "set the meeting start time and date"
+
+#~ msgid "Set personal time zone."
+#~ msgstr "set the meeting start time and date"
+
+#~ msgid "Set meetings time zone."
+#~ msgstr "set the meeting start time and date"
+
+#~ msgid "Set meetings time."
+#~ msgstr "set the meeting start time and date"
+
+#~ msgid "Set meetings days."
+#~ msgstr "set the meeting start time and date"
+
+#~ msgid "Join meetings."
+#~ msgstr "set the meeting start time and date"
+
+#~ msgid "Skip meetings."
+#~ msgstr "set the meeting start time and date"
+
+#~ msgid "Set the days when you can join meetings."
+#~ msgstr ""
+
+#~ msgid "Set how often you'll be reminded about unanswered questions."
+#~ msgstr ""
+
+#~ msgid "Join only today's meeting."
+#~ msgstr "set the meeting start time and date"
+
+#~ msgid "Skip only today's meeting."
+#~ msgstr ""
+
+#~ msgid "Schedule a personal vacation."
+#~ msgstr ""
+
+#~ msgid "Unschedule the personal vacation."
+#~ msgstr ""
+
+#~ msgid "Get the chat state that I store."
+#~ msgstr ""
+
+#~ msgid "Chat default time zone is successfully set to {time_zone}"
+#~ msgstr ""
+
+#~ msgid "Such time zone does not exist, please chack the spelling"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "\n"
+#~ "                        Please write the "
+#~ "meetings time in the hh:mm format.\n"
+#~ ""
+#~ "                        \n"
+#~ "                        Example:\n"
+#~ "                        /{set_meetings_time} {sample_time}\n"
+#~ "                        "
+#~ msgstr ""
+
+#~ msgid ""
+#~ "OK, we'll meet at {meeting_time} on "
+#~ "{week_days} starting not earlier than on"
+#~ " {start_date}!"
+#~ msgstr ""
+#~ "OK, we'll meet at {meeting_time} on "
+#~ "{week_days} starting not earlier than on"
+#~ " {start_date}!"
+
+#~ msgid "You've already joined, @{username}!"
+#~ msgstr "You've already joined, @{username}!"
+
+#~ msgid ""
+#~ "\n"
+#~ "                        You've just joined, @{username}!\n"
+#~ "                        \n"
+#~ "                        You can skip meetings"
+#~ " via the /{command_skip} command.\n"
+#~ "                        "
+#~ msgstr ""
+
+#~ msgid ""
+#~ "\n"
+#~ "                        See you later, @{username}!\n"
+#~ "                        \n"
+#~ "                        You can join via the /{command_join} command.\n"
+#~ "                        "
+#~ msgstr ""
+
+#~ msgid "You've not yet joined, @{username}!"
+#~ msgstr "You've not joined anyway, @{username}!"
+
+#~ msgid "OK, from now you will only receive messages on {meeting_days}."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "\n"
+#~ "                        Please indicate your personal working days.\n"
+#~ "\n"
+#~ "                        You should use \",\" or \" \" as a separator.\n"
+#~ "\n"
+#~ "                        Example:\n"
+#~ "\n"
+#~ "                        /{set_personal_meetings_days} "
+#~ "Monday-Wednesday, Friday \n"
+#~ "                        "
+#~ msgstr ""
+
+#~ msgid "Reminder period set to {period} minutes"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "@{username} I don't have access to your personal messages.\n"
+#~ "Please write to @{bot_username} and type /start."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "\n"
+#~ "                        Please indicate the "
+#~ "reminder period in minutes.\n"
+#~ "\n"
+#~ "                        Example:\n"
+#~ "\n"
+#~ "                        /{set_reminder_period} 30\n"
+#~ "                        "
+#~ msgstr ""
+
+#~ msgid "{0}"
+#~ msgstr ""
+
+#~ msgid "task successfully created {0}"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "\n"
+#~ "Send number of task you want to modify in reply to this message\n"
+#~ "\n"
+#~ "Task numbers are:\n"
+#~ "{tasks}\n"
+#~ "                    "
+#~ msgstr ""
+
+#~ msgid "Meeting time!"
+#~ msgstr "set the meeting start time and date"
+
+#~ msgid "Nobody has joined the meeting!"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "\n"
+#~ "        I can help you conduct daily (or at least regular) meetings.\n"
+#~ "\n"
+#~ "        You can control me by sending these commands:\n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "        I can help you conduct Daily meetings.\n"
+#~ "\n"
+#~ "        You can control me by sending these commands:\n"
+#~ "        "
+
+#~ msgid "Global commands"
+#~ msgstr ""
+
+#~ msgid "Team settings commands"
+#~ msgstr ""
+
+#~ msgid "Personal settings commands"
+#~ msgstr ""
+
+#~ msgid "Task related commands"
+#~ msgstr ""
+
+#~ msgid "Chat information commands"
+#~ msgstr ""
+
+#~ msgid "What did you do last working day? {usernames}"
+#~ msgstr "@{username}, what did you do last working day?"
+
+#~ msgid "What will you do today? {usernames}"
+#~ msgstr "@{username}, what will you do today?"
+
+#~ msgid "What (if anything) is blocking your progress? {usernames}"
+#~ msgstr "@{username}, what (if anything) is blocking your progress?"
+
+#~ msgid ""
+#~ "\n"
+#~ "                            {username}, please "
+#~ "unblock {bot_username} (it's me) in our"
+#~ " private chat\n"
+#~ "                            so that I can "
+#~ "send you reminders about missed daily"
+#~ " meeting questions.\n"
+#~ "                            "
+#~ msgstr ""
+
+#~ msgid "{editor}: Editing failed"
+#~ msgstr ""
+
+#~ msgid "{editor}: Editing failed: {e}"
+#~ msgstr ""
+
+#~ msgid "Aborted!"
+#~ msgstr ""
+
+#~ msgid "Show this message and exit."
+#~ msgstr ""
+
+#~ msgid "(Deprecated) {text}"
+#~ msgstr ""
+
+#~ msgid "Options"
+#~ msgstr ""
+
+#~ msgid "Got unexpected extra argument ({args})"
+#~ msgid_plural "Got unexpected extra arguments ({args})"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#~ msgid "DeprecationWarning: The command {name!r} is deprecated."
+#~ msgstr ""
+
+#~ msgid "Commands"
+#~ msgstr ""
+
+#~ msgid "Missing command."
+#~ msgstr ""
+
+#~ msgid "No such command {name!r}."
+#~ msgstr ""
+
+#~ msgid "Value must be an iterable."
+#~ msgstr ""
+
+#~ msgid "Takes {nargs} values but 1 was given."
+#~ msgid_plural "Takes {nargs} values but {len} were given."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#~ msgid "env var: {var}"
+#~ msgstr ""
+
+#~ msgid "(dynamic)"
+#~ msgstr ""
+
+#~ msgid "default: {default}"
+#~ msgstr ""
+
+#~ msgid "required"
+#~ msgstr ""
+
+#~ msgid "%(prog)s, version %(version)s"
+#~ msgstr ""
+
+#~ msgid "Show the version and exit."
+#~ msgstr ""
+
+#~ msgid "Error: {message}"
+#~ msgstr ""
+
+#~ msgid "Try '{command} {option}' for help."
+#~ msgstr ""
+
+#~ msgid "Invalid value: {message}"
+#~ msgstr ""
+
+#~ msgid "Invalid value for {param_hint}: {message}"
+#~ msgstr ""
+
+#~ msgid "Missing argument"
+#~ msgstr ""
+
+#~ msgid "Missing option"
+#~ msgstr ""
+
+#~ msgid "Missing parameter"
+#~ msgstr ""
+
+#~ msgid "Missing {param_type}"
+#~ msgstr ""
+
+#~ msgid "Missing parameter: {param_name}"
+#~ msgstr ""
+
+#~ msgid "No such option: {name}"
+#~ msgstr ""
+
+#~ msgid "Did you mean {possibility}?"
+#~ msgid_plural "(Possible options: {possibilities})"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#~ msgid "unknown error"
+#~ msgstr ""
+
+#~ msgid "Could not open file {filename!r}: {message}"
+#~ msgstr ""
+
+#~ msgid "Usage:"
+#~ msgstr ""
+
+#~ msgid "Argument {name!r} takes {nargs} values."
+#~ msgstr ""
+
+#~ msgid "Option {name!r} does not take a value."
+#~ msgstr ""
+
+#~ msgid "Option {name!r} requires an argument."
+#~ msgid_plural "Option {name!r} requires {nargs} arguments."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#~ msgid "Shell completion is not supported for Bash versions older than 4.4."
+#~ msgstr ""
+
+#~ msgid "Couldn't detect Bash version, shell completion is not supported."
+#~ msgstr ""
+
+#~ msgid "Repeat for confirmation"
+#~ msgstr ""
+
+#~ msgid "Error: The value you entered was invalid."
+#~ msgstr ""
+
+#~ msgid "Error: {e.message}"
+#~ msgstr ""
+
+#~ msgid "Error: The two entered values do not match."
+#~ msgstr ""
+
+#~ msgid "Error: invalid input"
+#~ msgstr ""
+
+#~ msgid "Press any key to continue..."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Choose from:\n"
+#~ "\t{choices}"
+#~ msgstr ""
+
+#~ msgid "{value!r} is not {choice}."
+#~ msgid_plural "{value!r} is not one of {choices}."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#~ msgid "{value!r} does not match the format {format}."
+#~ msgid_plural "{value!r} does not match the formats {formats}."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#~ msgid "{value!r} is not a valid {number_type}."
+#~ msgstr ""
+
+#~ msgid "{value} is not in the range {range}."
+#~ msgstr ""
+
+#~ msgid "{value!r} is not a valid boolean."
+#~ msgstr ""
+
+#~ msgid "{value!r} is not a valid UUID."
+#~ msgstr ""
+
+#~ msgid "file"
+#~ msgstr ""
+
+#~ msgid "directory"
+#~ msgstr ""
+
+#~ msgid "path"
+#~ msgstr ""
+
+#~ msgid "{name} {filename!r} does not exist."
+#~ msgstr ""
+
+#~ msgid "{name} {filename!r} is a file."
+#~ msgstr ""
+
+#~ msgid "{name} '{filename}' is a directory."
+#~ msgstr ""
+
+#~ msgid "{name} {filename!r} is not readable."
+#~ msgstr ""
+
+#~ msgid "{name} {filename!r} is not writable."
+#~ msgstr ""
+
+#~ msgid "{name} {filename!r} is not executable."
+#~ msgstr ""
+
+#~ msgid "{len_type} values are required, but {len_value} was given."
+#~ msgid_plural "{len_type} values are required, but {len_value} were given."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#~ msgid "argument \"-\" with mode %r"
+#~ msgstr ""
+
+#~ msgid "can't open '%s': %s"
 #~ msgstr ""
 
