@@ -58,6 +58,7 @@
               tools = [
                 pkgs.poetry
                 pkgs.docker
+                pkgs.jinja2-cli
               ];
               scripts = [
                 {

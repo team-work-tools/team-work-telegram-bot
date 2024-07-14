@@ -1,0 +1,35 @@
+name: "{% raw %}{{ form_name }}{% endraw %}"
+description: "{% raw %}{{ form_description }}{% endraw %}"
+title: "{% raw %}{{ form_title }}{% endraw %}"
+labels: [{% raw %}{{ labels }}{% endraw %}]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        {% raw %}{{ intro }}
+        
+        Use the terms from the [glossary](https://github.com/team-work-tools/team-work-telegram-bot/blob/main/docs/glossary.md).{% endraw %}
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      placeholder: |
+        Explain the {% raw %}{{ type }}{% endraw %} here!
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        {% filter indent(width=8) %}{% include './details.md' %}{% endfilter %}
+  - type: textarea
+    id: subtasks
+    attributes:
+      label: Subtasks
+      placeholder: List subtasks here!
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        {% filter indent(width=8) %}{% include './subtasks.md' %}{% endfilter %}

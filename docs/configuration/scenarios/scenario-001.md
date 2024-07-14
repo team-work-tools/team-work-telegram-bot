@@ -6,7 +6,7 @@
 
 ## Glossary
 
-- See [Glossary](./glossary.md)
+- See the [Glossary](../../glossary.md)
 
 ## Description
 

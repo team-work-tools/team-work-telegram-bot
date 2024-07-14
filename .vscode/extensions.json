@@ -16,6 +16,7 @@
         "takumii.markdowntable",
         "tamasfe.even-better-toml",
         "yahyabatulu.vscode-markdown-alert",
-        "ms-vsliveshare.vsliveshare"
+        "ms-vsliveshare.vsliveshare",
+        "roeysagie.markdown-sort"
     ]
 }
