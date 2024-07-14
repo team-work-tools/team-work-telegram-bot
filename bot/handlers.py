@@ -9,12 +9,12 @@ from aiogram.utils.i18n import gettext as _
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from .commands import bot_command_names
-from .constants import (day_of_week_to_num, day_of_week_pretty, iso8601,
-                        sample_time, time_url)
+from .constants import (day_of_week_pretty, iso8601, sample_time, time_url, day_of_week_to_num)
 from .custom_types import SendMessage
 from .filters import HasChatState, HasMessageText, HasMessageUserUsername, IsReplyToMeetingMessage
 from .meeting import schedule_meeting
 from .reminder import update_reminders
+from .work_time import handle_working_hours
 from .messages import make_help_message
 from .state import ChatState, save_state, get_user, load_user_pm, create_user_pm, save_user_pm
 
@@ -34,6 +34,10 @@ def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage, bot: Bot
         scheduler=scheduler, send_message=send_message, router=router, bot=bot
     )
 
+    handle_working_hours(
+        scheduler=scheduler, send_message=send_message, router=router, bot=bot
+    )
+
     handle_info_commands(
         scheduler=scheduler, send_message=send_message, router=router
     )
@@ -50,6 +54,14 @@ def handle_global_commands(
 ):
     @router.message(Command(bot_command_names.start), HasChatState())
     async def start(message: Message, chat_state: ChatState):
+        if message.chat.type == "group":
+            await message.answer(
+                "Unfortunately, only supergroups and private chats are supported. "
+                "Please promote this group to a supergroup by enabling the history of messages for new members "
+                "or by enabling topics."
+            )
+            return
+
         await get_help(message=message, chat_state=chat_state)
 
         # Register user if it is personal message
@@ -118,7 +130,7 @@ def handle_team_settings_commands(
                     start_date=html.bold(meeting_time.strftime("%Y-%m-%d")),
                 )
             )
-        except Exception as e:
+        except Exception:
             await message.reply(
                 dedent(
                     _(
@@ -126,7 +138,7 @@ def handle_team_settings_commands(
                         Please write the meetings time in the {iso8601} format with an offset relative to the UTC time zone.
                         
                         You can calculate the time on the site {time_url}.
-                        
+
                         Example:
                         
                         /{set_meetings_time} {sample_time}
@@ -238,7 +250,7 @@ def handle_personal_settings_commands(
                     meeting_days=html.bold(", ".join(day_tokens))
                 )
             )
-        except Exception as e:
+        except Exception:
             await message.reply(
                 dedent(
                     _(

@@ -9,10 +9,9 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 
 from .messages import make_daily_messages
-from .constants import day_of_week, jobstore
+from .constants import jobstore
 from .custom_types import ChatId, SendMessage
 from .state import load_state, load_user_pm, get_user, ChatState
-from textwrap import dedent
 
 
 async def send_reminder_messages(
@@ -45,7 +44,7 @@ async def send_reminder_messages(
                     chat_type=chat_type
                 )
                 if msg_link:  # supergroup
-                    reminder_message += "\n" + msg_link
+                    reminder_message += "\n" + messages[reply] + msg_link
 
                 else:  # group chanel or private
                     reminder_message = messages[reply]
@@ -62,7 +61,7 @@ async def send_reminder_messages(
                             reply_to_message_id=message_id
                         )
 
-        if chat_type == "supergroup" and len(chat_state.meeting_msg_ids) == 3:
+        if chat_type == "supergroup" and len(chat_state.meeting_msg_ids) == 3 and len(have_to_reply) > 0:
             await send_message(
                 chat_id=user_chat_id,
                 message=reminder_message
@@ -73,14 +72,10 @@ async def send_reminder_messages(
         bot_username = bot_info.username
 
         if chat_type != "private":
-            banned_msg = dedent(
-                        _(
-                            """
-                            {username}, please unblock {bot_username} (it's me) in our private chat
-                            so that I can send you reminders about missed daily meeting questions.
-                            """
-                        ).format(username=username, bot_username=bot_username)
-                    )
+            banned_msg = _(
+                            "@{username}, please unblock @{bot_username} (it's me) in our private chat "
+                            "so that I can send you reminders about missed daily meeting questions."
+            ).format(username=username, bot_username=bot_username)
 
             await send_message(
                 chat_id=meeting_chat_id,
