@@ -1,232 +1,264 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
-
-## [unreleased]
+## MVP v3
 
 ### 🚀 Features
 
-- *(flake)* Add flake
-- *(flake)* Add direnv config
-- *(gitignore)* Ignore direnv and mypy directories
-- *(flake)* Package the bot
-- *(docker)* Add dockerfile
-- *(docker)* Add compose file
-- *(bot)* Add cli
-- *(bot)* Add the 'get_subscribers' command
-- *(bot)* Schedule since the specified date
-- *(flake)* Use treefmt-nix
-- *(flake)* Scripts
-- *(bot, readme)* Provide an example for '/set_meeting_time'
-- *(license)* Add mit license
-- *(bot)* Add ru messages
-- *(requirements)* Init
-- *(requirements)* Add meeting questions
-- *(readme)* Add i18n section
-- *(scripts)* Add a script to generate locales files
-- *(locales)* Add ru and en
-- *(dockerfile)* Copy locales
-- *(readme)* Motivation
-- *(requirements)* Add glossary
-- *(requirements)* Define command types
-- *(requirements)* Add dialog scenarios
-- *(scripts)* Add script to start a bot
-- *(requirements)* Add references
-- *(requirements)* Add top-level section name
-- *(poetry)* Add Babel as a dev dependency
-- *(configuration)* Draft a roles and responsibilities doc
-- *(policies-processes-procedures)* Init
-- *(policies-processes-procedures)* Add processes diagram
-- *(nodejs)* Add package.json and package-lock.json
-- *(gitignore)* Ignore nodejs directory
-- *(sprint-docs)* Init in Russian
-- *(git-workflow-process)* Init
-- *(vscode)* Add recommended extensions
-- *(vscode)* Add settings
-- *(vscode)* Add Live Share to recommended extensions
-- *(snippets)* Init snippet for receiving reminders
-- *(scenarios)* Init a scenario
-- *(snippets)* Add handle reminder period change state
-- *(glossary)* Init
-- *(scenarios)* Add a link to glossary
-- *(scenarios)* Add a link to glossary
-- *(scenarios)* Init a scenario template
-- *(git-workflow-process)* Init
-- *(vscode)* Add recommended extensions
-- *(vscode)* Add settings
-- *(vscode)* Add Live Share to recommended extensions
-- *(snippets)* Init snippet for receiving reminders
-- *(scenarios)* Init a scenario
-- *(snippets)* Add handle reminder period change state
-- *(glossary)* Init
-- *(scenarios)* Add a link to glossary
-- *(scenarios)* Add a link to glossary
-- *(sprint)* Add a link to policy, process, procedure explanation
-- *(sprint)* Add an Issues policy
-- *(topics)* Store separate chat states for supergroup topics
-- *(topics)* Implement per-topic meeting messages
-- *(topics)* Send reminders w.r.t topics
-- *(scenarios)* Add set_personal_meetings_time scenario
-- *(scenarios)* Add the definition of a "period"
-- *(docs)* Add glossary
-- *(vscode)* Add markdown sort to sort the glossary
-- *(issues)* Specify when a task is completed
-- *(issues)* Add a scenario issue form
-- *(issues)* Disable blank issues
-- *(issues)* Add script to generate issue forms
-- *(issues)* Add templates
-- *(flake)* Add jinja2-cli to devshell tools
-- *(glossary)* Define Actor
-- *(glossary)* Add cross-references
+#### Bot
+- Add CLI
+- Schedule since the specified date
+- Add ru messages
+- Add meeting questions
+- Add dialog scenarios
+- Add references
+- Add top-level section name
+- Add a script to start a bot
+
+#### Flake
+- Add flake
+- Add direnv config
+- Package the bot
+- Use treefmt-nix
+- Scripts
+- Add Babel as a dev dependency
+
+#### Docker
+- Add dockerfile
+- Add compose file
+- Copy locales
 
 ### 🐛 Bug Fixes
 
-- *(bot)* Make it work
-- *(bot)* Remove unused imports
-- *(bot, readme)* Bot description
-- *(bot)* Help message
-- *(bot)* Improve wording in the description
-- *(description)* Use 'Daily Scrum' instead of 'scrum stand-up' in descriptions
-- *(bot)* Move files
-- *(poetry)* Remove unused dependencies
-- *(bot)* Rename a module because python doesn't like types.py
-- *(flake)* Add more 'follows'
-- *(poetry)* Remove old package from dependencies
-- *(bot, readme)* Use a data directory
-- *(bot)* Strip spaces
-- *(bot, docker)* Use mongo, add basic time handling
-- *(bot)* Switch to ISO 8601 time, rename 'state' -> 'chat_state'
-- *(bot)* Improve messages for the 'unsubscribe' command
-- *(bot)* Schedule meetings no earlier than on the set date and time
-- *(flake)* Remove poetry2nix
-- *(bot)* Wording
-- *(bot)* Don't run a job after the job has expired long ago
-- *(poetry)* Add babel
-- *(scripts)* Run command via poetry
-- *(readme)* Bot description
-- *(requirements)* Update non-functional requirements
-- *(requirements)* Section name
-- *(requirements)* I18n
-- *(requirements)* Commands
-- *(readme)* Add motivation point
-- *(requirements)* Wording
-- *(bot)* Move files
-- *(docker)* Update bot directory
-- *(locales)* Update bot directory
-- *(poetry)* Update bot directory
-- *(flake)* Update script
-- *(requirements)* Update command names
-- *(readme)* Bot link
-- *(bot)* Sample time
-- *(bot)* Handle missing users
-- *(readme)* Update project name, description, messages
-- *(readme)* Instructions for running
-- *(bot)* Wording
-- *(readme)* Wording
-- *(bot)* Add blank lines in messages
-- *(bot)* Wording
-- *(configuration)* Wording
-- *(configuration)* Anchors
-- *(configuration)* Links
-- *(roles-and-responsibilities)* Sort members in the lexicographic order
-- *(roles-and-responsibilities)* Remove todo
-- *(roles-and-responsibilities)* Use lists in Reponsible people sections
-- *(roles-and-responsibilities)* Update Task activity sections
-- *(roles-and-responsibilities)* Remove the `GitHub Issues Management` responsibility
-- *(roles-and-responsibilities)* Combine the Mini App responsibility with Backend and Frontend responsibilities
-- *(roles-and-responsibilities)* Format the file
-- *(roles-and-responsibilities)* Replace "Task characteristics" with "Task activity"
-- *(roles-and-responsibilities)* Improve wording in "Task activity" sections
-- *(scenarios)* Rename "Person" -> "User"
-- *(scenarios)* Wording
-- *(scenarios)* Wording
-- *(snippets)* Simplify wording
-- *(snippets)* Simplify wording
-- *(snippets)* Rename "Person" -> "User"
-- *(snippets)* Use more precise terminology
-- *(snippets)* Use more precise terminology
-- *(scenarios)* Improve wording
-- *(scenarios)* Improve wording
-- *(scenarios)* Move the definition of uppercase words to glossary
-- *(scenarios)* Update scenario template
-- *(scenarios)* Rename "Person" -> "User"
-- *(scenarios)* Wording
-- *(scenarios)* Wording
-- *(snippets)* Simplify wording
-- *(snippets)* Simplify wording
-- *(snippets)* Rename "Person" -> "User"
-- *(snippets)* Use more precise terminology
-- *(snippets)* Use more precise terminology
-- *(scenarios)* Improve wording
-- *(scenarios)* Improve wording
-- *(scenarios)* Term formatting
-- *(configuration)* Remove old file
-- *(reminder)* Make message babel-friendly
-- *(configs)* Revert accidental change in settings configuration file
-- *(scenarios)* Optimize set_personal_meetings_time tapping + and changing timeslot
-- *(scenarios)* Change command name
-- *(scenarios)* Describe bot buttons in the message about wrong format of an interval
-- *(scenarios)* Remove a redundant quote
-- *(scenarios)* Replace "period" with "interval"
-- *(glossary)* Explain the UPPERCASE words more prominently
-- *(glossary)* Move to the `docs` directory
-- *(scenarios)* Links to the glossary
-- *(scenarios)* Remove old glossary
-- *(glossary)* Use sections for definitions
-- *(issues)* Update the template
-- *(issues)* Rename the template
-- *(issues)* Rewrite a list
-- *(issues)* Update the template
-- *(issues)* Remove an unnecessary template
-- *(issues)* Improve wording
-- *(issues)* Improve grammar
-- *(issues)* Improve wording
-- *(issues)* Rewrite using passive voice
-- *(issues)* Sentence order
-- *(issues)* Formatting
-- *(issues)* Improve term
-- *(issues)* Default title
-- *(issues)* Remove templates
-- *(issues)* Template values
-- *(issues)* Use a space for the form title
-- *(issues)* Use variables in form titles
-- *(issues)* Add an assignee for scenario issues
-- *(issues)* Add default labels for scenario issues
-- *(issues)* Change quote pairs
-- *(issues)* Remove full stops
-- *(issues)* Don't please
-- *(sprint)* Use the main glossary
-- *(glossary)* Add missing links
-- *(issues)* Improve wording in scenario issue forms
-- *(issues)* Explain the rules for the Task issue title
-- *(issues)* Wording
-- *(issues)* Update default labels
-- *(gen_changelog)* Fix instruction
-- *(gen_changelog)* Update
-- *(README.md)* Some changes
-- *(CHANGELOG.md)* Manually changes
+#### Bot
+- Make it work
+- Remove unused imports
+- Bot description
+- Help message
+- Improve wording in the description
+- Move files
+- Strip spaces
+- Switch to ISO 8601 time, rename'state' -> 'chat_state'
+- Improve messages for the 'unsubscribe' command
+- Schedule meetings no earlier than on the set date and time
+- Wording
+- Don't run a job after the job has expired long ago
+- Move files
+- Handle missing users
+- Add blank lines in messages
+- Wording
+
+#### Flake
+- Add more 'follows'
+- Remove poetry2nix
+
+#### Docker
+- Use mongo, add basic time handling
 
 ### 🚜 Refactor
 
-- *(bot)* Use a constant for week days
-- *(bot)* Move bot message to constants
-- *(bot)* Move messages to a separate module
-- *(bot)* Change 'standup' to 'meeting' in more places
-- *(bot)* Use a class for constants directly
-- *(bot)* Move bot code to a separate module
-- *(bot)* Simplify filters
-- *(bot)* Use classes for command names and descriptions
-- *(bot)* Construct messages using constants, organize code to support basic i18n
-- *(readme)* Add Develop section
-- *(typing)* Adjust topic_id type hint
+#### Bot
+- Use a constant for week days
+- Move bot message to constants
+- Move messages to a separate module
+- Change'standup' to'meeting' in more places
+- Use a class for constants directly
+- Move bot code to a separate module
+- Simplify filters
+- Use classes for command names and descriptions
+- Construct messages using constants, organize code to support basic i18n
 
 ### ⚙️ Miscellaneous Tasks
 
-- *(locales)* Update
-- *(issues)* Generate issue forms
+#### Locales
+- Update
+
+#### Issues
+- Generate issue forms
+
+## MVP v2
+
+### 🚀 Features
+
+#### Readme
+- Provide an example for '/set_meeting_time'
+- Add i18n section
+- Add motivation
+- Add glossary
+- Update project name, description, messages
+- Instructions for running
+
+#### Requirements
+- Init
+- Add glossary
+- Define command types
+- Add dialog scenarios
+- Add references
+- Update non-functional requirements
+- Section name
+- I18n
+- Commands
+
+#### Configuration
+- Draft a roles and responsibilities doc
+
+#### Policies-processes-procedures
+- Init
+- Add processes diagram
+
+#### Nodejs
+- Add package.json and package-lock.json
+
+#### Gitignore
+- Ignore direnv and mypy directories
+- Ignore nodejs directory
+
+#### Vscode
+- Add recommended extensions
+- Add settings
+- Add Live Share to recommended extensions
+
+### 🐛 Bug Fixes
+
+#### Readme
+- Bot description
+- Update project name, description, messages
+
+#### Requirements
+- Update command names
+
+#### Configuration
+- Wording
+- Anchors
+- Links
+
+#### Roles-and-responsibilities
+- Sort members in the lexicographic order
+- Remove todo
+- Use lists in Responsible people sections
+- Update Task activity sections
+- Remove the GitHub Issues Management responsibility
+- Combine the Mini App responsibility with Backend and Frontend responsibilities
+- Format the file
+- Replace "Task characteristics" with "Task activity"
+- Improve wording in "Task activity" sections
+
+#### Scenarios
+- Rename "Person" -> "User"
+- Wording
+- Improve wording
+- Move the definition of uppercase words to glossary
+- Update scenario template
+- Wording
+
+#### Snippets
+- Simplify wording
+- Rename "Person" -> "User"
+- Use more precise terminology
+
+### 🚜 Refactor
+
+#### Readme
+- Add Develop section
+
+#### Typing
+- Adjust topic_id type hint
+
+## MVP v1
+
+### 🚀 Features
+
+#### Snippets
+- Init snippet for receiving reminders
+- Add handle reminder period change state
+
+#### Scenarios
+- Init a scenario
+- Add a link to glossary
+- Init a scenario template
+
+#### Sprint
+- Add a link to policy, process, procedure explanation
+- Add an Issues policy
+
+#### Topics
+- Store separate chat states for supergroup topics
+- Implement per-topic meeting messages
+- Send reminders w.r.t topics
+
+#### Docs
+- Add glossary
+
+#### Issues
+- Specify when a task is completed
+- Add a scenario issue form
+- Disable blank issues
+- Add script to generate issue forms
+- Add templates
+
+#### Poetry
+- Add Babel as a dev dependency
+- Remove unused dependencies
+- Remove old package from dependencies
+
+#### Locales
+- Add ru and en
+- Update bot directory
+
+#### Gen_changelog
+- Fix instruction
+- Update
+
+### 🐛 Bug Fixes
+
+#### Issues
+- Update the template
+- Rename the template
+- Rewrite a list
+- Update the template
+- Remove an unnecessary template
+- Improve wording
+- Improve grammar
+- Improve wording
+- Rewrite using passive voice
+- Sentence order
+- Formatting
+- Improve term
+- Default title
+- Remove templates
+- Template values
+- Use a space for the form title
+- Use variables in form titles
+- Add an assignee for scenario issues
+- Add default labels for scenario issues
+- Change quote pairs
+- Remove full stops
+- Don't please
+
+#### Gen_changelog
+- Fix instruction
+- Update
+
+#### Reminder
+- Make message babel-friendly
+
+#### Configs
+- Revert accidental change in settings configuration file
+
+#### Sprint
+- Use the main glossary
+
+#### Glossary
+- Explain the UPPERCASE words more prominently
+- Move to the docs directory
+- Use sections for definitions
+
+#### Issues
+- Improve wording in scenario issue forms
+- Explain the rules for the Task issue title
+- Wording
+- Update default labels
 
 ### Init
 
-- *(all)* Start development
-
-<!-- generated by git-cliff -->
+#### All
+- Start development
