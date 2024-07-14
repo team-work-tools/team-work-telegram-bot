@@ -1,6 +1,6 @@
-from datetime import time, tzinfo
 from typing import Annotated, Optional, Dict, List
-from zoneinfo import ZoneInfo
+from enum import Enum
+from datetime import datetime
 
 import pymongo
 from beanie import Document, Indexed
@@ -41,6 +41,21 @@ async def create_user(username: str) -> ChatUser:
     return user
 
 
+class PromptType(Enum):
+    SET_TEXT_ID           = 1
+    SET_TEXT_TEXT         = 2
+    SET_ASSIGNEES_ID      = 3
+    SET_ASSIGNEES_TAGS    = 4
+    SET_DEADLINE_ID       = 5
+    SET_DEADLINE_DATETIME = 6
+
+
+class Task(BaseModel):
+    text: str = "Blank task"
+    assignees: list[str] = []
+    deadline: Optional[datetime] = None
+
+
 class ChatState(Document):
     language: Language = Language.default
     meeting_time_hour: Optional[int] = None
@@ -50,6 +65,8 @@ class ChatState(Document):
     default_time_zone: Optional[str] = "Europe/Moscow"
     chat_id: Annotated[ChatId, Indexed(index_type=pymongo.ASCENDING)]
     users: Dict[str, ChatUser] = dict()
+    tasks: list[Task] = []
+    prompt_messages: Dict[int, PromptType] = dict()
 
 
 async def get_user(chat_state: ChatState, username: str) -> ChatUser:
