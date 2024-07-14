@@ -34,6 +34,9 @@
     <li>
       <a href="#feature-list">Feature list</a>
     </li>
+    <li>
+      <a href="#roadmap">Roadmap</a>
+    </li>
     <li><a href="#demo">Demo</a>
     <ul>
         <li><a href="#bot-functionality">Bot functionality</a></li>
@@ -144,11 +147,13 @@ The bot is designed to solve problems that I encounter in life:
 
     Allows the User to create a task with text, deadline, reminder period and responsible people
 
-See roadmap [here](../../issues/79).
-
 Details of the commands' work can be found in their [scenarios](docs/configuration/scenarios/).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Roadmap
+
+See the development status [here](https://github.com/team-work-tools/team-work-telegram-bot/issues/79).
 
 ## Demo
 
