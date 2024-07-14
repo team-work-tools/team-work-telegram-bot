@@ -145,7 +145,8 @@ The bot is designed to solve problems that I encounter in life:
     Allows the User to create a task with text, deadline, reminder period and responsible people
 
 See roadmap [here](../../issues/79).
-Details of the commands' work can be found in their [scenarios](docs/configuration/scenarios/)
+
+Details of the commands' work can be found in their [scenarios](docs/configuration/scenarios/).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -153,33 +154,25 @@ Details of the commands' work can be found in their [scenarios](docs/configurati
 
 ### Bot functionality
 
-<div style="display: flex; flex-wrap: wrap; justify-content: center;">
-  <div style="margin: 10px; text-align: center;">
-    <img src="assets/start.jpg" alt="Description 1" width="180"/>
-    <br>
-    <em>Start message</em>
-  </div>
-  <div style="margin: 10px; text-align: center;">
-    <img src="assets/meeting.jpg" alt="Description 2" width="180"/>
-    <br>
-    <em>Setting daily meeting time</em>
-  </div>
-  <div style="margin: 10px; text-align: center;">
-    <img src="assets/reminder_period.jpg" alt="Description 3" width="180"/>
-    <br>
-    <em>Setting reminder period</em>
-  </div>
-  <div style="margin: 10px; text-align: center;">
-    <img src="assets/reminders.jpg" alt="Description 4" width="180"/>
-    <br>
-    <em>Receiving reminders in PM</em>
-  </div>
-  <div style="margin: 10px; text-align: center;">
-    <img src="assets/working_hours.jpg" alt="Description 5" width="180"/>
-    <br>
-    <em>Setting personal working hours</em>
-  </div>
-</div>
+<p align="center">
+  <img src="assets/start.jpg" alt="Description 1" width="180"/>
+  <img src="assets/meeting.jpg" alt="Description 2" width="180"/>
+  <img src="assets/reminder_period.jpg" alt="Description 3" width="180"/>
+</p>
+
+<p align="center">
+  <em>Start message</em> &emsp; <em>Setting daily meeting time</em> &emsp; <em>Setting reminder period</em>
+</p>
+
+<p align="center">
+  <img src="assets/reminders.jpg" alt="Description 4" width="180"/>
+  <img src="assets/working_hours.jpg" alt="Description 5" width="180"/>
+</p>
+
+<p align="center">
+  <em>Receiving reminders in PM</em> &emsp; <em>Setting personal working hours</em>
+</p>
+
 
 
 ### Supported languages:
@@ -259,7 +252,7 @@ See [Requirements](./docs/requirements.md).
 
 ### Setting up the development environment using VS Code
 
-The project describes scenarios using[statelyai.stately-vscode
+The project describes scenarios using [statelyai.stately-vscode
 ](https://marketplace.visualstudio.com/items?itemName=statelyai.stately-vscode) extension for VS Code.
 
 ### I18N
@@ -285,7 +278,7 @@ Run `nix develop` and see available commands and tools.
 
 ## License
 
-Distributed under the MIT License. See [LICENSE.txt](./blob/main/LICENSE)
+Distributed under the MIT License. See [LICENSE.txt](./LICENSE)
  for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -293,25 +286,25 @@ Distributed under the MIT License. See [LICENSE.txt](./blob/main/LICENSE)
 
 
 [contributors-shield]: https://img.shields.io/github/contributors/team-work-tools/team-work-telegram-bot?style=for-the-badge&color=%238800ff
-[contributors-url]: https://github.com/team-work-tools/team-work-telegram-bot/graphs/contributors
+[contributors-url]: ../../contributors
 
 [forks-shield]: https://img.shields.io/github/forks/team-work-tools/team-work-telegram-bot?style=for-the-badge&color=%238800ff
-[forks-url]: https://github.com/team-work-tools/team-work-telegram-bot/forks
+[forks-url]: ../../forks
 
 [issues-shield]: https://img.shields.io/github/issues/team-work-tools/team-work-telegram-bot?style=for-the-badge&color=%238800ff
-[issues-url]: https://github.com/team-work-tools/team-work-telegram-bot/issues
+[issues-url]: ../../issues
 
 [license-shield]: https://img.shields.io/github/license/team-work-tools/team-work-telegram-bot?style=for-the-badge&color=%238800ff
-[license-url]: https://github.com/team-work-tools/team-work-telegram-bot/LICENSE.txt
+[license-url]: ./LICENSE
 
 [Bot]: https://img.shields.io/badge/BOT-544987?style=for-the-badge
 [Bot-url]: https://t.me/daily_meeting_t34_bot
 
 [Python.js]: https://img.shields.io/badge/Python-8800ff?style=for-the-badge&logo=python&logoColor=white
-[Python-url]: https://nextjs.org/
+[Python-url]: https://www.python.org/
 
 [Aiogram.js]: https://img.shields.io/badge/aiogram-544987?style=for-the-badge
 [Aiogram-url]: https://aiogram.dev/
 
 [MongoDB.js]: https://img.shields.io/badge/mongoDB-8800ff?style=for-the-badge&logo=mongoDB&logoColor=white
-[MongoDB-url]: https://aiogram.dev/
+[MongoDB-url]: https://www.mongodb.com/
