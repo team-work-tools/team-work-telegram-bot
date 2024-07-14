@@ -1,6 +1,7 @@
-from datetime import time, tzinfo
+from textwrap import dedent
 from typing import Annotated, Optional, Dict, List
-from zoneinfo import ZoneInfo
+from enum import Enum
+from datetime import datetime
 
 import pymongo
 from beanie import Document, Indexed
@@ -41,6 +42,37 @@ async def create_user(username: str) -> ChatUser:
     return user
 
 
+class PromptType(Enum):
+    TASK_ID = 1
+    TASK_TEXT = 2
+    TASK_DEADLINE = 3
+    TASK_ASSIGNEES = 4
+
+class Prompt(BaseModel):
+    prompt_type: PromptType
+    prompt_data: Dict = dict()
+
+
+class Task(BaseModel):
+    text: str = "Blank task"
+    assignees: list[str] = []
+    deadline: Optional[datetime] = None
+    
+    def __str__(self):
+        return dedent(
+            """
+            {text}
+                assignees: {assignees}
+                deadline: {deadline}
+            """
+            .format(
+                text=self.text,
+                assignees=", ".join(self.assignees) if self.assignees else None,
+                deadline= self.deadline.strftime("%d.%m.%y %H:%M") if self.deadline else None
+            )
+        )
+
+
 class ChatState(Document):
     language: Language = Language.default
     meeting_time_hour: Optional[int] = None
@@ -50,6 +82,15 @@ class ChatState(Document):
     default_time_zone: Optional[str] = "Europe/Moscow"
     chat_id: Annotated[ChatId, Indexed(index_type=pymongo.ASCENDING)]
     users: Dict[str, ChatUser] = dict()
+    tasks: list[Task] = []
+    prompts: Dict[int, Prompt] = dict()
+
+
+def get_task_names(chat_state: ChatState) -> str:
+    res = ""
+    for i in range(1, len(chat_state.tasks) + 1):
+        res += f"{i}) {chat_state.tasks[i - 1].text}\n"
+    return res
 
 
 async def get_user(chat_state: ChatState, username: str) -> ChatUser:

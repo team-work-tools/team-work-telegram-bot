@@ -14,11 +14,11 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from .commands import bot_command_names
 from .constants import (day_of_week_to_num, day_of_week_pretty, sample_time, sample_time_zone)
 from .custom_types import SendMessage
-from .filters import HasChatState, HasMessageText, HasMessageUserUsername, IsReplyToMeetingMessage
+from .filters import HasChatState, HasMessageText, HasMessageUserUsername, IsPromptReply, IsReplyToMeetingMessage
 from .meeting import schedule_meeting
 from .reminder import update_reminders
 from .messages import make_help_message
-from .state import ChatState, save_state, get_user, load_user_pm, create_user_pm, save_user_pm
+from .state import ChatState, Prompt, PromptType, Task, get_task_names, save_state, get_user, load_user_pm, create_user_pm, save_user_pm
 from .timezones import get_time_zone_hint
 
 
@@ -43,6 +43,10 @@ def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage, bot: Bot
 
     handle_user_responses(
         scheduler=scheduler, send_message=send_message, router=router
+    )
+
+    handle_task_commands(
+        scheduler=scheduler, send_message=send_message, router=router, bot=bot
     )
 
     handle_inline_queries(router=router)
@@ -542,3 +546,187 @@ def handle_inline_queries(router: Router):
         else:
             results = []
         await query.answer(results, cache_time=10)
+
+
+def handle_task_commands(scheduler: AsyncIOScheduler, send_message: SendMessage,
+                         router: Router, bot: Bot):
+    @router.message(Command(bot_command_names.get_tasks), HasChatState())
+    async def get_tasks(message: Message, chat_state: ChatState):
+        res = "All chat tasks:\n"
+        for i in range(1, len(chat_state.tasks) + 1):
+            task = chat_state.tasks[i - 1]
+            res += dedent(
+            f"""
+            {i}) {task.text}
+            Assignees: {', '.join(task.assignees) if task.assignees else None}
+            Deadline: {task.deadline}
+            """
+            )
+
+        await message.reply(_("{0}".format(res)))
+
+    @router.message(Command(bot_command_names.add_task), HasChatState(), HasMessageText())
+    async def add_task(message: Message, chat_state: ChatState, message_text: str):
+        task = Task()
+
+        try:
+            text = message_text.split()[1]
+            task.text = text
+        except IndexError:
+            pass
+
+        chat_state.tasks.append(task)
+        await chat_state.save()
+
+        await message.reply(_("task successfully created {0}".format(task)))
+
+    @router.message(Command(bot_command_names.set_task_text), HasChatState())
+    async def set_task_text_command(message: Message, chat_state: ChatState):
+        sent = await message.reply(
+            dedent(
+                _(
+                    """
+Send number of task you want to modify in reply to this message
+
+Task numbers are:
+{tasks}
+                    """
+                    .format(tasks=get_task_names(chat_state))
+                )
+            )
+        )
+        message_id = sent.message_id
+        chat_state.prompts[message_id] = Prompt(
+            prompt_type=PromptType.TASK_ID,
+            prompt_data={"next_prompt": PromptType.TASK_TEXT}
+        )
+        await chat_state.save()
+        
+        
+    @router.message(Command(bot_command_names.set_task_deadline), HasChatState())
+    async def set_task_deadline_command(message: Message, chat_state: ChatState):
+        sent = await message.reply(
+            dedent(
+                _(
+                    """
+Send number of task you want to modify in reply to this message
+
+Task numbers are:
+{tasks}
+                    """
+                    .format(tasks=get_task_names(chat_state))
+                )
+            )
+        )
+        message_id = sent.message_id
+        chat_state.prompts[message_id] = Prompt(
+            prompt_type=PromptType.TASK_ID,
+            prompt_data={"next_prompt": PromptType.TASK_DEADLINE}
+        )
+        await chat_state.save()
+        
+        
+    @router.message(Command(bot_command_names.set_task_assignees), HasChatState())
+    async def set_task_assignees_command(message: Message, chat_state: ChatState):
+        sent = await message.reply(
+            dedent(
+                _(
+                    """
+Send number of task you want to modify in reply to this message
+
+Task numbers are:
+{tasks}
+                    """
+                    .format(tasks=get_task_names(chat_state))
+                )
+            )
+        )
+        message_id = sent.message_id
+        chat_state.prompts[message_id] = Prompt(
+            prompt_type=PromptType.TASK_ID,
+            prompt_data={"next_prompt": PromptType.TASK_ASSIGNEES}
+        )
+        await chat_state.save()
+
+
+    @router.message(HasChatState(), IsPromptReply(PromptType.TASK_ID), HasMessageText())
+    async def task_id_prompt(message: Message, chat_state: ChatState,
+                               message_text: str, prompt_id: int):
+        try:
+            task_id = int(message_text)
+            chat_state.tasks[task_id - 1]
+        except ValueError:
+            await message.reply("Your reply should be a number of the task you want to modify.")
+            return
+        except IndexError:
+            await message.reply("This task doesn't exist, please recheck.")
+            return
+        
+        next_prompt = int(chat_state.prompts[prompt_id].prompt_data["next_prompt"])
+
+        if next_prompt == PromptType.TASK_TEXT.value:
+                response_text = "Send new task text in reply to this message"
+        elif next_prompt == PromptType.TASK_DEADLINE.value:
+                response_text = "Send new task deadline in reply to this message, the format is dd.mm.yyyy HH:MM"
+        elif next_prompt == PromptType.TASK_ASSIGNEES.value:
+                response_text = "Send new task assignees in reply to this message, e.g. @assignee_tag1 @assignee_tag2"
+        else:
+            return
+
+        sent = await message.reply(
+            dedent(
+                _(
+                    response_text
+                )
+            )
+        )
+        await bot.delete_message(chat_state.chat_id, prompt_id)
+        message_id = sent.message_id
+        prompt = Prompt(
+            prompt_type=chat_state.prompts[prompt_id].prompt_data["next_prompt"],
+            prompt_data={"task_id": task_id - 1}
+        )
+        chat_state.prompts[message_id] = prompt
+        del chat_state.prompts[prompt_id]
+        await chat_state.save()
+
+
+    @router.message(HasChatState(), IsPromptReply(PromptType.TASK_TEXT), HasMessageText())
+    async def set_task_text(message: Message, chat_state: ChatState,
+                                 message_text: str, prompt_id: int):
+        task_id = chat_state.prompts[prompt_id].prompt_data["task_id"]
+        chat_state.tasks[task_id].text = message_text
+        del chat_state.prompts[prompt_id]
+        await chat_state.save()
+
+        await message.reply("Task text is successfully changed")
+
+
+    @router.message(HasChatState(), IsPromptReply(PromptType.TASK_DEADLINE), HasMessageText())
+    async def set_task_deadline(message: Message, chat_state: ChatState,
+                                 message_text: str, prompt_id: int):
+        task_id = chat_state.prompts[prompt_id].prompt_data["task_id"]
+        deadline = datetime.strptime(message_text, "%d.%m.%Y %H:%M")
+        if chat_state.default_time_zone == None:
+            await message.reply("You should set the chat default time zone first")
+            return
+        deadline = deadline.replace(tzinfo=timezone(chat_state.default_time_zone))
+        chat_state.tasks[task_id].deadline = deadline
+        del chat_state.prompts[prompt_id]
+        await chat_state.save()
+
+        await message.reply("Task deadline is successfully changed")
+
+
+    @router.message(HasChatState(), IsPromptReply(PromptType.TASK_ASSIGNEES), HasMessageText())
+    async def set_task_assignees(message: Message, chat_state: ChatState,
+                                 message_text: str, prompt_id: int):
+        task_id = chat_state.prompts[prompt_id].prompt_data["task_id"]
+        assignees = message_text.split()
+        for assignee in assignees:
+            await get_user(chat_state, assignee)
+        chat_state.tasks[task_id].assignees = assignees
+        del chat_state.prompts[prompt_id]
+        await chat_state.save()
+
+        await message.reply("Task assignees are successfully changed")
