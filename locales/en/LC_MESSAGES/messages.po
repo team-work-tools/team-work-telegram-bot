@@ -21,12 +21,12 @@ msgstr ""
 #: bot/commands.py:69
 #, fuzzy
 msgid "Enable me."
-msgstr "enable me"
+msgstr ""
 
 #: bot/commands.py:70
 #, fuzzy
 msgid "Get a help message."
-msgstr "get this help message"
+msgstr ""
 
 #: bot/commands.py:71
 msgid "Set my interface language."
@@ -35,7 +35,7 @@ msgstr ""
 #: bot/commands.py:72
 #, fuzzy
 msgid "Disable me."
-msgstr "enable me"
+msgstr ""
 
 #: bot/commands.py:73
 msgid "Cancel the current operation with the bot."
@@ -44,32 +44,32 @@ msgstr ""
 #: bot/commands.py:75
 #, fuzzy
 msgid "Set up regular meetings."
-msgstr "set the meeting start time and date"
+msgstr ""
 
 #: bot/commands.py:77
 #, fuzzy
 msgid "Set meetings time zone."
-msgstr "set the meeting start time and date"
+msgstr ""
 
 #: bot/commands.py:78
 #, fuzzy
 msgid "Set meetings time."
-msgstr "set the meeting start time and date"
+msgstr ""
 
 #: bot/commands.py:79
 #, fuzzy
 msgid "Set meetings days."
-msgstr "set the meeting start time and date"
+msgstr ""
 
 #: bot/commands.py:81
 #, fuzzy
 msgid "Join meetings."
-msgstr "set the meeting start time and date"
+msgstr ""
 
 #: bot/commands.py:82
 #, fuzzy
 msgid "Skip meetings."
-msgstr "set the meeting start time and date"
+msgstr ""
 
 #: bot/commands.py:83
 msgid "Set the days when you can join meetings."
@@ -82,7 +82,7 @@ msgstr ""
 #: bot/commands.py:87
 #, fuzzy
 msgid "Join only today's meeting."
-msgstr "set the meeting start time and date"
+msgstr ""
 
 #: bot/commands.py:88
 msgid "Skip only today's meeting."
@@ -102,12 +102,12 @@ msgstr ""
 
 #: bot/handlers.py:109
 msgid "Nice to meet you!"
-msgstr "Nice to meet you!"
+msgstr ""
 
 #: bot/handlers.py:167
 #, fuzzy
 msgid "English language selected!"
-msgstr "English language selected!"
+msgstr ""
 
 #: bot/handlers.py:171
 msgid "Error saving language state: {error}"
@@ -119,8 +119,6 @@ msgid ""
 "OK, we'll meet at {meeting_time} on {week_days} starting not earlier than"
 " on {start_date}!"
 msgstr ""
-"OK, we'll meet at {meeting_time} on {week_days} starting not earlier than"
-" on {start_date}!"
 
 #: bot/handlers.py:222
 msgid ""
@@ -139,7 +137,7 @@ msgstr ""
 
 #: bot/handlers.py:252
 msgid "You've already joined, @{username}!"
-msgstr "You've already joined, @{username}!"
+msgstr ""
 
 #: bot/handlers.py:260
 msgid ""
@@ -163,7 +161,7 @@ msgstr ""
 #: bot/handlers.py:292
 #, fuzzy
 msgid "You've not yet joined, @{username}!"
-msgstr "You've not joined anyway, @{username}!"
+msgstr ""
 
 #: bot/handlers.py:332
 msgid "OK, from now you will only receive messages on {meeting_days}."
@@ -213,7 +211,7 @@ msgstr ""
 #: bot/meeting.py:20
 #, fuzzy
 msgid "Meeting time!"
-msgstr "set the meeting start time and date"
+msgstr ""
 
 #: bot/meeting.py:28
 msgid "Nobody has joined the meeting!"
@@ -228,11 +226,7 @@ msgid ""
 "        You can control me by sending these commands:\n"
 "        "
 msgstr ""
-"\n"
-"        I can help you conduct Daily meetings.\n"
-"\n"
-"        You can control me by sending these commands:\n"
-"        "
+
 
 #: bot/messages.py:32
 msgid "Global commands"
@@ -253,17 +247,17 @@ msgstr ""
 #: bot/messages.py:54
 #, fuzzy
 msgid "What did you do last working day? {usernames}"
-msgstr "@{username}, what did you do last working day?"
+msgstr ""
 
 #: bot/messages.py:55
 #, fuzzy
 msgid "What will you do today? {usernames}"
-msgstr "@{username}, what will you do today?"
+msgstr ""
 
 #: bot/messages.py:56
 #, fuzzy
 msgid "What (if anything) is blocking your progress? {usernames}"
-msgstr "@{username}, what (if anything) is blocking your progress?"
+msgstr ""
 
 #: bot/reminder.py:32
 msgid "Please reply to these daily meeting questions:"
