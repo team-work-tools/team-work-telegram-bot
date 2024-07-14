@@ -43,6 +43,15 @@ def make_help_message() -> str:
         /{command_names.set_reminder_period} - {command_descriptions.set_reminder_period}
         /{command_names.join} - {command_descriptions.join}
         /{command_names.skip} - {command_descriptions.skip}
+
+        {html.bold(_("Task related commands"))}
+        /{command_names.add_task} - {command_descriptions.add_task}
+        /{command_names.remove_task} - {command_descriptions.remove_task}
+        /{command_names.get_tasks} - {command_descriptions.get_tasks}
+        /{command_names.get_my_tasks} - {command_descriptions.get_my_tasks}
+        /{command_names.set_task_assignees} - {command_descriptions.set_task_assignees}
+        /{command_names.set_task_deadline} - {command_descriptions.set_task_deadline}
+        /{command_names.set_task_text} - {command_descriptions.set_task_text}
         
         {html.bold(_("Chat information commands"))}
         /{command_names.get_chat_state} - {command_descriptions.get_chat_state}

@@ -25,9 +25,16 @@ class BotCommands(BaseModel):
     skip_today: str
     schedule_personal_vacation: str
     unschedule_personal_vacation: str
+    #tasks
+    add_task: str
+    remove_task: str
+    get_tasks: str
+    get_my_tasks: str
+    set_task_assignees: str
+    set_task_deadline: str
+    set_task_text: str
     # info
     get_chat_state: str
-    guess_time_zone: str
 
 
 class BotCommandNames(BotCommands):
@@ -55,9 +62,16 @@ bot_command_names = BotCommandNames(
     skip_today="skip_today",
     schedule_personal_vacation="schedule_personal_vacation",
     unschedule_personal_vacation="unschedule_personal_vacation",
+    #tasks
+    add_task = "add_task",
+    remove_task = "remove_task",
+    get_tasks = "get_tasks",
+    get_my_tasks = "get_my_tasks",
+    set_task_assignees = "set_task_assignees",
+    set_task_deadline = "set_task_deadline",
+    set_task_text = "set_task_text",
     # info
     get_chat_state="get_chat_state",
-    guess_time_zone="guess_time_zone"
 )
 
 
@@ -88,7 +102,14 @@ def bot_command_descriptions() -> BotCommandDescriptions:
         skip_today=_("Skip only today's meeting."),
         schedule_personal_vacation=_("Schedule a personal vacation."),
         unschedule_personal_vacation=_("Unschedule the personal vacation."),
-        # info settings
+        #tasks
+        add_task = "add task",
+        remove_task = "remove task",
+        get_tasks = "get all tasks",
+        get_my_tasks = "get tasks assigned to you",
+        set_task_assignees = "set task assignees",
+        set_task_deadline = "set task deadline",
+        set_task_text = "set task text",
+        # info
         get_chat_state=_("Get the chat state that I store."),
-        guess_time_zone=_("Get a list of possible time zones based on the given current time.")
     )
