@@ -72,7 +72,7 @@ def bot_command_descriptions() -> BotCommandDescriptions:
         stop=_("Disable the bot."),
         cancel=_("Cancel the current operation with the bot."),
         # team settings
-        set_up_meetings=_("Set up regular meetings."),
+        set_up_meetings=_("Set up daily meetings."),
         # TODO use the time zone
         set_meetings_time_zone=_("Set meetings time zone."),
         set_meetings_time=_("Set meetings time."),
@@ -82,7 +82,7 @@ def bot_command_descriptions() -> BotCommandDescriptions:
         skip=_("Skip meetings."),
         set_personal_meetings_days=_("Set the days when you can join meetings."),
         set_reminder_period=_(
-            "Set how often you'll be reminded about unanswered questions."
+            "Set the period of reminders about unanswered questions."
         ),
         join_today=_("Join only today's meeting."),
         skip_today=_("Skip only today's meeting."),
