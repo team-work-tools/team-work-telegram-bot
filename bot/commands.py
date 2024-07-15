@@ -66,10 +66,10 @@ class BotCommandDescriptions(BotCommands):
 def bot_command_descriptions() -> BotCommandDescriptions:
     return BotCommandDescriptions(
         # global commands
-        start=_("Enable me."),
+        start=_("Enable the bot."),
         help=_("Get a help message."),
-        set_language=_("Set my interface language."),
-        stop=_("Disable me."),
+        set_language=_("Set the bot language."),
+        stop=_("Disable the bot."),
         cancel=_("Cancel the current operation with the bot."),
         # team settings
         set_up_meetings=_("Set up regular meetings."),
@@ -89,5 +89,5 @@ def bot_command_descriptions() -> BotCommandDescriptions:
         schedule_personal_vacation=_("Schedule a personal vacation."),
         unschedule_personal_vacation=_("Unschedule the personal vacation."),
         # info settings
-        get_chat_state=_("Get the chat state that I store."),
+        get_chat_state=_("Get the chat state stored by the bot."),
     )
