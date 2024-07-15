@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-07-14 00:47+0300\n"
+"POT-Creation-Date: 2024-07-15 22:50+0300\n"
 "PO-Revision-Date: 2024-05-11 19:50+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -20,36 +20,36 @@ msgstr ""
 "Generated-By: Babel 2.15.0\n"
 
 #: bot/commands.py:69
-msgid "Enable me."
-msgstr "Включите меня."
+msgid "Enable the bot."
+msgstr "Включите бота."
 
 #: bot/commands.py:70
 msgid "Get a help message."
 msgstr "Получите это сообщение."
 
 #: bot/commands.py:71
-msgid "Set my interface language."
-msgstr "Установите язык."
+msgid "Set the bot language."
+msgstr "Установите язык бота."
 
 #: bot/commands.py:72
-msgid "Disable me."
-msgstr "Выключите меня."
+msgid "Disable the bot."
+msgstr "Выключите бота."
 
 #: bot/commands.py:73
 msgid "Cancel the current operation with the bot."
-msgstr "Завершите мою текущую операцию."
+msgstr "Отмените текущую операцию с ботом."
 
 #: bot/commands.py:75
-msgid "Set up regular meetings."
-msgstr "Установите время и дату начала дейли."
+msgid "Set up daily meetings."
+msgstr "Настройте дейли."
 
 #: bot/commands.py:77
 msgid "Set meetings time zone."
-msgstr "Установите время и дату начала дейли."
+msgstr "Установите тайм зону."
 
 #: bot/commands.py:78
 msgid "Set meetings time."
-msgstr "Установите время и дату начала дейли."
+msgstr "Установите время начала дейли."
 
 #: bot/commands.py:79
 msgid "Set meetings days."
@@ -57,27 +57,27 @@ msgstr "Установите дни встреч."
 
 #: bot/commands.py:81
 msgid "Join meetings."
-msgstr "Просоединиться к встречам."
+msgstr "Просоединитесь к встречам."
 
 #: bot/commands.py:82
 msgid "Skip meetings."
-msgstr "Пропустить встречи."
+msgstr "Пропускайте встречи."
 
 #: bot/commands.py:83
 msgid "Set the days when you can join meetings."
-msgstr "Выбрать день, когда Вы можете присоединиться к встрече."
+msgstr "Выберите дни, когда Вы можете присоединиться к встрече."
 
 #: bot/commands.py:84
-msgid "Set how often you'll be reminded about unanswered questions."
-msgstr "Установите частоту напоминаний о неотвеченных вопросах."
+msgid "Set the period of reminders about unanswered questions."
+msgstr "Установите период напоминаний о неотвеченных вопросах."
 
 #: bot/commands.py:87
 msgid "Join only today's meeting."
-msgstr "Присоедини́ться только к сегодняшней встрече."
+msgstr "Присоединитесь только к сегодняшней встрече."
 
 #: bot/commands.py:88
 msgid "Skip only today's meeting."
-msgstr "Пропустить только сегодняшнюю встречу."
+msgstr "Пропустите только сегодняшнюю встречу."
 
 #: bot/commands.py:89
 msgid "Schedule a personal vacation."
@@ -88,15 +88,14 @@ msgid "Unschedule the personal vacation."
 msgstr "Отменить отпуск."
 
 #: bot/commands.py:92
-msgid "Get the chat state that I store."
-msgstr "Посмотреть состояние бота."
+msgid "Get the chat state stored by the bot."
+msgstr "Посмотрите состояние чата."
 
 #: bot/handlers.py:109
 msgid "Nice to meet you!"
 msgstr "Привет!"
 
 #: bot/handlers.py:167
-#, fuzzy
 msgid "English language selected!"
 msgstr "Выбран русский язык!"
 
@@ -190,7 +189,8 @@ msgstr ""
 "\n"
 "                        Пожалуйста, укажите свои личные рабочие дни.\n"
 "\n"
-"                        Используйте \",\" или \" \" в качестве разделителя.\n"
+"                        Используйте \",\" или \" \" в качестве "
+"разделителя.\n"
 "\n"
 "                        Пример:\n"
 "\n"
@@ -208,7 +208,7 @@ msgid ""
 "Use the /join command."
 msgstr ""
 "Сначала вам нужно присоединиться к ежедневным совещаниям!\n"
-"Используйте команду /join.
+"Используйте команду /join"
 
 #: bot/handlers.py:398
 msgid ""
@@ -229,7 +229,8 @@ msgid ""
 "                        "
 msgstr ""
 "\n"
-"                        Пожалуйста, укажите период напоминания в минутах.\n"
+"                        Пожалуйста, укажите период напоминаний в минутах."
+"\n"
 "\n"
 "                        Например:\n"
 "\n"
@@ -242,7 +243,7 @@ msgstr "Время встречи!"
 
 #: bot/meeting.py:28
 msgid "Nobody has joined the meeting!"
-msgstr "Никто не присоединился ко встрече"
+msgstr "Никто не присоединился к встрече!"
 
 #: bot/messages.py:15
 msgid ""
@@ -257,22 +258,6 @@ msgstr ""
 "\n"
 "        Вы можете управлять мной при помощи следующих команд:\n"
 "        "
-
-#: bot/messages.py:32
-msgid "Global commands"
-msgstr "Оcновные команды"
-
-#: bot/messages.py:37
-msgid "Team settings commands"
-msgstr "Настройки для команды"
-
-#: bot/messages.py:40
-msgid "Personal settings commands"
-msgstr "Персональные настройки"
-
-#: bot/messages.py:46
-msgid "Chat information commands"
-msgstr "Настройки чата"
 
 #: bot/messages.py:54
 msgid "What did you do last working day? {usernames}"
@@ -300,138 +285,9 @@ msgid ""
 "                            "
 msgstr ""
 "\n"
-"                            {username},  пожалуйста, разблокируйте {bot_username} "
-"(это я) в нашем приватном чате,\n"
-"                            чтобы я мог отправлять Вам напоминания о пропущенных"
-" дейли вопросах.\n"
+"                            {username},  пожалуйста, разблокируйте "
+"{bot_username} (это я) в нашем приватном чате,\n"
+"                            чтобы я мог отправлять Вам напоминания о "
+"пропущенных дейли вопросах.\n"
 "                            "
-
-#~ msgid "subscribe so that I send you messages"
-#~ msgstr "подпишись, чтобы я отправлял тебе сообщения"
-
-#~ msgid "unsubscribe so that I don't send you messages"
-#~ msgstr "отпишись, чтобы я не отправлял тебе сообщения"
-
-#~ msgid "get a list of joined users"
-#~ msgstr "получи список подписчиков"
-
-#~ msgid ""
-#~ "\n"
-#~ "                        Nobody has joined yet :(\n"
-#~ "                        You can subscribe via"
-#~ " the /{command_subscribe} command!\n"
-#~ "                        "
-#~ msgstr ""
-
-#~ msgid "You've been unjoined, @{username}!"
-#~ msgstr "Ты отписался(лась), @{username}!"
-
-#~ msgid ""
-#~ "\n"
-#~ "                  See you later, @{username}!\n"
-#~ "                  You can join via the /{command_join} command!\n"
-#~ "                  "
-#~ msgstr ""
-
-#~ msgid ""
-#~ "\n"
-#~ "                        Nobody has joined yet :(\n"
-#~ "                        You can join via the /{command_join} command!\n"
-#~ "                        "
-#~ msgstr ""
-
-#~ msgid "Please provide the time in the {time_format_link} format."
-#~ msgstr "Пожалуйста, предоставь время в формате {time_format_link}."
-
-#~ msgid ""
-#~ "\n"
-#~ "                        Please provide your "
-#~ "current time in the {iso8601} format."
-#~ "\n"
-#~ "                        You can get it on the site {time_url}\n"
-#~ "                        "
-#~ msgstr ""
-
-#~ msgid "You've just joined, @{username}!"
-#~ msgstr "Ты подписался(лась), @{username}"
-
-#~ msgid "Join the meeting each meeting day."
-#~ msgstr "установи время и дату начала дейли"
-
-#~ msgid ""
-#~ "\n"
-#~ "                        See you later, @{username}!\n"
-#~ "                        You can join via the /{command_join} command!\n"
-#~ "                        "
-#~ msgstr ""
-
-#~ msgid "skip the meeting."
-#~ msgstr ""
-
-#~ msgid "Join the meeting only today."
-#~ msgstr ""
-
-#~ msgid "skip the meeting only today."
-#~ msgstr ""
-
-#~ msgid "Set up a regular meeting."
-#~ msgstr ""
-
-#~ msgid "Set the meeting time zone"
-#~ msgstr "установи время и дату начала дейли"
-
-#~ msgid "Set the days you can join the meeting."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "\n"
-#~ "                        Please write your "
-#~ "current time in the {iso8601} format."
-#~ "\n"
-#~ "                        Copy it on the site {time_url}.\n"
-#~ "                        "
-#~ msgstr ""
-
-#~ msgid ""
-#~ "\n"
-#~ "                        Please write the "
-#~ "meeting time in the {iso8601} format "
-#~ "with an offset relative to the UTC"
-#~ " time zone.\n"
-#~ "                        You can calculate the"
-#~ " time on the site {time_url}.\n"
-#~ "                        "
-#~ msgstr ""
-
-#~ msgid ""
-#~ "\n"
-#~ "                        You've just joined, @{username}!\n"
-#~ "                        You can skip via the /{command_skip} command.\n"
-#~ "                        "
-#~ msgstr ""
-
-#~ msgid ""
-#~ "\n"
-#~ "                        Please write the "
-#~ "meeting time in the {iso8601} format "
-#~ "with an offset relative to the UTC"
-#~ " time zone.\n"
-#~ "                        You can calculate the"
-#~ " time on the site {time_url}.\n"
-#~ "                        Example:\n"
-#~ "                        {set_meetings_time} {sample_time}\n"
-#~ "                        "
-#~ msgstr ""
-
-#~ msgid "Global commands"
-#~ msgstr "Оcновные команды"
-
-#~ msgid "Team settings commands"
-#~ msgstr "Настройки для команды"
-
-#~ msgid "Personal settings commands"
-#~ msgstr "Персональные настройки"
-
-#~ msgid "Chat information commands"
-#~ msgstr "Настройки чата"
 
