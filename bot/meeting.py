@@ -3,7 +3,7 @@ from datetime import datetime, time, tzinfo
 from pytz import timezone
 from typing import Optional
 
-from aiogram.utils.i18n import gettext as _
+from .i18n import _
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from .constants import day_of_week, jobstore
@@ -18,8 +18,10 @@ async def send_meeting_messages(
     ):
     chat_state = await load_state(chat_id=chat_id, topic_id=topic_id)
     current_day = datetime.now().weekday()
-    await send_message(chat_id=chat_id, message=_("Meeting time!"), message_thread_id=topic_id)
-     
+    await send_message(
+        chat_id=chat_id, message=_("Meeting time!"), message_thread_id=topic_id
+    )
+
     joined_users = await get_joined_users(chat_state)
     today_workers = [user for user in joined_users if current_day in user.meeting_days]
 
@@ -37,7 +39,11 @@ async def send_meeting_messages(
             today_workers.remove(user)
 
     if not today_workers:
-        await send_message(chat_id=chat_id, message=_("Nobody has joined the meeting!"), message_thread_id=topic_id)
+        await send_message(
+            chat_id=chat_id,
+            message=_("Nobody has joined the meeting!"),
+            message_thread_id=topic_id,
+        )
     else:
 
         # Creating list of joined to meeting users
@@ -49,7 +55,9 @@ async def send_meeting_messages(
         # Sending daily messages
         chat_state.meeting_msg_ids = []
         for message in daily_messages:
-            new_msg = await send_message(chat_id=chat_id, message=message, message_thread_id=topic_id)
+            new_msg = await send_message(
+                chat_id=chat_id, message=message, message_thread_id=topic_id
+            )
 
             chat_state.meeting_msg_ids.append(new_msg.message_id)
 

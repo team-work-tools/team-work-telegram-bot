@@ -4,29 +4,79 @@ from pytz.exceptions import UnknownTimeZoneError
 from textwrap import dedent
 from re import compile, escape
 
-from aiogram import Bot, Router, html
-from aiogram.enums import ParseMode
+import json
+from aiogram import Router, html, Bot
+from aiogram import types
 from aiogram.filters.command import Command
-from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, InlineQuery 
-from aiogram.utils.i18n import gettext as _
+from aiogram.types import (
+    Message,
+    InlineQuery,
+    BotCommand,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    CallbackQuery,
+)
+from .state import (
+    ChatState,
+    save_state,
+    load_state,
+    get_user,
+    load_user_pm,
+    create_user_pm,
+    save_user_pm,
+)
+from .filters import HasMessageText, HasMessageUserUsername, HasChatState
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from .meeting import schedule_meeting
+from .custom_types import SendMessage, SaveState, LoadState
+from aiogram.utils.i18n import I18n
+from .i18n import _
+from .constants import (
+    day_of_week_pretty,
+    datetime_time_format,
+    iso8601,
+    time_url,
+    sample_time,
+    sample_time_zone
+)
 
 from .commands import bot_command_names
-from .constants import (day_of_week_to_num, day_of_week_pretty, sample_time, sample_time_zone)
+from .constants import (
+    day_of_week_to_num,
+    day_of_week_pretty,
+    iso8601,
+    sample_time,
+    time_url,
+)
 from .custom_types import SendMessage
-from .filters import HasChatState, HasMessageText, HasMessageUserUsername, IsReplyToMeetingMessage
+from .filters import (
+    HasChatState,
+    HasMessageText,
+    HasMessageUserUsername,
+    IsReplyToMeetingMessage,
+)
 from .meeting import schedule_meeting
 from .reminder import update_reminders
 from .messages import make_help_message
+
+import logging
+from aiogram.enums import ParseMode
+from .language import Language, InlineKeyboardButtonName, CallbackData
 from .state import ChatState, save_state, get_user, load_user_pm, create_user_pm, save_user_pm
 from .timezones import get_time_zone_hint
 
 
-def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage, bot: Bot):
+def make_router(
+    scheduler: AsyncIOScheduler, send_message: SendMessage, bot: Bot, i18n: I18n
+):
     router = Router()
 
     handle_global_commands(
-        scheduler=scheduler, send_message=send_message, router=router, bot=bot
+        scheduler=scheduler,
+        send_message=send_message,
+        router=router,
+        bot=bot,
+        i18n=i18n,
     )
 
     handle_team_settings_commands(
@@ -37,13 +87,9 @@ def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage, bot: Bot
         scheduler=scheduler, send_message=send_message, router=router, bot=bot
     )
 
-    handle_info_commands(
-        scheduler=scheduler, send_message=send_message, router=router
-    )
+    handle_info_commands(scheduler=scheduler, send_message=send_message, router=router)
 
-    handle_user_responses(
-        scheduler=scheduler, send_message=send_message, router=router
-    )
+    handle_user_responses(scheduler=scheduler, send_message=send_message, router=router)
 
     handle_inline_queries(router=router)
 
@@ -51,11 +97,15 @@ def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage, bot: Bot
 
 
 def handle_global_commands(
-        scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router, bot: Bot
+    scheduler: AsyncIOScheduler,
+    send_message: SendMessage,
+    router: Router,
+    bot: Bot,
+    i18n: I18n,
 ):
     @router.message(Command(bot_command_names.start), HasChatState())
     async def start(message: Message, chat_state: ChatState):
-        await get_help(message=message, chat_state=chat_state)
+        await get_help(message=message, chat_state=chat_state, i18n=i18n)
 
         # Register user if it is personal message
         if message.chat.type == "private":
@@ -65,22 +115,74 @@ def handle_global_commands(
             if not user_pm and username:
                 user_pm = await create_user_pm(username=username, chat_id=user_cht_id)
                 await save_user_pm(user_pm=user_pm)
-                await message.reply("You successfully registered in the bot!")
+                await message.reply(_("Nice to meet you!"))
 
             await update_reminders(
                 bot=bot,
                 username=username,
                 scheduler=scheduler,
-                send_message=send_message
+                send_message=send_message,
             )
 
     @router.message(Command(bot_command_names.help), HasChatState())
-    async def get_help(message: Message, chat_state: ChatState):
+    async def get_help(message: Message, chat_state: ChatState, i18n: I18n):
         await message.reply(make_help_message())
+
+    @router.message(Command(bot_command_names.set_language), HasChatState())
+    async def set_language(message: types.Message, chat_state: ChatState, i18n: I18n):
+        keyboard = InlineKeyboardMarkup(
+            inline_keyboard=[
+                [
+                    InlineKeyboardButton(
+                        text=str(InlineKeyboardButtonName.en),
+                        callback_data=str(CallbackData.en),
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        text=str(InlineKeyboardButtonName.ru),
+                        callback_data=str(CallbackData.ru),
+                    )
+                ],
+            ]
+        )
+        await message.reply(
+            "🌐 Choose a language.\n🌐 Выбери язык.", reply_markup=keyboard
+        )
+
+    @router.callback_query(
+        lambda c: c.data == str(CallbackData.en) or c.data == str(CallbackData.ru)
+    )
+    async def process_callback_button_language(
+        callback_query: types.CallbackQuery, i18n: I18n
+    ):
+        match message := callback_query.message:
+            case Message():
+                chat_id = message.chat.id
+                chat_state = await load_state(
+                    chat_id=chat_id, topic_id=message.message_thread_id
+                )
+                new_language = (
+                    Language.en
+                    if callback_query.data == str(CallbackData.en)
+                    else Language.ru
+                )
+                chat_state.language = new_language
+                i18n.current_locale = str(new_language)
+
+                try:
+                    await save_state(chat_state)
+                    await callback_query.answer()
+                    await message.reply(_("English language selected!"))
+                except Exception as e:
+                    await callback_query.answer()
+                    await message.reply(
+                        _("Error saving language state: {error}").format(error=e)
+                    )
 
 
 def handle_team_settings_commands(
-        scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router, bot: Bot
+    scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router, bot: Bot
 ):
     @router.message(
         Command(bot_command_names.set_meetings_time_zone), HasMessageText(), HasChatState()
@@ -113,8 +215,7 @@ def handle_team_settings_commands(
                     You can use button below and pass your local time, date, country or continent to get timezone hints
                     """.format(
                         set_meetings_time_zone=bot_command_names.set_meetings_time_zone,
-                        sample_time_zone=sample_time_zone,
-                        sample_time=sample_time
+                        sample_time_zone=sample_time_zone
                     )
                 ),
                 reply_markup=keyboard
@@ -157,7 +258,7 @@ def handle_team_settings_commands(
         Command(bot_command_names.set_meetings_time), HasMessageText(), HasChatState()
     )
     async def set_meetings_time(
-            message: Message, message_text: str, chat_state: ChatState
+        message: Message, message_text: str, chat_state: ChatState
     ):
         try:
             meeting_time_str = message_text.split(" ", 1)[1]
@@ -232,13 +333,13 @@ def handle_team_settings_commands(
             ).format(
                 meeting_time=html.bold(meeting_time.strftime("%H:%M")),
                 week_days=html.bold(day_of_week_pretty),
-                start_date=html.bold(datetime.now().strftime("%Y-%m-%d")),
+                start_date=html.bold(meeting_time.strftime("%Y-%m-%d")),
             )
         )
 
 
 def handle_personal_settings_commands(
-        scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router, bot: Bot
+    scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router, bot: Bot
 ):
     @router.message(
         Command(bot_command_names.set_personal_time_zone), HasMessageText(), HasChatState(),
@@ -331,19 +432,17 @@ def handle_personal_settings_commands(
                     _(
                         """
                         You've just joined, @{username}!
-                        
+
                         You can skip meetings via the /{command_skip} command.
                         """
-                    ).format(
-                        username=username, command_skip=bot_command_names.skip
-                    )
+                    ).format(username=username, command_skip=bot_command_names.skip)
                 )
             )
 
     @router.message(
         Command(bot_command_names.skip), HasMessageUserUsername(), HasChatState()
     )
-    async def unsubscribe(message: Message, username: str, chat_state: ChatState):        
+    async def unsubscribe(message: Message, username: str, chat_state: ChatState):
         user = await get_user(chat_state, username)
         if user.is_joined:
             user.is_joined = False
@@ -353,7 +452,7 @@ def handle_personal_settings_commands(
                     _(
                         """
                         See you later, @{username}!
-                        
+
                         You can join via the /{command_join} command.
                         """
                     )
@@ -362,17 +461,18 @@ def handle_personal_settings_commands(
         else:
             await message.reply(
                 dedent(
-                    _("You've not yet joined, @{username}!").format(
-                        username=username
-                    )
+                    _("You've not yet joined, @{username}!").format(username=username)
                 )
             )
 
     @router.message(
-        Command(bot_command_names.set_personal_meetings_days), HasMessageUserUsername(), HasMessageText(), HasChatState()
+        Command(bot_command_names.set_personal_meetings_days),
+        HasMessageUserUsername(),
+        HasMessageText(),
+        HasChatState(),
     )
     async def set_personal_meetings_days(
-            message: Message, username: str, message_text: str, chat_state: ChatState
+        message: Message, username: str, message_text: str, chat_state: ChatState
     ):
         try:
             msg_spt = message_text.split()
@@ -403,9 +503,7 @@ def handle_personal_settings_commands(
             await message.reply(
                 _(
                     "OK, from now you will only receive messages on {meeting_days}."
-                ).format(
-                    meeting_days=html.bold(", ".join(day_tokens))
-                )
+                ).format(meeting_days=html.bold(", ".join(day_tokens)))
             )
         except Exception as e:
             await message.reply(
@@ -427,7 +525,10 @@ def handle_personal_settings_commands(
             )
 
     @router.message(
-        Command(bot_command_names.set_reminder_period), HasMessageUserUsername(), HasMessageText(), HasChatState()
+        Command(bot_command_names.set_reminder_period),
+        HasMessageUserUsername(),
+        HasMessageText(),
+        HasChatState(),
     )
     async def set_reminder_period(
         message: Message, username: str, message_text: str, chat_state: ChatState
@@ -442,9 +543,7 @@ def handle_personal_settings_commands(
             await save_state(chat_state)
 
             await message.reply(
-                _(
-                    "Reminder period set to {period} minutes"
-                ).format(
+                _("Reminder period set to {period} minutes").format(
                     period=period_minutes
                 )
             )
@@ -456,12 +555,12 @@ def handle_personal_settings_commands(
                 bot=bot,
                 username=username,
                 scheduler=scheduler,
-                send_message=send_message
+                send_message=send_message,
             )
 
             if not user.is_joined:
                 await message.reply(
-                    "You have to join daily meetings first!\nUse the /join command."
+                    _("You have to join daily meetings first!\nUse the /join command.")
                 )
 
             if not user_pm:
@@ -471,10 +570,7 @@ def handle_personal_settings_commands(
                     _(
                         "@{username} I don't have access to your personal messages.\n"
                         "Please write to @{bot_username} and type /start."
-                    ).format(
-                        username=username,
-                        bot_username=bot_info.username
-                    )
+                    ).format(username=username, bot_username=bot_info.username)
                 )
 
         except (IndexError, ValueError):
@@ -488,15 +584,13 @@ def handle_personal_settings_commands(
 
                         /{set_reminder_period} 30
                         """
-                    ).format(
-                        set_reminder_period=bot_command_names.set_reminder_period
-                    )
+                    ).format(set_reminder_period=bot_command_names.set_reminder_period)
                 )
             )
 
 
 def handle_info_commands(
-        scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router
+    scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router
 ):
     @router.message(Command(bot_command_names.get_chat_state), HasChatState())
     async def get_chat_state(message: Message, chat_state: ChatState):
@@ -512,11 +606,12 @@ def handle_info_commands(
 def handle_user_responses(
     scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router
 ):
-    @router.message(
-        HasMessageUserUsername(), HasChatState(), IsReplyToMeetingMessage()
-    )
+    @router.message(HasMessageUserUsername(), HasChatState(), IsReplyToMeetingMessage())
     async def set_meetings_time(
-            message: Message, username: str, chat_state: ChatState, replied_meeting_msg_num: int
+        message: Message,
+        username: str,
+        chat_state: ChatState,
+        replied_meeting_msg_num: int,
     ):
 
         if message.from_user and message.from_user.username:
