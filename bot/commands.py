@@ -1,4 +1,4 @@
-from aiogram.utils.i18n import gettext as _
+from .i18n import _
 from pydantic import BaseModel
 
 from .language import Language
@@ -8,6 +8,7 @@ class BotCommands(BaseModel):
     # global commands
     start: str
     help: str
+    set_language: str
     stop: str
     cancel: str
     # team settings
@@ -36,6 +37,7 @@ bot_command_names = BotCommandNames(
     # global commands
     start="start",
     help="help",
+    set_language="set_language",
     stop="stop",
     cancel="cancel",
     # team settings
@@ -64,12 +66,13 @@ class BotCommandDescriptions(BotCommands):
 def bot_command_descriptions() -> BotCommandDescriptions:
     return BotCommandDescriptions(
         # global commands
-        start=_("Enable me."),
+        start=_("Enable the bot."),
         help=_("Get a help message."),
-        stop=_("Disable me."),
+        set_language=_("Set the bot language."),
+        stop=_("Disable the bot."),
         cancel=_("Cancel the current operation with the bot."),
         # team settings
-        set_up_meetings=_("Set up regular meetings."),
+        set_up_meetings=_("Set up daily meetings."),
         # TODO use the time zone
         set_meetings_time_zone=_("Set meetings time zone."),
         set_meetings_time=_("Set meetings time."),
@@ -78,11 +81,13 @@ def bot_command_descriptions() -> BotCommandDescriptions:
         join=_("Join meetings."),
         skip=_("Skip meetings."),
         set_personal_meetings_days=_("Set the days when you can join meetings."),
-        set_reminder_period=_("Set how often you'll be reminded about unanswered questions."),
+        set_reminder_period=_(
+            "Set the period of reminders about unanswered questions."
+        ),
         join_today=_("Join only today's meeting."),
         skip_today=_("Skip only today's meeting."),
         schedule_personal_vacation=_("Schedule a personal vacation."),
         unschedule_personal_vacation=_("Unschedule the personal vacation."),
         # info settings
-        get_chat_state=_("Get the chat state that I store."),
+        get_chat_state=_("Get the chat state stored by the bot."),
     )
