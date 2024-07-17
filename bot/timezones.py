@@ -21,7 +21,7 @@ def get_time_zone_hint(prompt: str, personal: bool = False) -> list:
     if personal:
         command = bot_command_names.set_personal_time_zone
     else:
-        command = bot_command_names.set_meetings_time_zone
+        command = bot_command_names.set_chat_time_zone
     for option in hint_options:
         if prompt in option["option"].lower():
             res.append(

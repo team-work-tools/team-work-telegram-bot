@@ -226,7 +226,7 @@ async def set_time_zone(
         buttons = [
             [
                 InlineKeyboardButton(
-                    text=_("Get hints"),
+                    text=_("Select a time zone"),
                     switch_inline_query_current_chat=switch_inline_query_current_chat,
                 )
             ]
@@ -276,7 +276,7 @@ async def set_time_zone(
         await message.reply(mk_message_reply(time_zone_raw))
     except UnknownTimeZoneError:
         await message.reply(
-            _("Such time zone does not exist, please check the spelling")
+            _("Such time zone does not exist. Please check the spelling.")
         )
 
 
@@ -284,11 +284,11 @@ def handle_team_settings_commands(
     scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router, bot: Bot
 ):
     @router.message(
-        Command(bot_command_names.set_meetings_time_zone),
+        Command(bot_command_names.set_chat_time_zone),
         HasMessageText(),
         HasChatState(),
     )
-    async def set_meetings_time_zone(
+    async def set_chat_time_zone(
         message: Message, message_text: str, chat_state: ChatState
     ):
         async def update_state(
@@ -307,10 +307,10 @@ def handle_team_settings_commands(
             chat_state=chat_state,
             username=None,
             switch_inline_query_current_chat="",
-            time_zone_command=bot_command_names.set_meetings_time_zone,
+            time_zone_command=bot_command_names.set_chat_time_zone,
             mk_schedule_meeting_time_zone=lambda x: None,
             mk_message_reply=lambda time_zone_raw: _(
-                "Chat default time zone was successfully set to {time_zone}!"
+                "Chat time zone was successfully set to {time_zone}!"
             ).format(time_zone=time_zone_raw),
             update_state=update_state,
         )
@@ -426,10 +426,10 @@ def handle_personal_settings_commands(
             chat_state=chat_state,
             username=username,
             switch_inline_query_current_chat="personal ",
-            time_zone_command=bot_command_names.set_meetings_time_zone,
+            time_zone_command=bot_command_names.set_chat_time_zone,
             mk_schedule_meeting_time_zone=lambda x: x,
             mk_message_reply=lambda time_zone_raw: _(
-                "Your personal time zone was successfully set to {time_zone}!"
+                "Now your personal time zone is {time_zone}!"
             ).format(time_zone=time_zone_raw),
             update_state=update_state,
         )
