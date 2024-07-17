@@ -13,7 +13,7 @@ from .custom_types import SendMessage
 from .messages import make_interval_validation_message, make_interval_editing_instruction, make_interval_editing_error
 from .callbacks import IntervalCallback, WeekdayCallback
 from .fsm_states import IntervalEditingState
-from .intervals import Interval, schedule_is_empty, get_default_interval
+from .intervals import Interval, get_default_interval
 from .filters import HasChatState, HasMessageUserUsername
 from .keyboards import get_schedule_keyboard, get_schedule_options, get_interval_edit_options
 from .state import ChatState, ChatUser, save_state, get_user
@@ -34,6 +34,23 @@ def get_schedule_by_mode(chat_state: ChatState, user: ChatUser):
         shift = chat_state.time_zone_shift
 
     return week_schedule, tz, shift
+
+
+async def clear_schedule_cache(bot: Bot, chat_state: ChatState, user: ChatUser, state: FSMContext):
+    if user.schedule_msg is not None:
+        await bot.delete_message(chat_id=chat_state.chat_id, message_id=user.schedule_msg)
+
+    user.schedule_mode = None
+    user.schedule_msg = None
+    user.to_edit_weekday = None
+    user.to_edit_interval = None
+
+    if len(user.to_delete_msg_ids) > 0:
+        for msg_id in user.to_delete_msg_ids:
+            await bot.delete_message(chat_id=chat_state.chat_id, message_id=msg_id)
+        user.to_delete_msg_ids = set()
+
+    await state.clear()
 
 
 def handle_working_hours(
@@ -64,14 +81,16 @@ def handle_working_hours(
             week_schedule = user.temp_schedule
             tz = user.time_zone
             shift = user.time_zone_shift
+            text = f"@{username}, here is your personal schedule"
         else:
             chat_state.temp_schedule = chat_state.schedule
             week_schedule = chat_state.temp_schedule
             tz = chat_state.time_zone
             shift = chat_state.time_zone_shift
+            text = f"@{username}, here is default chat schedule"
 
         layout = get_schedule_keyboard(week_schedule, tz, shift)
-        schedule_msg = await cb.message.answer(f"@{username}, here is your {mode} schedule", reply_markup=layout)
+        schedule_msg = await cb.message.answer(text=text, reply_markup=layout)
 
         # Cache
         user.schedule_mode = mode
@@ -120,7 +139,6 @@ def handle_working_hours(
         user.to_delete_msg_ids.add(message.message_id)
 
         # Text entered by user is not interval
-        error_msg_text = ""
         if not parse_match:
             error_msg_text = f"The interval {message.text.strip()} isn't in the hh:mm - hh:mm format.\n"
 
@@ -243,22 +261,13 @@ def handle_working_hours(
         else:
             chat_state.temp_schedule = None
 
-        user.schedule_mode = None
-        user.schedule_msg = None
-        user.to_edit_weekday = None
-        user.to_edit_interval = None
+        await clear_schedule_cache(bot=bot, chat_state=chat_state, user=user, state=state)
 
-        if len(user.to_delete_msg_ids) > 0:
-            for msg_id in user.to_delete_msg_ids:
-                await bot.delete_message(chat_id=chat_state.chat_id, message_id=msg_id)
-            user.to_delete_msg_ids = set()
-
-        await state.clear()
         await cb.message.answer(f"The {mode} schedule was not updated.")
         await save_state(chat_state)
 
     @router.callback_query(F.data == "save_schedule", HasMessageUserUsername(), HasChatState())
-    async def save_changes(cb: CallbackQuery, username: str, chat_state: ChatState):
+    async def save_changes(cb: CallbackQuery, state: FSMContext, username: str, chat_state: ChatState):
 
         await cb.answer()
 
@@ -266,19 +275,14 @@ def handle_working_hours(
         mode = user.schedule_mode
         if mode == "personal":
             norm_schedule = {item[0]: item[1].normalize_intervals() for item in user.temp_schedule.items()}
-            user.temp_schedule = norm_schedule
-            user.schedule = user.temp_schedule
+            user.schedule = norm_schedule
             user.temp_schedule = None
         else:
             norm_schedule = {item[0]: item[1].normalize_intervals() for item in chat_state.temp_schedule.items()}
-            chat_state.temp_schedule = norm_schedule
-            chat_state.schedule = chat_state.temp_schedule
+            chat_state.schedule = norm_schedule
             chat_state.temp_schedule = None
 
-        user.schedule_mode = None
-        user.schedule_msg = None
-        user.to_edit_weekday = None
-        user.to_edit_interval = None
+        await clear_schedule_cache(bot=bot, chat_state=chat_state, user=user, state=state)
 
         await cb.message.answer(f"The {mode} schedule was updated.")
         await save_state(chat_state)
