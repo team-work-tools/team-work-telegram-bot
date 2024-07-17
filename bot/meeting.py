@@ -1,7 +1,6 @@
 import logging
 from datetime import datetime
 from typing import Optional
-from zoneinfo import ZoneInfo
 
 from aiogram.utils.i18n import gettext as _
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
@@ -13,22 +12,21 @@ from .messages import make_daily_messages
 from .state import load_state, save_state, get_joined_users
 
 
-async def send_meeting_messages(chat_id: ChatId, topic_id: Optional[int], send_message: SendMessage):
-    chat_state = await load_state(chat_id=chat_id, topic_id=topic_id)
+async def send_meeting_messages(
+        chat_id: ChatId,
+        is_topic: Optional[bool],
+        topic_id: Optional[int],
+        send_message: SendMessage
+):
+    chat_state = await load_state(chat_id=chat_id, is_topic=is_topic, topic_id=topic_id)
     current_day = datetime.now().weekday()
     current_day = days_array[current_day]
-    current_time = datetime.now().astimezone(ZoneInfo(chat_state.time_zone)).time().replace(
-        second=0,
-        microsecond=0,
-        tzinfo=None
-    )
 
     await send_message(chat_id=chat_id, message=_("Meeting time!"), message_thread_id=topic_id)
 
     joined_users = await get_joined_users(chat_state)
     today_workers = []
     for user in joined_users:
-        schedule = None
         if schedule_is_empty(user.schedule):
             schedule = chat_state.schedule
         else:
@@ -70,6 +68,7 @@ def make_job_id(chat_id: int, topic_id: Optional[int]):
 def schedule_meeting(
     meeting_time: datetime,
     chat_id: ChatId,
+    is_topic: Optional[bool],
     topic_id: Optional[int],
     scheduler: AsyncIOScheduler,
     send_message: SendMessage,
@@ -79,7 +78,7 @@ def schedule_meeting(
         func=send_meeting_messages,
         id=make_job_id(chat_id, topic_id),
         replace_existing=True,
-        kwargs={"chat_id": chat_id, "topic_id": topic_id, "send_message": send_message},
+        kwargs={"chat_id": chat_id, "is_topic": is_topic, "topic_id": topic_id, "send_message": send_message},
         trigger="cron",
         start_date=meeting_time,
         hour=meeting_time.hour,

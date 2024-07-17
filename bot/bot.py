@@ -33,9 +33,11 @@ async def restore_scheduled_jobs(
 
     for chat_state in chat_states:
         if chat_state.meeting_time:
+            is_topic = chat_state.topic_id is not None
             schedule_meeting(
                 meeting_time=chat_state.meeting_time,
                 chat_id=chat_state.chat_id,
+                is_topic=is_topic,
                 topic_id=chat_state.topic_id,
                 scheduler=scheduler,
                 send_message=send_message,

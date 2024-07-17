@@ -16,6 +16,7 @@ from .state import load_state, load_user_pm, get_user, ChatState
 
 async def send_reminder_messages(
         meeting_chat_id: ChatId,
+        is_topic: Optional[bool],
         meeting_topic_id: Optional[int],
         username: str,
         user_chat_id: ChatId,
@@ -23,7 +24,7 @@ async def send_reminder_messages(
         bot: Bot
 ):
     chat = await bot.get_chat(meeting_chat_id)
-    chat_state = await load_state(chat_id=meeting_chat_id, topic_id=meeting_topic_id)
+    chat_state = await load_state(chat_id=meeting_chat_id, is_topic=is_topic, topic_id=meeting_topic_id)
     user = await get_user(chat_state=chat_state, username=username)
 
     have_to_reply = list(user.non_replied_daily_msgs)
@@ -103,12 +104,14 @@ async def update_reminders(
             continue
 
         if chat.meeting_time and user.reminder_period:
+            is_topic = chat.topic_id is not None
             schedule_reminder(
                 bot=bot,
                 period_minutes=user.reminder_period,
                 username=username,
                 user_chad_id=user_pm.chat_id,
                 meeting_time=chat.meeting_time,
+                is_topic=is_topic,
                 meeting_chat_id=chat.chat_id,
                 meeting_topic_id=chat.topic_id,
                 scheduler=scheduler,
@@ -130,6 +133,7 @@ def schedule_reminder(
         user_chad_id: ChatId,
         meeting_time: datetime,
         meeting_chat_id: ChatId,
+        is_topic: Optional[bool],
         meeting_topic_id: Optional[int],
         scheduler: AsyncIOScheduler,
         send_message: SendMessage,
@@ -141,6 +145,7 @@ def schedule_reminder(
         replace_existing=True,
         kwargs={
             "meeting_chat_id": meeting_chat_id,
+            "is_topic": is_topic,
             "meeting_topic_id": meeting_topic_id,
             "username": username,
             "user_chat_id": user_chad_id,

@@ -114,16 +114,20 @@ async def create_state(chat_id: ChatId, topic_id: Optional[int]) -> ChatState:
     return await ChatState(chat_id=chat_id, topic_id=topic_id).create()
 
 
-async def load_state(chat_id: ChatId, topic_id: Optional[int]) -> ChatState:
+async def load_state(chat_id: ChatId, is_topic: Optional[bool], topic_id: Optional[int]) -> ChatState:
     """Load a chat state by chat ID or create a new one if not found.
     
     Args:
         chat_id (ChatId): The ID of the chat to load the state for.
+        is_topic (bool): Indicates if state is from topic (None for General topic and supergroup w/o topics)
         topic_id (int): The ID of the topic associated with the chat state.
     
     Returns:
         ChatState: The chat state instance found or created.
     """
+
+    if not is_topic:
+        topic_id = None
 
     match chat_state := await ChatState.find_one(
         {"chat_id": chat_id, "topic_id": topic_id}

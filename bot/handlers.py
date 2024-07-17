@@ -107,6 +107,7 @@ def handle_team_settings_commands(
             schedule_meeting(
                 meeting_time=meeting_time,
                 chat_id=chat_state.chat_id,
+                is_topic=message.is_topic_message,
                 topic_id=topic_id,
                 scheduler=scheduler,
                 send_message=send_message,
