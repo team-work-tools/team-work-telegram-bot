@@ -47,7 +47,7 @@
     <li><a href="#usage">Usage</a></li>
     <ul>
         <li><a href="#personal-use">Personal use</a></li>
-        <li><a href="#teamwork">Teamwork</a></li>
+        <li><a href="#team-work">Team work</a></li>
       </ul>
     <li><a href="#launch-your-bot">Launch yout bot</a></li>
     <ul>
@@ -193,9 +193,10 @@ See the development status [here](https://github.com/team-work-tools/team-work-t
 The Daily Meeting Telegram was built using:
 
 * [![Python][Python.js]][Python-url]
-* [![Aiogram][Aiogram.js]][Aiogram-url]
+  * [![Aiogram][Aiogram.js]][Aiogram-url]
+  * [![Babel][Babel.js]][Babel-url]
 * [![MongoDB][MongoDB.js]][MongoDB-url]
-
+* [![Docker][Docker.js]][Docker-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -203,7 +204,7 @@ The Daily Meeting Telegram was built using:
 ### Personal use:
 Send [@daily_meeting_t34_bot](https://t.me/daily_meeting_t34_bot) a private message with the `/start` command.
 
-### Teamwork:
+### Team work:
 Add [@daily_meeting_t34_bot](https://t.me/daily_meeting_t34_bot) to the public group. To gain access to all the functionality of the bot, send the `/start` command to the bot in private messages.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -313,3 +314,9 @@ Distributed under the MIT License. See [LICENSE.txt](./LICENSE)
 
 [MongoDB.js]: https://img.shields.io/badge/mongoDB-8800ff?style=for-the-badge&logo=mongoDB&logoColor=white
 [MongoDB-url]: https://www.mongodb.com/
+
+[Babel.js]: https://img.shields.io/badge/Babel-544987?style=for-the-badge&logo=babel&logoColor=white
+[Babel-url]: https://babeljs.io/
+
+[Docker.js]: https://img.shields.io/badge/Docker-8800ff?style=for-the-badge&logo=docker&logoColor=white
+[Docker-url]: https://www.docker.com/
