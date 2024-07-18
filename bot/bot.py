@@ -44,9 +44,9 @@ async def restore_scheduled_jobs(
             )
 
 
-async def set_default_commands(bot: Bot):
+async def set_default_commands(bot: Bot, i18n: I18n):
     commands = []
-    descriptions = bot_command_descriptions()
+    descriptions = bot_command_descriptions(i18n=i18n)
 
     attribute_names = vars(bot_command_names).keys()
     for attr in attribute_names:
@@ -86,6 +86,6 @@ async def main(settings: Settings) -> None:
 
     await bot.delete_webhook(drop_pending_updates=True)
 
-    await dp.start_polling(bot)
+    await set_default_commands(bot=bot, i18n=i18n)
 
-    await set_default_commands(bot=bot)
+    await dp.start_polling(bot)

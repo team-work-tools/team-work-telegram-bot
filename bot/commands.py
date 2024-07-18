@@ -1,4 +1,4 @@
-from aiogram.utils.i18n import gettext as _
+from aiogram.utils.i18n import gettext, I18n
 from pydantic import BaseModel
 
 
@@ -59,7 +59,12 @@ class BotCommandDescriptions(BotCommands):
     pass
 
 
-def bot_command_descriptions() -> BotCommandDescriptions:
+def bot_command_descriptions(i18n: I18n = None) -> BotCommandDescriptions:
+    if i18n:
+        _ = i18n.gettext
+    else:
+        _ = gettext
+
     return BotCommandDescriptions(
         # global commands
         start=_("Enable me."),
