@@ -189,20 +189,6 @@ def handle_global_commands(
                         _("Error saving language state: {error}").format(error=e)
                     )
 
-
-class UpdateState(Protocol):
-    async def __call__(
-        self,
-        chat_state: ChatState,
-        username: Optional[str] = None,
-        time_zone_raw: Optional[int] = None,
-    ) -> None: ...
-
-
-class MkMessageReply(Protocol):
-    async def __call__(self, time_zone_raw: str) -> None: ...
-
-
 async def set_time_zone(
     scheduler: AsyncIOScheduler,
     send_message: SendMessage,
