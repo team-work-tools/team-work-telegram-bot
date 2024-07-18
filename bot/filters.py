@@ -1,5 +1,5 @@
 from aiogram.filters import Filter
-from aiogram.types import Message, CallbackQuery, User
+from aiogram.types import CallbackQuery, Message, User
 
 from .state import load_state
 
@@ -54,8 +54,8 @@ class IsReplyToMeetingMessage(Filter):
             message_ids = chat_state.meeting_msg_ids
 
             if len(message_ids) == 3:
-                for i in range(0, 3):
-                    if replied_msg_id == message_ids[i]:
+                for i, message_id in enumerate(message_ids):
+                    if replied_msg_id == message_id:
                         return {"replied_meeting_msg_num": i}
 
         return False

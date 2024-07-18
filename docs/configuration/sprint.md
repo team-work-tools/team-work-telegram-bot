@@ -2,22 +2,7 @@
 
 ## Glossary
 
-- `Policy`, `Process`, `Procedure` - explained [here](https://www.oracle.com/ce-help/playbook/display-content/ar02-policy-process-or-procedure).
-- `UPPERCASE` words that have a specified meaning in [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) and [RFC 8174](https://www.rfc-editor.org/rfc/rfc8174) have that meaning in this document.
-- `X`, `Y`, `Z`, `T` are numbers.
-  - They correspond to team numbers.
-  - They can take values `12`, `34`, `56`.
-- {X} means "write here the value of `X`" like in Python f-strings.
-- `Team {X}`, `Team {Y}`, `Team {Z}` are different teams.
-- `Teams` - all three teams.
-- `Sprint {S}` - the current sprint.
-- [Responsibility Distribution](./roles-and-responsibilities.md#responsibility-distribution) <a id="def-responsibility-distribution"></a> - a mapping between issue labels and responsible people.
-- `Task Management`, `Architecture`, `UI/UX`, etc. - people that have these responsibilities according to the Responsibility distribution.
-- `PR` - a [pull request](https://github.com/team-work-tools/team-work-telegram-bot/pulls).
-- `Assignee` <a id="def-assignee"></a> - responsible for completing an [issue](https://github.com/team-work-tools/team-work-telegram-bot/issues).
-- `Reviewer` <a id="def-reviewer"></a> - responsible for reviewing a PR.
-- [Roadmap issue](https://github.com/team-work-tools/team-work-telegram-bot/issues/79) <a id="def-roadmap-issue"></a> - an issue that tracks the work on the project.
-- `topic` - a topic in the Telegram group of the project.
+- See the [Glossary](../glossary.md).
 
 ## Policies
 

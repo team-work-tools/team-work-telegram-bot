@@ -2,27 +2,28 @@ import logging
 from datetime import datetime
 from typing import Optional
 
-from aiogram.utils.i18n import gettext as _
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
-from .constants import jobstore, days_array
+from .constants import days_array, jobstore
 from .custom_types import ChatId, SendMessage
+from .i18n import _
 from .intervals import schedule_is_empty
 from .messages import make_daily_messages
-from .state import load_state, save_state, get_joined_users
+from .state import get_joined_users, load_state, save_state
 
 
 async def send_meeting_messages(
-        chat_id: ChatId,
-        is_topic: Optional[bool],
-        topic_id: Optional[int],
-        send_message: SendMessage
+    chat_id: ChatId,
+    is_topic: Optional[bool],
+    topic_id: Optional[int],
+    send_message: SendMessage
 ):
     chat_state = await load_state(chat_id=chat_id, is_topic=is_topic, topic_id=topic_id)
     current_day = datetime.now().weekday()
     current_day = days_array[current_day]
-
-    await send_message(chat_id=chat_id, message=_("Meeting time!"), message_thread_id=topic_id)
+    await send_message(
+        chat_id=chat_id, message=_("Meeting time!"), message_thread_id=topic_id
+    )
 
     joined_users = await get_joined_users(chat_state)
     today_workers = []
@@ -35,7 +36,11 @@ async def send_meeting_messages(
             today_workers.append(user)
 
     if not today_workers:
-        await send_message(chat_id=chat_id, message=_("Nobody has joined the meeting!"), message_thread_id=topic_id)
+        await send_message(
+            chat_id=chat_id,
+            message=_("Nobody has joined the meeting!"),
+            message_thread_id=topic_id,
+        )
     else:
 
         # Creating list of joined to meeting users
@@ -47,13 +52,16 @@ async def send_meeting_messages(
         # Sending daily messages
         chat_state.meeting_msg_ids = []
         for message in daily_messages:
-            new_msg = await send_message(chat_id=chat_id, message=message, message_thread_id=topic_id)
+            new_msg = await send_message(
+                chat_id=chat_id, message=message, message_thread_id=topic_id
+            )
 
             chat_state.meeting_msg_ids.append(new_msg.message_id)
 
         # Reset info about replies to meeting messages after assigning new meeting
         for user in today_workers:
             user.non_replied_daily_msgs = set(range(0, 3))
+            user.responses = {idx: "" for idx in range(0, 3)}
 
         await save_state(chat_state=chat_state)
 

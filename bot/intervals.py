@@ -1,10 +1,10 @@
-from uuid import UUID, uuid4
-from typing import List, Tuple, Dict
 from datetime import datetime, time, timedelta
+from typing import Dict, List, Tuple
+from uuid import UUID, uuid4
 from zoneinfo import ZoneInfo
 
 from pydantic import BaseModel
-from pytz import timezone, UnknownTimeZoneError
+from pytz import UnknownTimeZoneError, timezone
 
 
 class IntervalException(Exception):

@@ -1,23 +1,25 @@
+import asyncio
 import re
 
-import asyncio
-from aiogram import Bot, Router, F
+from aiogram import Bot, F, Router
 from aiogram.filters.command import Command
-from aiogram.types import Message, CallbackQuery
 from aiogram.fsm.context import FSMContext
+from aiogram.types import CallbackQuery, Message
 from aiogram.utils import markdown as fmt
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
+from .callbacks import IntervalCallback, WeekdayCallback
 from .commands import bot_command_names
 from .custom_types import SendMessage
-from .messages import make_interval_validation_message, make_interval_editing_instruction, make_interval_editing_error
-from .callbacks import IntervalCallback, WeekdayCallback
+from .filters import HasChatState, HasMessageUserUsername
 from .fsm_states import IntervalEditingState
 from .intervals import Interval, get_default_interval
-from .filters import HasChatState, HasMessageUserUsername
-from .keyboards import get_schedule_keyboard, get_schedule_options, get_interval_edit_options
-from .state import ChatState, ChatUser, save_state, get_user
-
+from .keyboards import (get_interval_edit_options, get_schedule_keyboard,
+                        get_schedule_options)
+from .messages import (make_interval_editing_error,
+                       make_interval_editing_instruction,
+                       make_interval_validation_message)
+from .state import ChatState, ChatUser, get_user, save_state
 
 INTERVAL_PATTERN = r"^\d{1,2}:\d{2}\s*-\s*\d{1,2}:\d{2}$"
 

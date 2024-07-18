@@ -3,11 +3,11 @@ from typing import List, Tuple
 
 from aiogram import html
 from aiogram.utils import markdown as fmt
-from aiogram.utils.i18n import gettext as _
 
 from .commands import bot_command_descriptions, bot_command_names
-from .intervals import Interval, InvalidTimeFormatException, InvalidIntervalException
-
+from .i18n import _
+from .intervals import (Interval, InvalidIntervalException,
+                        InvalidTimeFormatException)
 
 DEFAULT_EDITING_INTERVAL = "19:00 - 22:30"
 
@@ -33,6 +33,7 @@ def make_help_message() -> str:
         {html.bold(_("Global commands"))}
         /{command_names.start} - {command_descriptions.start}
         /{command_names.help} - {command_descriptions.help}
+        /{command_names.set_language} - {command_descriptions.set_language}
         
         {html.bold(_("Team settings commands"))}
         /{command_names.set_meetings_time} - {command_descriptions.set_meetings_time}
@@ -45,6 +46,7 @@ def make_help_message() -> str:
         
         {html.bold(_("Chat information commands"))}
         /{command_names.get_chat_state} - {command_descriptions.get_chat_state}
+        /{command_names.get_report} - {command_descriptions.get_report}
         """
     ).strip()
 

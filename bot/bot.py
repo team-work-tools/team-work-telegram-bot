@@ -4,16 +4,16 @@ from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.types import BotCommand
-from aiogram.utils.i18n import I18n
-from aiogram.utils.i18n.middleware import FSMI18nMiddleware
 from apscheduler.jobstores.memory import MemoryJobStore
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from pytz import utc
 
 from . import db, handlers
+from .commands import bot_command_descriptions, bot_command_names
 from .constants import jobstore
-from .commands import bot_command_names, bot_command_descriptions
 from .custom_types import ChatId, SendMessage
+from .i18n import i18n
+from .i18n_middleware import MyI18nMiddleware
 from .meeting import schedule_meeting
 from .middlewares import GroupCommandFilterMiddleware
 from .settings import Settings
@@ -44,9 +44,9 @@ async def restore_scheduled_jobs(
             )
 
 
-async def set_default_commands(bot: Bot, i18n: I18n):
+async def set_default_commands(bot: Bot):
     commands = []
-    descriptions = bot_command_descriptions(i18n=i18n)
+    descriptions = bot_command_descriptions()
 
     attribute_names = vars(bot_command_names).keys()
     for attr in attribute_names:
@@ -63,29 +63,33 @@ async def main(settings: Settings) -> None:
 
     dp = Dispatcher()
 
-    i18n = I18n(path="locales", default_locale="en", domain="messages")
-    fsmi18n = FSMI18nMiddleware(i18n)
-    fsmi18n.setup(router=dp)
+    dp.update.middleware(MyI18nMiddleware(i18n=i18n))
 
     bot = Bot(
         token=settings.bot_token,
         default=DefaultBotProperties(parse_mode=ParseMode.HTML),
     )
 
-    async def send_message(chat_id: ChatId, message: str, message_thread_id: Optional[int] = None):
-        return await bot.send_message(chat_id=chat_id, text=message, message_thread_id=message_thread_id)
+    async def send_message(
+        chat_id: ChatId, message: str, message_thread_id: Optional[int] = None
+    ):
+        return await bot.send_message(
+            chat_id=chat_id, text=message, message_thread_id=message_thread_id
+        )
 
     dp.update.outer_middleware(GroupCommandFilterMiddleware())
 
     scheduler = init_scheduler(settings=settings)
     await restore_scheduled_jobs(scheduler=scheduler, send_message=send_message)
 
-    router = handlers.make_router(scheduler=scheduler, send_message=send_message, bot=bot)
+    router = handlers.make_router(
+        scheduler=scheduler, send_message=send_message, bot=bot, i18n=i18n
+    )
 
     dp.include_router(router)
 
     await bot.delete_webhook(drop_pending_updates=True)
 
-    await set_default_commands(bot=bot, i18n=i18n)
+    await set_default_commands(bot=bot)
 
     await dp.start_polling(bot)

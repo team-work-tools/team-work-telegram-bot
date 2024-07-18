@@ -1,4 +1,4 @@
-from typing import Protocol, Optional
+from typing import Optional, Protocol
 
 from aiogram.types import Message
 
@@ -7,7 +7,9 @@ from .state import ChatState
 
 
 class SendMessage(Protocol):
-    async def __call__(self, chat_id: ChatId, message: str, message_thread_id: Optional[int] = None) -> Message: ...
+    async def __call__(
+        self, chat_id: ChatId, message: str, message_thread_id: Optional[int] = None
+    ) -> Message: ...
 
 
 class SaveState(Protocol):

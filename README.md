@@ -64,6 +64,8 @@ Add [@daily_meeting_robot](http://t.me/daily_meeting_robot) to a group or open a
     BOT_TOKEN=<bot token received from @BotFather>
     MONGO_HOST=mongodb
     MONGO_PORT=27017
+    MONGO_USERNAME=some_unusual_username
+    MONGO_PASSWORD=even_more_unusual_password
     ```
 
 #### Run via `docker`

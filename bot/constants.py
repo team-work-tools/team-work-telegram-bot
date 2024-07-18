@@ -36,3 +36,22 @@ days_array = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
 empty_schedule = {day: DaySchedule(name=day) for day in days_array}
 
 default_schedule = empty_schedule
+
+day_of_week_to_num = {
+    "monday": 0,
+    "tuesday": 1,
+    "wednesday": 2,
+    "thursday": 3,
+    "friday": 4,
+    "saturday": 5,
+    "sunday": 6,
+    "понедельник": 0,
+    "вторник": 1,
+    "среда": 2,
+    "четверг": 3,
+    "пятница": 4,
+    "суббота": 5,
+    "воскресенье": 6,
+}
+
+report_tag = "daily_report"

@@ -1,11 +1,12 @@
 from typing import Dict
 from uuid import UUID
 
-from aiogram.utils.keyboard import InlineKeyboardBuilder, InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.utils.keyboard import (InlineKeyboardBuilder,
+                                    InlineKeyboardButton, InlineKeyboardMarkup)
 
 from .callbacks import IntervalCallback, WeekdayCallback
-from .intervals import Interval, DaySchedule
 from .constants import days_array
+from .intervals import DaySchedule, Interval
 
 INCLUDED_1 = "✅"
 INCLUDED_2 = "🗹"

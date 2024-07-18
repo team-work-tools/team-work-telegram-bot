@@ -6,7 +6,7 @@
 
 ## Glossary
 
-- [Glossary](./glossary.md)
+- [Glossary](../../glossary.md)
 {specific_glossary_entries}
 
 ## Description

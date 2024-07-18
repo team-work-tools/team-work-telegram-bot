@@ -7,5 +7,5 @@ class Settings(BaseSettings):
     bot_token: str
     mongo_host: str
     mongo_port: int
-    # mongo_username: str
-    # mongo_password: str
+    mongo_username: str
+    mongo_password: str

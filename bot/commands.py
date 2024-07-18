@@ -1,11 +1,13 @@
-from aiogram.utils.i18n import gettext, I18n
 from pydantic import BaseModel
+
+from .i18n import _
 
 
 class BotCommands(BaseModel):
     # global commands
     start: str
     help: str
+    set_language: str
     stop: str
     cancel: str
     # team settings
@@ -24,6 +26,7 @@ class BotCommands(BaseModel):
     unschedule_personal_vacation: str
     # info
     get_chat_state: str
+    get_report: str
 
 
 class BotCommandNames(BotCommands):
@@ -34,6 +37,7 @@ bot_command_names = BotCommandNames(
     # global commands
     start="start",
     help="help",
+    set_language="set_language",
     stop="stop",
     cancel="cancel",
     # team settings
@@ -52,6 +56,7 @@ bot_command_names = BotCommandNames(
     unschedule_personal_vacation="unschedule_personal_vacation",
     # info
     get_chat_state="get_chat_state",
+    get_report="get_report"
 )
 
 
@@ -59,20 +64,16 @@ class BotCommandDescriptions(BotCommands):
     pass
 
 
-def bot_command_descriptions(i18n: I18n = None) -> BotCommandDescriptions:
-    if i18n:
-        _ = i18n.gettext
-    else:
-        _ = gettext
-
+def bot_command_descriptions() -> BotCommandDescriptions:
     return BotCommandDescriptions(
         # global commands
-        start=_("Enable me."),
+        start=_("Enable the bot."),
         help=_("Get a help message."),
-        stop=_("Disable me."),
+        set_language=_("Set the bot language."),
+        stop=_("Disable the bot."),
         cancel=_("Cancel the current operation with the bot."),
         # team settings
-        set_up_meetings=_("Set up regular meetings."),
+        set_up_meetings=_("Set up daily meetings."),
         # TODO use the time zone
         set_meetings_time_zone=_("Set meetings time zone."),
         set_meetings_time=_("Set meetings time."),
@@ -81,11 +82,14 @@ def bot_command_descriptions(i18n: I18n = None) -> BotCommandDescriptions:
         join=_("Join meetings."),
         skip=_("Skip meetings."),
         set_working_hours=_("Set your working schedule."),
-        set_reminder_period=_("Set how often you'll be reminded about unanswered questions."),
+        set_reminder_period=_(
+            "Set the period of reminders about unanswered questions."
+        ),
         join_today=_("Join only today's meeting."),
         skip_today=_("Skip only today's meeting."),
         schedule_personal_vacation=_("Schedule a personal vacation."),
         unschedule_personal_vacation=_("Unschedule the personal vacation."),
         # info settings
-        get_chat_state=_("Get the chat state that I store."),
+        get_chat_state=_("Get the chat state stored by the bot."),
+        get_report=_("Get the report."),
     )

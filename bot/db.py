@@ -6,15 +6,16 @@ from .state import ChatState, UserPM
 
 
 async def main(settings: Settings):
-    # Create Motor client
+    host = settings.mongo_host
+    port = settings.mongo_port
+    username = settings.mongo_username
+    password = settings.mongo_password
+
     client = AsyncIOMotorClient(
-        # TODO enable user and password
-        # f"mongodb://{settings.mongo_username}:{settings.mongo_password}@{settings.mongo_host}:{settings.mongo_port}"
-        f"mongodb://{settings.mongo_host}:{settings.mongo_port}",
+        f"mongodb://{username}:{password}@{host}:{port}",
         tz_aware=True
     )
 
     db = client["bot_states"]
 
-    # Initialize beanie with the Sample document class and a database
     await init_beanie(database=db, document_models=[ChatState, UserPM])
