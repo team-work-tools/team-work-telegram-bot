@@ -94,3 +94,23 @@ def make_interval_editing_error(error_msg: str) -> str:
 
     text = fmt.text(error_msg, "\n", again_text, "\n", cancel_text, sep="")
     return text
+
+
+def make_chat_state_messages(json_string: str, max_length=4096) -> List[str]:
+    """Split the json string into chunks of max length 4096 characters (Telegram API limit).
+
+    Args:
+        json_string: The chat state in formatted as json string.
+        max_length: The max length of one chunk. By default, 4096.
+
+    Returns:
+        List[str]: List of string chunks formatted as json code.
+    """
+    chunks = []
+
+    for i in range(0, len(json_string), max_length):
+        chunk = json_string[i:i + max_length]
+        chunk_fmt = dedent(f"""<pre><code class="language-json">{chunk}</code></pre>""")
+        chunks.append(chunk_fmt)
+
+    return chunks

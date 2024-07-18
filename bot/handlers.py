@@ -16,7 +16,7 @@ from .intervals import schedule_is_empty, pretty_weekdays
 from .meeting import schedule_meeting
 from .reminder import update_reminders
 from .work_time import handle_working_hours
-from .messages import make_help_message
+from .messages import make_help_message, make_chat_state_messages
 from .state import ChatState, save_state, get_user, load_user_pm, create_user_pm, save_user_pm
 
 
@@ -298,12 +298,12 @@ def handle_info_commands(
     @router.message(Command(bot_command_names.get_chat_state), HasChatState())
     async def get_chat_state(message: Message, chat_state: ChatState):
         chat_state_json = chat_state.model_dump_json(indent=2)
-        await message.reply(
-            dedent(
-                f"""<pre><code class="language-json">{chat_state_json}</code></pre>"""
-            ),
-            parse_mode=ParseMode.HTML,
-        )
+        messages = make_chat_state_messages(json_string=chat_state_json)
+        for msg in messages:
+            await message.reply(
+                text=msg,
+                parse_mode=ParseMode.HTML,
+            )
 
 
 def handle_user_responses(
