@@ -1,5 +1,5 @@
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Optional
 
 from aiogram import Bot
@@ -12,7 +12,7 @@ from .messages import make_daily_messages
 from .constants import jobstore, days_array
 from .custom_types import ChatId, SendMessage
 from .intervals import schedule_is_empty
-from .state import load_state, load_user_pm, get_user, ChatState
+from .state import save_state, load_state, load_user_pm, get_user, ChatState
 
 
 async def send_reminder_messages(
@@ -45,9 +45,14 @@ async def send_reminder_messages(
     reminder_message = "Please reply to these daily meeting questions:"
     chat_type = chat.type
 
-    # TODO: decide where will u forward msg and write logic to handle deleted msgs
-    res = await messages_not_deleted(bot, -1002148770957, [198, 199, 243], messages)
-    print(res)
+    if len(have_to_reply) == 0:
+        return
+
+    msgs_are_deleted = await messages_are_deleted(bot, meeting_chat_id, chat_state.meeting_msg_ids)
+    for i, deleted in enumerate(msgs_are_deleted):
+        if deleted:
+            have_to_reply.remove(i)
+    user.non_replied_daily_msgs = set(have_to_reply)
 
     try:
         for reply in have_to_reply:
@@ -100,6 +105,8 @@ async def send_reminder_messages(
                 message=banned_msg
             )
 
+    await save_state(chat_state=chat_state)
+
 
 async def update_reminders(
         bot: Bot,
@@ -127,7 +134,7 @@ async def update_reminders(
                 period_minutes=user.reminder_period,
                 username=username,
                 user_chad_id=user_pm.chat_id,
-                meeting_time=chat.meeting_time,
+                meeting_time=chat.meeting_time + timedelta(minutes=1),
                 is_topic=is_topic,
                 meeting_chat_id=chat.chat_id,
                 meeting_topic_id=chat.topic_id,
@@ -189,17 +196,15 @@ def get_message_link(chat_id: ChatId, message_id: ChatId, thread_id: Optional[in
             return None
 
 
-async def messages_not_deleted(bot: Bot, chat_id: ChatId, msg_ids: list[int], msg_texts: list[str]) -> list[bool]:
+async def messages_are_deleted(bot: Bot, chat_id: ChatId, msg_ids: list[int]) -> list[bool]:
     result: list[bool] = []
-    some_chat = "-4269886079"
 
-    for msg_id, msg_text in zip(msg_ids, msg_texts):
+    for msg_id in msg_ids:
         try:
-            await bot.forward_message(chat_id=some_chat, from_chat_id=chat_id, message_id=msg_id)
-            result.append(True)
-        except TelegramBadRequest:
+            msg = await bot.forward_message(chat_id=chat_id, from_chat_id=chat_id, message_id=msg_id)
+            await bot.delete_message(chat_id=chat_id, message_id=msg.message_id)
             result.append(False)
-        except Exception as e:
-            print(e)
+        except TelegramBadRequest:
+            result.append(True)
 
     return result
