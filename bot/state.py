@@ -1,8 +1,9 @@
-from datetime import datetime
+from datetime import datetime, tzinfo
 from typing import Annotated, Dict, List, Optional
 from uuid import UUID
 
 import pymongo
+import pytz
 from beanie import Document, Indexed
 from pydantic import BaseModel
 
@@ -66,7 +67,6 @@ class ChatState(Document):
     chat_id: Annotated[ChatId, Indexed(index_type=pymongo.ASCENDING)]
     users: Dict[str, ChatUser] = dict()
     recurring_messages: Dict[str, RecurringData] = dict()
-
     meeting_time: Optional[datetime] = None
     meeting_msg_ids: list[int] = []
 

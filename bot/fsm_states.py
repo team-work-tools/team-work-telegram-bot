@@ -11,4 +11,3 @@ class RecurringAddingState(StatesGroup):
     EnterRecurringPeriod = State()
     EnterRecurringExpression = State()
     EnterRecurringMessage = State()
-    data = State()
