@@ -5,7 +5,7 @@ from typing import Optional
 from aiogram.utils.i18n import gettext as _
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
-from .constants import day_of_week, jobstore, days_array
+from .constants import jobstore, days_array
 from .custom_types import ChatId, SendMessage
 from .intervals import schedule_is_empty
 from .messages import make_daily_messages
@@ -83,7 +83,6 @@ def schedule_meeting(
         start_date=meeting_time,
         hour=meeting_time.hour,
         minute=meeting_time.minute,
-        day_of_week=day_of_week,  # TODO: make it same as day of the week of any joined users or something else
         timezone=meeting_time.tzinfo,
         misfire_grace_time=42,
     )

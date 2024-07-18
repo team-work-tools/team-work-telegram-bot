@@ -12,6 +12,7 @@ from .commands import bot_command_names
 from .constants import (day_of_week_pretty, iso8601, sample_time, time_url)
 from .custom_types import SendMessage
 from .filters import HasChatState, HasMessageText, HasMessageUserUsername, IsReplyToMeetingMessage
+from .intervals import schedule_is_empty, pretty_weekdays
 from .meeting import schedule_meeting
 from .reminder import update_reminders
 from .work_time import handle_working_hours
@@ -90,10 +91,10 @@ def handle_team_settings_commands(
         scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router, bot: Bot
 ):
     @router.message(
-        Command(bot_command_names.set_meetings_time), HasMessageText(), HasChatState()
+        Command(bot_command_names.set_meetings_time), HasMessageText(), HasChatState(), HasMessageUserUsername()
     )
     async def set_meetings_time(
-            message: Message, message_text: str, chat_state: ChatState
+            message: Message, message_text: str, username: str, chat_state: ChatState
     ):
         meeting_time_str = message_text.split(" ", 1)
         topic_id = message.message_thread_id
@@ -104,6 +105,18 @@ def handle_team_settings_commands(
             chat_state.topic_id = topic_id
             await save_state(chat_state=chat_state)
 
+            user = await get_user(chat_state=chat_state, username=username)
+            if schedule_is_empty(user.schedule) and schedule_is_empty(chat_state.schedule):
+                day_of_week = day_of_week_pretty
+            elif schedule_is_empty(user.schedule):
+                schedule = chat_state.schedule
+                days = [item[0] for item in schedule.items() if item[1].included]
+                day_of_week = pretty_weekdays(days)
+            else:
+                schedule = user.schedule
+                days = [item[0] for item in schedule.items() if item[1].included]
+                day_of_week = pretty_weekdays(days)
+
             schedule_meeting(
                 meeting_time=meeting_time,
                 chat_id=chat_state.chat_id,
@@ -112,8 +125,6 @@ def handle_team_settings_commands(
                 scheduler=scheduler,
                 send_message=send_message,
             )
-
-            username = message.from_user.username if message.from_user else None
 
             await update_reminders(
                 bot=bot,
@@ -127,7 +138,7 @@ def handle_team_settings_commands(
                     "OK, we'll meet at {meeting_time} on {week_days} starting not earlier than on {start_date}!"
                 ).format(
                     meeting_time=html.bold(meeting_time.strftime("%H:%M")),
-                    week_days=html.bold(day_of_week_pretty),
+                    week_days=html.bold(day_of_week),
                     start_date=html.bold(meeting_time.strftime("%Y-%m-%d")),
                 )
             )

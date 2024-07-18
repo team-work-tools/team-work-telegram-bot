@@ -242,3 +242,34 @@ def calculate_shift(old_tz: str, new_tz: str, old_shift: int, is_schedule_static
         return old_shift + delta
     else:
         return old_shift
+
+
+def pretty_weekdays(days: list[str]):
+    # Define the order of the days
+    day_order = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    day_index = {day: i for i, day in enumerate(day_order)}
+
+    # Sort the days based on their order in the week
+    sorted_days = sorted(days, key=lambda x: day_index[x])
+
+    groups = []
+    current_group = [sorted_days[0]]
+
+    for i in range(1, len(sorted_days)):
+        if day_index[sorted_days[i]] == day_index[sorted_days[i - 1]] + 1:
+            current_group.append(sorted_days[i])
+        else:
+            groups.append(current_group)
+            current_group = [sorted_days[i]]
+
+    groups.append(current_group)
+
+    # Create the pretty string representation
+    pretty_strings = []
+    for group in groups:
+        if len(group) > 1:
+            pretty_strings.append(f"{group[0]} - {group[-1]}")
+        else:
+            pretty_strings.append(group[0])
+
+    return ", ".join(pretty_strings)
