@@ -48,6 +48,7 @@ async def send_meeting_messages(
         # Reset info about replies to meeting messages after assigning new meeting
         for user in today_workers:
             user.non_replied_daily_msgs = set(range(0, 3))
+            user.responses = {idx: "" for idx in range(0,3)}
 
         await save_state(chat_state=chat_state)
 

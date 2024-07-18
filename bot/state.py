@@ -18,6 +18,7 @@ class ChatUser(BaseModel):
     )  # default value - [0 - 4] = Monday - Friday
     reminder_period: Optional[int] = None
     non_replied_daily_msgs: set[int] = set(range(0, 3))
+    responses: Dict[int, str] = {}
 
     def __hash__(self):
         return hash(self.username)
