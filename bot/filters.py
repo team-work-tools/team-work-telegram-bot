@@ -36,8 +36,8 @@ class IsReplyToMeetingMessage(Filter):
             replied_msg_id = message.reply_to_message.message_id
             message_ids = chat_state.meeting_msg_ids
 
-            for i in range(0, 3):
-                if replied_msg_id == message_ids[i]:
+            for i, message_id in enumerate(message_ids):
+                if replied_msg_id == message_id:
                     return {"replied_meeting_msg_num": i}
 
         return False
