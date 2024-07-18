@@ -41,6 +41,7 @@ from .constants import (
     iso8601,
     sample_time,
     time_url,
+    report_tag
 )
 from .custom_types import SendMessage
 from .filters import (
@@ -442,7 +443,7 @@ def handle_info_commands(
                 if response:
                     responses_by_topic[idx].append(f"@{username}: {response}")
 
-        report_message = "#Daily_Report\n\n"
+        report_message = f"#{report_tag}\n\n"
 
         for idx, question in enumerate(questions):
             report_message += f"{question}\n"
