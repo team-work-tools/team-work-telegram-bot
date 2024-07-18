@@ -38,4 +38,6 @@ day_of_week_to_num = {
     "воскресенье": 6,
 }
 
-sample_time = "2024-06-03T14:00:00+03:00"
+sample_time = "13:20"
+
+sample_time_zone = "Europe/Moscow"
