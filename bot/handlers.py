@@ -1,5 +1,5 @@
 from datetime import datetime
-
+from typing import Dict
 import json
 from aiogram import Router, html, Bot
 from aiogram import types
@@ -436,7 +436,7 @@ def handle_info_commands(
     async def get_report(message: Message, chat_state: ChatState):
         questions = make_daily_messages("")
 
-        responses_by_topic = {i: [] for i in range(len(questions))}
+        responses_by_topic: Dict[int, [str]] = {i: [] for i in range(len(questions))}
 
         for username, user in chat_state.users.items():
             for idx, response in user.responses.items():
@@ -467,7 +467,7 @@ def handle_user_responses(
         replied_meeting_msg_num: int,
     ):
 
-        if message.from_user and message.from_user.username:
+        if message.from_user and message.from_user.username and message.text:
             if message.from_user.username in chat_state.users:
                 user = await get_user(chat_state, username)
 
