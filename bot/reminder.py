@@ -3,14 +3,15 @@ from datetime import datetime
 from typing import Optional
 
 from aiogram import Bot
-from aiogram.exceptions import TelegramForbiddenError
+from aiogram.exceptions import TelegramForbiddenError, TelegramBadRequest
 from aiogram.utils.i18n import gettext as _
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 
 from .messages import make_daily_messages
-from .constants import jobstore
+from .constants import jobstore, days_array
 from .custom_types import ChatId, SendMessage
+from .intervals import schedule_is_empty
 from .state import load_state, load_user_pm, get_user, ChatState
 
 
@@ -27,10 +28,26 @@ async def send_reminder_messages(
     chat_state = await load_state(chat_id=meeting_chat_id, is_topic=is_topic, topic_id=meeting_topic_id)
     user = await get_user(chat_state=chat_state, username=username)
 
+    current_day = datetime.now().weekday()
+    current_day = days_array[current_day]
+    if schedule_is_empty(user.schedule) and schedule_is_empty(chat_state.schedule):
+        pass
+    else:
+        if schedule_is_empty(user.schedule):
+            schedule = chat_state.schedule
+        else:
+            schedule = user.schedule
+        if not schedule[current_day].included:
+            return
+
     have_to_reply = list(user.non_replied_daily_msgs)
     messages = make_daily_messages("")
     reminder_message = "Please reply to these daily meeting questions:"
     chat_type = chat.type
+
+    # TODO: decide where will u forward msg and write logic to handle deleted msgs
+    res = await messages_not_deleted(bot, -1002148770957, [198, 199, 243], messages)
+    print(res)
 
     try:
         for reply in have_to_reply:
@@ -153,7 +170,6 @@ def schedule_reminder(
             "bot": bot
         },
         trigger=IntervalTrigger(minutes=period_minutes, start_date=meeting_time),
-        # day_of_week=day_of_week, # TODO: make it work only on user's working days
         timezone=meeting_time.tzinfo,
         misfire_grace_time=42,
     )
@@ -171,3 +187,19 @@ def get_message_link(chat_id: ChatId, message_id: ChatId, thread_id: Optional[in
                 return f"https://t.me/c/{chat_id_normalized}/{message_id}"
         case "private", "group", "channel":
             return None
+
+
+async def messages_not_deleted(bot: Bot, chat_id: ChatId, msg_ids: list[int], msg_texts: list[str]) -> list[bool]:
+    result: list[bool] = []
+    some_chat = "-4269886079"
+
+    for msg_id, msg_text in zip(msg_ids, msg_texts):
+        try:
+            await bot.forward_message(chat_id=some_chat, from_chat_id=chat_id, message_id=msg_id)
+            result.append(True)
+        except TelegramBadRequest:
+            result.append(False)
+        except Exception as e:
+            print(e)
+
+    return result
