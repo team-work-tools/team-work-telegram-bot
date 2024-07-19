@@ -32,13 +32,16 @@ class HasChatState(Filter):
                     topic_id=obj.message_thread_id
                 )
                 return {"chat_state": chat_state}
+
             case CallbackQuery():
-                chat_state = await load_state(
-                    chat_id=obj.message.chat.id,
-                    is_topic=obj.message.is_topic_message,
-                    topic_id=obj.message.message_thread_id
-                )
-                return {"chat_state": chat_state}
+                match message := obj.message:
+                    case Message():
+                        chat_state = await load_state(
+                            chat_id=message.chat.id,
+                            is_topic=message.is_topic_message,
+                            topic_id=message.message_thread_id
+                        )
+                        return {"chat_state": chat_state}
 
 
 class IsReplyToMeetingMessage(Filter):

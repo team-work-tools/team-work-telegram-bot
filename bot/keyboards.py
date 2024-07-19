@@ -79,8 +79,9 @@ def get_schedule_options() -> InlineKeyboardMarkup:
 
     builder.button(text="Default", callback_data="default_schedule")
     builder.button(text="Personal", callback_data="personal_schedule")
+    builder.adjust(2)
 
-    return builder.adjust(2).as_markup()
+    return builder.as_markup()
 
 
 def get_interval_edit_options(weekday: str, interval_uid: UUID) -> InlineKeyboardMarkup:
@@ -90,5 +91,6 @@ def get_interval_edit_options(weekday: str, interval_uid: UUID) -> InlineKeyboar
         text="Enter again",
         callback_data=IntervalCallback(weekday=weekday, interval=interval_uid, action='edit'))
     builder.button(text="Cancel", callback_data="cancel_interval_edit")
+    builder.adjust(2)
 
-    return builder.adjust(2).as_markup()
+    return builder.as_markup()

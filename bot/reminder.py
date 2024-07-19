@@ -29,8 +29,8 @@ async def send_reminder_messages(
     chat_state = await load_state(chat_id=meeting_chat_id, is_topic=is_topic, topic_id=meeting_topic_id)
     user = await get_user(chat_state=chat_state, username=username)
 
-    current_day = datetime.now().weekday()
-    current_day = days_array[current_day]
+    current_day_int = datetime.now().weekday()
+    current_day = days_array[current_day_int]
     if schedule_is_empty(user.schedule) and schedule_is_empty(chat_state.schedule):
         pass
     else:

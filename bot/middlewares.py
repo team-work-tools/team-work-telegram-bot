@@ -15,7 +15,7 @@ class GroupCommandFilterMiddleware(BaseMiddleware):
             chat = event.message.chat
             text = event.message.text
 
-            if chat.type == "group" and not text.startswith("/start"):
+            if text and chat.type == "group" and not text.startswith("/start"):
                 return
 
         return await handler(event, data)

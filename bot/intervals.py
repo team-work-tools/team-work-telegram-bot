@@ -212,8 +212,8 @@ def is_working_time(
 
     for interval in schedule[meeting_day].intervals:
         st, end = interval.convert_to_timezone(tz, shift)
-        st, end = st.time().replace(tzinfo=None), end.time().replace(tzinfo=None)
-        if st <= meeting_time <= end:
+        st_t, end_t = st.time().replace(tzinfo=None), end.time().replace(tzinfo=None)
+        if st_t <= meeting_time <= end_t:
             return True
 
     return False
@@ -234,9 +234,15 @@ def calculate_shift(old_tz: str, new_tz: str, old_shift: int, is_schedule_static
     Interval.validate_zone(old_tz)
     Interval.validate_zone(new_tz)
 
-    old_offset = datetime.now(ZoneInfo(old_tz)).utcoffset().total_seconds() // 3600
-    new_offset = datetime.now(ZoneInfo(new_tz)).utcoffset().total_seconds() // 3600
-    delta = int(old_offset - new_offset)
+    old_offset = datetime.now(ZoneInfo(old_tz)).utcoffset()
+    new_offset = datetime.now(ZoneInfo(new_tz)).utcoffset()
+
+    if old_offset and new_offset:
+        old_offset_h = old_offset.total_seconds() // 3600
+        new_offset_h = new_offset.total_seconds() // 3600
+        delta = int(old_offset_h - new_offset_h)
+    else:
+        raise ValueError("Error occurred while counting offset.")
 
     if is_schedule_static:
         return old_shift + delta

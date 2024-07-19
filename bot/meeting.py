@@ -19,8 +19,8 @@ async def send_meeting_messages(
     send_message: SendMessage
 ):
     chat_state = await load_state(chat_id=chat_id, is_topic=is_topic, topic_id=topic_id)
-    current_day = datetime.now().weekday()
-    current_day = days_array[current_day]
+    current_day_int = datetime.now().weekday()
+    current_day = days_array[current_day_int]
     await send_message(
         chat_id=chat_id, message=_("Meeting time!"), message_thread_id=topic_id
     )
