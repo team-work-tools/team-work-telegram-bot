@@ -2,7 +2,7 @@ from typing import Any, Awaitable, Callable, Dict
 
 from aiogram import BaseMiddleware
 from aiogram.types import TelegramObject, Update
-
+from aiogram.enums.chat_type import ChatType
 
 class GroupCommandFilterMiddleware(BaseMiddleware):
     async def __call__(
@@ -15,7 +15,7 @@ class GroupCommandFilterMiddleware(BaseMiddleware):
             chat = event.message.chat
             text = event.message.text
 
-            if text and chat.type == "group" and not text.startswith("/start"):
+            if text and chat.type == ChatType.GROUP and not text.startswith("/start"):
                 return
 
         return await handler(event, data)

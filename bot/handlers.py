@@ -54,7 +54,7 @@ from .state import (
     save_user_pm,
 )
 from .work_time import handle_working_hours
-
+from aiogram.enums.chat_type import ChatType
 
 def make_router(
     scheduler: AsyncIOScheduler, send_message: SendMessage, bot: Bot, i18n: I18n
@@ -97,7 +97,7 @@ def handle_global_commands(
 ):
     @router.message(Command(bot_command_names.start), HasChatState())
     async def start(message: Message, chat_state: ChatState):
-        if message.chat.type == "group":
+        if message.chat.type == ChatType.GROUP:
             await message.answer(
                 "Unfortunately, only supergroups and private chats are supported. "
                 "Please promote this group to a supergroup by enabling the history of messages for new members "
@@ -108,7 +108,7 @@ def handle_global_commands(
         await get_help(message=message, chat_state=chat_state, i18n=i18n)
 
         # Register user if it is personal message
-        if message.chat.type == "private":
+        if message.chat.type == ChatType.PRIVATE:
             username = message.from_user.username if message.from_user else None
             user_cht_id = message.chat.id
             user_pm = await load_user_pm(username=username) if username else None

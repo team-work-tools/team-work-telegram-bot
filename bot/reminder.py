@@ -14,7 +14,7 @@ from .i18n import _
 from .intervals import schedule_is_empty
 from .messages import make_daily_messages
 from .state import ChatState, get_user, load_state, load_user_pm, save_state
-
+from aiogram.enums.chat_type import ChatType
 
 async def send_reminder_messages(
     meeting_chat_id: ChatId,
@@ -77,7 +77,7 @@ async def send_reminder_messages(
                 else:  # group chanel or private
                     reminder_message = messages[reply]
                     if (
-                        chat_type == "private"
+                        chat_type == ChatType.PRIVATE
                     ):  # message to be replied is in the same chat as user's PM
                         await bot.send_message(
                             chat_id=user_chat_id,
@@ -92,7 +92,7 @@ async def send_reminder_messages(
                         )
 
         if (
-            chat_type == "supergroup"
+            chat_type == ChatType.SUPERGROUP
             and len(chat_state.meeting_msg_ids) == 3
             and len(have_to_reply) > 0
         ):
@@ -102,7 +102,7 @@ async def send_reminder_messages(
         bot_info = await bot.get_me()
         bot_username = bot_info.username
 
-        if chat_type != "private":
+        if chat_type != ChatType.PRIVATE:
             banned_msg = _(
                 "@{username}, please unblock @{bot_username} in your private chat with the bot "
                 "so that the bot can send you reminders about missed daily meeting questions."
@@ -197,13 +197,13 @@ def get_message_link(
     chat_id: ChatId, message_id: ChatId, thread_id: Optional[int], chat_type: str
 ):
     match chat_type:
-        case "supergroup":
+        case ChatType.SUPERGROUP:
             chat_id_normalized = str(chat_id)[4:]
             if thread_id:
                 return f"https://t.me/c/{chat_id_normalized}/{thread_id}/{message_id}"
             else:
                 return f"https://t.me/c/{chat_id_normalized}/{message_id}"
-        case "private", "group", "channel":
+        case ChatType.PRIVATE, ChatType.GROUP, ChatType.CHANNEL:
             return None
 
 
