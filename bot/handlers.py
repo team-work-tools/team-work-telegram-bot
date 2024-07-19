@@ -6,6 +6,26 @@ from aiogram import Bot, Router, html, types
 from aiogram.enums import ParseMode
 from aiogram.filters.command import Command
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
+from aiogram.types import (
+    BotCommand,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    CallbackQuery,
+)
+from .state import (
+    ChatState,
+    save_state,
+    reset_state,
+    load_state,
+    get_user,
+    load_user_pm,
+    create_user_pm,
+    save_user_pm,
+)
+from .filters import HasMessageText, HasMessageUserUsername, HasChatState
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from .meeting import schedule_meeting
+from .custom_types import SendMessage, SaveState, LoadState
 from aiogram.utils.i18n import I18n
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
@@ -377,10 +397,25 @@ def handle_info_commands(
             if responses_by_topic[idx]:
                 report_message += "\n".join(responses_by_topic[idx]) + "\n"
             else:
-                report_message += "No responses.\n"
+                report_message += _("No responses.") + "\n"
             report_message += "\n"
 
         await message.reply(report_message.strip())
+
+    @router.message(Command(bot_command_names.reset), HasChatState())
+    async def reset(message: Message, chat_state: ChatState):
+        await reset_state(chat_state)
+        await message.reply(
+            dedent(
+                _(
+                    """
+                The state has been successfully reset. 
+                
+                Use the /get_chat_state command to view the current state.
+                """
+                )
+            )
+        )
 
 
 def handle_user_responses(
