@@ -451,7 +451,7 @@ def handle_info_commands(
             if responses_by_topic[idx]:
                 report_message += "\n".join(responses_by_topic[idx]) + "\n"
             else:
-                report_message += "No responses.\n"
+                report_message += _("No responses.") + "\n"
             report_message += "\n"
 
         await message.reply(report_message.strip())
