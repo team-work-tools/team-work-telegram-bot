@@ -11,15 +11,11 @@ from .callbacks import IntervalCallback, WeekdayCallback
 from .constants import days_array
 from .intervals import DaySchedule, Interval
 
-INCLUDED_1 = "✅"
-INCLUDED_2 = "🗹"
-INCLUDED_3 = "🟩"
-NOT_INCLUDED_1 = "❎"
-NOT_INCLUDED_2 = "☐"
-NOT_INCLUDED_3 = "🟥"
-ADD = "➕"
-REMOVE = "✖️"
-
+class ScheduleEmoji:
+    included = "🟩"
+    excluded = "🟥"
+    add = "➕"
+    remove = "✖️"
 
 def get_interval_keyboard(
     interval: Interval, weekday: str, tz: str, shift: int
@@ -35,13 +31,13 @@ def get_interval_keyboard(
         ),
     )
     builder.button(
-        text=REMOVE,
+        text=ScheduleEmoji.remove,
         callback_data=IntervalCallback(
             weekday=weekday, interval=interval_uid, action="remove"
         ),
     )
     builder.button(
-        text=ADD,
+        text=ScheduleEmoji.add,
         callback_data=IntervalCallback(
             weekday=weekday, interval=interval_uid, action="add"
         ),
@@ -55,7 +51,7 @@ def get_weekday_keyboard(
     weekday: DaySchedule, tz: str, shift: int
 ) -> InlineKeyboardBuilder:
     builder = InlineKeyboardBuilder()
-    included_text = INCLUDED_3 if weekday.included else NOT_INCLUDED_3
+    included_text = ScheduleEmoji.included if weekday.included else ScheduleEmoji.excluded
 
     day = InlineKeyboardButton(text=f"{weekday.name}", callback_data="#")
     status = InlineKeyboardButton(
