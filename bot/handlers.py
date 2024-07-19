@@ -14,6 +14,7 @@ from aiogram.types import (
 from .state import (
     ChatState,
     save_state,
+    reset_state,
     load_state,
     get_user,
     load_user_pm,
@@ -450,10 +451,25 @@ def handle_info_commands(
             if responses_by_topic[idx]:
                 report_message += "\n".join(responses_by_topic[idx]) + "\n"
             else:
-                report_message += "No responses.\n"
+                report_message += _("No responses.") + "\n"
             report_message += "\n"
 
         await message.reply(report_message.strip())
+
+    @router.message(Command(bot_command_names.reset), HasChatState())
+    async def reset(message: Message, chat_state: ChatState):
+        await reset_state(chat_state)
+        await message.reply(
+            dedent(
+                _(
+                    """
+                The state has been successfully reset. 
+                
+                Use the /get_chat_state command to view the current state.
+                """
+                )
+            )
+        )
 
 
 def handle_user_responses(

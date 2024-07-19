@@ -28,6 +28,7 @@ class BotCommands(BaseModel):
     # info
     get_chat_state: str
     get_report: str
+    reset: str
 
 
 class BotCommandNames(BotCommands):
@@ -57,7 +58,8 @@ bot_command_names = BotCommandNames(
     unschedule_personal_vacation="unschedule_personal_vacation",
     # info
     get_chat_state="get_chat_state",
-    get_report="get_report"
+    get_report="get_report",
+    reset="reset",
 )
 
 
@@ -92,5 +94,6 @@ def bot_command_descriptions() -> BotCommandDescriptions:
         unschedule_personal_vacation=_("Unschedule the personal vacation."),
         # info settings
         get_chat_state=_("Get the chat state stored by the bot."),
+        reset=_("Reset the chat state."),
         get_report=_("Get the report."),
     )
