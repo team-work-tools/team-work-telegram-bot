@@ -96,8 +96,8 @@ async def send_reminder_messages(
 
         if chat_type != "private":
             banned_msg = _(
-                            "@{username}, please unblock @{bot_username} (it's me) in our private chat "
-                            "so that I can send you reminders about missed daily meeting questions."
+                            "@{username}, please unblock @{bot_username} in your private chat with the bot "
+                            "so that the bot can send you reminders about missed daily meeting questions."
             ).format(username=username, bot_username=bot_username)
 
             await send_message(chat_id=meeting_chat_id, message=banned_msg)

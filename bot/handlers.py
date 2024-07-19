@@ -345,7 +345,7 @@ def handle_personal_settings_commands(
 
                 await message.reply(
                     _(
-                        "@{username} I don't have access to your personal messages.\n"
+                        "@{username}, the bot doesn't have access to your personal messages.\n"
                         "Please write to @{bot_username} and type /start."
                     ).format(username=username, bot_username=bot_info.username)
                 )

@@ -15,7 +15,7 @@ DEFAULT_EDITING_INTERVAL = "19:00 - 22:30"
 def bot_intro():
     return _(
         """
-        I can help you conduct daily (or at least regular) meetings.
+        The bot can help you conduct daily (or at least regular) meetings.
 
         You can control me by sending these commands:
         """
