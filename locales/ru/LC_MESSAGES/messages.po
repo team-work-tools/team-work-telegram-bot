@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-07-18 21:56+0300\n"
+"POT-Creation-Date: 2024-07-19 12:37+0300\n"
 "PO-Revision-Date: 2024-05-11 19:50+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -19,83 +19,83 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.15.0\n"
 
-#: bot/commands.py:71
+#: bot/commands.py:73
 msgid "Enable the bot."
 msgstr "Включите бота."
 
-#: bot/commands.py:72
+#: bot/commands.py:74
 msgid "Get a help message."
 msgstr "Получите это сообщение."
 
-#: bot/commands.py:73
+#: bot/commands.py:75
 msgid "Set the bot language."
 msgstr "Установите язык бота."
 
-#: bot/commands.py:74
+#: bot/commands.py:76
 msgid "Disable the bot."
 msgstr "Выключите бота."
 
-#: bot/commands.py:75
+#: bot/commands.py:77
 msgid "Cancel the current operation with the bot."
 msgstr "Отмените текущую операцию с ботом."
 
-#: bot/commands.py:77
+#: bot/commands.py:79
 msgid "Set up daily meetings."
 msgstr "Настройте дейли."
 
-#: bot/commands.py:79
+#: bot/commands.py:81
 msgid "Set meetings time zone."
 msgstr "Установите тайм зону."
 
-#: bot/commands.py:80
+#: bot/commands.py:82
 msgid "Set meetings time."
 msgstr "Установите время начала дейли."
 
-#: bot/commands.py:81
+#: bot/commands.py:83
 msgid "Set meetings days."
 msgstr "Установите дни встреч."
 
-#: bot/commands.py:83
+#: bot/commands.py:85
 msgid "Join meetings."
 msgstr "Просоединитесь к встречам."
 
-#: bot/commands.py:84
+#: bot/commands.py:86
 msgid "Skip meetings."
 msgstr "Пропускайте встречи."
 
-#: bot/commands.py:85
+#: bot/commands.py:87
 msgid "Set the days when you can join meetings."
 msgstr "Выберите дни, когда Вы можете присоединиться к встрече."
 
-#: bot/commands.py:86
+#: bot/commands.py:88
 msgid "Set the period of reminders about unanswered questions."
 msgstr "Установите период напоминаний о неотвеченных вопросах."
 
-#: bot/commands.py:89
+#: bot/commands.py:91
 msgid "Join only today's meeting."
 msgstr "Присоединитесь только к сегодняшней встрече."
 
-#: bot/commands.py:90
+#: bot/commands.py:92
 msgid "Skip only today's meeting."
 msgstr "Пропустите только сегодняшнюю встречу."
 
-#: bot/commands.py:91
+#: bot/commands.py:93
 msgid "Schedule a personal vacation."
 msgstr "Запланировать отпуск."
 
-#: bot/commands.py:92
+#: bot/commands.py:94
 msgid "Unschedule the personal vacation."
 msgstr "Отменить отпуск."
 
-#: bot/commands.py:94
+#: bot/commands.py:96
 msgid "Get the chat state stored by the bot."
 msgstr "Посмотрите состояние чата."
 
-#: bot/commands.py:95
+#: bot/commands.py:97
 msgid "Reset the chat state."
 msgstr "Сбросьте состояние чата."
 
-#: bot/handlers.py:110
+#: bot/commands.py:98
 msgid "Get the report."
 msgstr "Получите отчет."
 
@@ -103,7 +103,7 @@ msgstr "Получите отчет."
 msgid "Nice to meet you!"
 msgstr "Привет!"
 
-#: bot/handlers.py:169
+#: bot/handlers.py:170
 msgid "English language selected!"
 msgstr "Выбран русский язык!"
 
@@ -111,7 +111,7 @@ msgstr "Выбран русский язык!"
 msgid "Error saving language state: {error}"
 msgstr "Ошибка сохранения языка! {error}"
 
-#: bot/handlers.py:213
+#: bot/handlers.py:214
 msgid ""
 "OK, we'll meet at {meeting_time} on {week_days} starting not earlier than"
 " on {start_date}!"
@@ -119,7 +119,7 @@ msgstr ""
 "ОК, встретимся в {meeting_time} в(о) {week_days}, начиная не раньше "
 "{start_date}!"
 
-#: bot/handlers.py:224
+#: bot/handlers.py:225
 msgid ""
 "\n"
 "                        Please write the meetings time in the {iso8601} "
@@ -141,7 +141,7 @@ msgstr ""
 "                        /{set_meetings_time} {sample_time}\n"
 "                        "
 
-#: bot/handlers.py:254
+#: bot/handlers.py:255
 msgid "You've already joined, @{username}!"
 msgstr "Вы уже подписаны, @{username}!"
 
@@ -219,7 +219,7 @@ msgstr ""
 "Сначала присоединитесь к дейли!\n"
 "Отправьте команду /join"
 
-#: bot/handlers.py:398
+#: bot/handlers.py:401
 msgid ""
 "@{username} I don't have access to your personal messages.\n"
 "Please write to @{bot_username} and type /start."
@@ -227,7 +227,7 @@ msgstr ""
 "@{username}, у меня нет доступа к Вашим личным сообщениям.\n"
 "Пожалуйста, напишите @{bot_username} и введите /start."
 
-#: bot/handlers.py:407
+#: bot/handlers.py:410
 msgid ""
 "\n"
 "                        Please indicate the reminder period in minutes.\n"
@@ -245,15 +245,11 @@ msgstr ""
 "\n"
 "                        /{set_reminder_period} 30\n"
 
-#: bot/handlers.py:496
-msgid "Your response has been recorded."
-msgstr "Ваш ответ был записан."
+#: bot/handlers.py:454
+msgid "No responses."
+msgstr "Нет ответов"
 
-#: bot/handlers.py:498
-msgid "You have already responded to this message or it is no longer valid."
-msgstr "Вы уже ответили на это сообщение или оно больше не действительно."
-
-#: bot/handlers.py:439
+#: bot/handlers.py:464
 msgid ""
 "\n"
 "                The state has been successfully reset. \n"
@@ -264,6 +260,14 @@ msgid ""
 msgstr ""
 "Состояние чата успешно сброшено.Используйте команду /get_chat_state, "
 "чтобы посмотреть текущее состояние чата."
+
+#: bot/handlers.py:496
+msgid "Your response has been recorded."
+msgstr "Ваш ответ был записан."
+
+#: bot/handlers.py:498
+msgid "You have already responded to this message or it is no longer valid."
+msgstr "Вы уже ответили на это сообщение или оно больше не действительно."
 
 #: bot/meeting.py:20
 msgid "Meeting time!"
@@ -287,15 +291,15 @@ msgstr ""
 "        Вы можете управлять мной при помощи следующих команд:\n"
 "        "
 
-#: bot/messages.py:55
+#: bot/messages.py:56
 msgid "What did you do last working day? {usernames}"
 msgstr "Что Вы делали вчера, @{username}?"
 
-#: bot/messages.py:56
+#: bot/messages.py:57
 msgid "What will you do today? {usernames}"
 msgstr "Что Вы будете делать сегодня, @{username}?"
 
-#: bot/messages.py:57
+#: bot/messages.py:58
 msgid "What (if anything) is blocking your progress? {usernames}"
 msgstr "Что (если такое есть) блокирует Ваш прогресс, @{username}?"
 
