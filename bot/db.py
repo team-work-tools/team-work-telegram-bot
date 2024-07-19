@@ -12,8 +12,7 @@ async def main(settings: Settings):
     password = settings.mongo_password
 
     client = AsyncIOMotorClient(
-        f"mongodb://{username}:{password}@{host}:{port}",
-        tz_aware=True
+        f"mongodb://{username}:{password}@{host}:{port}", tz_aware=True
     )
 
     db = client["bot_states"]

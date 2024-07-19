@@ -6,8 +6,7 @@ from aiogram.utils import markdown as fmt
 
 from .commands import bot_command_descriptions, bot_command_names
 from .i18n import _
-from .intervals import (Interval, InvalidIntervalException,
-                        InvalidTimeFormatException)
+from .intervals import Interval, InvalidIntervalException, InvalidTimeFormatException
 
 DEFAULT_EDITING_INTERVAL = "19:00 - 22:30"
 
@@ -62,19 +61,21 @@ def make_daily_messages(usernames: str) -> List[str]:
     ]
 
 
-def make_interval_validation_message(interval_str: str, tz: str, shift: int) -> Tuple[bool, str]:
+def make_interval_validation_message(
+    interval_str: str, tz: str, shift: int
+) -> Tuple[bool, str]:
     try:
         interval = Interval.from_string(interval_str=interval_str, tz=tz, shift=shift)
         msg = _("Successfully parsed interval: {interval}").format(interval=interval)
         return True, msg
     except InvalidTimeFormatException as e:
-        msg = _("Invalid time format for '{time}'. {msg}\n").format(time=e.time_str, msg=e.message)
+        msg = _("Invalid time format for '{time}'. {msg}\n").format(
+            time=e.time_str, msg=e.message
+        )
         return False, msg
     except InvalidIntervalException as e:
         msg = _("{msg} (start: {start}, end: {end}).\n").format(
-            msg=e.message,
-            start=e.start_time,
-            end=e.end_time
+            msg=e.message, start=e.start_time, end=e.end_time
         )
         return False, msg
     except Exception as e:
@@ -85,9 +86,19 @@ def make_interval_validation_message(interval_str: str, tz: str, shift: int) -> 
 def make_interval_editing_instruction() -> str:
     instruction_text = "Send me the new interval in the hh:mm - hh:mm format."
     example_text = "Example: "
-    note = "Notes:\nThe example provides an interval copyable by clicking or tapping it."
+    note = (
+        "Notes:\nThe example provides an interval copyable by clicking or tapping it."
+    )
 
-    text = fmt.text(instruction_text, "\n", example_text, fmt.hcode(DEFAULT_EDITING_INTERVAL), "\n", note, sep="")
+    text = fmt.text(
+        instruction_text,
+        "\n",
+        example_text,
+        fmt.hcode(DEFAULT_EDITING_INTERVAL),
+        "\n",
+        note,
+        sep="",
+    )
     return text
 
 
@@ -112,7 +123,7 @@ def make_chat_state_messages(json_string: str, max_length=4096) -> List[str]:
     chunks = []
 
     for i in range(0, len(json_string), max_length):
-        chunk = json_string[i:i + max_length]
+        chunk = json_string[i : i + max_length]
         chunk_fmt = dedent(f"""<pre><code class="language-json">{chunk}</code></pre>""")
         chunks.append(chunk_fmt)
 

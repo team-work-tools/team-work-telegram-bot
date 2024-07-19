@@ -30,20 +30,29 @@ from aiogram.utils.i18n import I18n
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from .commands import bot_command_names
-from .constants import (day_of_week_pretty, iso8601, report_tag, sample_time,
-                        time_url)
+from .constants import day_of_week_pretty, iso8601, report_tag, sample_time, time_url
 from .custom_types import SendMessage
-from .filters import (HasChatState, HasMessageText, HasMessageUserUsername,
-                      IsReplyToMeetingMessage)
+from .filters import (
+    HasChatState,
+    HasMessageText,
+    HasMessageUserUsername,
+    IsReplyToMeetingMessage,
+)
 from .i18n import _
 from .intervals import pretty_weekdays, schedule_is_empty
 from .language import CallbackData, InlineKeyboardButtonName, Language
 from .meeting import schedule_meeting
-from .messages import (make_chat_state_messages, make_daily_messages,
-                       make_help_message)
+from .messages import make_chat_state_messages, make_daily_messages, make_help_message
 from .reminder import update_reminders
-from .state import (ChatState, create_user_pm, get_user, load_state,
-                    load_user_pm, save_state, save_user_pm)
+from .state import (
+    ChatState,
+    create_user_pm,
+    get_user,
+    load_state,
+    load_user_pm,
+    save_state,
+    save_user_pm,
+)
 from .work_time import handle_working_hours
 
 
@@ -151,7 +160,9 @@ def handle_global_commands(
             case Message():
                 chat_id = message.chat.id
                 chat_state = await load_state(
-                    chat_id=chat_id, is_topic=message.is_topic_message, topic_id=message.message_thread_id
+                    chat_id=chat_id,
+                    is_topic=message.is_topic_message,
+                    topic_id=message.message_thread_id,
                 )
                 new_language = (
                     Language.en
@@ -176,10 +187,13 @@ def handle_team_settings_commands(
     scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router, bot: Bot
 ):
     @router.message(
-        Command(bot_command_names.set_meetings_time), HasMessageText(), HasChatState(), HasMessageUserUsername()
+        Command(bot_command_names.set_meetings_time),
+        HasMessageText(),
+        HasChatState(),
+        HasMessageUserUsername(),
     )
     async def set_meetings_time(
-            message: Message, message_text: str, username: str, chat_state: ChatState
+        message: Message, message_text: str, username: str, chat_state: ChatState
     ):
         meeting_time_str = message_text.split(" ", 1)
         topic_id = message.message_thread_id
@@ -191,7 +205,9 @@ def handle_team_settings_commands(
             await save_state(chat_state=chat_state)
 
             user = await get_user(chat_state=chat_state, username=username)
-            if schedule_is_empty(user.schedule) and schedule_is_empty(chat_state.schedule):
+            if schedule_is_empty(user.schedule) and schedule_is_empty(
+                chat_state.schedule
+            ):
                 day_of_week = day_of_week_pretty
             elif schedule_is_empty(user.schedule):
                 schedule = chat_state.schedule
@@ -305,7 +321,10 @@ def handle_personal_settings_commands(
             )
 
     @router.message(
-        Command(bot_command_names.set_reminder_period), HasMessageUserUsername(), HasMessageText(), HasChatState()
+        Command(bot_command_names.set_reminder_period),
+        HasMessageUserUsername(),
+        HasMessageText(),
+        HasChatState(),
     )
     async def set_reminder_period(
         message: Message, username: str, message_text: str, chat_state: ChatState
@@ -383,7 +402,9 @@ def handle_info_commands(
     async def get_report(message: Message, chat_state: ChatState):
         questions = make_daily_messages("")
 
-        responses_by_topic: Dict[int, List[str]] = {i: [] for i in range(len(questions))}
+        responses_by_topic: Dict[int, List[str]] = {
+            i: [] for i in range(len(questions))
+        }
 
         for username, user in chat_state.users.items():
             for idx, response in user.responses.items():
@@ -441,4 +462,8 @@ def handle_user_responses(
                     await save_state(chat_state)
                     await message.reply(_("Your response has been recorded."))
                 else:
-                    await message.reply(_("You have already responded to this message or it is no longer valid."))
+                    await message.reply(
+                        _(
+                            "You have already responded to this message or it is no longer valid."
+                        )
+                    )

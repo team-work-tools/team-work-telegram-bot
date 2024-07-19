@@ -12,7 +12,9 @@ class MyI18nMiddleware(I18nMiddleware):
                 match message := event.message:
                     case Message():
                         chat_state = await load_state(
-                            message.chat.id, message.is_topic_message, message.message_thread_id
+                            message.chat.id,
+                            message.is_topic_message,
+                            message.message_thread_id,
                         )
                         return str(chat_state.language)
         return str(Language.default)

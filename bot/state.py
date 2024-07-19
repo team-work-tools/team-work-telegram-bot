@@ -24,7 +24,9 @@ class ChatUser(BaseModel):
 
     schedule: Dict[str, DaySchedule] = default_schedule
     temp_schedule: Optional[Dict[str, DaySchedule]] = None
-    time_zone_shift: int = 0  # 0 for dynamic schedule; {UTC_offset_old - UTC_offset_new} for static schedule;
+    time_zone_shift: int = (
+        0  # 0 for dynamic schedule; {UTC_offset_old - UTC_offset_new} for static schedule;
+    )
 
     # TODO: relocate these fields to cache (Redis for example)
     schedule_mode: Optional[str] = None
@@ -68,7 +70,9 @@ class ChatState(Document):
 
     schedule: Dict[str, DaySchedule] = default_schedule
     temp_schedule: Optional[Dict[str, DaySchedule]] = None
-    time_zone_shift: int = 0  # 0 for dynamic schedule; {UTC_offset_old - UTC_offset_new} for static schedule;
+    time_zone_shift: int = (
+        0  # 0 for dynamic schedule; {UTC_offset_old - UTC_offset_new} for static schedule;
+    )
 
 
 async def get_user(chat_state: ChatState, username: str) -> ChatUser:
@@ -115,7 +119,9 @@ async def create_state(chat_id: ChatId, topic_id: Optional[int]) -> ChatState:
     return await ChatState(chat_id=chat_id, topic_id=topic_id).create()
 
 
-async def load_state(chat_id: ChatId, is_topic: Optional[bool], topic_id: Optional[int]) -> ChatState:
+async def load_state(
+    chat_id: ChatId, is_topic: Optional[bool], topic_id: Optional[int]
+) -> ChatState:
     """Load a chat state by chat ID or create a new one if not found.
 
     Args:
@@ -145,7 +151,7 @@ async def save_state(chat_state: ChatState) -> None:
     Args:
         chat_state (ChatState): The chat state instance to save.
     """
-    
+
     await chat_state.save()
 
 

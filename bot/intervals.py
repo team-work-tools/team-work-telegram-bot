@@ -9,11 +9,13 @@ from pytz import UnknownTimeZoneError, timezone
 
 class IntervalException(Exception):
     """Base class for other Interval exceptions"""
+
     pass
 
 
 class InvalidTimeFormatException(IntervalException):
     """Raised when the time format is invalid"""
+
     def __init__(self, time_str: str, message="Time must be in HH:MM format."):
         self.time_str = time_str
         self.message = message
@@ -22,7 +24,13 @@ class InvalidTimeFormatException(IntervalException):
 
 class InvalidIntervalException(IntervalException):
     """Raised when the interval is invalid"""
-    def __init__(self, start_time: time, end_time: time, message: str = "Start time must be earlier than end time."):
+
+    def __init__(
+        self,
+        start_time: time,
+        end_time: time,
+        message: str = "Start time must be earlier than end time.",
+    ):
         self.start_time: str = start_time.strftime("%H:%M")
         self.end_time: str = end_time.strftime("%H:%M")
         self.message: str = message
@@ -49,9 +57,13 @@ class Interval(BaseModel):
     def from_string(cls, interval_str: str, tz: str = "UTC", shift: int = 0):
         cls.validate_zone(tz)
 
-        start_str, end_str = interval_str.replace(" ", "").split('-')
-        start_time = datetime.combine(IMMUTABLE_DATE, cls.parse_time(start_str), ZoneInfo(tz))
-        end_time = datetime.combine(IMMUTABLE_DATE, cls.parse_time(end_str), ZoneInfo(tz))
+        start_str, end_str = interval_str.replace(" ", "").split("-")
+        start_time = datetime.combine(
+            IMMUTABLE_DATE, cls.parse_time(start_str), ZoneInfo(tz)
+        )
+        end_time = datetime.combine(
+            IMMUTABLE_DATE, cls.parse_time(end_str), ZoneInfo(tz)
+        )
 
         if start_time >= end_time:
             raise InvalidIntervalException(start_time.time(), end_time.time())
@@ -71,7 +83,7 @@ class Interval(BaseModel):
     @staticmethod
     def parse_time(time_str: str) -> time:
         try:
-            if ':' in time_str:
+            if ":" in time_str:
                 return datetime.strptime(time_str, "%H:%M").time()
             else:
                 raise InvalidTimeFormatException(time_str)
@@ -100,8 +112,10 @@ class Interval(BaseModel):
     def __eq__(self, other):
         if not isinstance(other, Interval):
             return False
-        return (self.start_time_utc == other.start_time_utc and
-                self.end_time_utc == other.end_time_utc)
+        return (
+            self.start_time_utc == other.start_time_utc
+            and self.end_time_utc == other.end_time_utc
+        )
 
     def __str__(self):
         return self.to_string()
@@ -131,7 +145,10 @@ class Interval(BaseModel):
         for current in sorted_intervals[1:]:
             last = merged_intervals[-1]
 
-            if current.overlaps_with(last) or current.start_time_utc.time() <= last.end_time_utc.time():
+            if (
+                current.overlaps_with(last)
+                or current.start_time_utc.time() <= last.end_time_utc.time()
+            ):
                 merged_intervals[-1] = Interval(
                     start_time_utc=min(last.start_time_utc, current.start_time_utc),
                     end_time_utc=max(last.end_time_utc, current.end_time_utc),
@@ -160,7 +177,9 @@ class DaySchedule(BaseModel):
     def add_interval(self, interval: Interval) -> None:
         self.intervals.append(interval)
 
-    def remove_interval(self, interval: Interval, tz: str, shift: int, ignore_inclusion=False) -> None:
+    def remove_interval(
+        self, interval: Interval, tz: str, shift: int, ignore_inclusion=False
+    ) -> None:
         self.intervals.remove(interval)
         if not ignore_inclusion:
             if len(self.intervals) == 0 and self.included:
@@ -191,9 +210,11 @@ class DaySchedule(BaseModel):
     def __eq__(self, other):
         if not isinstance(other, DaySchedule):
             return False
-        return (self.name == other.name and
-                self.included == other.included and
-                self.intervals == other.intervals)
+        return (
+            self.name == other.name
+            and self.included == other.included
+            and self.intervals == other.intervals
+        )
 
 
 def schedule_is_empty(schedule: Dict[str, DaySchedule]) -> bool:
@@ -201,11 +222,11 @@ def schedule_is_empty(schedule: Dict[str, DaySchedule]) -> bool:
 
 
 def is_working_time(
-        schedule: Dict[str, DaySchedule],
-        tz: str,
-        shift: int,
-        meeting_day: str,
-        meeting_time: time
+    schedule: Dict[str, DaySchedule],
+    tz: str,
+    shift: int,
+    meeting_day: str,
+    meeting_time: time,
 ) -> bool:
     if not schedule[meeting_day].included:
         return False
@@ -219,7 +240,9 @@ def is_working_time(
     return False
 
 
-def calculate_shift(old_tz: str, new_tz: str, old_shift: int, is_schedule_static: bool) -> int:
+def calculate_shift(
+    old_tz: str, new_tz: str, old_shift: int, is_schedule_static: bool
+) -> int:
     """Call this function every time you change the time zone.
 
     Args:
@@ -252,7 +275,15 @@ def calculate_shift(old_tz: str, new_tz: str, old_shift: int, is_schedule_static
 
 def pretty_weekdays(days: list[str]):
     # Define the order of the days
-    day_order = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    day_order = [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+    ]
     day_index = {day: i for i, day in enumerate(day_order)}
 
     # Sort the days based on their order in the week

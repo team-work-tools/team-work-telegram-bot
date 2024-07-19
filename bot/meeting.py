@@ -16,7 +16,7 @@ async def send_meeting_messages(
     chat_id: ChatId,
     is_topic: Optional[bool],
     topic_id: Optional[int],
-    send_message: SendMessage
+    send_message: SendMessage,
 ):
     chat_state = await load_state(chat_id=chat_id, is_topic=is_topic, topic_id=topic_id)
     current_day_int = datetime.now().weekday()
@@ -86,7 +86,12 @@ def schedule_meeting(
         func=send_meeting_messages,
         id=make_job_id(chat_id, topic_id),
         replace_existing=True,
-        kwargs={"chat_id": chat_id, "is_topic": is_topic, "topic_id": topic_id, "send_message": send_message},
+        kwargs={
+            "chat_id": chat_id,
+            "is_topic": is_topic,
+            "topic_id": topic_id,
+            "send_message": send_message,
+        },
         trigger="cron",
         start_date=meeting_time,
         hour=meeting_time.hour,

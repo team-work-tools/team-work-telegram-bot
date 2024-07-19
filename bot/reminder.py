@@ -23,10 +23,12 @@ async def send_reminder_messages(
     username: str,
     user_chat_id: ChatId,
     send_message: SendMessage,
-    bot: Bot
+    bot: Bot,
 ):
     chat = await bot.get_chat(meeting_chat_id)
-    chat_state = await load_state(chat_id=meeting_chat_id, is_topic=is_topic, topic_id=meeting_topic_id)
+    chat_state = await load_state(
+        chat_id=meeting_chat_id, is_topic=is_topic, topic_id=meeting_topic_id
+    )
     user = await get_user(chat_state=chat_state, username=username)
 
     current_day_int = datetime.now().weekday()
@@ -49,7 +51,9 @@ async def send_reminder_messages(
     if len(have_to_reply) == 0:
         return
 
-    msgs_are_deleted = await messages_are_deleted(bot, meeting_chat_id, chat_state.meeting_msg_ids)
+    msgs_are_deleted = await messages_are_deleted(
+        bot, meeting_chat_id, chat_state.meeting_msg_ids
+    )
     for i, deleted in enumerate(msgs_are_deleted):
         if deleted:
             have_to_reply.remove(i)
@@ -87,7 +91,11 @@ async def send_reminder_messages(
                             reply_to_message_id=message_id,
                         )
 
-        if chat_type == "supergroup" and len(chat_state.meeting_msg_ids) == 3 and len(have_to_reply) > 0:
+        if (
+            chat_type == "supergroup"
+            and len(chat_state.meeting_msg_ids) == 3
+            and len(have_to_reply) > 0
+        ):
             await send_message(chat_id=user_chat_id, message=reminder_message)
 
     except TelegramForbiddenError:
@@ -96,8 +104,8 @@ async def send_reminder_messages(
 
         if chat_type != "private":
             banned_msg = _(
-                            "@{username}, please unblock @{bot_username} in your private chat with the bot "
-                            "so that the bot can send you reminders about missed daily meeting questions."
+                "@{username}, please unblock @{bot_username} in your private chat with the bot "
+                "so that the bot can send you reminders about missed daily meeting questions."
             ).format(username=username, bot_username=bot_username)
 
             await send_message(chat_id=meeting_chat_id, message=banned_msg)
@@ -140,7 +148,9 @@ async def update_reminders(
             )
 
 
-def make_job_id(user_chat_id: int, meeting_chat_id: int, meeting_topic_id: Optional[int]):
+def make_job_id(
+    user_chat_id: int, meeting_chat_id: int, meeting_topic_id: Optional[int]
+):
     if meeting_topic_id:
         return f"{user_chat_id}_reminder_for_{meeting_chat_id}_{meeting_topic_id}"
     else:
@@ -197,12 +207,16 @@ def get_message_link(
             return None
 
 
-async def messages_are_deleted(bot: Bot, chat_id: ChatId, msg_ids: list[int]) -> list[bool]:
+async def messages_are_deleted(
+    bot: Bot, chat_id: ChatId, msg_ids: list[int]
+) -> list[bool]:
     result: list[bool] = []
 
     for msg_id in msg_ids:
         try:
-            msg = await bot.forward_message(chat_id=chat_id, from_chat_id=chat_id, message_id=msg_id)
+            msg = await bot.forward_message(
+                chat_id=chat_id, from_chat_id=chat_id, message_id=msg_id
+            )
             await bot.delete_message(chat_id=chat_id, message_id=msg.message_id)
             result.append(False)
         except TelegramBadRequest:

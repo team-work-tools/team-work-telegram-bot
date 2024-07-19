@@ -31,7 +31,15 @@ sample_time = date.today().strftime("%Y-%m-%d") + "T10:00:00+03:00"
 
 default_time_zone = "Europe/Moscow"
 
-days_array = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+days_array = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+]
 
 empty_schedule = {day: DaySchedule(name=day) for day in days_array}
 
