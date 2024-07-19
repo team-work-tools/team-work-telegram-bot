@@ -58,7 +58,7 @@ bot_command_names = BotCommandNames(
     unschedule_personal_vacation="unschedule_personal_vacation",
     # info
     get_chat_state="get_chat_state",
-    get_report="get_report"
+    get_report="get_report",
     reset="reset",
 )
 
