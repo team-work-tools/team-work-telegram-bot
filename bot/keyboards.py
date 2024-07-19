@@ -10,6 +10,7 @@ from aiogram.utils.keyboard import (
 from .callbacks import IntervalCallback, WeekdayCallback
 from .constants import days_array
 from .intervals import DaySchedule, Interval
+from .i18n import _
 
 class ScheduleEmoji:
     included = "🟩"
@@ -78,8 +79,8 @@ def get_schedule_keyboard(
         weekday_builder = get_weekday_keyboard(week_schedule[weekday], tz, shift)
         builder.attach(weekday_builder)
 
-    cancel = InlineKeyboardButton(text="Cancel", callback_data="cancel_schedule")
-    save = InlineKeyboardButton(text="Save", callback_data="save_schedule")
+    cancel = InlineKeyboardButton(text=_("Cancel"), callback_data="cancel_schedule")
+    save = InlineKeyboardButton(text=_("Save"), callback_data="save_schedule")
     builder.row(cancel, save)
 
     return builder.as_markup()
@@ -88,8 +89,8 @@ def get_schedule_keyboard(
 def get_schedule_options() -> InlineKeyboardMarkup:
     builder = InlineKeyboardBuilder()
 
-    builder.button(text="Default", callback_data="default_schedule")
-    builder.button(text="Personal", callback_data="personal_schedule")
+    builder.button(text=_("Default"), callback_data="default_schedule")
+    builder.button(text=_("Personal"), callback_data="personal_schedule")
     builder.adjust(2)
 
     return builder.as_markup()
@@ -99,12 +100,12 @@ def get_interval_edit_options(weekday: str, interval_uid: UUID) -> InlineKeyboar
     builder = InlineKeyboardBuilder()
 
     builder.button(
-        text="Enter again",
+        text=_("Enter again"),
         callback_data=IntervalCallback(
             weekday=weekday, interval=interval_uid, action="edit"
         ),
     )
-    builder.button(text="Cancel", callback_data="cancel_interval_edit")
+    builder.button(text=_("Cancel"), callback_data="cancel_interval_edit")
     builder.adjust(2)
 
     return builder.as_markup()

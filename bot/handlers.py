@@ -99,9 +99,12 @@ def handle_global_commands(
     async def start(message: Message, chat_state: ChatState):
         if message.chat.type == ChatType.GROUP:
             await message.answer(
-                "Unfortunately, only supergroups and private chats are supported. "
-                "Please promote this group to a supergroup by enabling the history of messages for new members "
-                "or by enabling topics."
+                _(
+                    "Unfortunately, only supergroups and private chats are supported. "
+                    "Please promote this group to a supergroup "
+                    "by enabling the history of messages for new members "
+                    "or by enabling topics."
+                )
             )
             return
 

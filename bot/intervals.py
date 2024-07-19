@@ -5,7 +5,7 @@ from zoneinfo import ZoneInfo
 
 from pydantic import BaseModel
 from pytz import UnknownTimeZoneError, timezone
-
+from .i18n import _
 
 class IntervalException(Exception):
     """Base class for other Interval exceptions"""
@@ -16,7 +16,7 @@ class IntervalException(Exception):
 class InvalidTimeFormatException(IntervalException):
     """Raised when the time format is invalid"""
 
-    def __init__(self, time_str: str, message="Time must be in HH:MM format."):
+    def __init__(self, time_str: str, message=_("Time must be in 'hh:mm' format.")):
         self.time_str = time_str
         self.message = message
         super().__init__(self.message)
@@ -29,7 +29,7 @@ class InvalidIntervalException(IntervalException):
         self,
         start_time: time,
         end_time: time,
-        message: str = "Start time must be earlier than end time.",
+        message: str = _("Start time must be earlier than end time."),
     ):
         self.start_time: str = start_time.strftime("%H:%M")
         self.end_time: str = end_time.strftime("%H:%M")
@@ -51,7 +51,7 @@ class Interval(BaseModel):
         try:
             timezone(tz)
         except UnknownTimeZoneError:
-            raise ValueError("You should pass valid zone name")
+            raise ValueError(_("You should pass a valid time zone name."))
 
     @classmethod
     def from_string(cls, interval_str: str, tz: str = "UTC", shift: int = 0):
@@ -265,7 +265,7 @@ def calculate_shift(
         new_offset_h = new_offset.total_seconds() // 3600
         delta = int(old_offset_h - new_offset_h)
     else:
-        raise ValueError("Error occurred while counting offset.")
+        raise ValueError(_("Error occurred while calculating the offset."))
 
     if is_schedule_static:
         return old_shift + delta

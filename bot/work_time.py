@@ -25,6 +25,7 @@ from .messages import (
     make_interval_validation_message,
 )
 from .state import ChatState, ChatUser, get_user, save_state
+from .i18n import _
 
 INTERVAL_PATTERN = r"^\d{1,2}:\d{2}\s*-\s*\d{1,2}:\d{2}$"
 
@@ -72,9 +73,9 @@ def handle_working_hours(
 
         layout = get_schedule_options()
 
-        st = "Press 'Default' to set working hours that will be used as default personal working hours by all people."
-        end = "Press 'Personal' to set personal working hours."
-        text = fmt.text(st, "\n", end, sep="")
+        tip_default = _("Press 'Default' to set working hours that will be used as default personal working hours by all people.")
+        tip_personal = _("Press 'Personal' to set personal working hours.")
+        text = fmt.text(tip_default, tip_personal, sep="\n\n")
 
         await message.answer(text=text, reply_markup=layout)
 
@@ -96,13 +97,13 @@ def handle_working_hours(
             week_schedule = user.temp_schedule
             tz = user.time_zone
             shift = user.time_zone_shift
-            text = f"@{username}, here is your personal schedule"
+            text = _("@{username}, here is your personal schedule.").format(username=username)
         else:
             chat_state.temp_schedule = chat_state.schedule
             week_schedule = chat_state.temp_schedule
             tz = chat_state.time_zone
             shift = chat_state.time_zone_shift
-            text = f"@{username}, here is default chat schedule"
+            text = _("@{username}, here is the default chat schedule.").format(username=username)
 
         layout = get_schedule_keyboard(week_schedule, tz, shift)
 
@@ -167,12 +168,12 @@ def handle_working_hours(
         user = await get_user(chat_state, username)
         user.to_delete_msg_ids.add(message.message_id)
 
-        # Text entered by user is not interval
+        # Text entered by user is not an interval
         if not parse_match:
             if message.text:
-                error_msg_text = f"The interval {message.text.strip()} isn't in the hh:mm - hh:mm format.\n"
+                error_msg_text = _("The interval {interval} is not in the 'hh:mm - hh:mm' format.").format(message.text.strip())
             else:
-                error_msg_text = f"The interval isn't in the hh:mm - hh:mm format.\n"
+                error_msg_text = _("The interval is not in the 'hh:mm - hh:mm' format.")
 
         # User entered one "valid" interval
         else:
@@ -209,7 +210,7 @@ def handle_working_hours(
                 )
 
                 success_msg = await message.answer(
-                    f"OK, the interval was set to {new_interval}."
+                    _("OK, the interval was set to {new_interval}.").format(new_interval=new_interval)
                 )
                 await asyncio.sleep(1)
                 await success_msg.delete()
@@ -229,7 +230,7 @@ def handle_working_hours(
             layout = get_interval_edit_options(
                 weekday=user.to_edit_weekday, interval_uid=user.to_edit_interval
             )
-            error_msg = await message.answer(text=error_msg_text, reply_markup=layout)
+            error_msg = await message.answer(text=f"{error_msg_text}\n", reply_markup=layout)
 
             user.to_delete_msg_ids.add(error_msg.message_id)
 
@@ -363,7 +364,7 @@ def handle_working_hours(
 
         match cb.message:
             case Message():
-                await cb.message.answer(f"The {mode} schedule was not updated.")
+                await cb.message.answer(_("The {mode} schedule was not updated.").format(mode=mode))
         await save_state(chat_state)
 
     @router.callback_query(
@@ -398,7 +399,7 @@ def handle_working_hours(
 
         match cb.message:
             case Message():
-                await cb.message.answer(f"The {mode} schedule was updated.")
+                await cb.message.answer(_("The {mode} schedule was updated.").format(mode=mode))
         await save_state(chat_state)
 
     @router.callback_query(F.data == "#")

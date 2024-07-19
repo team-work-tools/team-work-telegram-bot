@@ -84,27 +84,22 @@ def make_interval_validation_message(
 
 
 def make_interval_editing_instruction() -> str:
-    instruction_text = "Send me the new interval in the hh:mm - hh:mm format."
-    example_text = "Example: "
-    note = (
-        "Notes:\nThe example provides an interval copyable by clicking or tapping it."
-    )
+    instruction_text = _("Send me a new interval in the 'hh:mm - hh:mm' format.")
+    example_text = _("Example: ") + fmt.hcode(DEFAULT_EDITING_INTERVAL)
+    tip_text = _("Tip: press the interval in the example to copy and then edit this interval.")
 
     text = fmt.text(
         instruction_text,
-        "\n",
         example_text,
-        fmt.hcode(DEFAULT_EDITING_INTERVAL),
-        "\n",
-        note,
-        sep="",
+        tip_text,
+        sep="\n\n",
     )
     return text
 
 
 def make_interval_editing_error(error_msg: str) -> str:
-    again_text = "Press 'Enter again' to enter the interval again."
-    cancel_text = "Press 'Cancel' to cancel editing this interval."
+    again_text = _("Press 'Enter again' to enter the interval again.")
+    cancel_text = _("Press 'Cancel' to cancel editing this interval.")
 
     text = fmt.text(error_msg, "\n", again_text, "\n", cancel_text, sep="")
     return text
