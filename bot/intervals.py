@@ -6,6 +6,7 @@ from zoneinfo import ZoneInfo
 from pydantic import BaseModel
 from pytz import UnknownTimeZoneError, timezone
 from .i18n import _
+from .constants import days_array
 
 class IntervalException(Exception):
     """Base class for other Interval exceptions"""
@@ -275,16 +276,7 @@ def calculate_shift(
 
 def pretty_weekdays(days: list[str]):
     # Define the order of the days
-    day_order = [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday",
-    ]
-    day_index = {day: i for i, day in enumerate(day_order)}
+    day_index = {day: i for i, day in enumerate(days_array)}
 
     # Sort the days based on their order in the week
     sorted_days = sorted(days, key=lambda x: day_index[x])
@@ -310,3 +302,7 @@ def pretty_weekdays(days: list[str]):
             pretty_strings.append(group[0])
 
     return ", ".join(pretty_strings)
+
+empty_schedule = {day: DaySchedule(name=day) for day in days_array}
+
+default_schedule = empty_schedule

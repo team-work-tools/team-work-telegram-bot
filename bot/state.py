@@ -7,8 +7,8 @@ from beanie import Document, Indexed
 from pydantic import BaseModel
 
 from .chat import ChatId
-from .constants import default_schedule, default_time_zone
-from .intervals import DaySchedule
+from .constants import default_time_zone
+from .intervals import DaySchedule, default_schedule
 from .language import Language
 
 

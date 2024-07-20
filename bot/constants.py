@@ -1,7 +1,5 @@
 from datetime import date
 
-from .intervals import DaySchedule
-
 ENCODING = "utf-8"
 
 
@@ -40,9 +38,5 @@ days_array = [
     "Saturday",
     "Sunday",
 ]
-
-empty_schedule = {day: DaySchedule(name=day) for day in days_array}
-
-default_schedule = empty_schedule
 
 report_tag = "daily_report"

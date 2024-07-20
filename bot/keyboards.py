@@ -18,6 +18,20 @@ class ScheduleEmoji:
     add = "➕"
     remove = "✖️"
 
+
+def day_to_day_i18n():
+    days_array_i18n = [
+        _("Monday"),
+        _("Tuesday"),
+        _("Wednesday"),
+        _("Thursday"),
+        _("Friday"),
+        _("Saturday"),
+        _("Sunday"),
+    ]
+    return {i: j for i, j in zip(days_array, days_array_i18n)}
+
+
 def get_interval_keyboard(
     interval: Interval, weekday: str, tz: str, shift: int
 ) -> InlineKeyboardBuilder:
@@ -52,9 +66,11 @@ def get_weekday_keyboard(
     weekday: DaySchedule, tz: str, shift: int
 ) -> InlineKeyboardBuilder:
     builder = InlineKeyboardBuilder()
-    included_text = ScheduleEmoji.included if weekday.included else ScheduleEmoji.excluded
-
-    day = InlineKeyboardButton(text=f"{weekday.name}", callback_data="#")
+    included_text = (
+        ScheduleEmoji.included if weekday.included else ScheduleEmoji.excluded
+    )
+    
+    day = InlineKeyboardButton(text=day_to_day_i18n()[weekday.name], callback_data="#")
     status = InlineKeyboardButton(
         text=included_text,
         callback_data=WeekdayCallback(weekday=weekday.name, action="toggle").pack(),
