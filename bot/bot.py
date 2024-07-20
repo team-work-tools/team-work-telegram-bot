@@ -83,7 +83,7 @@ async def main(settings: Settings) -> None:
     await restore_scheduled_jobs(scheduler=scheduler, send_message=send_message)
 
     router = handlers.make_router(
-        scheduler=scheduler, send_message=send_message, bot=bot, i18n=i18n
+        scheduler=scheduler, send_message=send_message, bot=bot
     )
 
     dp.include_router(router)

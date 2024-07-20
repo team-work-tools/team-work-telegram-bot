@@ -56,9 +56,8 @@ from .state import (
 from .work_time import handle_working_hours
 from aiogram.enums.chat_type import ChatType
 
-def make_router(
-    scheduler: AsyncIOScheduler, send_message: SendMessage, bot: Bot, i18n: I18n
-):
+
+def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage, bot: Bot):
     router = Router()
 
     handle_global_commands(
@@ -66,7 +65,6 @@ def make_router(
         send_message=send_message,
         router=router,
         bot=bot,
-        i18n=i18n,
     )
 
     handle_team_settings_commands(
@@ -93,7 +91,6 @@ def handle_global_commands(
     send_message: SendMessage,
     router: Router,
     bot: Bot,
-    i18n: I18n,
 ):
     @router.message(Command(bot_command_names.start), HasChatState())
     async def start(message: Message, chat_state: ChatState):
@@ -108,7 +105,7 @@ def handle_global_commands(
             )
             return
 
-        await get_help(message=message, chat_state=chat_state, i18n=i18n)
+        await get_help(message=message, chat_state=chat_state)
 
         # Register user if it is personal message
         if message.chat.type == ChatType.PRIVATE:
@@ -128,11 +125,14 @@ def handle_global_commands(
             )
 
     @router.message(Command(bot_command_names.help), HasChatState())
-    async def get_help(message: Message, chat_state: ChatState, i18n: I18n):
+    async def get_help(
+        message: Message,
+        chat_state: ChatState,
+    ):
         await message.reply(make_help_message())
 
     @router.message(Command(bot_command_names.set_language), HasChatState())
-    async def set_language(message: types.Message, chat_state: ChatState, i18n: I18n):
+    async def set_language(message: types.Message, chat_state: ChatState):
         keyboard = InlineKeyboardMarkup(
             inline_keyboard=[
                 [
