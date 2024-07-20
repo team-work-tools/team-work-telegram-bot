@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-07-19 12:37+0300\n"
+"POT-Creation-Date: 2024-07-20 20:38+0300\n"
 "PO-Revision-Date: 2024-05-11 19:50+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -269,11 +269,11 @@ msgstr "Ваш ответ был записан."
 msgid "You have already responded to this message or it is no longer valid."
 msgstr "Вы уже ответили на это сообщение или оно больше не действительно."
 
-#: bot/meeting.py:20
+#: bot/meeting.py:21
 msgid "Meeting time!"
 msgstr "Время встречи!"
 
-#: bot/meeting.py:28
+#: bot/meeting.py:29
 msgid "Nobody has joined the meeting!"
 msgstr "Никто не присоединился к встрече!"
 
@@ -290,6 +290,22 @@ msgstr ""
 "\n"
 "        Вы можете управлять мной при помощи следующих команд:\n"
 "        "
+
+#: bot/messages.py:32
+msgid "Global commands"
+msgstr "Оcновные команды"
+
+#: bot/messages.py:37
+msgid "Team settings commands"
+msgstr "Настройки для команды"
+
+#: bot/messages.py:40
+msgid "Personal settings commands"
+msgstr "Персональные настройки"
+
+#: bot/messages.py:46
+msgid "Chat information commands"
+msgstr "Настройки чата"
 
 #: bot/messages.py:56
 msgid "What did you do last working day? {usernames}"

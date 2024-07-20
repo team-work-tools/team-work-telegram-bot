@@ -16,41 +16,44 @@ async def send_meeting_messages(
 ):
     chat_state = await load_state(chat_id=chat_id, topic_id=topic_id)
     current_day = datetime.now().weekday()
-    await send_message(
-        chat_id=chat_id, message=_("Meeting time!"), message_thread_id=topic_id
-    )
-
-    joined_users = await get_joined_users(chat_state)
-    today_workers = [user for user in joined_users if current_day in user.meeting_days]
-    if not today_workers:
+    if chat_state.meeting_time is not None:
         await send_message(
-            chat_id=chat_id,
-            message=_("Nobody has joined the meeting!"),
-            message_thread_id=topic_id,
+            chat_id=chat_id, message=_("Meeting time!"), message_thread_id=topic_id
         )
-    else:
 
-        # Creating list of joined to meeting users
-        today_usernames = [f"@{user.username}" for user in today_workers]
-
-        # Getting daily messages
-        daily_messages = make_daily_messages(usernames=" ".join(today_usernames))
-
-        # Sending daily messages
-        chat_state.meeting_msg_ids = []
-        for message in daily_messages:
-            new_msg = await send_message(
-                chat_id=chat_id, message=message, message_thread_id=topic_id
+        joined_users = await get_joined_users(chat_state)
+        today_workers = [user for user in joined_users if current_day in user.meeting_days]
+        if not today_workers:
+            await send_message(
+                chat_id=chat_id,
+                message=_("Nobody has joined the meeting!"),
+                message_thread_id=topic_id,
             )
+        else:
 
-            chat_state.meeting_msg_ids.append(new_msg.message_id)
+            # Creating list of joined to meeting users
+            today_usernames = [f"@{user.username}" for user in today_workers]
 
-        # Reset info about replies to meeting messages after assigning new meeting
-        for user in today_workers:
-            user.non_replied_daily_msgs = set(range(0, 3))
-            user.responses = {idx: "" for idx in range(0,3)}
+            # Getting daily messages
+            daily_messages = make_daily_messages(usernames=" ".join(today_usernames))
 
-        await save_state(chat_state=chat_state)
+            # Sending daily messages
+            chat_state.meeting_msg_ids = []
+            for message in daily_messages:
+                new_msg = await send_message(
+                    chat_id=chat_id, message=message, message_thread_id=topic_id
+                )
+
+                chat_state.meeting_msg_ids.append(new_msg.message_id)
+
+            # Reset info about replies to meeting messages after assigning new meeting
+            for user in today_workers:
+                user.non_replied_daily_msgs = set(range(0, 3))
+                user.responses = {idx: "" for idx in range(0,3)}
+
+            await save_state(chat_state=chat_state)
+    else:
+        return
 
 
 def make_job_id(chat_id: int, topic_id: Optional[int]):
