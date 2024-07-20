@@ -10,6 +10,17 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from aiogram.utils.i18n import I18n
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from .meeting import schedule_meeting
+from .custom_types import SendMessage, SaveState, LoadState
+from aiogram.utils.i18n import I18n
+from .i18n import _
+from .constants import (
+    day_of_week_pretty,
+    datetime_time_format,
+    iso8601,
+    time_url,
+    sample_time, title_max_length,
+)
 
 from .commands import bot_command_names
 from .constants import iso8601, report_tag, sample_time, time_url
@@ -276,9 +287,9 @@ def handle_team_settings_commands(
     @router.message(Command(bot_command_names.add_recurring_message), HasChatState())
     async def add_recurring_message(message: Message, chat_state: ChatState, state: FSMContext):
         await message.answer(
-            _("Send me the message title so that I can use it as the message identifier. The title must be a string in plain English (Allowed: Lowercase and uppercase letters, spaces). Length limit - {N} symbols.")
+            _("Send me the message title so that I can use it as the message identifier. Length limit - {N} symbols.")
             .format(
-                N=200  # todo: another number of symbols
+                N=title_max_length
             )
         )
         await state.set_state(RecurringAddingState.EnterRecurringTitle)
