@@ -30,9 +30,26 @@ from .i18n import _
 INTERVAL_PATTERN = r"^\d{1,2}:\d{2}\s*-\s*\d{1,2}:\d{2}$"
 
 
+class Mode:
+    personal = "personal"
+    default = "default"
+    def __init__(self):
+        self.default_i18n = _("default")
+        self.personal_i18n = _("personal")
+
+
+def mode_to_mode_i18n(mode: str):
+    mode_constants = Mode()
+    match mode:
+        case Mode.personal:
+            return mode_constants.personal_i18n
+        case Mode.default:
+            return mode_constants.default_i18n
+
+
 def get_schedule_by_mode(chat_state: ChatState, user: ChatUser):
     mode = user.schedule_mode
-    if mode == "personal":
+    if mode == Mode.personal:
         week_schedule = user.temp_schedule
         tz = user.time_zone
         shift = user.time_zone_shift
@@ -72,9 +89,15 @@ def handle_working_hours(
     async def show_schedule_options(message: Message):
 
         layout = get_schedule_options()
-
-        tip_default = _("Press 'Default' to set working hours that will be used as default personal working hours by all people.")
-        tip_personal = _("Press 'Personal' to set personal working hours.")
+        
+        mode_constants = Mode()
+        
+        tip_default = _(
+            "Press '{default}' to set working hours that will be used as default personal working hours by all people."
+        ).format(default=mode_constants.default_i18n.capitalize())
+        tip_personal = _("Press '{personal}' to set personal working hours.").format(
+            personal=mode_constants.personal_i18n.capitalize()
+        )
         text = fmt.text(tip_default, tip_personal, sep="\n\n")
 
         await message.answer(text=text, reply_markup=layout)
@@ -92,18 +115,22 @@ def handle_working_hours(
 
         user = await get_user(chat_state, username)
 
-        if mode == "personal":
+        if mode == Mode.personal:
             user.temp_schedule = user.schedule
             week_schedule = user.temp_schedule
             tz = user.time_zone
             shift = user.time_zone_shift
-            text = _("@{username}, here is your personal schedule.").format(username=username)
+            text = _("@{username}, here is your personal schedule.").format(
+                username=username
+            )
         else:
             chat_state.temp_schedule = chat_state.schedule
             week_schedule = chat_state.temp_schedule
             tz = chat_state.time_zone
             shift = chat_state.time_zone_shift
-            text = _("@{username}, here is the default chat schedule.").format(username=username)
+            text = _("@{username}, here is the default chat schedule.").format(
+                username=username
+            )
 
         layout = get_schedule_keyboard(week_schedule, tz, shift)
 
@@ -171,7 +198,9 @@ def handle_working_hours(
         # Text entered by user is not an interval
         if not parse_match:
             if message.text:
-                error_msg_text = _("The interval {interval} is not in the 'hh:mm - hh:mm' format.").format(message.text.strip())
+                error_msg_text = _(
+                    "The interval {interval} is not in the 'hh:mm - hh:mm' format."
+                ).format(message.text.strip())
             else:
                 error_msg_text = _("The interval is not in the 'hh:mm - hh:mm' format.")
 
@@ -210,7 +239,9 @@ def handle_working_hours(
                 )
 
                 success_msg = await message.answer(
-                    _("OK, the interval was set to {new_interval}.").format(new_interval=new_interval)
+                    _("OK, the interval was set to {new_interval}.").format(
+                        new_interval=new_interval
+                    )
                 )
                 await asyncio.sleep(1)
                 await success_msg.delete()
@@ -230,7 +261,9 @@ def handle_working_hours(
             layout = get_interval_edit_options(
                 weekday=user.to_edit_weekday, interval_uid=user.to_edit_interval
             )
-            error_msg = await message.answer(text=f"{error_msg_text}\n", reply_markup=layout)
+            error_msg = await message.answer(
+                text=f"{error_msg_text}\n", reply_markup=layout
+            )
 
             user.to_delete_msg_ids.add(error_msg.message_id)
 
@@ -353,7 +386,7 @@ def handle_working_hours(
 
         user = await get_user(chat_state, username)
         mode = user.schedule_mode
-        if mode == "personal":
+        if mode == Mode.personal:
             user.temp_schedule = None
         else:
             chat_state.temp_schedule = None
@@ -364,7 +397,10 @@ def handle_working_hours(
 
         match cb.message:
             case Message():
-                await cb.message.answer(_("The {mode} schedule was not updated.").format(mode=mode))
+                if mode:
+                    await cb.message.answer(
+                        _("The {mode} schedule was not updated.").format(mode=mode_to_mode_i18n(mode))
+                    )
         await save_state(chat_state)
 
     @router.callback_query(
@@ -378,14 +414,14 @@ def handle_working_hours(
 
         user = await get_user(chat_state, username)
         mode = user.schedule_mode
-        if mode == "personal" and user.temp_schedule:
+        if mode == Mode.personal and user.temp_schedule:
             norm_schedule = {
                 item[0]: item[1].normalize_intervals()
                 for item in user.temp_schedule.items()
             }
             user.schedule = norm_schedule
             user.temp_schedule = None
-        elif mode == "default" and chat_state.temp_schedule:
+        elif mode == Mode.default and chat_state.temp_schedule:
             norm_schedule = {
                 item[0]: item[1].normalize_intervals()
                 for item in chat_state.temp_schedule.items()
@@ -399,7 +435,10 @@ def handle_working_hours(
 
         match cb.message:
             case Message():
-                await cb.message.answer(_("The {mode} schedule was updated.").format(mode=mode))
+                if mode:
+                    await cb.message.answer(
+                        _("The {mode} schedule was updated.").format(mode=mode_to_mode_i18n(mode))
+                    )
         await save_state(chat_state)
 
     @router.callback_query(F.data == "#")
