@@ -83,7 +83,7 @@ def bot_command_descriptions() -> BotCommandDescriptions:
         # personal settings
         join=_("Join meetings."),
         skip=_("Skip meetings."),
-        set_working_hours=_("Set your working schedule."),
+        set_working_hours=_("Set working hours."),
         set_reminder_period=_(
             "Set the period of reminders about unanswered questions."
         ),

@@ -84,7 +84,7 @@ def make_interval_validation_message(
 
 
 def make_interval_editing_instruction() -> str:
-    instruction_text = _("Send me a new interval in the 'hh:mm - hh:mm' format.")
+    instruction_text = _("Send a new interval in the 'hh:mm - hh:mm' format.")
     example_text = _("Example: ") + fmt.hcode(DEFAULT_EDITING_INTERVAL)
     tip_text = _("Tip: press the interval in the example to copy and then edit this interval.")
 
