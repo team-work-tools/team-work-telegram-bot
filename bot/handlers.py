@@ -15,8 +15,6 @@ from .custom_types import SendMessage, SaveState, LoadState
 from aiogram.utils.i18n import I18n
 from .i18n import _
 from .constants import (
-    day_of_week_pretty,
-    datetime_time_format,
     iso8601,
     time_url,
     sample_time, title_max_length,
