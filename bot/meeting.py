@@ -10,6 +10,7 @@ from .custom_types import ChatId, SendMessage
 from .messages import make_daily_messages
 from .state import load_state, save_state, get_joined_users
 
+job_store = {}
 
 async def send_meeting_messages(
     chat_id: ChatId, topic_id: Optional[int], send_message: SendMessage
@@ -70,6 +71,7 @@ def schedule_meeting(
     scheduler: AsyncIOScheduler,
     send_message: SendMessage,
 ):
+    job_id = make_job_id(chat_id, topic_id)
     scheduler.add_job(
         jobstore=jobstore,
         func=send_meeting_messages,
@@ -86,3 +88,35 @@ def schedule_meeting(
     )
 
     logging.info(scheduler.get_job(make_job_id(chat_id, topic_id)))
+    save_job(job_id, meeting_time, chat_id, topic_id)
+
+def save_job(job_id: str, meeting_time: datetime, chat_id: ChatId, topic_id: Optional[int]):
+    job_store[job_id] = {
+        "job_id": job_id,
+        "meeting_time": meeting_time,
+        "chat_id": chat_id,
+        "topic_id": topic_id,
+    }
+
+def load_jobs(scheduler: AsyncIOScheduler, send_message: SendMessage):
+    for job_id, job in job_store.items():
+        meeting_time = job["meeting_time"]
+        chat_id = job["chat_id"]
+        topic_id = job["topic_id"]
+
+        scheduler.add_job(
+            jobstore=jobstore,
+            func=send_meeting_messages,
+            id=job_id,
+            replace_existing=True,
+            kwargs={"chat_id": chat_id, "topic_id": topic_id, "send_message": send_message},
+            trigger="cron",
+            start_date=meeting_time,
+            hour=meeting_time.hour,
+            minute=meeting_time.minute,
+            day_of_week=day_of_week,
+            timezone=meeting_time.tzinfo,
+            misfire_grace_time=42,
+        )
+
+        logging.info(f"Loaded job {job_id} from job store")

@@ -50,6 +50,7 @@ class ChatState(Document):
     topic_id: Optional[int] = None
     chat_id: Annotated[ChatId, Indexed(index_type=pymongo.ASCENDING)]
     users: Dict[str, ChatUser] = dict()
+    is_active: bool = True
 
 
 async def get_user(chat_state: ChatState, username: str) -> ChatUser:
