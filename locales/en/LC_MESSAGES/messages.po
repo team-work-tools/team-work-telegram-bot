@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-07-21 19:35+0300\n"
+"POT-Creation-Date: 2024-07-22 00:24+0300\n"
 "PO-Revision-Date: 2024-05-11 19:53+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,120 +18,124 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.15.0\n"
 
-#: bot/commands.py:72
+#: bot/commands.py:74
 msgid "Enable the bot."
 msgstr ""
 
-#: bot/commands.py:73
+#: bot/commands.py:75
 msgid "Get a help message."
 msgstr ""
 
-#: bot/commands.py:74
+#: bot/commands.py:76
 msgid "Set the bot language."
 msgstr ""
 
-#: bot/commands.py:75
+#: bot/commands.py:77
 msgid "Disable the bot."
 msgstr ""
 
-#: bot/commands.py:76
+#: bot/commands.py:78
 msgid "Cancel the current operation with the bot."
 msgstr ""
 
-#: bot/commands.py:78
+#: bot/commands.py:80
 msgid "Set up daily meetings."
 msgstr ""
 
-#: bot/commands.py:80
+#: bot/commands.py:82
 msgid "Set meetings time zone."
 msgstr ""
 
-#: bot/commands.py:81
+#: bot/commands.py:83
 msgid "Set meetings time."
 msgstr ""
 
-#: bot/commands.py:82
+#: bot/commands.py:84
 msgid "Set meetings days."
 msgstr ""
 
-#: bot/commands.py:84
-msgid "Join meetings."
-msgstr ""
-
 #: bot/commands.py:85
-msgid "Skip meetings."
-msgstr ""
-
-#: bot/commands.py:86
-msgid "Set working hours."
+msgid "Add recurring message."
 msgstr ""
 
 #: bot/commands.py:87
-msgid "Set the period of reminders about unanswered questions."
+msgid "Join meetings."
+msgstr ""
+
+#: bot/commands.py:88
+msgid "Skip meetings."
+msgstr ""
+
+#: bot/commands.py:89
+msgid "Set working hours."
 msgstr ""
 
 #: bot/commands.py:90
-msgid "Join only today's meeting."
-msgstr ""
-
-#: bot/commands.py:91
-msgid "Skip only today's meeting."
-msgstr ""
-
-#: bot/commands.py:92
-msgid "Schedule a personal vacation."
+msgid "Set the period of reminders about unanswered questions."
 msgstr ""
 
 #: bot/commands.py:93
-msgid "Unschedule the personal vacation."
+msgid "Join only today's meeting."
+msgstr ""
+
+#: bot/commands.py:94
+msgid "Skip only today's meeting."
 msgstr ""
 
 #: bot/commands.py:95
-msgid "Get the chat state stored by the bot."
+msgid "Schedule a personal vacation."
 msgstr ""
 
 #: bot/commands.py:96
+msgid "Unschedule the personal vacation."
+msgstr ""
+
+#: bot/commands.py:98
+msgid "Get the chat state stored by the bot."
+msgstr ""
+
+#: bot/commands.py:99
 msgid "Reset the chat state."
 msgstr ""
 
-#: bot/commands.py:97
+#: bot/commands.py:100
 msgid "Get the report."
 msgstr ""
 
-#: bot/handlers.py:80
+#: bot/handlers.py:97
 msgid ""
 "Unfortunately, only supergroups and private chats are supported. Please "
 "promote this group to a supergroup by enabling the history of messages "
 "for new members or by enabling topics."
 msgstr ""
 
-#: bot/handlers.py:99
+#: bot/handlers.py:116
 msgid "Nice to meet you!"
 msgstr ""
 
-#: bot/handlers.py:135
+#: bot/handlers.py:162
 msgid "Choose a language."
 msgstr ""
 
-#: bot/handlers.py:167
+#: bot/handlers.py:194
 msgid "English language selected!"
 msgstr ""
 
-#: bot/handlers.py:171
+#: bot/handlers.py:198
 msgid "Error saving language state: {error}"
 msgstr ""
 
-#: bot/handlers.py:200
+#: bot/handlers.py:227
 msgid "Monday - Sunday"
 msgstr ""
 
-#: bot/handlers.py:227
+#: bot/handlers.py:254
 msgid ""
 "OK, we'll meet at {meeting_time} on {week_days} starting not earlier than"
 " on {start_date}!"
 msgstr ""
 
-#: bot/handlers.py:238
+#: bot/handlers.py:265
 msgid ""
 "\n"
 "                        Please write the meetings time in the {iso8601} "
@@ -146,11 +150,17 @@ msgid ""
 "                        "
 msgstr ""
 
-#: bot/handlers.py:268
+#: bot/handlers.py:289
+msgid ""
+"Send the message title with at most {N} symbols so that the bot can use "
+"this title as the message identifier."
+msgstr ""
+
+#: bot/handlers.py:306
 msgid "You've already joined, @{username}!"
 msgstr ""
 
-#: bot/handlers.py:276
+#: bot/handlers.py:314
 msgid ""
 "\n"
 "                        You've just joined, @{username}!\n"
@@ -160,7 +170,7 @@ msgid ""
 "                        "
 msgstr ""
 
-#: bot/handlers.py:296
+#: bot/handlers.py:334
 msgid ""
 "\n"
 "                        See you later, @{username}!\n"
@@ -169,27 +179,27 @@ msgid ""
 "                        "
 msgstr ""
 
-#: bot/handlers.py:308
+#: bot/handlers.py:346
 msgid "You've not yet joined, @{username}!"
 msgstr ""
 
-#: bot/handlers.py:331
+#: bot/handlers.py:369
 msgid "Reminder period set to {period} minutes"
 msgstr ""
 
-#: bot/handlers.py:348
+#: bot/handlers.py:386
 msgid ""
 "You have to join daily meetings first!\n"
 "Use the /join command."
 msgstr ""
 
-#: bot/handlers.py:355
+#: bot/handlers.py:393
 msgid ""
 "@{username}, the bot doesn't have access to your personal messages.\n"
 "Please write to @{bot_username} and type /start."
 msgstr ""
 
-#: bot/handlers.py:364
+#: bot/handlers.py:402
 msgid ""
 "\n"
 "                        Please indicate the reminder period in minutes.\n"
@@ -200,25 +210,22 @@ msgid ""
 "                        "
 msgstr ""
 
-#: bot/handlers.py:410
+#: bot/handlers.py:448
 msgid "No responses."
 msgstr ""
 
-#: bot/handlers.py:420
+#: bot/handlers.py:457
 msgid ""
+"The state has been successfully reset.\n"
 "\n"
-"                The state has been successfully reset. \n"
-"                \n"
-"                Use the /get_chat_state command to view the current "
-"state.\n"
-"                "
+"Use the /get_chat_state command to view the current state."
 msgstr ""
 
-#: bot/handlers.py:452
+#: bot/handlers.py:485
 msgid "Your response has been recorded."
 msgstr ""
 
-#: bot/handlers.py:455
+#: bot/handlers.py:488
 msgid "You have already responded to this message or it is no longer valid."
 msgstr ""
 
@@ -266,35 +273,35 @@ msgstr ""
 msgid "Error occurred while calculating the offset."
 msgstr ""
 
-#: bot/keyboards.py:83 bot/keyboards.py:109
+#: bot/keyboards.py:86 bot/keyboards.py:112
 msgid "Cancel"
 msgstr ""
 
-#: bot/keyboards.py:84
+#: bot/keyboards.py:87
 msgid "Save"
 msgstr ""
 
-#: bot/keyboards.py:93
+#: bot/keyboards.py:96
 msgid "Default"
 msgstr ""
 
-#: bot/keyboards.py:94
+#: bot/keyboards.py:97
 msgid "Personal"
 msgstr ""
 
-#: bot/keyboards.py:104
+#: bot/keyboards.py:107
 msgid "Enter again"
 msgstr ""
 
-#: bot/meeting.py:26
+#: bot/meeting.py:27
 msgid "Meeting time!"
 msgstr ""
 
-#: bot/meeting.py:42
+#: bot/meeting.py:44
 msgid "Nobody has joined the meeting!"
 msgstr ""
 
-#: bot/messages.py:14
+#: bot/messages.py:18
 msgid ""
 "\n"
 "        The bot can help you conduct daily (or at least regular) "
@@ -309,110 +316,194 @@ msgstr ""
 "        You can control me by sending these commands:\n"
 "        "
 
-#: bot/messages.py:55
+#: bot/messages.py:60
 msgid "What did you do last working day? {usernames}"
 msgstr ""
 
-#: bot/messages.py:56
+#: bot/messages.py:63
 msgid "What will you do today? {usernames}"
 msgstr ""
 
-#: bot/messages.py:57
+#: bot/messages.py:66
 msgid "What (if anything) is blocking your progress? {usernames}"
 msgstr ""
 
-#: bot/messages.py:68
+#: bot/messages.py:77
 msgid "Successfully parsed interval: {interval}"
 msgstr ""
 
-#: bot/messages.py:71
+#: bot/messages.py:80
 msgid "Invalid time format for '{time}'. {msg}\n"
 msgstr ""
 
-#: bot/messages.py:76
+#: bot/messages.py:85
 msgid "{msg} (start: {start}, end: {end}).\n"
 msgstr ""
 
-#: bot/messages.py:81
+#: bot/messages.py:90
 msgid "An unexpected error occurred. {error}"
 msgstr ""
 
-#: bot/messages.py:86
+#: bot/messages.py:95
 msgid "Send a new interval in the 'hh:mm - hh:mm' format."
 msgstr ""
 
-#: bot/messages.py:87
+#: bot/messages.py:96
 msgid "Example: "
 msgstr ""
 
-#: bot/messages.py:88
+#: bot/messages.py:97
 msgid ""
 "Tip: press the interval in the example to copy and then edit this "
 "interval."
 msgstr ""
 
-#: bot/messages.py:100
+#: bot/messages.py:111
 msgid "Press 'Enter again' to enter the interval again."
 msgstr ""
 
-#: bot/messages.py:101
+#: bot/messages.py:112
 msgid "Press 'Cancel' to cancel editing this interval."
+msgstr ""
+
+#: bot/recurring_message.py:156
+msgid ""
+"Send an interval in the 'DD.MM.YYYY - DD.MM.YYYY' format.\n"
+"\n"
+"Example: {example}."
+msgstr ""
+
+#: bot/recurring_message.py:162
+msgid "Send a title with at most {N} symbols."
+msgstr ""
+
+#: bot/recurring_message.py:170
+msgid ""
+"The title is too long.\n"
+"\n"
+"{send_new_title}"
+msgstr ""
+
+#: bot/recurring_message.py:177
+msgid ""
+"A message with this title already exists.\n"
+"\n"
+"{send_new_title}"
+msgstr ""
+
+#: bot/recurring_message.py:185
+msgid ""
+"Send an interval so that the bot knows when to start and end sending the "
+"message.\n"
+"\n"
+"{send_interval}"
+msgstr ""
+
+#: bot/recurring_message.py:193
+msgid ""
+"Send a cron expression so that the bot knows the period of sending the "
+"message\\.\n"
+"\n"
+"Example: `4 5 \\* \\* \\*`\\.\n"
+"\n"
+"Click [here]({cron_link}) if you need help with reading cron "
+"expressions\\."
+msgstr ""
+
+#: bot/recurring_message.py:204
+msgid ""
+"Wrong interval format.\n"
+"\n"
+"{send_interval}"
+msgstr ""
+
+#: bot/recurring_message.py:214
+msgid ""
+"Wrong date format.\n"
+"\n"
+"{send_interval}"
+msgstr ""
+
+#: bot/recurring_message.py:221
+msgid ""
+"Start date should be before the end date.\n"
+"\n"
+"{send_interval}"
+msgstr ""
+
+#: bot/recurring_message.py:242
+msgid ""
+"Wrong cron expression format\\.\n"
+"\n"
+"{send_cron}"
+msgstr ""
+
+#: bot/recurring_message.py:252
+msgid "Send the message text."
+msgstr ""
+
+#: bot/recurring_message.py:264
+msgid ""
+"Your message {title} will be sent in between {interval_start} and "
+"{interval_end} {expression}.\n"
+"\n"
+"Send /edit_recurring_messages to edit this and other recurring messages."
 msgstr ""
 
 #: bot/reminder.py:50
 msgid "Please reply to these daily meeting questions:"
 msgstr ""
 
-#: bot/reminder.py:108
+#: bot/reminder.py:110
 msgid ""
 "@{username}, please unblock @{bot_username} in your private chat with the"
 " bot so that the bot can send you reminders about missed daily meeting "
 "questions."
 msgstr ""
 
-#: bot/work_time.py:33
+#: bot/work_time.py:38
 msgid "default"
 msgstr ""
 
-#: bot/work_time.py:34
+#: bot/work_time.py:39
 msgid "personal"
 msgstr ""
 
-#: bot/work_time.py:91
+#: bot/work_time.py:96
 msgid ""
 "Press '{default}' to set working hours that will be used as default "
 "personal working hours by all people."
 msgstr ""
 
-#: bot/work_time.py:94
+#: bot/work_time.py:99
 msgid "Press '{personal}' to set personal working hours."
 msgstr ""
 
-#: bot/work_time.py:119
+#: bot/work_time.py:124
 msgid "@{username}, here is your personal schedule."
 msgstr ""
 
-#: bot/work_time.py:127
+#: bot/work_time.py:132
 msgid "@{username}, here is the default chat schedule."
 msgstr ""
 
-#: bot/work_time.py:197
+#: bot/work_time.py:202
 msgid "The interval {interval} is not in the 'hh:mm - hh:mm' format."
 msgstr ""
 
-#: bot/work_time.py:201
+#: bot/work_time.py:206
 msgid "The interval is not in the 'hh:mm - hh:mm' format."
 msgstr ""
 
-#: bot/work_time.py:238
+#: bot/work_time.py:243
 msgid "OK, the interval was set to {new_interval}."
 msgstr ""
 
-#: bot/work_time.py:398
+#: bot/work_time.py:403
 msgid "The {mode} schedule was not updated."
 msgstr ""
 
-#: bot/work_time.py:436
+#: bot/work_time.py:443
 msgid "The {mode} schedule was updated."
 msgstr ""
 
@@ -441,5 +532,241 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Set your working schedule."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Too long title. Send me the "
+#~ "message title so that I can use"
+#~ " it as the message identifier. Length"
+#~ " limit - {N} symbols."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "A message cannot be created with "
+#~ "an existing title. Send me the "
+#~ "message title so that I can use"
+#~ " it as the message identifier. Length"
+#~ " limit - {N} symbols."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "OK. Send me the interval so that"
+#~ " I know when should I start and"
+#~ " end sending the message.\n"
+#~ "\n"
+#~ "Enter the interval in DD.MM.YYYY - DD.MM.YYYY format. Example: "
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Wrong format.\n"
+#~ "\n"
+#~ "Enter the interval in DD.MM.YYYY - DD.MM.YYYY format. Example:"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Wrong date format.\n"
+#~ "\n"
+#~ "Enter the interval in DD.MM.YYYY - DD.MM.YYYY format. Example:"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Start date should be before the end date.\n"
+#~ "\n"
+#~ "Enter the interval in DD.MM.YYYY - DD.MM.YYYY format. Example:"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "ОК\\. Send me a cron expression so"
+#~ " that I know when should I send"
+#~ " the message\\.\n"
+#~ "\n"
+#~ "Example\\: `4 5 \\* \\* \\*`\\. Click [here]({}) if you need help\\."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Wrong format\\. Send me a cron "
+#~ "expression so that I know when "
+#~ "should I send the message\\.\n"
+#~ "\n"
+#~ "Example\\: `4 5 \\* \\* \\*`\\. Click [here]({}) if you need help\\."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Enter the interval in 'DD.MM.YYYY - DD.MM.YYYY' format\n"
+#~ "\n"
+#~ "Example: {example}"
+#~ msgstr ""
+
+#~ msgid "The title is too long. Send a message title with at most {N} symbols."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Enter the interval in 'DD.MM.YYYY - DD.MM.YYYY' format.\n"
+#~ "\n"
+#~ "Example: {example}."
+#~ msgstr ""
+
+#~ msgid "The title is too long. Send a title with at most {N} symbols."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "A message with this title already "
+#~ "exists. Send a new title with at"
+#~ " most {N} symbols."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Send an interval so that the bot"
+#~ " knows when to start and end "
+#~ "sending the message.\n"
+#~ "\n"
+#~ "{enter_interval}"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Send a cron expression so that the bot knows when to send the message\n"
+#~ "\n"
+#~ "Example: `4 5 * * *`.\n"
+#~ "\n"
+#~ "Click [here]({}) if you need help."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Wrong interval format.\n"
+#~ "\n"
+#~ "{enter_interval}"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Wrong date format.\n"
+#~ "\n"
+#~ "{enter_interval}"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Start date should be before the end date.\n"
+#~ "\n"
+#~ "{enter_interval}"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Send a cron expression so that the"
+#~ " bot knows when to send the "
+#~ "message.\n"
+#~ "\n"
+#~ "Example: `4 5 * * *`.\n"
+#~ "\n"
+#~ "Click [here]({}) if you need help."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Send a cron expression so that the"
+#~ " bot knows the period of sending "
+#~ "the message.\n"
+#~ "\n"
+#~ "Example: `4 5 * * *`.\n"
+#~ "\n"
+#~ "Click [here]({}) if you need help."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Send a cron expression so that the"
+#~ " bot knows the period of sending "
+#~ "the message.\n"
+#~ "\n"
+#~ "Example: `4 5 * * *`.\n"
+#~ "\n"
+#~ "Click [here]({cron_link}) if you need help."
+#~ msgstr ""
+
+#~ msgid "ОК. Send me the message text"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Your message {title} will be sent "
+#~ "in between {interval_start} and {interval_end}"
+#~ " {expression}.\n"
+#~ "\n"
+#~ "Send /edit_recurring_messages to edit this and other recurring messages"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Send me the message title so that"
+#~ " I can use it as the message"
+#~ " identifier. Length limit - {N} "
+#~ "symbols."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Send the message title with at "
+#~ "most {N} symbols so that the bot"
+#~ " can use it as the message "
+#~ "identifier."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "\n"
+#~ "                The state has been successfully reset. \n"
+#~ "                \n"
+#~ "                Use the /get_chat_state "
+#~ "command to view the current state.\n"
+#~ ""
+#~ "                "
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The state has been successfully reset.\n"
+#~ "\n"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Send a cron expression so that the"
+#~ " bot knows the period of sending "
+#~ "the message.\n"
+#~ "\n"
+#~ "Example: `4 5 * * *`.\n"
+#~ "\n"
+#~ "Click [here]({cron_link}) if you need "
+#~ "help with reading cron expressions."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Send an interval in the 'DD.MM.YYYY - DD.MM.YYYY' format.\n"
+#~ "\n"
+#~ "Example: {example}."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Send an interval in the 'DD.MM.YYYY \\- DD.MM.YYYY' format.\n"
+#~ "\n"
+#~ "Example: {example}."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Send an interval in the 'DD\\.MM\\.YYYY \\- DD\\.MM\\.YYYY' format\\.\n"
+#~ "\n"
+#~ "Example: {example}\\."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Send an interval so that the bot"
+#~ " knows when to start and end "
+#~ "sending the message.\n"
+#~ "\n"
+#~ "{send_interval}"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Wrong cron expression format.\n"
+#~ "\n"
+#~ "{send_cron}"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Send an interval so that the bot"
+#~ " knows when to start and end "
+#~ "sending the message\\.\n"
+#~ "\n"
+#~ "{send_interval}"
 #~ msgstr ""
 
