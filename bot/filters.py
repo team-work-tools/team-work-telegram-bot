@@ -1,5 +1,5 @@
 from aiogram.filters import Filter
-from aiogram.types import Message, User
+from aiogram.types import Message, User, CallbackQuery
 
 from .state import load_state, PromptType
 
@@ -37,8 +37,11 @@ class IsReplyToMeetingMessage(Filter):
             message_ids = chat_state.meeting_msg_ids
 
             for i in range(0, 3):
-                if replied_msg_id == message_ids[i]:
-                    return {"replied_meeting_msg_num": i}
+                try:
+                    if replied_msg_id == message_ids[i]:
+                        return {"replied_meeting_msg_num": i}
+                except:
+                    return False
 
         return False
 
@@ -59,3 +62,32 @@ class IsPromptReply(Filter):
                     return {"prompt_id": replied_msg_id}
 
         return False
+
+class IsCallback(Filter):
+    command: str
+
+    def __init__(self, command: str):
+        self.command = command
+
+    async def __call__(self, callback: CallbackQuery):
+        if callback.data == None or type(callback.message) != Message:
+            return False
+        try:
+            splitted = callback.data.split(maxsplit=1)
+            command = splitted[0]
+            argument = splitted[1]
+        except IndexError:
+            command = callback.data
+            argument = ""
+        if command != self.command:
+            return False
+        
+        chat_state = await load_state(
+            callback.message.chat.id,
+            callback.message.message_thread_id
+        )
+        return {
+            "argument": argument,
+            "message": callback.message,
+            "chat_state": chat_state
+        }

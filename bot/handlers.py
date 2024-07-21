@@ -1,4 +1,5 @@
 from datetime import time, datetime
+from enum import Enum
 from pytz import timezone 
 from pytz.exceptions import UnknownTimeZoneError
 from textwrap import dedent
@@ -7,14 +8,14 @@ from re import compile, escape
 from aiogram import Bot, Router, html
 from aiogram.enums import ParseMode
 from aiogram.filters.command import Command
-from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, InlineQuery 
+from aiogram.types import CallbackQuery, Message, InlineKeyboardMarkup, InlineKeyboardButton, InlineQuery 
 from aiogram.utils.i18n import gettext as _
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from .commands import bot_command_names
 from .constants import (day_of_week_to_num, day_of_week_pretty, sample_time, sample_time_zone)
 from .custom_types import SendMessage
-from .filters import HasChatState, HasMessageText, HasMessageUserUsername, IsPromptReply, IsReplyToMeetingMessage
+from .filters import HasChatState, HasMessageText, HasMessageUserUsername, IsPromptReply, IsReplyToMeetingMessage, IsCallback
 from .meeting import schedule_meeting
 from .reminder import update_reminders
 from .messages import make_help_message
@@ -550,9 +551,21 @@ def handle_inline_queries(router: Router):
 
 def handle_task_commands(scheduler: AsyncIOScheduler, send_message: SendMessage,
                          router: Router, bot: Bot):
-    @router.message(Command(bot_command_names.get_tasks), HasChatState())
-    async def get_tasks(message: Message, chat_state: ChatState):
+
+    class CommandCodes(Enum):
+        ADD_TASK = "01"
+        DELETE_TASK = "02"
+        EDIT_TASK = "03"
+        EDIT_TASK_TEXT = "04"
+        EDIT_TASK_ASSIGNEES = "05"
+        EDIT_TASK_DEADLINE = "06"
+        TASK_MENU = "07"
+        CANCEL_PROMPT = "08"
+        TASK_DONE = "09"
+
+    def make_task_menu_message(chat_state: ChatState):
         res = "All chat tasks:\n"
+        buttons = []
         for i in range(1, len(chat_state.tasks) + 1):
             task = chat_state.tasks[i - 1]
             res += dedent(
@@ -560,136 +573,184 @@ def handle_task_commands(scheduler: AsyncIOScheduler, send_message: SendMessage,
             {i}) {task.text}
             Assignees: {', '.join(task.assignees) if task.assignees else None}
             Deadline: {task.deadline}
+            Done: {task.done}
             """
             )
+            buttons.append([
+                InlineKeyboardButton(
+                    text=_("Edit Task #{0}".format(i)),
+                    callback_data=f"{CommandCodes.EDIT_TASK.value} {i - 1}"
+                )
+            ])
+        buttons.append([InlineKeyboardButton(
+            text=_("Add new task"),
+            callback_data=f"{CommandCodes.ADD_TASK.value}"
+        )])
+        return {
+            "text": _("{0}".format(res)),
+            "reply_markup": InlineKeyboardMarkup(inline_keyboard=buttons)
+        }
 
-        await message.reply(_("{0}".format(res)))
 
-    @router.message(Command(bot_command_names.add_task), HasChatState(), HasMessageText())
-    async def add_task(message: Message, chat_state: ChatState, message_text: str):
+    @router.message(Command(bot_command_names.get_tasks), HasChatState())
+    async def get_tasks(message: Message, chat_state: ChatState):
+        await message.reply(
+            **make_task_menu_message(chat_state)
+        )
+
+    @router.callback_query(IsCallback(CommandCodes.TASK_MENU.value))
+    async def get_tasks_callback(callback: CallbackQuery, chat_state: ChatState, message: Message):
+        updated = make_task_menu_message(chat_state)
+        await message.edit_text(updated["text"])
+        await message.edit_reply_markup(reply_markup=updated["reply_markup"])
+
+    @router.callback_query(IsCallback(CommandCodes.ADD_TASK.value))
+    async def add_task_callback(callback: CallbackQuery, argument: str, chat_state: ChatState, message: Message):
         task = Task()
-
-        try:
-            text = message_text.split()[1]
-            task.text = text
-        except IndexError:
-            pass
-
         chat_state.tasks.append(task)
         await chat_state.save()
+        updated = make_task_menu_message(chat_state)
+        await message.edit_text(updated["text"])
+        await message.edit_reply_markup(reply_markup=updated["reply_markup"])
 
-        await message.reply(_("task successfully created {0}".format(task)))
+    @router.callback_query(IsCallback(CommandCodes.EDIT_TASK.value))
+    async def edit_task_callback(callback: CallbackQuery, argument: str, chat_state: ChatState, message: Message):
+        task = chat_state.tasks[int(argument)]
+        text = f"""
+                Task #{int(argument) + 1}
+                Text: {task.text}
+                Assignees: {task.assignees}
+                Deadline: {task.deadline}
+                Done: {task.done}
 
-    @router.message(Command(bot_command_names.set_task_text), HasChatState())
-    async def set_task_text_command(message: Message, chat_state: ChatState):
-        sent = await message.reply(
-            dedent(
-                _(
-                    """
-Send number of task you want to modify in reply to this message
+                """
+        text = _(dedent(text))
+        buttons = [
+            [InlineKeyboardButton(
+                text=_("Change Text"),
+                callback_data=f"{CommandCodes.EDIT_TASK_TEXT.value} {argument}"
+            )],
+            [InlineKeyboardButton(
+                text=_("Change Assignees"),
+                callback_data=f"{CommandCodes.EDIT_TASK_ASSIGNEES.value} {argument}"
+            )],
+            [InlineKeyboardButton(
+                text=_("Change Deadline"),
+                callback_data=f"{CommandCodes.EDIT_TASK_DEADLINE.value} {argument}"
+            )],
+            [
+                InlineKeyboardButton(
+                    text=_("Mark done" if task.done else "Mark undone"),
+                    callback_data=f"{CommandCodes.TASK_DONE.value} {argument}"
+                ),
+                InlineKeyboardButton(
+                    text=_("Delete"),
+                    callback_data=f"{CommandCodes.DELETE_TASK.value} {argument}"
+                ),
+            ],
+            [InlineKeyboardButton(
+                text=_("Back"),
+                callback_data=f"{CommandCodes.TASK_MENU.value} {argument}"
+            )],
+        ]
+        await message.edit_text(text=text)
+        await message.edit_reply_markup(reply_markup=InlineKeyboardMarkup(inline_keyboard=buttons))
 
-Task numbers are:
-{tasks}
-                    """
-                    .format(tasks=get_task_names(chat_state))
-                )
-            )
-        )
-        message_id = sent.message_id
-        chat_state.prompts[message_id] = Prompt(
-            prompt_type=PromptType.TASK_ID,
-            prompt_data={"next_prompt": PromptType.TASK_TEXT}
+    @router.callback_query(IsCallback(CommandCodes.TASK_DONE.value))
+    async def mark_task_done(
+        callback: CallbackQuery, argument: str, chat_state: ChatState, message: Message
+        ):
+        chat_state.tasks[int(argument)].done = not chat_state.tasks[int(argument)].done
+        await chat_state.save()
+        await edit_task_callback(callback, argument, chat_state, message)
+        
+
+    @router.callback_query(IsCallback(CommandCodes.EDIT_TASK_ASSIGNEES.value))
+    async def edit_task_assignees_callback(
+        callback: CallbackQuery, argument: str, chat_state: ChatState, message: Message
+        ):
+        chat_state.prompts[message.message_id] = Prompt(
+            prompt_type=PromptType.TASK_ASSIGNEES,
+            prompt_data={"task_id": int(argument)}
         )
         await chat_state.save()
-        
-        
-    @router.message(Command(bot_command_names.set_task_deadline), HasChatState())
-    async def set_task_deadline_command(message: Message, chat_state: ChatState):
-        sent = await message.reply(
-            dedent(
-                _(
-                    """
-Send number of task you want to modify in reply to this message
-
-Task numbers are:
-{tasks}
-                    """
-                    .format(tasks=get_task_names(chat_state))
-                )
+        await message.edit_text(
+            text=_("You are going to change task #{0} assignees.\nSend new assignees (in this format \"@tag1 @tag2 @tag3\") in reply to this message.".format(argument))
+        )
+        await message.edit_reply_markup(
+            reply_markup=InlineKeyboardMarkup(
+                inline_keyboard=[[
+                    InlineKeyboardButton(
+                        text=_("Cancel"),
+                        callback_data=f"{CommandCodes.CANCEL_PROMPT.value} {argument}"
+                    )
+                ]]
             )
         )
-        message_id = sent.message_id
-        chat_state.prompts[message_id] = Prompt(
-            prompt_type=PromptType.TASK_ID,
-            prompt_data={"next_prompt": PromptType.TASK_DEADLINE}
+
+    @router.callback_query(IsCallback(CommandCodes.EDIT_TASK_DEADLINE.value))
+    async def edit_task_deadline_callback(
+        callback: CallbackQuery, argument: str, chat_state: ChatState, message: Message
+        ):
+        chat_state.prompts[message.message_id] = Prompt(
+            prompt_type=PromptType.TASK_ASSIGNEES,
+            prompt_data={"task_id": int(argument)}
         )
         await chat_state.save()
-        
-        
-    @router.message(Command(bot_command_names.set_task_assignees), HasChatState())
-    async def set_task_assignees_command(message: Message, chat_state: ChatState):
-        sent = await message.reply(
-            dedent(
-                _(
-                    """
-Send number of task you want to modify in reply to this message
-
-Task numbers are:
-{tasks}
-                    """
-                    .format(tasks=get_task_names(chat_state))
-                )
+        await message.edit_text(
+            text=_("You are going to change task #{0} deadline.\nSend new deadline (in this format \"dd.mm.yyyy HH:MM\") in reply to this message.".format(argument))
+        )
+        await message.edit_reply_markup(
+            reply_markup=InlineKeyboardMarkup(
+                inline_keyboard=[[
+                    InlineKeyboardButton(
+                        text=_("Cancel"),
+                        callback_data=f"{CommandCodes.CANCEL_PROMPT.value} {argument}"
+                    )
+                ]]
             )
         )
-        message_id = sent.message_id
-        chat_state.prompts[message_id] = Prompt(
-            prompt_type=PromptType.TASK_ID,
-            prompt_data={"next_prompt": PromptType.TASK_ASSIGNEES}
+
+    @router.callback_query(IsCallback(CommandCodes.EDIT_TASK_TEXT.value))
+    async def edit_task_text_callback(
+        callback: CallbackQuery, argument: str, chat_state: ChatState, message: Message
+        ):
+        chat_state.prompts[message.message_id] = Prompt(
+            prompt_type=PromptType.TASK_TEXT,
+            prompt_data={"task_id": int(argument)}
         )
         await chat_state.save()
-
-
-    @router.message(HasChatState(), IsPromptReply(PromptType.TASK_ID), HasMessageText())
-    async def task_id_prompt(message: Message, chat_state: ChatState,
-                               message_text: str, prompt_id: int):
-        try:
-            task_id = int(message_text)
-            chat_state.tasks[task_id - 1]
-        except ValueError:
-            await message.reply("Your reply should be a number of the task you want to modify.")
-            return
-        except IndexError:
-            await message.reply("This task doesn't exist, please recheck.")
-            return
-        
-        next_prompt = int(chat_state.prompts[prompt_id].prompt_data["next_prompt"])
-
-        if next_prompt == PromptType.TASK_TEXT.value:
-                response_text = "Send new task text in reply to this message"
-        elif next_prompt == PromptType.TASK_DEADLINE.value:
-                response_text = "Send new task deadline in reply to this message, the format is dd.mm.yyyy HH:MM"
-        elif next_prompt == PromptType.TASK_ASSIGNEES.value:
-                response_text = "Send new task assignees in reply to this message, e.g. @assignee_tag1 @assignee_tag2"
-        else:
-            return
-
-        sent = await message.reply(
-            dedent(
-                _(
-                    response_text
-                )
+        await message.edit_text(
+            text=_("You are going to change task #{0} text.\nSend new text in reply to this message.".format(argument))
+        )
+        await message.edit_reply_markup(
+            reply_markup=InlineKeyboardMarkup(
+                inline_keyboard=[[
+                    InlineKeyboardButton(
+                        text=_("Cancel"),
+                        callback_data=f"{CommandCodes.CANCEL_PROMPT.value} {argument}"
+                    )
+                ]]
             )
         )
-        await bot.delete_message(chat_state.chat_id, prompt_id)
-        message_id = sent.message_id
-        prompt = Prompt(
-            prompt_type=chat_state.prompts[prompt_id].prompt_data["next_prompt"],
-            prompt_data={"task_id": task_id - 1}
-        )
-        chat_state.prompts[message_id] = prompt
-        del chat_state.prompts[prompt_id]
-        await chat_state.save()
 
+    @router.callback_query(IsCallback(CommandCodes.CANCEL_PROMPT.value))
+    async def cancel_prompt_callback(
+        callback: CallbackQuery, argument: str, chat_state: ChatState, message: Message
+        ):
+        del chat_state.prompts[message.message_id]
+        await chat_state.save()
+        await edit_task_callback(callback, argument, chat_state, message)
+
+    @router.callback_query(IsCallback(CommandCodes.DELETE_TASK.value))
+    async def delete_task_callback(
+        callback: CallbackQuery, argument: str, chat_state: ChatState, message: Message
+        ):
+        del chat_state.tasks[int(argument)]
+        await chat_state.save()
+        updated = make_task_menu_message(chat_state)
+        await message.edit_text(updated["text"])
+        await message.edit_reply_markup(reply_markup=updated["reply_markup"])
 
     @router.message(HasChatState(), IsPromptReply(PromptType.TASK_TEXT), HasMessageText())
     async def set_task_text(message: Message, chat_state: ChatState,
@@ -699,7 +760,10 @@ Task numbers are:
         del chat_state.prompts[prompt_id]
         await chat_state.save()
 
-        await message.reply("Task text is successfully changed")
+        await bot.delete_message(chat_id=chat_state.chat_id, message_id=prompt_id)
+
+        menu_message = make_task_menu_message(chat_state)
+        await bot.send_message(chat_id=chat_state.chat_id, text=menu_message["text"], reply_markup=menu_message["reply_markup"])
 
 
     @router.message(HasChatState(), IsPromptReply(PromptType.TASK_DEADLINE), HasMessageText())
@@ -715,8 +779,10 @@ Task numbers are:
         del chat_state.prompts[prompt_id]
         await chat_state.save()
 
-        await message.reply("Task deadline is successfully changed")
+        await bot.delete_message(chat_id=chat_state.chat_id, message_id=prompt_id)
 
+        menu_message = make_task_menu_message(chat_state)
+        await bot.send_message(chat_id=chat_state.chat_id, text=menu_message["text"], reply_markup=menu_message["reply_markup"])
 
     @router.message(HasChatState(), IsPromptReply(PromptType.TASK_ASSIGNEES), HasMessageText())
     async def set_task_assignees(message: Message, chat_state: ChatState,
@@ -729,4 +795,7 @@ Task numbers are:
         del chat_state.prompts[prompt_id]
         await chat_state.save()
 
-        await message.reply("Task assignees are successfully changed")
+        await bot.delete_message(chat_id=chat_state.chat_id, message_id=prompt_id)
+
+        menu_message = make_task_menu_message(chat_state)
+        await bot.send_message(chat_id=chat_state.chat_id, text=menu_message["text"], reply_markup=menu_message["reply_markup"])

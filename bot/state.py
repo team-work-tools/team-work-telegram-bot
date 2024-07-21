@@ -57,6 +57,7 @@ class Task(BaseModel):
     text: str = "Blank task"
     assignees: list[str] = []
     deadline: Optional[datetime] = None
+    done: bool = False
     
     def __str__(self):
         return dedent(
