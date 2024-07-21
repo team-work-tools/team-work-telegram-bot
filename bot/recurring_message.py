@@ -116,7 +116,9 @@ async def send_recurring_messages(
     bot: Bot,
     shift: int,
 ):
-    if datetime.now() <= interval_end:
+    tz = timezone(timedelta(hours=3 - shift))
+    now_tz = datetime.now(tz=tz)
+    if now_tz <= interval_end:
         if meeting_topic_id:
             await send_message(chat_id=meeting_topic_id, message=text)
         else:
@@ -141,10 +143,10 @@ async def send_recurring_messages(
             },
             trigger=DateTrigger(
                 run_date=croniter(
-                    expression, datetime.now(tz=timezone(timedelta(hours=3 - shift)))
+                    expression, now_tz
                 ).get_next(datetime)
             ),
-            timezone=timezone(timedelta(hours=3 - shift)),
+            timezone=tz,
             misfire_grace_time=42,
         )
 
