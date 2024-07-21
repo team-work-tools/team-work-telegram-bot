@@ -608,7 +608,7 @@ def handle_task_commands(scheduler: AsyncIOScheduler, send_message: SendMessage,
     async def add_task_callback(callback: CallbackQuery, argument: str, chat_state: ChatState, message: Message):
         task = Task()
         chat_state.tasks.append(task)
-        await chat_state.save()
+        await save_state(chat_state)
         updated = make_task_menu_message(chat_state)
         await message.edit_text(updated["text"])
         await message.edit_reply_markup(reply_markup=updated["reply_markup"])
@@ -640,7 +640,7 @@ def handle_task_commands(scheduler: AsyncIOScheduler, send_message: SendMessage,
             )],
             [
                 InlineKeyboardButton(
-                    text=_("Mark done" if task.done else "Mark undone"),
+                    text=_("Mark undone" if task.done else "Mark done"),
                     callback_data=f"{CommandCodes.TASK_DONE.value} {argument}"
                 ),
                 InlineKeyboardButton(
@@ -661,7 +661,7 @@ def handle_task_commands(scheduler: AsyncIOScheduler, send_message: SendMessage,
         callback: CallbackQuery, argument: str, chat_state: ChatState, message: Message
         ):
         chat_state.tasks[int(argument)].done = not chat_state.tasks[int(argument)].done
-        await chat_state.save()
+        await save_state(chat_state)
         await edit_task_callback(callback, argument, chat_state, message)
         
 
@@ -673,7 +673,7 @@ def handle_task_commands(scheduler: AsyncIOScheduler, send_message: SendMessage,
             prompt_type=PromptType.TASK_ASSIGNEES,
             prompt_data={"task_id": int(argument)}
         )
-        await chat_state.save()
+        await save_state(chat_state)
         await message.edit_text(
             text=_("You are going to change task #{0} assignees.\nSend new assignees (in this format \"@tag1 @tag2 @tag3\") in reply to this message.".format(argument))
         )
@@ -693,10 +693,10 @@ def handle_task_commands(scheduler: AsyncIOScheduler, send_message: SendMessage,
         callback: CallbackQuery, argument: str, chat_state: ChatState, message: Message
         ):
         chat_state.prompts[message.message_id] = Prompt(
-            prompt_type=PromptType.TASK_ASSIGNEES,
+            prompt_type=PromptType.TASK_DEADLINE,
             prompt_data={"task_id": int(argument)}
         )
-        await chat_state.save()
+        await save_state(chat_state)
         await message.edit_text(
             text=_("You are going to change task #{0} deadline.\nSend new deadline (in this format \"dd.mm.yyyy HH:MM\") in reply to this message.".format(argument))
         )
@@ -719,7 +719,7 @@ def handle_task_commands(scheduler: AsyncIOScheduler, send_message: SendMessage,
             prompt_type=PromptType.TASK_TEXT,
             prompt_data={"task_id": int(argument)}
         )
-        await chat_state.save()
+        await save_state(chat_state)
         await message.edit_text(
             text=_("You are going to change task #{0} text.\nSend new text in reply to this message.".format(argument))
         )
@@ -739,7 +739,7 @@ def handle_task_commands(scheduler: AsyncIOScheduler, send_message: SendMessage,
         callback: CallbackQuery, argument: str, chat_state: ChatState, message: Message
         ):
         del chat_state.prompts[message.message_id]
-        await chat_state.save()
+        await save_state(chat_state)
         await edit_task_callback(callback, argument, chat_state, message)
 
     @router.callback_query(IsCallback(CommandCodes.DELETE_TASK.value))
@@ -747,7 +747,7 @@ def handle_task_commands(scheduler: AsyncIOScheduler, send_message: SendMessage,
         callback: CallbackQuery, argument: str, chat_state: ChatState, message: Message
         ):
         del chat_state.tasks[int(argument)]
-        await chat_state.save()
+        await save_state(chat_state)
         updated = make_task_menu_message(chat_state)
         await message.edit_text(updated["text"])
         await message.edit_reply_markup(reply_markup=updated["reply_markup"])
@@ -758,7 +758,7 @@ def handle_task_commands(scheduler: AsyncIOScheduler, send_message: SendMessage,
         task_id = chat_state.prompts[prompt_id].prompt_data["task_id"]
         chat_state.tasks[task_id].text = message_text
         del chat_state.prompts[prompt_id]
-        await chat_state.save()
+        await save_state(chat_state)
 
         await bot.delete_message(chat_id=chat_state.chat_id, message_id=prompt_id)
 
@@ -777,7 +777,7 @@ def handle_task_commands(scheduler: AsyncIOScheduler, send_message: SendMessage,
         deadline = deadline.replace(tzinfo=timezone(chat_state.default_time_zone))
         chat_state.tasks[task_id].deadline = deadline
         del chat_state.prompts[prompt_id]
-        await chat_state.save()
+        await save_state(chat_state)
 
         await bot.delete_message(chat_id=chat_state.chat_id, message_id=prompt_id)
 
@@ -793,7 +793,7 @@ def handle_task_commands(scheduler: AsyncIOScheduler, send_message: SendMessage,
             await get_user(chat_state, assignee)
         chat_state.tasks[task_id].assignees = assignees
         del chat_state.prompts[prompt_id]
-        await chat_state.save()
+        await save_state(chat_state)
 
         await bot.delete_message(chat_id=chat_state.chat_id, message_id=prompt_id)
 

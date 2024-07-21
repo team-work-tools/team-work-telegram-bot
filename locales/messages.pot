@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-07-21 20:30+0300\n"
+"POT-Creation-Date: 2024-07-21 23:30+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -205,7 +205,7 @@ msgid "Change Deadline"
 msgstr ""
 
 #: bot/handlers.py:643
-msgid "Mark doneMark undone"
+msgid "Mark undoneMark done"
 msgstr ""
 
 #: bot/handlers.py:647

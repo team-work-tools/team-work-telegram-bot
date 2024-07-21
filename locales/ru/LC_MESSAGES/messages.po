@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-07-21 20:30+0300\n"
+"POT-Creation-Date: 2024-07-21 23:30+0300\n"
 "PO-Revision-Date: 2024-05-11 19:50+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -207,7 +207,7 @@ msgid "Change Deadline"
 msgstr ""
 
 #: bot/handlers.py:643
-msgid "Mark doneMark undone"
+msgid "Mark undoneMark done"
 msgstr ""
 
 #: bot/handlers.py:647
@@ -1159,5 +1159,8 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "can't open '%s': %s"
+#~ msgstr ""
+
+#~ msgid "Mark doneMark undone"
 #~ msgstr ""
 
