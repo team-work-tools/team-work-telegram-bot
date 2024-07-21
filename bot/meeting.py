@@ -23,7 +23,9 @@ async def send_meeting_messages(
     current_day = days_array[current_day_int]
     locale = str(chat_state.language)
     await send_message(
-        chat_id=chat_id, message=_("Meeting time!", locale=locale), message_thread_id=topic_id
+        chat_id=chat_id,
+        message=_("Meeting time!", locale=locale),
+        message_thread_id=topic_id,
     )
 
     joined_users = await get_joined_users(chat_state)
@@ -48,7 +50,9 @@ async def send_meeting_messages(
         today_usernames = [f"@{user.username}" for user in today_workers]
 
         # Getting daily messages
-        daily_messages = make_daily_messages(usernames=" ".join(today_usernames), locale=locale)
+        daily_messages = make_daily_messages(
+            usernames=" ".join(today_usernames), locale=locale
+        )
 
         # Sending daily messages
         chat_state.meeting_msg_ids = []

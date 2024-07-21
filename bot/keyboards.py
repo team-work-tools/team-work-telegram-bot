@@ -1,8 +1,11 @@
 from typing import Dict
 from uuid import UUID
 
-from aiogram.utils.keyboard import (InlineKeyboardBuilder,
-                                    InlineKeyboardButton, InlineKeyboardMarkup)
+from aiogram.utils.keyboard import (
+    InlineKeyboardBuilder,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+)
 
 from .callbacks import IntervalCallback, WeekdayCallback
 from .constants import days_array
@@ -54,7 +57,7 @@ def get_weekday_keyboard(
     included_text = (
         ScheduleEmoji.included if weekday.included else ScheduleEmoji.excluded
     )
-    
+
     day = InlineKeyboardButton(text=day_to_day_i18n()[weekday.name], callback_data="#")
     status = InlineKeyboardButton(
         text=included_text,

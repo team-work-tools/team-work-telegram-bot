@@ -17,7 +17,8 @@ from .i18n import _
 from .constants import (
     iso8601,
     time_url,
-    sample_time, title_max_length,
+    sample_time,
+    title_max_length,
 )
 
 from .commands import bot_command_names
@@ -128,9 +129,7 @@ def handle_global_commands(
             )
 
             await update_recurring_message(
-                bot=bot,
-                scheduler=scheduler,
-                send_message=send_message
+                bot=bot, scheduler=scheduler, send_message=send_message
             )
 
     @router.message(Command(bot_command_names.help), HasChatState())
@@ -283,12 +282,13 @@ def handle_team_settings_commands(
             )
 
     @router.message(Command(bot_command_names.add_recurring_message), HasChatState())
-    async def add_recurring_message(message: Message, chat_state: ChatState, state: FSMContext):
+    async def add_recurring_message(
+        message: Message, chat_state: ChatState, state: FSMContext
+    ):
         await message.answer(
-            _("Send me the message title so that I can use it as the message identifier. Length limit - {N} symbols.")
-            .format(
-                N=title_max_length
-            )
+            _(
+                "Send me the message title so that I can use it as the message identifier. Length limit - {N} symbols."
+            ).format(N=title_max_length)
         )
         await state.set_state(RecurringAddingState.EnterRecurringTitle)
 
@@ -354,7 +354,7 @@ def handle_personal_settings_commands(
         HasChatState(),
     )
     async def set_reminder_period(
-            message: Message, username: str, message_text: str, chat_state: ChatState
+        message: Message, username: str, message_text: str, chat_state: ChatState
     ):
         try:
             period_minutes = int(message_text.split(" ", 1)[1])
@@ -467,7 +467,7 @@ def handle_info_commands(
 
 
 def handle_user_responses(
-        scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router
+    scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router
 ):
     @router.message(HasMessageUserUsername(), HasChatState(), IsReplyToMeetingMessage())
     async def set_meetings_time(

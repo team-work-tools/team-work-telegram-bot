@@ -92,9 +92,7 @@ async def main(settings: Settings) -> None:
     await bot.delete_webhook(drop_pending_updates=True)
 
     await update_recurring_message(
-        bot=bot,
-        scheduler=scheduler,
-        send_message=send_message
+        bot=bot, scheduler=scheduler, send_message=send_message
     )
 
     await set_default_commands(bot=bot)

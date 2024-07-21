@@ -15,11 +15,16 @@ from .filters import HasChatState, HasMessageUserUsername
 from .fsm_states import IntervalEditingState
 from .i18n import _
 from .intervals import Interval, get_default_interval
-from .keyboards import (get_interval_edit_options, get_schedule_keyboard,
-                        get_schedule_options)
-from .messages import (make_interval_editing_error,
-                       make_interval_editing_instruction,
-                       make_interval_validation_message)
+from .keyboards import (
+    get_interval_edit_options,
+    get_schedule_keyboard,
+    get_schedule_options,
+)
+from .messages import (
+    make_interval_editing_error,
+    make_interval_editing_instruction,
+    make_interval_validation_message,
+)
 from .state import ChatState, ChatUser, get_user, save_state
 
 INTERVAL_PATTERN = r"^\d{1,2}:\d{2}\s*-\s*\d{1,2}:\d{2}$"
@@ -85,9 +90,9 @@ def handle_working_hours(
     async def show_schedule_options(message: Message):
 
         layout = get_schedule_options()
-        
+
         mode_constants = Mode()
-        
+
         tip_default = _(
             "Press '{default}' to set working hours that will be used as default personal working hours by all people."
         ).format(default=mode_constants.default_i18n.capitalize())
@@ -395,7 +400,9 @@ def handle_working_hours(
             case Message():
                 if mode:
                     await cb.message.answer(
-                        _("The {mode} schedule was not updated.").format(mode=mode_to_mode_i18n(mode))
+                        _("The {mode} schedule was not updated.").format(
+                            mode=mode_to_mode_i18n(mode)
+                        )
                     )
         await save_state(chat_state)
 
@@ -433,7 +440,9 @@ def handle_working_hours(
             case Message():
                 if mode:
                     await cb.message.answer(
-                        _("The {mode} schedule was updated.").format(mode=mode_to_mode_i18n(mode))
+                        _("The {mode} schedule was updated.").format(
+                            mode=mode_to_mode_i18n(mode)
+                        )
                     )
         await save_state(chat_state)
 
