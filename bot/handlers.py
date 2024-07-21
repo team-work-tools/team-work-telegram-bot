@@ -287,7 +287,7 @@ def handle_team_settings_commands(
     ):
         await message.answer(
             _(
-                "Send me the message title so that I can use it as the message identifier. Length limit - {N} symbols."
+                "Send the message title with at most {N} symbols so that the bot can use this title as the message identifier."
             ).format(N=title_max_length)
         )
         await state.set_state(RecurringAddingState.EnterRecurringTitle)
@@ -454,14 +454,9 @@ def handle_info_commands(
     async def reset(message: Message, chat_state: ChatState):
         await reset_state(scheduler, chat_state)
         await message.reply(
-            dedent(
-                _(
-                    """
-                The state has been successfully reset. 
-                
-                Use the /get_chat_state command to view the current state.
-                """
-                )
+            _(
+                "The state has been successfully reset.\n\n"
+                "Use the /get_chat_state command to view the current state."
             )
         )
 

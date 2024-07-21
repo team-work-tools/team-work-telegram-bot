@@ -152,44 +152,58 @@ async def send_recurring_messages(
 def handle_recurring_message(
     scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router, bot: Bot
 ):
+    def send_interval():
+        return _(
+            "Send an interval in the 'DD.MM.YYYY - DD.MM.YYYY' format.\n\n"
+            "Example: {example}."
+        ).format(example=fmt.hcode("04.04.2024 - 05.05.2025"))
+
+    def send_new_title():
+        return _("Send a title with at most {N} symbols.").format(N=title_max_length)
+
     @router.message(RecurringAddingState.EnterRecurringTitle, HasChatState())
     async def handle_title(message: Message, state: FSMContext, chat_state: ChatState):
         match text := message.text:
             case str():
                 if len(text) > title_max_length:
                     await message.answer(
-                        _(
-                            "Too long title. Send me the message title so that I can use it as the message identifier. Length limit - {N} symbols."
-                        ).format(N=title_max_length)
+                        _("The title is too long.\n\n{send_new_title}").format(
+                            send_new_title=send_new_title()
+                        )
                     )
                     return
                 if message.text in chat_state.recurring_messages:
                     await message.answer(
                         _(
-                            "A message cannot be created with an existing title. Send me the message title so that I can use it as the message identifier. Length limit - {N} symbols."
-                        ).format(N=title_max_length)
+                            "A message with this title already exists.\n\n{send_new_title}"
+                        ).format(send_new_title=send_new_title())
                     )
                     return
                 await state.update_data(title=message.html_text)
 
                 await message.answer(
                     _(
-                        "OK. Send me the interval so that I know when should I start and end sending the message.\n\nEnter the interval in DD.MM.YYYY - DD.MM.YYYY format. Example: "
-                        + fmt.hcode("04.04.2024 - 05.05.2025")
-                    )
+                        "Send an interval so that the bot knows when to start and end sending the message.\n\n{send_interval}"
+                    ).format(send_interval=send_interval())
                 )
 
                 await state.set_state(RecurringAddingState.EnterRecurringPeriod)
+
+    def send_cron():
+        return _(
+            "Send a cron expression so that the bot knows the period of sending the message\\.\n\n"
+            "Example: `4 5 \\* \\* \\*`\\.\n\n"
+            "Click [here]({cron_link}) if you need help with reading cron expressions\\."
+        ).format(cron_link="https://crontab.guru/")
 
     @router.message(RecurringAddingState.EnterRecurringPeriod)
     async def handle_period(message: Message, state: FSMContext):
         text = message.html_text.split(" - ")
         if len(text) != 2:
             await message.answer(
-                _(
-                    "Wrong format.\n\nEnter the interval in DD.MM.YYYY - DD.MM.YYYY format. Example:"
-                    + fmt.hcode("04.04.2024 - 05.05.2025")
-                )
+                _("Wrong interval format.\n\n{send_interval}").format(
+                    send_interval=send_interval()
+                ),
             )
             return
         try:
@@ -197,26 +211,22 @@ def handle_recurring_message(
             end = datetime.strptime(text[1].strip(), "%d.%m.%Y")
         except ValueError:
             await message.answer(
-                _(
-                    "Wrong date format.\n\nEnter the interval in DD.MM.YYYY - DD.MM.YYYY format. "
-                    "Example:" + fmt.hcode("04.04.2024 - 05.05.2025")
-                )
+                _("Wrong date format.\n\n{send_interval}").format(
+                    send_interval=send_interval()
+                ),
             )
             return
         if start > end:
             await message.answer(
                 _(
-                    "Start date should be before the end date.\n\nEnter the interval in DD.MM.YYYY - DD.MM.YYYY format. "
-                    "Example:" + fmt.hcode("04.04.2024 - 05.05.2025")
-                )
+                    "Start date should be before the end date.\n\n{send_interval}"
+                ).format(send_interval=send_interval()),
             )
         else:
             await state.update_data(interval_start=start, interval_end=end)
 
             await message.answer(
-                _(
-                    "ОК\\. Send me a cron expression so that I know when should I send the message\\.\n\nExample\\: `4 5 \\* \\* \\*`\\. Click [here]({}) if you need help\\."
-                ).format("https://crontab.guru/"),
+                send_cron(),
                 parse_mode="MarkdownV2",
                 disable_web_page_preview=True,
             )
@@ -229,9 +239,9 @@ def handle_recurring_message(
             temp = get_description(message.text)
         except Exception as e:
             await message.answer(
-                _(
-                    "Wrong format\\. Send me a cron expression so that I know when should I send the message\\.\n\nExample\\: `4 5 \\* \\* \\*`\\. Click [here]({}) if you need help\\."
-                ).format("https://crontab.guru/"),
+                _("Wrong cron expression format\\.\n\n{send_cron}").format(
+                    send_cron=send_cron()
+                ),
                 parse_mode="MarkdownV2",
                 disable_web_page_preview=True,
             )
@@ -239,7 +249,7 @@ def handle_recurring_message(
             return
         await state.update_data(expression=message.html_text)
 
-        await message.answer(_("ОК. Send me the message text"))
+        await message.answer(_("Send the message text."))
 
         await state.set_state(RecurringAddingState.EnterRecurringMessage)
 
@@ -253,13 +263,13 @@ def handle_recurring_message(
         await message.answer(
             _(
                 "Your message {title} will be sent in between {interval_start} and {interval_end} {expression}.\n\n"
-                "Send /edit_recurring_messages to edit this and other recurring messages"
+                "Send /edit_recurring_messages to edit this and other recurring messages."
             ).format(
                 title=data["title"],
                 interval_start=data["interval_start"],
                 interval_end=data["interval_end"],
                 expression=get_description(data["expression"]).lower(),
-            )
+            ),
         )
         chat_state.recurring_messages[data["title"]] = RecurringData(
             title=data["title"],
