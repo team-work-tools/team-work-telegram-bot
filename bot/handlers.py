@@ -13,17 +13,28 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from .commands import bot_command_names
 from .constants import iso8601, report_tag, sample_time, time_url
 from .custom_types import SendMessage
-from .filters import (HasChatState, HasMessageText, HasMessageUserUsername,
-                      IsReplyToMeetingMessage)
+from .filters import (
+    HasChatState,
+    HasMessageText,
+    HasMessageUserUsername,
+    IsReplyToMeetingMessage,
+)
 from .i18n import _
 from .intervals import pretty_weekdays, schedule_is_empty
-from .language import CallbackData, InlineKeyboardButtonName, Language
+from .language import CallbackData, InlineKeyboardButtonName, Language, all_languages
 from .meeting import schedule_meeting
-from .messages import (make_chat_state_messages, make_daily_messages,
-                       make_help_message)
+from .messages import make_chat_state_messages, make_daily_messages, make_help_message
 from .reminder import update_reminders
-from .state import (ChatState, create_user_pm, get_user, load_state,
-                    load_user_pm, reset_state, save_state, save_user_pm)
+from .state import (
+    ChatState,
+    create_user_pm,
+    get_user,
+    load_state,
+    load_user_pm,
+    reset_state,
+    save_state,
+    save_user_pm,
+)
 from .work_time import handle_working_hours
 
 
@@ -119,8 +130,13 @@ def handle_global_commands(
                 ],
             ]
         )
+
+        def choose_language(locale: Language):
+            return _("Choose a language.", locale=str(locale))
+
         await message.reply(
-            "🌐 Choose a language.\n🌐 Выбери язык.", reply_markup=keyboard
+            "\n".join([f"🌐 {choose_language(lang)}" for lang in all_languages]),
+            reply_markup=keyboard,
         )
 
     @router.callback_query(
