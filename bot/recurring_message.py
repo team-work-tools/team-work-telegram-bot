@@ -233,7 +233,8 @@ def handle_recurring_message(
         chat_state.recurring_messages[data["title"]] = RecurringData(title=data["title"],
                                                                      interval_start=data["interval_start"],
                                                                      interval_end=data["interval_end"],
-                                                                     expression=data["expression"], text=data["text"])
+                                                                     expression=data["expression"], 
+                                                                     text=data["text"])
         await save_state(chat_state)
 
         await update_recurring_message(
