@@ -8,15 +8,16 @@
         "github.vscode-github-actions",
         "jnoortheen.nix-ide",
         "kevinrose.vsc-python-indent",
+        "matangover.mypy",
         "ms-python.black-formatter",
         "ms-python.python",
+        "ms-vsliveshare.vsliveshare",
         "njpwerner.autodocstring",
         "pomdtr.excalidraw-editor",
+        "roeysagie.markdown-sort",
         "statelyai.stately-vscode",
         "takumii.markdowntable",
         "tamasfe.even-better-toml",
         "yahyabatulu.vscode-markdown-alert",
-        "ms-vsliveshare.vsliveshare",
-        "roeysagie.markdown-sort"
     ]
 }
