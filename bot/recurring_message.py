@@ -149,23 +149,25 @@ def handle_recurring_message(
 ):
     @router.message(RecurringAddingState.EnterRecurringTitle, HasChatState())
     async def handle_title(message: Message, state: FSMContext, chat_state: ChatState):
-        if len(message.text) > title_max_length:
-            await message.answer(
-                _("Too long title. Send me the message title so that I can use it as the message identifier. Length limit - {N} symbols.").format(
-                    N=title_max_length))
-            return
-        if message.text in chat_state.recurring_messages:
-            await message.answer(
-                _("A message cannot be created with an existing title. Send me the message title so that I can use it as the message identifier. Length limit - {N} symbols.").format(
-                    N=title_max_length))
-            return
-        await state.update_data(title=message.html_text)
+        match text := message.text:
+            case str():
+                if len(text) > title_max_length:
+                    await message.answer(
+                        _("Too long title. Send me the message title so that I can use it as the message identifier. Length limit - {N} symbols.").format(
+                            N=title_max_length))
+                    return
+                if message.text in chat_state.recurring_messages:
+                    await message.answer(
+                        _("A message cannot be created with an existing title. Send me the message title so that I can use it as the message identifier. Length limit - {N} symbols.").format(
+                            N=title_max_length))
+                    return
+                await state.update_data(title=message.html_text)
 
-        await message.answer(
-            _("OK. Send me the interval so that I know when should I start and end sending the message.\n\nEnter the interval in DD.MM.YYYY - DD.MM.YYYY format. Example: " + fmt.hcode(
-                "04.04.2024 - 05.05.2025")))
+                await message.answer(
+                    _("OK. Send me the interval so that I know when should I start and end sending the message.\n\nEnter the interval in DD.MM.YYYY - DD.MM.YYYY format. Example: " + fmt.hcode(
+                        "04.04.2024 - 05.05.2025")))
 
-        await state.set_state(RecurringAddingState.EnterRecurringPeriod)
+                await state.set_state(RecurringAddingState.EnterRecurringPeriod)
 
     @router.message(RecurringAddingState.EnterRecurringPeriod)
     async def handle_period(message: Message, state: FSMContext):
