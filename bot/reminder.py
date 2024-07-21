@@ -1,22 +1,24 @@
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Optional
 
 from aiogram import Bot
-from aiogram.exceptions import TelegramForbiddenError
-from .i18n import _
+from aiogram.enums.chat_type import ChatType
+from aiogram.exceptions import TelegramBadRequest, TelegramForbiddenError
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 
-from .messages import make_daily_messages
-from .constants import day_of_week, jobstore
+from .constants import days_array, jobstore
 from .custom_types import ChatId, SendMessage
-from .state import load_state, load_user_pm, get_user, ChatState
-from textwrap import dedent
+from .i18n import _
+from .intervals import schedule_is_empty
+from .messages import make_daily_messages
+from .state import ChatState, get_user, load_state, load_user_pm, save_state
 
 
 async def send_reminder_messages(
     meeting_chat_id: ChatId,
+    is_topic: Optional[bool],
     meeting_topic_id: Optional[int],
     username: str,
     user_chat_id: ChatId,
@@ -24,13 +26,40 @@ async def send_reminder_messages(
     bot: Bot,
 ):
     chat = await bot.get_chat(meeting_chat_id)
-    chat_state = await load_state(chat_id=meeting_chat_id, topic_id=meeting_topic_id)
+    chat_state = await load_state(
+        chat_id=meeting_chat_id, is_topic=is_topic, topic_id=meeting_topic_id
+    )
     user = await get_user(chat_state=chat_state, username=username)
 
+    locale = str(chat_state.language)
+
+    current_day_int = datetime.now().weekday()
+    current_day = days_array[current_day_int]
+    if schedule_is_empty(user.schedule) and schedule_is_empty(chat_state.schedule):
+        pass
+    else:
+        if schedule_is_empty(user.schedule):
+            schedule = chat_state.schedule
+        else:
+            schedule = user.schedule
+        if not schedule[current_day].included:
+            return
+
     have_to_reply = list(user.non_replied_daily_msgs)
-    messages = make_daily_messages("")
-    reminder_message = _("Please reply to these daily meeting questions:")
+    messages = make_daily_messages("", locale=locale)
+    reminder_message = _("Please reply to these daily meeting questions:", locale=locale)
     chat_type = chat.type
+
+    if len(have_to_reply) == 0:
+        return
+
+    msgs_are_deleted = await messages_are_deleted(
+        bot, meeting_chat_id, chat_state.meeting_msg_ids
+    )
+    for i, deleted in enumerate(msgs_are_deleted):
+        if deleted:
+            have_to_reply.remove(i)
+    user.non_replied_daily_msgs = set(have_to_reply)
 
     try:
         for reply in have_to_reply:
@@ -45,12 +74,12 @@ async def send_reminder_messages(
                     chat_type=chat_type,
                 )
                 if msg_link:  # supergroup
-                    reminder_message += "\n" + msg_link
+                    reminder_message += "\n" + messages[reply] + msg_link
 
                 else:  # group chanel or private
                     reminder_message = messages[reply]
                     if (
-                        chat_type == "private"
+                        chat_type == ChatType.PRIVATE
                     ):  # message to be replied is in the same chat as user's PM
                         await bot.send_message(
                             chat_id=user_chat_id,
@@ -64,24 +93,27 @@ async def send_reminder_messages(
                             reply_to_message_id=message_id,
                         )
 
-        if chat_type == "supergroup" and len(chat_state.meeting_msg_ids) == 3:
+        if (
+            chat_type == ChatType.SUPERGROUP
+            and len(chat_state.meeting_msg_ids) == 3
+            and len(have_to_reply) > 0
+        ):
             await send_message(chat_id=user_chat_id, message=reminder_message)
 
     except TelegramForbiddenError:
         bot_info = await bot.get_me()
         bot_username = bot_info.username
 
-        if chat_type != "private":
-            banned_msg = dedent(
-                _(
-                    """
-                            {username}, please unblock {bot_username} (it's me) in our private chat
-                            so that I can send you reminders about missed daily meeting questions.
-                            """
-                ).format(username=username, bot_username=bot_username)
-            )
+        if chat_type != ChatType.PRIVATE:
+            banned_msg = _(
+                "@{username}, please unblock @{bot_username} in your private chat with the bot "
+                "so that the bot can send you reminders about missed daily meeting questions.",
+                locale=locale
+            ).format(username=username, bot_username=bot_username)
 
             await send_message(chat_id=meeting_chat_id, message=banned_msg)
+
+    await save_state(chat_state=chat_state)
 
 
 async def update_reminders(
@@ -104,12 +136,14 @@ async def update_reminders(
             continue
 
         if chat.meeting_time and user.reminder_period:
+            is_topic = chat.topic_id is not None
             schedule_reminder(
                 bot=bot,
                 period_minutes=user.reminder_period,
                 username=username,
                 user_chad_id=user_pm.chat_id,
-                meeting_time=chat.meeting_time,
+                meeting_time=chat.meeting_time + timedelta(minutes=1),
+                is_topic=is_topic,
                 meeting_chat_id=chat.chat_id,
                 meeting_topic_id=chat.topic_id,
                 scheduler=scheduler,
@@ -133,6 +167,7 @@ def schedule_reminder(
     user_chad_id: ChatId,
     meeting_time: datetime,
     meeting_chat_id: ChatId,
+    is_topic: Optional[bool],
     meeting_topic_id: Optional[int],
     scheduler: AsyncIOScheduler,
     send_message: SendMessage,
@@ -144,6 +179,7 @@ def schedule_reminder(
         replace_existing=True,
         kwargs={
             "meeting_chat_id": meeting_chat_id,
+            "is_topic": is_topic,
             "meeting_topic_id": meeting_topic_id,
             "username": username,
             "user_chat_id": user_chad_id,
@@ -151,7 +187,6 @@ def schedule_reminder(
             "bot": bot,
         },
         trigger=IntervalTrigger(minutes=period_minutes, start_date=meeting_time),
-        # day_of_week=day_of_week, # TODO: make it work only on user's working days
         timezone=meeting_time.tzinfo,
         misfire_grace_time=42,
     )
@@ -165,11 +200,29 @@ def get_message_link(
     chat_id: ChatId, message_id: ChatId, thread_id: Optional[int], chat_type: str
 ):
     match chat_type:
-        case "supergroup":
+        case ChatType.SUPERGROUP:
             chat_id_normalized = str(chat_id)[4:]
             if thread_id:
                 return f"https://t.me/c/{chat_id_normalized}/{thread_id}/{message_id}"
             else:
                 return f"https://t.me/c/{chat_id_normalized}/{message_id}"
-        case "private", "group", "channel":
+        case ChatType.PRIVATE, ChatType.GROUP, ChatType.CHANNEL:
             return None
+
+
+async def messages_are_deleted(
+    bot: Bot, chat_id: ChatId, msg_ids: list[int]
+) -> list[bool]:
+    result: list[bool] = []
+
+    for msg_id in msg_ids:
+        try:
+            msg = await bot.forward_message(
+                chat_id=chat_id, from_chat_id=chat_id, message_id=msg_id
+            )
+            await bot.delete_message(chat_id=chat_id, message_id=msg.message_id)
+            result.append(False)
+        except TelegramBadRequest:
+            result.append(True)
+
+    return result

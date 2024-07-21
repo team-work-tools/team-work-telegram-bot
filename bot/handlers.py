@@ -1,49 +1,17 @@
 from datetime import datetime
-from typing import Dict
-import json
-from aiogram import Router, html, Bot
-from aiogram import types
+from textwrap import dedent
+from typing import Dict, List
+
+from aiogram import Bot, Router, html, types
+from aiogram.enums import ParseMode
+from aiogram.enums.chat_type import ChatType
 from aiogram.filters.command import Command
-from aiogram.types import Message
-from aiogram.types import (
-    BotCommand,
-    InlineKeyboardButton,
-    InlineKeyboardMarkup,
-    CallbackQuery,
-)
-from .state import (
-    ChatState,
-    save_state,
-    reset_state,
-    load_state,
-    get_user,
-    load_user_pm,
-    create_user_pm,
-    save_user_pm,
-)
-from .filters import HasMessageText, HasMessageUserUsername, HasChatState
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from .meeting import schedule_meeting
-from .custom_types import SendMessage, SaveState, LoadState
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from aiogram.utils.i18n import I18n
-from .i18n import _
-from .constants import (
-    day_of_week_pretty,
-    datetime_time_format,
-    iso8601,
-    time_url,
-    sample_time,
-)
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from .commands import bot_command_names
-from .constants import (
-    day_of_week_to_num,
-    day_of_week_pretty,
-    iso8601,
-    sample_time,
-    time_url,
-    report_tag
-)
+from .constants import iso8601, report_tag, sample_time, time_url
 from .custom_types import SendMessage
 from .filters import (
     HasChatState,
@@ -51,20 +19,26 @@ from .filters import (
     HasMessageUserUsername,
     IsReplyToMeetingMessage,
 )
+from .i18n import _
+from .intervals import pretty_weekdays, schedule_is_empty
+from .language import CallbackData, InlineKeyboardButtonName, Language, all_languages
 from .meeting import schedule_meeting
+from .messages import make_chat_state_messages, make_daily_messages, make_help_message
 from .reminder import update_reminders
-from .messages import make_help_message
-from .messages import make_daily_messages
+from .state import (
+    ChatState,
+    create_user_pm,
+    get_user,
+    load_state,
+    load_user_pm,
+    reset_state,
+    save_state,
+    save_user_pm,
+)
+from .work_time import handle_working_hours
 
-from textwrap import dedent
-import logging
-from aiogram.enums import ParseMode
-from .language import Language, InlineKeyboardButtonName, CallbackData
 
-
-def make_router(
-    scheduler: AsyncIOScheduler, send_message: SendMessage, bot: Bot, i18n: I18n
-):
+def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage, bot: Bot):
     router = Router()
 
     handle_global_commands(
@@ -72,7 +46,6 @@ def make_router(
         send_message=send_message,
         router=router,
         bot=bot,
-        i18n=i18n,
     )
 
     handle_team_settings_commands(
@@ -80,6 +53,10 @@ def make_router(
     )
 
     handle_personal_settings_commands(
+        scheduler=scheduler, send_message=send_message, router=router, bot=bot
+    )
+
+    handle_working_hours(
         scheduler=scheduler, send_message=send_message, router=router, bot=bot
     )
 
@@ -95,14 +72,24 @@ def handle_global_commands(
     send_message: SendMessage,
     router: Router,
     bot: Bot,
-    i18n: I18n,
 ):
     @router.message(Command(bot_command_names.start), HasChatState())
     async def start(message: Message, chat_state: ChatState):
-        await get_help(message=message, chat_state=chat_state, i18n=i18n)
+        if message.chat.type == ChatType.GROUP:
+            await message.answer(
+                _(
+                    "Unfortunately, only supergroups and private chats are supported. "
+                    "Please promote this group to a supergroup "
+                    "by enabling the history of messages for new members "
+                    "or by enabling topics."
+                )
+            )
+            return
+
+        await get_help(message=message, chat_state=chat_state)
 
         # Register user if it is personal message
-        if message.chat.type == "private":
+        if message.chat.type == ChatType.PRIVATE:
             username = message.from_user.username if message.from_user else None
             user_cht_id = message.chat.id
             user_pm = await load_user_pm(username=username) if username else None
@@ -119,11 +106,14 @@ def handle_global_commands(
             )
 
     @router.message(Command(bot_command_names.help), HasChatState())
-    async def get_help(message: Message, chat_state: ChatState, i18n: I18n):
+    async def get_help(
+        message: Message,
+        chat_state: ChatState,
+    ):
         await message.reply(make_help_message())
 
     @router.message(Command(bot_command_names.set_language), HasChatState())
-    async def set_language(message: types.Message, chat_state: ChatState, i18n: I18n):
+    async def set_language(message: types.Message, chat_state: ChatState):
         keyboard = InlineKeyboardMarkup(
             inline_keyboard=[
                 [
@@ -140,8 +130,13 @@ def handle_global_commands(
                 ],
             ]
         )
+
+        def choose_language(locale: Language):
+            return _("Choose a language.", locale=str(locale))
+
         await message.reply(
-            "🌐 Choose a language.\n🌐 Выбери язык.", reply_markup=keyboard
+            "\n".join([f"🌐 {choose_language(lang)}" for lang in all_languages]),
+            reply_markup=keyboard,
         )
 
     @router.callback_query(
@@ -154,7 +149,9 @@ def handle_global_commands(
             case Message():
                 chat_id = message.chat.id
                 chat_state = await load_state(
-                    chat_id=chat_id, topic_id=message.message_thread_id
+                    chat_id=chat_id,
+                    is_topic=message.is_topic_message,
+                    topic_id=message.message_thread_id,
                 )
                 new_language = (
                     Language.en
@@ -179,10 +176,13 @@ def handle_team_settings_commands(
     scheduler: AsyncIOScheduler, send_message: SendMessage, router: Router, bot: Bot
 ):
     @router.message(
-        Command(bot_command_names.set_meetings_time), HasMessageText(), HasChatState()
+        Command(bot_command_names.set_meetings_time),
+        HasMessageText(),
+        HasChatState(),
+        HasMessageUserUsername(),
     )
     async def set_meetings_time(
-        message: Message, message_text: str, chat_state: ChatState
+        message: Message, message_text: str, username: str, chat_state: ChatState
     ):
         meeting_time_str = message_text.split(" ", 1)
         topic_id = message.message_thread_id
@@ -193,15 +193,28 @@ def handle_team_settings_commands(
             chat_state.topic_id = topic_id
             await save_state(chat_state=chat_state)
 
+            user = await get_user(chat_state=chat_state, username=username)
+            if schedule_is_empty(user.schedule) and schedule_is_empty(
+                chat_state.schedule
+            ):
+                day_of_week = _("Monday - Sunday")
+            elif schedule_is_empty(user.schedule):
+                schedule = chat_state.schedule
+                days = [item[0] for item in schedule.items() if item[1].included]
+                day_of_week = pretty_weekdays(days)
+            else:
+                schedule = user.schedule
+                days = [item[0] for item in schedule.items() if item[1].included]
+                day_of_week = pretty_weekdays(days)
+
             schedule_meeting(
                 meeting_time=meeting_time,
                 chat_id=chat_state.chat_id,
+                is_topic=message.is_topic_message,
                 topic_id=topic_id,
                 scheduler=scheduler,
                 send_message=send_message,
             )
-
-            username = message.from_user.username if message.from_user else None
 
             await update_reminders(
                 bot=bot,
@@ -215,11 +228,11 @@ def handle_team_settings_commands(
                     "OK, we'll meet at {meeting_time} on {week_days} starting not earlier than on {start_date}!"
                 ).format(
                     meeting_time=html.bold(meeting_time.strftime("%H:%M")),
-                    week_days=html.bold(day_of_week_pretty),
+                    week_days=html.bold(day_of_week),
                     start_date=html.bold(meeting_time.strftime("%Y-%m-%d")),
                 )
             )
-        except Exception as e:
+        except Exception:
             await message.reply(
                 dedent(
                     _(
@@ -297,65 +310,6 @@ def handle_personal_settings_commands(
             )
 
     @router.message(
-        Command(bot_command_names.set_personal_meetings_days),
-        HasMessageUserUsername(),
-        HasMessageText(),
-        HasChatState(),
-    )
-    async def set_personal_meetings_days(
-        message: Message, username: str, message_text: str, chat_state: ChatState
-    ):
-        try:
-            msg_spt = message_text.split()
-            if len(msg_spt) == 1:
-                raise Exception
-
-            meeting_days_str = " ".join(msg_spt[1:])
-            day_tokens = meeting_days_str.replace(",", " ").lower().split()
-
-            days_num: set[int] = set()
-
-            for token in day_tokens:
-                if not token:
-                    continue
-
-                if "-" in token:
-                    start_day, end_day = token.split("-")
-                    start_num = day_of_week_to_num[start_day]
-                    end_num = day_of_week_to_num[end_day]
-                    days_num.update(range(start_num, end_num + 1))
-                else:
-                    days_num.add(day_of_week_to_num[token])
-
-            user = await get_user(chat_state, username)
-            user.meeting_days = days_num
-            await save_state(chat_state)
-
-            await message.reply(
-                _(
-                    "OK, from now you will only receive messages on {meeting_days}."
-                ).format(meeting_days=html.bold(", ".join(day_tokens)))
-            )
-        except Exception as e:
-            await message.reply(
-                dedent(
-                    _(
-                        """
-                        Please indicate your personal working days.
-
-                        You should use "," or " " as a separator.
-
-                        Example:
-
-                        /{set_personal_meetings_days} Monday-Wednesday, Friday 
-                        """
-                    ).format(
-                        set_personal_meetings_days=bot_command_names.set_personal_meetings_days
-                    )
-                )
-            )
-
-    @router.message(
         Command(bot_command_names.set_reminder_period),
         HasMessageUserUsername(),
         HasMessageText(),
@@ -399,7 +353,7 @@ def handle_personal_settings_commands(
 
                 await message.reply(
                     _(
-                        "@{username} I don't have access to your personal messages.\n"
+                        "@{username}, the bot doesn't have access to your personal messages.\n"
                         "Please write to @{bot_username} and type /start."
                     ).format(username=username, bot_username=bot_info.username)
                 )
@@ -426,18 +380,20 @@ def handle_info_commands(
     @router.message(Command(bot_command_names.get_chat_state), HasChatState())
     async def get_chat_state(message: Message, chat_state: ChatState):
         chat_state_json = chat_state.model_dump_json(indent=2)
-        await message.reply(
-            dedent(
-                f"""<pre><code class="language-json">{chat_state_json}</code></pre>"""
-            ),
-            parse_mode=ParseMode.HTML,
-        )
+        messages = make_chat_state_messages(json_string=chat_state_json)
+        for msg in messages:
+            await message.reply(
+                text=msg,
+                parse_mode=ParseMode.HTML,
+            )
 
     @router.message(Command(bot_command_names.get_report), HasChatState())
     async def get_report(message: Message, chat_state: ChatState):
         questions = make_daily_messages("")
 
-        responses_by_topic: Dict[int, [str]] = {i: [] for i in range(len(questions))}
+        responses_by_topic: Dict[int, List[str]] = {
+            i: [] for i in range(len(questions))
+        }
 
         for username, user in chat_state.users.items():
             for idx, response in user.responses.items():
@@ -495,4 +451,8 @@ def handle_user_responses(
                     await save_state(chat_state)
                     await message.reply(_("Your response has been recorded."))
                 else:
-                    await message.reply(_("You have already responded to this message or it is no longer valid."))
+                    await message.reply(
+                        _(
+                            "You have already responded to this message or it is no longer valid."
+                        )
+                    )

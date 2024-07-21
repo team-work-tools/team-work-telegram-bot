@@ -1,24 +1,39 @@
 from datetime import datetime
-from typing import Annotated, Optional, Dict, List
-from zoneinfo import ZoneInfo
+from typing import Annotated, Dict, List, Optional
+from uuid import UUID
 
 import pymongo
 from beanie import Document, Indexed
 from pydantic import BaseModel
 
 from .chat import ChatId
+from .constants import default_time_zone
+from .intervals import DaySchedule, default_schedule
 from .language import Language
 
 
 class ChatUser(BaseModel):
     username: str = ""
     is_joined: bool = False
-    meeting_days: set[int] = set(
-        range(0, 5)
-    )  # default value - [0 - 4] = Monday - Friday
-    reminder_period: Optional[int] = None
+    time_zone: str = default_time_zone
+
     non_replied_daily_msgs: set[int] = set(range(0, 3))
     responses: Dict[int, str] = {}
+
+    reminder_period: Optional[int] = None
+
+    schedule: Dict[str, DaySchedule] = default_schedule
+    temp_schedule: Optional[Dict[str, DaySchedule]] = None
+    time_zone_shift: int = (
+        0  # 0 for dynamic schedule; {UTC_offset_old - UTC_offset_new} for static schedule;
+    )
+
+    # TODO: relocate these fields to cache (Redis for example)
+    schedule_mode: Optional[str] = None
+    schedule_msg: Optional[int] = None
+    to_delete_msg_ids: set[int] = set()
+    to_edit_weekday: Optional[str] = None
+    to_edit_interval: Optional[UUID] = None
 
     def __hash__(self):
         return hash(self.username)
@@ -45,11 +60,19 @@ async def create_user(username: str) -> ChatUser:
 
 class ChatState(Document):
     language: Language = Language.default
-    meeting_time: Optional[datetime] = None
-    meeting_msg_ids: list[int] = []
+    time_zone: str = default_time_zone
     topic_id: Optional[int] = None
     chat_id: Annotated[ChatId, Indexed(index_type=pymongo.ASCENDING)]
     users: Dict[str, ChatUser] = dict()
+
+    meeting_time: Optional[datetime] = None
+    meeting_msg_ids: list[int] = []
+
+    schedule: Dict[str, DaySchedule] = default_schedule
+    temp_schedule: Optional[Dict[str, DaySchedule]] = None
+    time_zone_shift: int = (
+        0  # 0 for dynamic schedule; {UTC_offset_old - UTC_offset_new} for static schedule;
+    )
 
 
 async def get_user(chat_state: ChatState, username: str) -> ChatUser:
@@ -96,16 +119,22 @@ async def create_state(chat_id: ChatId, topic_id: Optional[int]) -> ChatState:
     return await ChatState(chat_id=chat_id, topic_id=topic_id).create()
 
 
-async def load_state(chat_id: ChatId, topic_id: Optional[int]) -> ChatState:
+async def load_state(
+    chat_id: ChatId, is_topic: Optional[bool], topic_id: Optional[int]
+) -> ChatState:
     """Load a chat state by chat ID or create a new one if not found.
 
     Args:
         chat_id (ChatId): The ID of the chat to load the state for.
+        is_topic (bool): Indicates if state is from topic (None for General topic and supergroup w/o topics)
         topic_id (int): The ID of the topic associated with the chat state.
 
     Returns:
         ChatState: The chat state instance found or created.
     """
+
+    if not is_topic:
+        topic_id = None
 
     match chat_state := await ChatState.find_one(
         {"chat_id": chat_id, "topic_id": topic_id}

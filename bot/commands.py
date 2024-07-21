@@ -1,7 +1,6 @@
-from .i18n import _
 from pydantic import BaseModel
 
-from .language import Language
+from .i18n import _
 
 
 class BotCommands(BaseModel):
@@ -19,7 +18,7 @@ class BotCommands(BaseModel):
     # personal settings
     join: str
     skip: str
-    set_personal_meetings_days: str
+    set_working_hours: str
     set_reminder_period: str
     join_today: str
     skip_today: str
@@ -50,7 +49,7 @@ bot_command_names = BotCommandNames(
     # personal settings
     join="join",
     skip="skip",
-    set_personal_meetings_days="set_personal_meetings_days",
+    set_working_hours="set_working_hours",
     set_reminder_period="set_reminder_period",
     join_today="join_today",
     skip_today="skip_today",
@@ -84,7 +83,7 @@ def bot_command_descriptions() -> BotCommandDescriptions:
         # personal settings
         join=_("Join meetings."),
         skip=_("Skip meetings."),
-        set_personal_meetings_days=_("Set the days when you can join meetings."),
+        set_working_hours=_("Set working hours."),
         set_reminder_period=_(
             "Set the period of reminders about unanswered questions."
         ),

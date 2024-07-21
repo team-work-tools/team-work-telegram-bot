@@ -1,7 +1,5 @@
-from dataclasses import dataclass
+from typing import List
 from enum import Enum
-
-from pydantic import BaseModel
 
 
 class LanguageBase(Enum):
@@ -23,3 +21,6 @@ class InlineKeyboardButtonName(LanguageBase):
 class CallbackData(LanguageBase):
     en: str = "lang_en"
     ru: str = "lang_ru"
+
+
+all_languages: List[Language] = [Language.en, Language.ru]
