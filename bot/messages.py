@@ -9,7 +9,16 @@ from .i18n import _
 from .commands import bot_command_descriptions, bot_command_names
 from .constants import day_of_week_pretty
 from .language import Language
-
+from .state import (
+    ChatState,
+    save_state,
+    reset_state,
+    load_state,
+    get_user,
+    load_user_pm,
+    create_user_pm,
+    save_user_pm,
+)
 
 def bot_intro():
     return _(
@@ -32,6 +41,7 @@ def make_help_message() -> str:
         {html.bold(_("Global commands"))}
         /{command_names.start} - {command_descriptions.start}
         /{command_names.help} - {command_descriptions.help}
+        /{command_names.stop} - {command_descriptions.stop}
         /{command_names.set_language} - {command_descriptions.set_language}
         
         {html.bold(_("Team settings commands"))}
@@ -52,6 +62,8 @@ def make_help_message() -> str:
 
 
 def make_daily_messages(usernames: str) -> List[str]:
+    if not ChatState.is_active:
+        return []
     return [
         _("What did you do last working day? {usernames}").format(usernames=usernames),
         _("What will you do today? {usernames}").format(usernames=usernames),

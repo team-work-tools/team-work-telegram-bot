@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-07-19 12:37+0300\n"
+"POT-Creation-Date: 2024-07-20 22:18+0300\n"
 "PO-Revision-Date: 2024-05-11 19:53+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -98,25 +98,35 @@ msgstr ""
 msgid "Get the report."
 msgstr ""
 
-#: bot/handlers.py:112
+#: bot/handlers.py:94
+msgid "The chat is currently stopped. Use /start to activate it."
+msgstr ""
+
+#: bot/handlers.py:119
 msgid "Nice to meet you!"
 msgstr ""
 
-#: bot/handlers.py:170
+#: bot/handlers.py:142
+msgid ""
+"All current scenarios have been stopped, and scheduled messages have been"
+" canceled."
+msgstr ""
+
+#: bot/handlers.py:191
 msgid "English language selected!"
 msgstr ""
 
-#: bot/handlers.py:174
+#: bot/handlers.py:195
 msgid "Error saving language state: {error}"
 msgstr ""
 
-#: bot/handlers.py:214
+#: bot/handlers.py:237
 msgid ""
 "OK, we'll meet at {meeting_time} on {week_days} starting not earlier than"
 " on {start_date}!"
 msgstr ""
 
-#: bot/handlers.py:225
+#: bot/handlers.py:248
 msgid ""
 "\n"
 "                        Please write the meetings time in the {iso8601} "
@@ -131,11 +141,11 @@ msgid ""
 "                        "
 msgstr ""
 
-#: bot/handlers.py:255
+#: bot/handlers.py:280
 msgid "You've already joined, @{username}!"
 msgstr ""
 
-#: bot/handlers.py:263
+#: bot/handlers.py:288
 msgid ""
 "\n"
 "                        You've just joined, @{username}!\n"
@@ -145,7 +155,7 @@ msgid ""
 "                        "
 msgstr ""
 
-#: bot/handlers.py:283
+#: bot/handlers.py:310
 msgid ""
 "\n"
 "                        See you later, @{username}!\n"
@@ -154,15 +164,15 @@ msgid ""
 "                        "
 msgstr ""
 
-#: bot/handlers.py:295
+#: bot/handlers.py:322
 msgid "You've not yet joined, @{username}!"
 msgstr ""
 
-#: bot/handlers.py:335
+#: bot/handlers.py:364
 msgid "OK, from now you will only receive messages on {meeting_days}."
 msgstr ""
 
-#: bot/handlers.py:342
+#: bot/handlers.py:371
 msgid ""
 "\n"
 "                        Please indicate your personal working days.\n"
@@ -176,23 +186,23 @@ msgid ""
 "                        "
 msgstr ""
 
-#: bot/handlers.py:377
+#: bot/handlers.py:408
 msgid "Reminder period set to {period} minutes"
 msgstr ""
 
-#: bot/handlers.py:394
+#: bot/handlers.py:425
 msgid ""
 "You have to join daily meetings first!\n"
 "Use the /join command."
 msgstr ""
 
-#: bot/handlers.py:401
+#: bot/handlers.py:432
 msgid ""
 "@{username} I don't have access to your personal messages.\n"
 "Please write to @{bot_username} and type /start."
 msgstr ""
 
-#: bot/handlers.py:410
+#: bot/handlers.py:441
 msgid ""
 "\n"
 "                        Please indicate the reminder period in minutes.\n"
@@ -203,11 +213,11 @@ msgid ""
 "                        "
 msgstr ""
 
-#: bot/handlers.py:454
+#: bot/handlers.py:487
 msgid "No responses."
 msgstr ""
 
-#: bot/handlers.py:464
+#: bot/handlers.py:499
 msgid ""
 "\n"
 "                The state has been successfully reset. \n"
@@ -217,23 +227,23 @@ msgid ""
 "                "
 msgstr ""
 
-#: bot/handlers.py:496
+#: bot/handlers.py:531
 msgid "Your response has been recorded."
 msgstr ""
 
-#: bot/handlers.py:498
+#: bot/handlers.py:533
 msgid "You have already responded to this message or it is no longer valid."
 msgstr ""
 
-#: bot/meeting.py:20
+#: bot/meeting.py:21
 msgid "Meeting time!"
 msgstr ""
 
-#: bot/meeting.py:28
+#: bot/meeting.py:29
 msgid "Nobody has joined the meeting!"
 msgstr ""
 
-#: bot/messages.py:15
+#: bot/messages.py:24
 msgid ""
 "\n"
 "        I can help you conduct daily (or at least regular) meetings.\n"
@@ -247,15 +257,31 @@ msgstr ""
 "        You can control me by sending these commands:\n"
 "        "
 
+#: bot/messages.py:41
+msgid "Global commands"
+msgstr ""
+
+#: bot/messages.py:47
+msgid "Team settings commands"
+msgstr ""
+
+#: bot/messages.py:50
+msgid "Personal settings commands"
+msgstr ""
+
 #: bot/messages.py:56
+msgid "Chat information commands"
+msgstr ""
+
+#: bot/messages.py:68
 msgid "What did you do last working day? {usernames}"
 msgstr ""
 
-#: bot/messages.py:57
+#: bot/messages.py:69
 msgid "What will you do today? {usernames}"
 msgstr ""
 
-#: bot/messages.py:58
+#: bot/messages.py:70
 msgid "What (if anything) is blocking your progress? {usernames}"
 msgstr ""
 

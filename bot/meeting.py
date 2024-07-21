@@ -10,47 +10,51 @@ from .custom_types import ChatId, SendMessage
 from .messages import make_daily_messages
 from .state import load_state, save_state, get_joined_users
 
+job_store = {}
 
 async def send_meeting_messages(
     chat_id: ChatId, topic_id: Optional[int], send_message: SendMessage
 ):
     chat_state = await load_state(chat_id=chat_id, topic_id=topic_id)
     current_day = datetime.now().weekday()
-    await send_message(
-        chat_id=chat_id, message=_("Meeting time!"), message_thread_id=topic_id
-    )
-
-    joined_users = await get_joined_users(chat_state)
-    today_workers = [user for user in joined_users if current_day in user.meeting_days]
-    if not today_workers:
+    if chat_state.meeting_time is not None:
         await send_message(
-            chat_id=chat_id,
-            message=_("Nobody has joined the meeting!"),
-            message_thread_id=topic_id,
+            chat_id=chat_id, message=_("Meeting time!"), message_thread_id=topic_id
         )
-    else:
 
-        # Creating list of joined to meeting users
-        today_usernames = [f"@{user.username}" for user in today_workers]
-
-        # Getting daily messages
-        daily_messages = make_daily_messages(usernames=" ".join(today_usernames))
-
-        # Sending daily messages
-        chat_state.meeting_msg_ids = []
-        for message in daily_messages:
-            new_msg = await send_message(
-                chat_id=chat_id, message=message, message_thread_id=topic_id
+        joined_users = await get_joined_users(chat_state)
+        today_workers = [user for user in joined_users if current_day in user.meeting_days]
+        if not today_workers:
+            await send_message(
+                chat_id=chat_id,
+                message=_("Nobody has joined the meeting!"),
+                message_thread_id=topic_id,
             )
+        else:
 
-            chat_state.meeting_msg_ids.append(new_msg.message_id)
+            # Creating list of joined to meeting users
+            today_usernames = [f"@{user.username}" for user in today_workers]
 
-        # Reset info about replies to meeting messages after assigning new meeting
-        for user in today_workers:
-            user.non_replied_daily_msgs = set(range(0, 3))
-            user.responses = {idx: "" for idx in range(0,3)}
+            # Getting daily messages
+            daily_messages = make_daily_messages(usernames=" ".join(today_usernames))
 
-        await save_state(chat_state=chat_state)
+            # Sending daily messages
+            chat_state.meeting_msg_ids = []
+            for message in daily_messages:
+                new_msg = await send_message(
+                    chat_id=chat_id, message=message, message_thread_id=topic_id
+                )
+
+                chat_state.meeting_msg_ids.append(new_msg.message_id)
+
+            # Reset info about replies to meeting messages after assigning new meeting
+            for user in today_workers:
+                user.non_replied_daily_msgs = set(range(0, 3))
+                user.responses = {idx: "" for idx in range(0,3)}
+
+            await save_state(chat_state=chat_state)
+    else:
+        return
 
 
 def make_job_id(chat_id: int, topic_id: Optional[int]):
@@ -67,6 +71,7 @@ def schedule_meeting(
     scheduler: AsyncIOScheduler,
     send_message: SendMessage,
 ):
+    job_id = make_job_id(chat_id, topic_id)
     scheduler.add_job(
         jobstore=jobstore,
         func=send_meeting_messages,
@@ -83,3 +88,35 @@ def schedule_meeting(
     )
 
     logging.info(scheduler.get_job(make_job_id(chat_id, topic_id)))
+    save_job(job_id, meeting_time, chat_id, topic_id)
+
+def save_job(job_id: str, meeting_time: datetime, chat_id: ChatId, topic_id: Optional[int]):
+    job_store[job_id] = {
+        "job_id": job_id,
+        "meeting_time": meeting_time,
+        "chat_id": chat_id,
+        "topic_id": topic_id,
+    }
+
+def load_jobs(scheduler: AsyncIOScheduler, send_message: SendMessage):
+    for job_id, job in job_store.items():
+        meeting_time = job["meeting_time"]
+        chat_id = job["chat_id"]
+        topic_id = job["topic_id"]
+
+        scheduler.add_job(
+            jobstore=jobstore,
+            func=send_meeting_messages,
+            id=job_id,
+            replace_existing=True,
+            kwargs={"chat_id": chat_id, "topic_id": topic_id, "send_message": send_message},
+            trigger="cron",
+            start_date=meeting_time,
+            hour=meeting_time.hour,
+            minute=meeting_time.minute,
+            day_of_week=day_of_week,
+            timezone=meeting_time.tzinfo,
+            misfire_grace_time=42,
+        )
+
+        logging.info(f"Loaded job {job_id} from job store")
