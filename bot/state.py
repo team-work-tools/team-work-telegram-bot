@@ -1,9 +1,10 @@
+from typing import Annotated, Optional, Dict, List
 from datetime import datetime, tzinfo
-from typing import Annotated, Dict, List, Optional
 from uuid import UUID
 
 import pymongo
 import pytz
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from beanie import Document, Indexed
 from pydantic import BaseModel
 
@@ -12,6 +13,7 @@ from .constants import default_time_zone
 from .intervals import DaySchedule, default_schedule
 from .language import Language
 from .data_types import RecurringData
+from .schedulerUtils import make_recurring_job_id
 
 
 class ChatUser(BaseModel):
@@ -75,6 +77,8 @@ class ChatState(Document):
     time_zone_shift: int = (
         0  # 0 for dynamic schedule; {UTC_offset_old - UTC_offset_new} for static schedule;
     )
+
+
 
 
 async def get_user(chat_state: ChatState, username: str) -> ChatUser:
@@ -157,7 +161,7 @@ async def save_state(chat_state: ChatState) -> None:
     await chat_state.save()
 
 
-async def reset_state(chat_state: ChatState) -> None:
+async def reset_state(scheduler: AsyncIOScheduler, chat_state: ChatState) -> None:
     """Reset the given chat state in the database.
 
     Args:
@@ -167,6 +171,11 @@ async def reset_state(chat_state: ChatState) -> None:
     chat_state.meeting_time = None
     chat_state.meeting_msg_ids = []
     chat_state.users.clear()
+    for rec_msg in chat_state.recurring_messages.keys():
+        chat_id = chat_state.chat_id
+        topic_id = chat_state.topic_id
+        scheduler.remove_job(make_recurring_job_id(rec_msg, chat_id, topic_id))
+    chat_state.recurring_messages = dict()
 
     await chat_state.save()
 
