@@ -1,4 +1,4 @@
-from aiogram.types import Message, TelegramObject, Update, CallbackQuery
+from aiogram.types import CallbackQuery, Message, TelegramObject, Update
 from aiogram.utils.i18n import I18nMiddleware
 
 from .language import Language

@@ -5,8 +5,10 @@ from zoneinfo import ZoneInfo
 
 from pydantic import BaseModel
 from pytz import UnknownTimeZoneError, timezone
-from .i18n import _
+
 from .constants import days_array
+from .i18n import _, day_to_day_i18n
+
 
 class IntervalException(Exception):
     """Base class for other Interval exceptions"""
@@ -40,6 +42,7 @@ class InvalidIntervalException(IntervalException):
 
 IMMUTABLE_DATE = datetime(year=2024, month=1, day=1)
 DEFAULT_INTERVAL = "9:00 - 17:00"
+DEFAULT_EDITING_INTERVAL = "19:00 - 22:30"
 
 
 class Interval(BaseModel):
@@ -294,14 +297,16 @@ def pretty_weekdays(days: list[str]):
     groups.append(current_group)
 
     # Create the pretty string representation
+    day_locale = day_to_day_i18n()
     pretty_strings = []
     for group in groups:
         if len(group) > 1:
-            pretty_strings.append(f"{group[0]} - {group[-1]}")
+            pretty_strings.append(f"{day_locale[group[0]]} - {day_locale[group[-1]]}")
         else:
-            pretty_strings.append(group[0])
+            pretty_strings.append(day_locale[group[0]])
 
     return ", ".join(pretty_strings)
+
 
 empty_schedule = {day: DaySchedule(name=day) for day in days_array}
 

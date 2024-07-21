@@ -1,35 +1,20 @@
 from typing import Dict
 from uuid import UUID
 
-from aiogram.utils.keyboard import (
-    InlineKeyboardBuilder,
-    InlineKeyboardButton,
-    InlineKeyboardMarkup,
-)
+from aiogram.utils.keyboard import (InlineKeyboardBuilder,
+                                    InlineKeyboardButton, InlineKeyboardMarkup)
 
 from .callbacks import IntervalCallback, WeekdayCallback
 from .constants import days_array
+from .i18n import _, day_to_day_i18n
 from .intervals import DaySchedule, Interval
-from .i18n import _
+
 
 class ScheduleEmoji:
     included = "🟩"
     excluded = "🟥"
     add = "➕"
     remove = "✖️"
-
-
-def day_to_day_i18n():
-    days_array_i18n = [
-        _("Monday"),
-        _("Tuesday"),
-        _("Wednesday"),
-        _("Thursday"),
-        _("Friday"),
-        _("Saturday"),
-        _("Sunday"),
-    ]
-    return {i: j for i, j in zip(days_array, days_array_i18n)}
 
 
 def get_interval_keyboard(

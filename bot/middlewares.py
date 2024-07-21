@@ -1,8 +1,9 @@
 from typing import Any, Awaitable, Callable, Dict
 
 from aiogram import BaseMiddleware
-from aiogram.types import TelegramObject, Update
 from aiogram.enums.chat_type import ChatType
+from aiogram.types import TelegramObject, Update
+
 
 class GroupCommandFilterMiddleware(BaseMiddleware):
     async def __call__(

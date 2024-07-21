@@ -4,57 +4,27 @@ from typing import Dict, List
 
 from aiogram import Bot, Router, html, types
 from aiogram.enums import ParseMode
+from aiogram.enums.chat_type import ChatType
 from aiogram.filters.command import Command
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
-from aiogram.types import (
-    BotCommand,
-    InlineKeyboardButton,
-    InlineKeyboardMarkup,
-    CallbackQuery,
-)
-from .state import (
-    ChatState,
-    save_state,
-    reset_state,
-    load_state,
-    get_user,
-    load_user_pm,
-    create_user_pm,
-    save_user_pm,
-)
-from .filters import HasMessageText, HasMessageUserUsername, HasChatState
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from .meeting import schedule_meeting
-from .custom_types import SendMessage, SaveState, LoadState
 from aiogram.utils.i18n import I18n
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from .commands import bot_command_names
-from .constants import day_of_week_pretty, iso8601, report_tag, sample_time, time_url
+from .constants import iso8601, report_tag, sample_time, time_url
 from .custom_types import SendMessage
-from .filters import (
-    HasChatState,
-    HasMessageText,
-    HasMessageUserUsername,
-    IsReplyToMeetingMessage,
-)
+from .filters import (HasChatState, HasMessageText, HasMessageUserUsername,
+                      IsReplyToMeetingMessage)
 from .i18n import _
 from .intervals import pretty_weekdays, schedule_is_empty
 from .language import CallbackData, InlineKeyboardButtonName, Language
 from .meeting import schedule_meeting
-from .messages import make_chat_state_messages, make_daily_messages, make_help_message
+from .messages import (make_chat_state_messages, make_daily_messages,
+                       make_help_message)
 from .reminder import update_reminders
-from .state import (
-    ChatState,
-    create_user_pm,
-    get_user,
-    load_state,
-    load_user_pm,
-    save_state,
-    save_user_pm,
-)
+from .state import (ChatState, create_user_pm, get_user, load_state,
+                    load_user_pm, reset_state, save_state, save_user_pm)
 from .work_time import handle_working_hours
-from aiogram.enums.chat_type import ChatType
 
 
 def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage, bot: Bot):
@@ -211,7 +181,7 @@ def handle_team_settings_commands(
             if schedule_is_empty(user.schedule) and schedule_is_empty(
                 chat_state.schedule
             ):
-                day_of_week = day_of_week_pretty
+                day_of_week = _("Monday - Sunday")
             elif schedule_is_empty(user.schedule):
                 schedule = chat_state.schedule
                 days = [item[0] for item in schedule.items() if item[1].included]

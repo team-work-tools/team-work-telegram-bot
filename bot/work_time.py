@@ -13,19 +13,14 @@ from .commands import bot_command_names
 from .custom_types import SendMessage
 from .filters import HasChatState, HasMessageUserUsername
 from .fsm_states import IntervalEditingState
-from .intervals import Interval, get_default_interval
-from .keyboards import (
-    get_interval_edit_options,
-    get_schedule_keyboard,
-    get_schedule_options,
-)
-from .messages import (
-    make_interval_editing_error,
-    make_interval_editing_instruction,
-    make_interval_validation_message,
-)
-from .state import ChatState, ChatUser, get_user, save_state
 from .i18n import _
+from .intervals import Interval, get_default_interval
+from .keyboards import (get_interval_edit_options, get_schedule_keyboard,
+                        get_schedule_options)
+from .messages import (make_interval_editing_error,
+                       make_interval_editing_instruction,
+                       make_interval_validation_message)
+from .state import ChatState, ChatUser, get_user, save_state
 
 INTERVAL_PATTERN = r"^\d{1,2}:\d{2}\s*-\s*\d{1,2}:\d{2}$"
 
@@ -33,6 +28,7 @@ INTERVAL_PATTERN = r"^\d{1,2}:\d{2}\s*-\s*\d{1,2}:\d{2}$"
 class Mode:
     personal = "personal"
     default = "default"
+
     def __init__(self):
         self.default_i18n = _("default")
         self.personal_i18n = _("personal")

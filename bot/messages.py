@@ -1,14 +1,13 @@
 from textwrap import dedent
-from typing import List, Tuple
+from typing import List, Optional, Tuple
 
 from aiogram import html
 from aiogram.utils import markdown as fmt
 
 from .commands import bot_command_descriptions, bot_command_names
 from .i18n import _
-from .intervals import Interval, InvalidIntervalException, InvalidTimeFormatException
-
-DEFAULT_EDITING_INTERVAL = "19:00 - 22:30"
+from .intervals import (DEFAULT_EDITING_INTERVAL, Interval,
+                        InvalidIntervalException, InvalidTimeFormatException)
 
 
 def bot_intro():
@@ -51,11 +50,11 @@ def make_help_message() -> str:
     ).strip()
 
 
-def make_daily_messages(usernames: str) -> List[str]:
+def make_daily_messages(usernames: str, locale: Optional[str] = None) -> List[str]:
     return [
-        _("What did you do last working day? {usernames}").format(usernames=usernames),
-        _("What will you do today? {usernames}").format(usernames=usernames),
-        _("What (if anything) is blocking your progress? {usernames}").format(
+        _("What did you do last working day? {usernames}", locale=locale).format(usernames=usernames),
+        _("What will you do today? {usernames}", locale=locale).format(usernames=usernames),
+        _("What (if anything) is blocking your progress? {usernames}", locale=locale).format(
             usernames=usernames
         ),
     ]
@@ -101,7 +100,7 @@ def make_interval_editing_error(error_msg: str) -> str:
     again_text = _("Press 'Enter again' to enter the interval again.")
     cancel_text = _("Press 'Cancel' to cancel editing this interval.")
 
-    text = fmt.text(error_msg, "\n", again_text, "\n", cancel_text, sep="")
+    text = fmt.text(error_msg, again_text, cancel_text, sep="\n")
     return text
 
 
@@ -118,7 +117,7 @@ def make_chat_state_messages(json_string: str, max_length=4096) -> List[str]:
     chunks = []
 
     for i in range(0, len(json_string), max_length):
-        chunk = json_string[i : i + max_length]
+        chunk = json_string[i:i+max_length]
         chunk_fmt = dedent(f"""<pre><code class="language-json">{chunk}</code></pre>""")
         chunks.append(chunk_fmt)
 

@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 from typing import Optional
 
 from aiogram import Bot
+from aiogram.enums.chat_type import ChatType
 from aiogram.exceptions import TelegramBadRequest, TelegramForbiddenError
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.interval import IntervalTrigger
@@ -13,7 +14,7 @@ from .i18n import _
 from .intervals import schedule_is_empty
 from .messages import make_daily_messages
 from .state import ChatState, get_user, load_state, load_user_pm, save_state
-from aiogram.enums.chat_type import ChatType
+
 
 async def send_reminder_messages(
     meeting_chat_id: ChatId,
@@ -30,6 +31,8 @@ async def send_reminder_messages(
     )
     user = await get_user(chat_state=chat_state, username=username)
 
+    locale = str(chat_state.language)
+
     current_day_int = datetime.now().weekday()
     current_day = days_array[current_day_int]
     if schedule_is_empty(user.schedule) and schedule_is_empty(chat_state.schedule):
@@ -43,8 +46,8 @@ async def send_reminder_messages(
             return
 
     have_to_reply = list(user.non_replied_daily_msgs)
-    messages = make_daily_messages("")
-    reminder_message = _("Please reply to these daily meeting questions:")
+    messages = make_daily_messages("", locale=locale)
+    reminder_message = _("Please reply to these daily meeting questions:", locale=locale)
     chat_type = chat.type
 
     if len(have_to_reply) == 0:
@@ -104,7 +107,8 @@ async def send_reminder_messages(
         if chat_type != ChatType.PRIVATE:
             banned_msg = _(
                 "@{username}, please unblock @{bot_username} in your private chat with the bot "
-                "so that the bot can send you reminders about missed daily meeting questions."
+                "so that the bot can send you reminders about missed daily meeting questions.",
+                locale=locale
             ).format(username=username, bot_username=bot_username)
 
             await send_message(chat_id=meeting_chat_id, message=banned_msg)
