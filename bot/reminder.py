@@ -47,7 +47,9 @@ async def send_reminder_messages(
 
     have_to_reply = list(user.non_replied_daily_msgs)
     messages = make_daily_messages("", locale=locale)
-    reminder_message = _("Please reply to these daily meeting questions:", locale=locale)
+    reminder_message = _(
+        "Please reply to these daily meeting questions:", locale=locale
+    )
     chat_type = chat.type
 
     if len(have_to_reply) == 0:
@@ -108,7 +110,7 @@ async def send_reminder_messages(
             banned_msg = _(
                 "@{username}, please unblock @{bot_username} in your private chat with the bot "
                 "so that the bot can send you reminders about missed daily meeting questions.",
-                locale=locale
+                locale=locale,
             ).format(username=username, bot_username=bot_username)
 
             await send_message(chat_id=meeting_chat_id, message=banned_msg)

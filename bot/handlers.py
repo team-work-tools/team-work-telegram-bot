@@ -6,9 +6,20 @@ from aiogram import Bot, Router, html, types
 from aiogram.enums import ParseMode
 from aiogram.enums.chat_type import ChatType
 from aiogram.filters.command import Command
+from aiogram.fsm.context import FSMContext
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from aiogram.utils.i18n import I18n
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from .meeting import schedule_meeting
+from .custom_types import SendMessage, SaveState, LoadState
+from aiogram.utils.i18n import I18n
+from .i18n import _
+from .constants import (
+    iso8601,
+    time_url,
+    sample_time,
+    title_max_length,
+)
 
 from .commands import bot_command_names
 from .constants import iso8601, report_tag, sample_time, time_url
@@ -22,8 +33,10 @@ from .filters import (
 from .i18n import _
 from .intervals import pretty_weekdays, schedule_is_empty
 from .language import CallbackData, InlineKeyboardButtonName, Language, all_languages
+from .fsm_states import RecurringAddingState
 from .meeting import schedule_meeting
 from .messages import make_chat_state_messages, make_daily_messages, make_help_message
+from .recurring_message import handle_recurring_message, update_recurring_message
 from .reminder import update_reminders
 from .state import (
     ChatState,
@@ -64,6 +77,10 @@ def make_router(scheduler: AsyncIOScheduler, send_message: SendMessage, bot: Bot
 
     handle_user_responses(scheduler=scheduler, send_message=send_message, router=router)
 
+    handle_recurring_message(
+        scheduler=scheduler, send_message=send_message, router=router, bot=bot
+    )
+
     return router
 
 
@@ -103,6 +120,16 @@ def handle_global_commands(
                 username=username,
                 scheduler=scheduler,
                 send_message=send_message,
+            )
+
+            await update_recurring_message(
+                bot=bot,
+                scheduler=scheduler,
+                send_message=send_message,
+            )
+
+            await update_recurring_message(
+                bot=bot, scheduler=scheduler, send_message=send_message
             )
 
     @router.message(Command(bot_command_names.help), HasChatState())
@@ -253,6 +280,17 @@ def handle_team_settings_commands(
                     )
                 )
             )
+
+    @router.message(Command(bot_command_names.add_recurring_message), HasChatState())
+    async def add_recurring_message(
+        message: Message, chat_state: ChatState, state: FSMContext
+    ):
+        await message.answer(
+            _(
+                "Send the message title with at most {N} symbols so that the bot can use this title as the message identifier."
+            ).format(N=title_max_length)
+        )
+        await state.set_state(RecurringAddingState.EnterRecurringTitle)
 
 
 def handle_personal_settings_commands(
@@ -414,16 +452,11 @@ def handle_info_commands(
 
     @router.message(Command(bot_command_names.reset), HasChatState())
     async def reset(message: Message, chat_state: ChatState):
-        await reset_state(chat_state)
+        await reset_state(scheduler, chat_state)
         await message.reply(
-            dedent(
-                _(
-                    """
-                The state has been successfully reset. 
-                
-                Use the /get_chat_state command to view the current state.
-                """
-                )
+            _(
+                "The state has been successfully reset.\n\n"
+                "Use the /get_chat_state command to view the current state."
             )
         )
 

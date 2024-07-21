@@ -6,8 +6,12 @@ from aiogram.utils import markdown as fmt
 
 from .commands import bot_command_descriptions, bot_command_names
 from .i18n import _
-from .intervals import (DEFAULT_EDITING_INTERVAL, Interval,
-                        InvalidIntervalException, InvalidTimeFormatException)
+from .intervals import (
+    DEFAULT_EDITING_INTERVAL,
+    Interval,
+    InvalidIntervalException,
+    InvalidTimeFormatException,
+)
 
 
 def bot_intro():
@@ -35,6 +39,7 @@ def make_help_message() -> str:
         
         {html.bold(_("Team settings commands"))}
         /{command_names.set_meetings_time} - {command_descriptions.set_meetings_time}
+        /{command_names.add_recurring_message} - {command_descriptions.add_recurring_message}
         
         {html.bold(_("Personal settings commands"))}
         /{command_names.set_reminder_period} - {command_descriptions.set_reminder_period}
@@ -52,11 +57,15 @@ def make_help_message() -> str:
 
 def make_daily_messages(usernames: str, locale: Optional[str] = None) -> List[str]:
     return [
-        _("What did you do last working day? {usernames}", locale=locale).format(usernames=usernames),
-        _("What will you do today? {usernames}", locale=locale).format(usernames=usernames),
-        _("What (if anything) is blocking your progress? {usernames}", locale=locale).format(
+        _("What did you do last working day? {usernames}", locale=locale).format(
             usernames=usernames
         ),
+        _("What will you do today? {usernames}", locale=locale).format(
+            usernames=usernames
+        ),
+        _(
+            "What (if anything) is blocking your progress? {usernames}", locale=locale
+        ).format(usernames=usernames),
     ]
 
 
@@ -85,7 +94,9 @@ def make_interval_validation_message(
 def make_interval_editing_instruction() -> str:
     instruction_text = _("Send a new interval in the 'hh:mm - hh:mm' format.")
     example_text = _("Example: ") + fmt.hcode(DEFAULT_EDITING_INTERVAL)
-    tip_text = _("Tip: press the interval in the example to copy and then edit this interval.")
+    tip_text = _(
+        "Tip: press the interval in the example to copy and then edit this interval."
+    )
 
     text = fmt.text(
         instruction_text,
@@ -117,7 +128,7 @@ def make_chat_state_messages(json_string: str, max_length=4096) -> List[str]:
     chunks = []
 
     for i in range(0, len(json_string), max_length):
-        chunk = json_string[i:i+max_length]
+        chunk = json_string[i : i + max_length]
         chunk_fmt = dedent(f"""<pre><code class="language-json">{chunk}</code></pre>""")
         chunks.append(chunk_fmt)
 

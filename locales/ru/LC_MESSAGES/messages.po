@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-07-21 19:35+0300\n"
+"POT-Creation-Date: 2024-07-22 00:24+0300\n"
 "PO-Revision-Date: 2024-05-11 19:50+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -19,87 +19,91 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.15.0\n"
 
-#: bot/commands.py:72
+#: bot/commands.py:74
 msgid "Enable the bot."
 msgstr "Включите бота."
 
-#: bot/commands.py:73
+#: bot/commands.py:75
 msgid "Get a help message."
 msgstr "Получите это сообщение."
 
-#: bot/commands.py:74
+#: bot/commands.py:76
 msgid "Set the bot language."
 msgstr "Установите язык бота."
 
-#: bot/commands.py:75
+#: bot/commands.py:77
 msgid "Disable the bot."
 msgstr "Выключите бота."
 
-#: bot/commands.py:76
+#: bot/commands.py:78
 msgid "Cancel the current operation with the bot."
 msgstr "Отмените текущую операцию с ботом."
 
-#: bot/commands.py:78
+#: bot/commands.py:80
 msgid "Set up daily meetings."
 msgstr "Настройте дейли."
 
-#: bot/commands.py:80
+#: bot/commands.py:82
 msgid "Set meetings time zone."
 msgstr "Установите тайм зону."
 
-#: bot/commands.py:81
+#: bot/commands.py:83
 msgid "Set meetings time."
 msgstr "Установите время начала дейли."
 
-#: bot/commands.py:82
+#: bot/commands.py:84
 msgid "Set meetings days."
 msgstr "Установите дни встреч."
 
-#: bot/commands.py:84
+#: bot/commands.py:85
+msgid "Add recurring message."
+msgstr "Добавьте повторяющееся сообщение."
+
+#: bot/commands.py:87
 msgid "Join meetings."
 msgstr "Просоединитесь к встречам."
 
-#: bot/commands.py:85
+#: bot/commands.py:88
 msgid "Skip meetings."
 msgstr "Пропускайте встречи."
 
-#: bot/commands.py:86
+#: bot/commands.py:89
 msgid "Set working hours."
 msgstr "Настройте Ваши рабочие часы."
 
-#: bot/commands.py:87
+#: bot/commands.py:90
 msgid "Set the period of reminders about unanswered questions."
 msgstr "Установите период напоминаний о неотвеченных вопросах."
 
-#: bot/commands.py:90
+#: bot/commands.py:93
 msgid "Join only today's meeting."
 msgstr "Присоединитесь только к сегодняшней встрече."
 
-#: bot/commands.py:91
+#: bot/commands.py:94
 msgid "Skip only today's meeting."
 msgstr "Пропустите только сегодняшнюю встречу."
 
-#: bot/commands.py:92
-msgid "Schedule a personal vacation."
-msgstr "Запланировать отпуск."
-
-#: bot/commands.py:93
-msgid "Unschedule the personal vacation."
-msgstr "Отменить отпуск."
-
 #: bot/commands.py:95
+msgid "Schedule a personal vacation."
+msgstr "Запланируйте отпуск."
+
+#: bot/commands.py:96
+msgid "Unschedule the personal vacation."
+msgstr "Отмените отпуск."
+
+#: bot/commands.py:98
 msgid "Get the chat state stored by the bot."
 msgstr "Посмотрите состояние чата."
 
-#: bot/commands.py:96
+#: bot/commands.py:99
 msgid "Reset the chat state."
 msgstr "Сбросьте состояние чата."
 
-#: bot/commands.py:97
+#: bot/commands.py:100
 msgid "Get the report."
 msgstr "Получите отчет."
 
-#: bot/handlers.py:80
+#: bot/handlers.py:97
 msgid ""
 "Unfortunately, only supergroups and private chats are supported. Please "
 "promote this group to a supergroup by enabling the history of messages "
@@ -108,27 +112,27 @@ msgstr ""
 "К сожалению, бот поддерживает только супергруппы и приватные чаты. "
 "Пожалуйста"
 
-#: bot/handlers.py:99
+#: bot/handlers.py:116
 msgid "Nice to meet you!"
 msgstr "Привет!"
 
-#: bot/handlers.py:135
+#: bot/handlers.py:162
 msgid "Choose a language."
 msgstr "Выберите язык."
 
-#: bot/handlers.py:167
+#: bot/handlers.py:194
 msgid "English language selected!"
 msgstr "Выбран русский язык!"
 
-#: bot/handlers.py:171
+#: bot/handlers.py:198
 msgid "Error saving language state: {error}"
 msgstr "Ошибка сохранения языка! {error}"
 
-#: bot/handlers.py:200
+#: bot/handlers.py:227
 msgid "Monday - Sunday"
 msgstr "Понедельник - Воскресенье"
 
-#: bot/handlers.py:227
+#: bot/handlers.py:254
 msgid ""
 "OK, we'll meet at {meeting_time} on {week_days} starting not earlier than"
 " on {start_date}!"
@@ -136,7 +140,7 @@ msgstr ""
 "ОК, встретимся в {meeting_time} в(о) {week_days}, начиная не раньше "
 "{start_date}!"
 
-#: bot/handlers.py:238
+#: bot/handlers.py:265
 msgid ""
 "\n"
 "                        Please write the meetings time in the {iso8601} "
@@ -158,11 +162,19 @@ msgstr ""
 "                        /{set_meetings_time} {sample_time}\n"
 "                        "
 
-#: bot/handlers.py:268
+#: bot/handlers.py:289
+msgid ""
+"Send the message title with at most {N} symbols so that the bot can use "
+"this title as the message identifier."
+msgstr ""
+"Отправьте заголовок сообщения с максимум {N} символами, чтобы бот мог "
+"использовать этот заголовок как идентификатор сообщения."
+
+#: bot/handlers.py:306
 msgid "You've already joined, @{username}!"
 msgstr "Вы уже подписаны, @{username}!"
 
-#: bot/handlers.py:276
+#: bot/handlers.py:314
 msgid ""
 "\n"
 "                        You've just joined, @{username}!\n"
@@ -176,7 +188,7 @@ msgstr ""
 "                        Вы можете пропустить встречи с помощью команды "
 "/{command_skip}.\n"
 
-#: bot/handlers.py:296
+#: bot/handlers.py:334
 msgid ""
 "\n"
 "                        See you later, @{username}!\n"
@@ -190,15 +202,15 @@ msgstr ""
 "/{command_join} .\n"
 "                        "
 
-#: bot/handlers.py:308
+#: bot/handlers.py:346
 msgid "You've not yet joined, @{username}!"
 msgstr "Вы еще не подписаны, @{username}!"
 
-#: bot/handlers.py:331
+#: bot/handlers.py:369
 msgid "Reminder period set to {period} minutes"
 msgstr "Период напоминаний установлен на {period} минут."
 
-#: bot/handlers.py:348
+#: bot/handlers.py:386
 msgid ""
 "You have to join daily meetings first!\n"
 "Use the /join command."
@@ -206,7 +218,7 @@ msgstr ""
 "Сначала присоединитесь к дейли!\n"
 "Отправьте команду /join"
 
-#: bot/handlers.py:355
+#: bot/handlers.py:393
 msgid ""
 "@{username}, the bot doesn't have access to your personal messages.\n"
 "Please write to @{bot_username} and type /start."
@@ -214,7 +226,7 @@ msgstr ""
 "@{username}, у бота нет доступа к Вашим личным сообщениям.\n"
 "Пожалуйста, напишите @{bot_username} и введите /start."
 
-#: bot/handlers.py:364
+#: bot/handlers.py:402
 msgid ""
 "\n"
 "                        Please indicate the reminder period in minutes.\n"
@@ -232,27 +244,24 @@ msgstr ""
 "\n"
 "                        /{set_reminder_period} 30\n"
 
-#: bot/handlers.py:410
+#: bot/handlers.py:448
 msgid "No responses."
-msgstr "Нет ответов"
+msgstr "Нет ответов."
 
-#: bot/handlers.py:420
+#: bot/handlers.py:457
 msgid ""
+"The state has been successfully reset.\n"
 "\n"
-"                The state has been successfully reset. \n"
-"                \n"
-"                Use the /get_chat_state command to view the current "
-"state.\n"
-"                "
+"Use the /get_chat_state command to view the current state."
 msgstr ""
-"Состояние чата успешно сброшено. Используйте команду /get_chat_state, "
-"чтобы посмотреть текущее состояние чата."
+"Состояние чата успешно сброшено.\n"
+"Используйте команду /get_chat_state, чтобы посмотреть текущее состояние чата."
 
-#: bot/handlers.py:452
+#: bot/handlers.py:485
 msgid "Your response has been recorded."
 msgstr "Ваш ответ был записан."
 
-#: bot/handlers.py:455
+#: bot/handlers.py:488
 msgid "You have already responded to this message or it is no longer valid."
 msgstr "Вы уже ответили на это сообщение или оно больше не действительно."
 
@@ -300,35 +309,35 @@ msgstr "Передайте корректное название часовог�
 msgid "Error occurred while calculating the offset."
 msgstr "Возникла ошибка при вычислении сдвига."
 
-#: bot/keyboards.py:83 bot/keyboards.py:109
+#: bot/keyboards.py:86 bot/keyboards.py:112
 msgid "Cancel"
 msgstr "Отмена"
 
-#: bot/keyboards.py:84
+#: bot/keyboards.py:87
 msgid "Save"
 msgstr "Сохранить"
 
-#: bot/keyboards.py:93
+#: bot/keyboards.py:96
 msgid "Default"
 msgstr "По умолчанию"
 
-#: bot/keyboards.py:94
+#: bot/keyboards.py:97
 msgid "Personal"
 msgstr "Персональные часы"
 
-#: bot/keyboards.py:104
+#: bot/keyboards.py:107
 msgid "Enter again"
 msgstr "Введите снова"
 
-#: bot/meeting.py:26
+#: bot/meeting.py:27
 msgid "Meeting time!"
 msgstr "Время встречи!"
 
-#: bot/meeting.py:42
+#: bot/meeting.py:44
 msgid "Nobody has joined the meeting!"
 msgstr "Никто не присоединился к встрече!"
 
-#: bot/messages.py:14
+#: bot/messages.py:18
 msgid ""
 "\n"
 "        The bot can help you conduct daily (or at least regular) "
@@ -343,43 +352,43 @@ msgstr ""
 "        Вы можете управлять ботом при помощи следующих команд:\n"
 "        "
 
-#: bot/messages.py:55
+#: bot/messages.py:60
 msgid "What did you do last working day? {usernames}"
 msgstr "Что Вы делали вчера? {usernames}"
 
-#: bot/messages.py:56
+#: bot/messages.py:63
 msgid "What will you do today? {usernames}"
 msgstr "Что Вы будете делать сегодня? {usernames}"
 
-#: bot/messages.py:57
+#: bot/messages.py:66
 msgid "What (if anything) is blocking your progress? {usernames}"
 msgstr "Что (если такое есть) блокирует Ваш прогресс? {usernames}"
 
-#: bot/messages.py:68
+#: bot/messages.py:77
 msgid "Successfully parsed interval: {interval}"
 msgstr "Интервал успешно распаршен: {interval}"
 
-#: bot/messages.py:71
+#: bot/messages.py:80
 msgid "Invalid time format for '{time}'. {msg}\n"
 msgstr "Неверный формат времени '{time}'. {msg}\n"
 
-#: bot/messages.py:76
+#: bot/messages.py:85
 msgid "{msg} (start: {start}, end: {end}).\n"
 msgstr "{msg} (начало: {start}, конец: {end}).\n"
 
-#: bot/messages.py:81
+#: bot/messages.py:90
 msgid "An unexpected error occurred. {error}"
 msgstr "Возникла непредвиденная ошибка. {error}"
 
-#: bot/messages.py:86
+#: bot/messages.py:95
 msgid "Send a new interval in the 'hh:mm - hh:mm' format."
 msgstr "Отправьте новый интервал в 'чч:мм - чч:мм' формате."
 
-#: bot/messages.py:87
+#: bot/messages.py:96
 msgid "Example: "
 msgstr "Пример: "
 
-#: bot/messages.py:88
+#: bot/messages.py:97
 msgid ""
 "Tip: press the interval in the example to copy and then edit this "
 "interval."
@@ -387,19 +396,140 @@ msgstr ""
 "Совет: нажмите на интервал в примере, чтобы скопировать и далее "
 "отредактировать этот интервал"
 
-#: bot/messages.py:100
+#: bot/messages.py:111
 msgid "Press 'Enter again' to enter the interval again."
 msgstr "Нажмите 'Ввести снова', чтобы ввести интервал снова."
 
-#: bot/messages.py:101
+#: bot/messages.py:112
 msgid "Press 'Cancel' to cancel editing this interval."
 msgstr "Нажмите 'Отмена', чтобы отменить редактирование этого интервала."
+
+#: bot/recurring_message.py:156
+msgid ""
+"Send an interval in the 'DD.MM.YYYY - DD.MM.YYYY' format.\n"
+"\n"
+"Example: {example}."
+msgstr ""
+"Введите интервал в формате 'ДД.ММ.ГГГГ - ДД.ММ.ГГГГ'.\n"
+"\n"
+"Пример: {example}"
+
+#: bot/recurring_message.py:162
+msgid "Send a title with at most {N} symbols."
+msgstr "Отправьте заголовок с максимум {N} символами."
+
+#: bot/recurring_message.py:170
+msgid ""
+"The title is too long.\n"
+"\n"
+"{send_new_title}"
+msgstr ""
+"Заголовок слишком длинный.\n"
+"\n"
+"{send_new_title}"
+
+#: bot/recurring_message.py:177
+msgid ""
+"A message with this title already exists.\n"
+"\n"
+"{send_new_title}"
+msgstr ""
+"Сообщение с таким заголовком уже существует.\n"
+"\n"
+"{send_new_title}"
+
+#: bot/recurring_message.py:185
+msgid ""
+"Send an interval so that the bot knows when to start and end sending the "
+"message.\n"
+"\n"
+"{send_interval}"
+msgstr ""
+"Отправьте интервал, чтобы бот знал, когда начать и закончить отправлять "
+"сообщение.\n"
+"\n"
+"{send_interval}"
+
+#: bot/recurring_message.py:193
+msgid ""
+"Send a cron expression so that the bot knows the period of sending the "
+"message\\.\n"
+"\n"
+"Example: `4 5 \\* \\* \\*`\\.\n"
+"\n"
+"Click [here]({cron_link}) if you need help with reading cron "
+"expressions\\."
+msgstr ""
+"Отправьте cron\\-выражение, чтобы бот знал, с какой периодичностью "
+"отправлять сообщение\\.\n"
+"\n"
+"Пример: `4 5 \\* \\* \\*`\\.\n"
+"\n"
+"Нажмите [здесь]({cron_link}) если вам нужна помощь по чтению "
+"cron\\-выражений\\."
+
+#: bot/recurring_message.py:204
+msgid ""
+"Wrong interval format.\n"
+"\n"
+"{send_interval}"
+msgstr ""
+"Неверный формат интервала\n"
+"\n"
+"{send_interval}"
+
+#: bot/recurring_message.py:214
+msgid ""
+"Wrong date format.\n"
+"\n"
+"{send_interval}"
+msgstr ""
+"Неверный формат даты.\n"
+"\n"
+"{send_interval}"
+
+#: bot/recurring_message.py:221
+msgid ""
+"Start date should be before the end date.\n"
+"\n"
+"{send_interval}"
+msgstr ""
+"Дата начала должна быть раньше даты конца.\n"
+"\n"
+"{send_interval}"
+
+#: bot/recurring_message.py:242
+msgid ""
+"Wrong cron expression format\\.\n"
+"\n"
+"{send_cron}"
+msgstr ""
+"Неверный формат cron-выражения.\n"
+"\n"
+"{send_cron}"
+
+#: bot/recurring_message.py:252
+msgid "Send the message text."
+msgstr "Отправьте текст сообщения."
+
+#: bot/recurring_message.py:264
+msgid ""
+"Your message {title} will be sent in between {interval_start} and "
+"{interval_end} {expression}.\n"
+"\n"
+"Send /edit_recurring_messages to edit this and other recurring messages."
+msgstr ""
+"Ваше сообщение '{title}' будет отправлено между {interval_start} and "
+"{interval_end} {expression}.\n"
+"\n"
+"Отправьте /edit_recurring_messages, чтобы редактировать это и другие "
+"повторяющиеся сообщения."
 
 #: bot/reminder.py:50
 msgid "Please reply to these daily meeting questions:"
 msgstr "Пожалуйста, ответьте на эти вопросы с дейли:"
 
-#: bot/reminder.py:108
+#: bot/reminder.py:110
 msgid ""
 "@{username}, please unblock @{bot_username} in your private chat with the"
 " bot so that the bot can send you reminders about missed daily meeting "
@@ -412,15 +542,15 @@ msgstr ""
 "пропущенных дейли вопросах.\n"
 "                            "
 
-#: bot/work_time.py:33
+#: bot/work_time.py:38
 msgid "default"
 msgstr "по умолчанию"
 
-#: bot/work_time.py:34
+#: bot/work_time.py:39
 msgid "personal"
 msgstr "персональные часы"
 
-#: bot/work_time.py:91
+#: bot/work_time.py:96
 msgid ""
 "Press '{default}' to set working hours that will be used as default "
 "personal working hours by all people."
@@ -428,35 +558,35 @@ msgstr ""
 "Нажмите '{default}' чтобы установить рабочие часы, которые будут "
 "использоваться всеми людьми как персональные рабочие часы по умолчанию."
 
-#: bot/work_time.py:94
+#: bot/work_time.py:99
 msgid "Press '{personal}' to set personal working hours."
 msgstr "Нажмите '{personal}' чтобы установить персональные рабочие часы."
 
-#: bot/work_time.py:119
+#: bot/work_time.py:124
 msgid "@{username}, here is your personal schedule."
 msgstr "@{username}, вот ваш персональный график."
 
-#: bot/work_time.py:127
+#: bot/work_time.py:132
 msgid "@{username}, here is the default chat schedule."
 msgstr "@{username}, вот график чата по умолчанию."
 
-#: bot/work_time.py:197
+#: bot/work_time.py:202
 msgid "The interval {interval} is not in the 'hh:mm - hh:mm' format."
 msgstr "Интервал {interval} не в формате 'hh:mm - hh:mm'."
 
-#: bot/work_time.py:201
+#: bot/work_time.py:206
 msgid "The interval is not in the 'hh:mm - hh:mm' format."
 msgstr "Интервал не в формате 'hh:mm - hh:mm'."
 
-#: bot/work_time.py:238
+#: bot/work_time.py:243
 msgid "OK, the interval was set to {new_interval}."
 msgstr "ОК, интервал установлен на {new_interval}."
 
-#: bot/work_time.py:398
+#: bot/work_time.py:403
 msgid "The {mode} schedule was not updated."
 msgstr "Рабочие часы {mode} не обновлены."
 
-#: bot/work_time.py:436
+#: bot/work_time.py:443
 msgid "The {mode} schedule was updated."
 msgstr "Рабочие часы {mode} обновлены."
 
