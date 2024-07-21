@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Dict
+from typing import Dict, List
 import json
 from aiogram import Router, html, Bot
 from aiogram import types
@@ -99,6 +99,8 @@ def handle_global_commands(
 ):
     @router.message(Command(bot_command_names.start), HasChatState())
     async def start(message: Message, chat_state: ChatState):
+        gif_url = "https://dl.dropboxusercontent.com/scl/fi/86hehqukd4alymv2nuykm/intro_gif.gif?rlkey=en7homi41jjlo2hvxi9g2pwyl&st=8vgt3wbt&dl=0"
+        await bot.send_animation(chat_id=message.chat.id, animation=gif_url)
         await get_help(message=message, chat_state=chat_state, i18n=i18n)
 
         # Register user if it is personal message
@@ -437,7 +439,7 @@ def handle_info_commands(
     async def get_report(message: Message, chat_state: ChatState):
         questions = make_daily_messages("")
 
-        responses_by_topic: Dict[int, [str]] = {i: [] for i in range(len(questions))}
+        responses_by_topic: Dict[int, List[str]] = {i: [] for i in range(len(questions))}
 
         for username, user in chat_state.users.items():
             for idx, response in user.responses.items():
