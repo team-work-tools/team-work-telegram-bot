@@ -17,6 +17,7 @@
         "tamasfe.even-better-toml",
         "yahyabatulu.vscode-markdown-alert",
         "ms-vsliveshare.vsliveshare",
-        "roeysagie.markdown-sort"
+        "roeysagie.markdown-sort",
+        "matangover.mypy"
     ]
 }
