@@ -41,5 +41,6 @@
         }
     },
     "terminal.integrated.scrollback": 100000,
-    "workbench.sideBar.location": "right"
+    "workbench.sideBar.location": "right",
+    "mypy.runUsingActiveInterpreter": true
 }

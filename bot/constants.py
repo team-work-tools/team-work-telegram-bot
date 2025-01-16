@@ -1,4 +1,4 @@
-from aiogram import html
+from datetime import date
 
 ENCODING = "utf-8"
 
@@ -15,14 +15,20 @@ time_url = "https://time.lol"
 
 iso8601 = "ISO 8601"
 
-datetime_time_format = "%H:%M %Y-%m-%d"
+sample_time = date.today().strftime("%Y-%m-%d") + "T10:00:00+03:00"
 
-day_of_week = "0-6"
+default_time_zone = "Europe/Moscow"
 
-day_of_week_pretty = "Monday - Friday"
+days_array = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+]
 
-day_of_week_to_num = {
-    "monday": 0, "tuesday": 1, "wednesday": 2, "thursday": 3, "friday": 4, "saturday": 5, "sunday": 6
-}
+report_tag = "daily_report"
 
-sample_time = "2024-06-03T14:00:00+03:00"
+title_max_length = 120
